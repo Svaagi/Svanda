@@ -1,0 +1,368 @@
+.productShowcase {
+  position: relative;
+  padding: 280px 60px 200px;
+  overflow: hidden;
+  z-index: 7;
+  margin-top: -120px;
+  /* diagonal TOP: double-peak zigzag — 80px, 0px, 80px, 0px across width */
+  clip-path: polygon(0 80px, 33% 0, 66% 80px, 100% 0, 100% 100%, 0 100%);
+
+  --color-text-primary: #f0ece6;
+  --color-text-secondary: rgba(240, 236, 230, 0.58);
+  --color-text-muted: rgba(240, 236, 230, 0.32);
+}
+
+.sectionMainBg {
+  position: absolute;
+  inset: -30%;
+  z-index: 0;
+  background: linear-gradient(160deg, #1f1535 0%, #2a1a48 50%, #180d2e 100%);
+  will-change: opacity, transform;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+/* blobA: at 55% — lands right at the diagonal on section entry (blobsY=-450px) */
+.blobA {
+  position: absolute;
+  top: 55%;
+  left: 10%;
+  width: 85%;
+  height: 85%;
+  background: radial-gradient(
+    ellipse,
+    rgba(167, 139, 250, 0.50) 0%,
+    rgba(79, 172, 254, 0.24) 35%,
+    transparent 65%
+  );
+  border-radius: 50%;
+  filter: blur(30px);
+}
+
+/* blobB: sweeps through from above */
+.blobB {
+  position: absolute;
+  top: 15%;
+  right: -5%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(
+    ellipse,
+    rgba(79, 172, 254, 0.38) 0%,
+    rgba(167, 139, 250, 0.18) 45%,
+    transparent 65%
+  );
+  border-radius: 50%;
+  filter: blur(35px);
+}
+
+.backgroundAccent {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+/* blobC at 72%: fastest layer, maximum speed contrast */
+.blobC {
+  position: absolute;
+  top: 72%;
+  right: 5%;
+  width: 65%;
+  height: 65%;
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 61, 127, 0.32) 0%,
+    rgba(167, 139, 250, 0.14) 45%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(25px);
+}
+
+.sectionInner {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.sectionTag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #f0ece6;
+  margin-bottom: 20px;
+}
+
+.titleAccent {
+  background: linear-gradient(135deg, #a78bfa 0%, #4facfe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sectionSubtitle {
+  font-size: 17px;
+  color: rgba(240, 236, 230, 0.55);
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.showcaseStage {
+  display: flex;
+  justify-content: center;
+  will-change: transform;
+}
+
+.modelContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+}
+
+.modelPlaceholder {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.modelPlaceholderGlow {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    circle,
+    rgba(167, 139, 250, 0.2) 0%,
+    transparent 65%
+  );
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.modelPlaceholderBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  z-index: 1;
+  filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.5));
+}
+
+.modelScreen {
+  width: 200px;
+  height: 280px;
+  background: linear-gradient(
+    160deg,
+    rgba(60, 50, 80, 0.9) 0%,
+    rgba(40, 30, 60, 0.8) 100%
+  );
+  border-radius: 20px 20px 8px 8px;
+  border: 2px solid rgba(167, 139, 250, 0.25);
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.1),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.modelScreen::before {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.15) 0%,
+    rgba(79, 172, 254, 0.1) 100%
+  );
+  border-radius: 10px;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+}
+
+.modelBody {
+  width: 220px;
+  height: 120px;
+  background: linear-gradient(
+    160deg,
+    rgba(55, 44, 80, 0.95) 0%,
+    rgba(40, 30, 64, 0.9) 100%
+  );
+  border-radius: 4px 4px 12px 12px;
+  border: 2px solid rgba(167, 139, 250, 0.2);
+  border-top: none;
+}
+
+.modelBase {
+  width: 240px;
+  height: 24px;
+  background: linear-gradient(
+    180deg,
+    rgba(44, 34, 70, 0.9) 0%,
+    rgba(30, 22, 52, 0.8) 100%
+  );
+  border-radius: 8px 8px 16px 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modelPlaceholderLabel {
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(167, 139, 250, 0.6);
+  text-align: center;
+  margin-top: 32px;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  z-index: 1;
+}
+
+.hotspot {
+  position: absolute;
+  z-index: 10;
+}
+
+.hotspotDot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(167, 139, 250, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(167, 139, 250, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.hotspotDot:hover {
+  transform: scale(1.15);
+}
+
+.hotspotRing {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(167, 139, 250, 0.4);
+  animation: hotspotPulse 2s infinite;
+}
+
+@keyframes hotspotPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.hotspotTooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 22, 50, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.tooltipTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f0ece6;
+}
+
+.tooltipDesc {
+  font-size: 12px;
+  color: rgba(240, 236, 230, 0.6);
+  white-space: normal;
+  max-width: 200px;
+}
+
+.shadowEllipse {
+  width: 300px;
+  height: 40px;
+  background: radial-gradient(
+    ellipse,
+    rgba(167, 139, 250, 0.25) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  margin-top: -20px;
+  filter: blur(12px);
+}
+
+@media (max-width: 900px) {
+  .productShowcase {
+    padding: 220px 40px 160px;
+  }
+
+  .modelContainer {
+    width: 360px;
+  }
+
+  .modelPlaceholder {
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 640px) {
+  .productShowcase {
+    padding: 200px 24px 140px;
+  }
+
+  .modelContainer {
+    width: 100%;
+    max-width: 320px;
+  }
+}

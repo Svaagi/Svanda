@@ -1,0 +1,1 @@
+export { useHeroParallax } from './useHeroParallax';

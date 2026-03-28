@@ -1,0 +1,203 @@
+.productIntro {
+  position: relative;
+  padding: 300px 60px 200px;
+  overflow: hidden;
+  z-index: 2;
+  margin-top: -160px;
+  /* diagonal TOP: right corner dips 160px, left is flush — right leads */
+  clip-path: polygon(0 0, 100% 160px, 100% 100%, 0 100%);
+
+  --color-text-primary: #f0ece6;
+  --color-text-secondary: rgba(240, 236, 230, 0.6);
+  --color-text-muted: rgba(240, 236, 230, 0.35);
+}
+
+.sectionMainBg {
+  position: absolute;
+  inset: -30%;
+  z-index: 0;
+  background: linear-gradient(160deg, #1a1512 0%, #211c17 60%, #1e1915 100%);
+  will-change: opacity, transform;
+}
+
+.backgroundBlobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+/* blobA: at 55% from top — lands right at the diagonal when section enters (blobsY=-450px) */
+.blobA {
+  position: absolute;
+  top: 55%;
+  left: -10%;
+  width: 100%;
+  height: 80%;
+  background: radial-gradient(ellipse, rgba(255, 107, 53, 0.52) 0%, rgba(255, 61, 127, 0.28) 40%, transparent 65%);
+  border-radius: 50%;
+  filter: blur(30px);
+}
+
+/* blobB: sweeps through from below, slower complement to blobA */
+.blobB {
+  position: absolute;
+  top: 15%;
+  right: -10%;
+  width: 90%;
+  height: 75%;
+  background: radial-gradient(ellipse, rgba(79, 172, 254, 0.42) 0%, rgba(167, 139, 250, 0.20) 45%, transparent 65%);
+  border-radius: 50%;
+  filter: blur(35px);
+}
+
+.backgroundBlobsAccent {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+/* blobC at 72%: fastest layer, hits diagonal zone slightly after blobA — maximum speed contrast */
+.blobC {
+  position: absolute;
+  top: 72%;
+  left: 15%;
+  width: 75%;
+  height: 65%;
+  background: radial-gradient(ellipse, rgba(255, 61, 127, 0.35) 0%, rgba(255, 107, 53, 0.15) 50%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(25px);
+}
+
+.sectionInner {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 80px;
+  will-change: transform;
+}
+
+.sectionTag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4facfe;
+  background: rgba(79, 172, 254, 0.12);
+  border: 1px solid rgba(79, 172, 254, 0.25);
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #f0ece6;
+  margin-bottom: 20px;
+}
+
+.titleAccent {
+  background: linear-gradient(135deg, #4facfe 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sectionSubtitle {
+  font-size: 18px;
+  color: rgba(240, 236, 230, 0.6);
+  line-height: 1.65;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  cursor: default;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  background-image: radial-gradient(
+    ellipse at 0% 0%,
+    var(--card-accent) 0%,
+    transparent 60%
+  );
+}
+
+.featureCard:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.featureIconWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.featureIcon {
+  font-size: 20px;
+  color: rgba(240, 236, 230, 0.9);
+}
+
+.featureTitle {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f0ece6;
+  margin-bottom: 12px;
+}
+
+.featureDescription {
+  font-size: 15px;
+  color: rgba(240, 236, 230, 0.55);
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .productIntro {
+    padding: 240px 40px 160px;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .productIntro {
+    padding: 220px 24px 140px;
+  }
+
+  .featureCard {
+    padding: 28px;
+  }
+}
