@@ -1,4 +1,5 @@
 import { motion, MotionValue } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 import { ANIMATION_DURATION_SLOW, ANIMATION_STAGGER_CHILDREN } from 'constants';
 import { scrollToSection } from 'utils';
@@ -30,6 +31,7 @@ const wordVariant = {
 };
 
 const HeroView = () => {
+  const { t } = useTranslation();
   const { blobsY, textY, opacityOut, productY } = useHeroParallax();
 
   return (
@@ -59,7 +61,7 @@ const HeroView = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Karaoke &amp; Jukebox — One Box
+            {t('hero.eyebrow')}
           </motion.div>
 
           <motion.h1
@@ -69,16 +71,16 @@ const HeroView = () => {
             animate="visible"
           >
             <motion.span variants={wordVariant} className={styles.headlineBlock}>
-              Turn Your Venue
+              {t('hero.headline1')}
             </motion.span>
             <motion.span variants={wordVariant} className={styles.headlineBlock}>
-              Into the Night&apos;s
+              {t('hero.headline2')}
             </motion.span>
             <motion.span
               variants={wordVariant}
               className={`${styles.headlineBlock} ${styles.headlineAccent}`}
             >
-              Main Attraction.
+              {t('hero.headline3')}
             </motion.span>
           </motion.h1>
 
@@ -88,8 +90,7 @@ const HeroView = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.1 }}
           >
-            A self-service music machine for modern bars. Guests choose songs,
-            pay directly on the machine. 25,000+ tracks. Zero hassle.
+            {t('hero.subheadline')}
           </motion.p>
 
           <motion.div
@@ -102,13 +103,13 @@ const HeroView = () => {
               className={styles.primaryCta}
               onClick={() => scrollToSection('contact')}
             >
-              Book a Demo
+              {t('hero.ctaPrimary')}
             </button>
             <button
               className={styles.secondaryCta}
               onClick={() => scrollToSection('product')}
             >
-              See How It Works
+              {t('hero.ctaSecondary')}
             </button>
           </motion.div>
 
@@ -120,17 +121,17 @@ const HeroView = () => {
           >
             <div className={styles.statItem}>
               <span className={styles.statNumber}>25,000+</span>
-              <span className={styles.statLabel}>Songs</span>
+              <span className={styles.statLabel}>{t('hero.stat1Label')}</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
               <span className={styles.statNumber}>10 CZK</span>
-              <span className={styles.statLabel}>Per Song</span>
+              <span className={styles.statLabel}>{t('hero.stat2Label')}</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
               <span className={styles.statNumber}>1</span>
-              <span className={styles.statLabel}>Box. Everything.</span>
+              <span className={styles.statLabel}>{t('hero.stat3Label')}</span>
             </div>
           </motion.div>
         </motion.div>

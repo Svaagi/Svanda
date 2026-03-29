@@ -1,0 +1,162 @@
+{
+  "nav": {
+    "product": "Produkt",
+    "howItWorks": "Jak to funguje",
+    "gallery": "Galerie",
+    "whySvanda": "Proč SVANDA",
+    "contact": "Kontakt",
+    "bookDemo": "Rezervovat demo"
+  },
+  "hero": {
+    "eyebrow": "Karaoke & Jukebox vše v jednom",
+    "headline1": "Proměňte svůj podnik",
+    "headline2": "v hvězdu",
+    "headline3": "každé noci.",
+    "subheadline": "Samoobslužný hudební automat pro moderní bary. Hosté si vybírají písně a platí přímo na stroji. 25 000+ skladeb. Žádné komplikace.",
+    "ctaPrimary": "Rezervovat demo",
+    "ctaSecondary": "Jak to funguje",
+    "stat1Label": "Skladeb",
+    "stat2Label": "Za skladbu",
+    "stat3Label": "Box. Vše."
+  },
+  "productIntro": {
+    "tag": "Produkt",
+    "title1": "Jeden stroj.",
+    "title2": "Nekonečné možnosti.",
+    "subtitle": "SVANDA je zábavní automat určený pro bary a podniky. Stojí v rohu a vydělává peníze nepřetržitě.",
+    "features": {
+      "karaokeJukebox": {
+        "title": "Karaoke & Jukebox v jednom",
+        "description": "Žádné oddělené vybavení. Jeden elegantní stroj zvládá karaoke večery i ambientní hudbu na požádání."
+      },
+      "selfService": {
+        "title": "Hosté platí za skladbu",
+        "description": "Zákazníci prohlíží, vybírají a platí přímo na stroji. Obvykle 10 Kč za skladbu. Bez nutnosti obsluhy."
+      },
+      "catalogue": {
+        "title": "25 000+ skladeb",
+        "description": "Od popu po rock, hip hop i klasiku. Neustále rostoucí katalog, který pokryje každé publikum a každou náladu."
+      },
+      "revenue": {
+        "title": "Pasivní příjem podniku",
+        "description": "Každá přehraná píseň generuje příjem. Stroj pracuje pro váš podnik 24/7, i v klidných hodinách."
+      }
+    }
+  },
+  "howItWorks": {
+    "tag": "Jak to funguje",
+    "title1": "Tři kroky k",
+    "title2": "čistému zážitku",
+    "subtitle": "Celý zážitek trvá sekundy. Žádné aplikace, žádné účty, žádné čekání. Jen přijďte, vyberte a zahrajte.",
+    "steps": {
+      "browse": {
+        "title": "Procházejte katalog",
+        "description": "Hosté přistoupí ke stroji a vyhledávají z 25 000+ skladeb přímo na dotykové obrazovce."
+      },
+      "pay": {
+        "title": "Zaplaťte na stroji",
+        "description": "Jedno klepnutí a je zaplaceno. Integrovaný platební terminál přijímá karty i bezkontaktní platby."
+      },
+      "play": {
+        "title": "Zpívejte nebo poslouchejte",
+        "description": "Píseň se přehraje přes systém jako karaoke s textem, nebo jako hudba pro celý bar."
+      }
+    }
+  },
+  "gallery": {
+    "tag": "Skuteční lidé. Skutečné bary.",
+    "title1": "Atmosféra",
+    "title2": "mluví za vše."
+  },
+  "socialProof": {
+    "tag": "Důvěřují nám podniky",
+    "titlePrefix": "Již v provozu v",
+    "subtitle": "První instalace SVANDA funguje v Lemon Music Bar se skutečnými hosty, skutečnými písněmi a výsledky každou noc.",
+    "quote": "„SVANDA úplně změnila naše barové večery. Hosté se řadí do fronty. Stroj v podstatě běží sám a vydělává nám peníze, zatímco my se soustředíme na obsluhu.\u201C",
+    "authorName": "Jméno majitele",
+    "authorRole": "Majitel",
+    "stat1Number": "1",
+    "stat1Label": "Provozovna",
+    "stat2Number": "Každonoční",
+    "stat2Label": "Využití",
+    "stat3Number": "100%",
+    "stat3Label": "Spokojeni"
+  },
+  "whyVenues": {
+    "tag": "Proč si podniky vybírají SVANDA",
+    "title1": "Vytvořeno pro bary.",
+    "title2": "Oblíbené hosty.",
+    "subtitle": "Vše, co váš podnik potřebuje od zábavního systému a nic navíc.",
+    "benefits": {
+      "twoInOne": {
+        "title": "Karaoke + Jukebox v jednom",
+        "description": "Nahraďte dva oddělené systémy jedním elegantním strojem. Karaoke večery i hudební večery obojí zvládne."
+      },
+      "selfService": {
+        "title": "Plně samoobslužné",
+        "description": "Není potřeba vyhrazený personál. Hosté si interagují, platí a baví se zcela samostatně."
+      },
+      "affordable": {
+        "title": "Dostupné pro podniky",
+        "description": "Nízké počáteční náklady a jednoduchá instalace. Žádné složité nastavení, žádná měsíční softwarová překvapení."
+      },
+      "revenue": {
+        "title": "Příjem za skladbu",
+        "description": "Každá přehraná píseň generuje přímý příjem. Stroj se sám zaplatí a stále vydělává."
+      },
+      "catalogue": {
+        "title": "Katalog 25 000+ skladeb",
+        "description": "Pop, rock, hip hop, folk, klasika. Něco pro každého hosta, každou noc."
+      },
+      "presence": {
+        "title": "Nápadná přítomnost",
+        "description": "Stroj je vizuálním symbolem vašeho podniku. Hosté si ho všimnou, přistoupí k němu a vrátí se."
+      }
+    }
+  },
+  "showcase": {
+    "tag": "Stroj",
+    "title1": "Navržen tak,",
+    "title2": "aby uchvátil.",
+    "subtitle": "Fyzický stroj, který vypadá stejně dobře, jak funguje. Kliknutím na body prozkoumejte jeho funkce.",
+    "hotspots": {
+      "screen": {
+        "label": "Dotykové rozhraní",
+        "description": "Velký HD dotykový displej pro procházení celého katalogu skladeb."
+      },
+      "payment": {
+        "label": "Platební terminál",
+        "description": "Bezkontaktní a kartové platby. Hotovost není potřeba."
+      },
+      "speaker": {
+        "label": "Zvukový výstup",
+        "description": "Připojí se přímo k vašemu zvukovému systému v podniku."
+      }
+    }
+  },
+  "contact": {
+    "tag": "Kontaktujte nás",
+    "title1": "Připraveni",
+    "title2": "pozvednout váš podnik?",
+    "subtitle": "Vyplňte formulář a my se vám ozveme do jednoho pracovního dne. Postaráme se o celé nastavení a vy si jen vychutnáte výsledky.",
+    "emailLabel": "Email",
+    "phoneLabel": "Telefon",
+    "promise": "Odpovídáme na každý dotaz. Pokud jste majitelem baru nebo podniku a zajímá vás SVANDA rádi vás uslyšíme.",
+    "form": {
+      "venueName": "Název podniku",
+      "venuePlaceholder": "např. Zlatá podkova",
+      "yourName": "Vaše jméno",
+      "namePlaceholder": "Celé jméno",
+      "emailAddress": "Emailová adresa",
+      "emailPlaceholder": "vas@email.cz",
+      "phone": "Telefon (nepovinné)",
+      "phonePlaceholder": "+420 000 000 000",
+      "message": "Zpráva (nepovinné)",
+      "messagePlaceholder": "Řekněte nám o svém podniku, počtu hostů, případné dotazy...",
+      "submit": "Odeslat zprávu",
+      "successTitle": "Ozveme se!",
+      "successText": "Děkujeme za váš zájem. Kontaktujeme vás do jednoho pracovního dne pro projednání vašeho podniku."
+    },
+    "footerTagline": "Moderní hudební stroj pro podniky."
+  }
+}

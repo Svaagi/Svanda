@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(yarn build:*)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(npm run:*)",
+      "Bash(grep -r \"i18n\\\\|i18next\\\\|translation\\\\|localize\" /c/Users/jozef/Desktop/SVANDA/web/src --include=*.ts --include=*.tsx)",
+      "Bash(npm install:*)",
+      "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/sk.json'',''utf8''\\)\\); console.log\\(''valid''\\)\")",
+      "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/cs.json'',''utf8''\\)\\); console.log\\(''valid''\\)\")",
+      "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/en.json'',''utf8''\\)\\); console.log\\(''valid''\\)\")",
+      "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/cs.json'',''utf8''\\)\\); console.log\\(''cs valid''\\)\")",
+      "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/en.json'',''utf8''\\)\\); console.log\\(''en valid''\\)\")",
+      "Bash(node -e \":*)"
     ]
   }
 }

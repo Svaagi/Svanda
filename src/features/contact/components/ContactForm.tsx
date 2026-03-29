@@ -1,37 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 import { useContactForm } from '../hooks';
 import styles from '../contact.module.css';
-import { FormFieldConfig } from '../types';
-
-const FORM_FIELDS: FormFieldConfig[] = [
-  {
-    name: 'venueName',
-    label: 'Venue Name',
-    type: 'text',
-    placeholder: 'e.g. The Blue Moon Bar',
-  },
-  {
-    name: 'contactName',
-    label: 'Your Name',
-    type: 'text',
-    placeholder: 'Full name',
-  },
-  {
-    name: 'email',
-    label: 'Email Address',
-    type: 'email',
-    placeholder: 'your@email.com',
-  },
-  {
-    name: 'phone',
-    label: 'Phone (Optional)',
-    type: 'tel',
-    placeholder: '+420 000 000 000',
-  },
-];
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const { formData, isSubmitted, handleChange, handleSubmit } =
     useContactForm();
 
@@ -46,10 +20,9 @@ const ContactForm = () => {
           key="success"
         >
           <div className={styles.successIcon}>✓</div>
-          <h3 className={styles.successTitle}>We&apos;ll be in touch!</h3>
+          <h3 className={styles.successTitle}>{t('contact.form.successTitle')}</h3>
           <p className={styles.successText}>
-            Thank you for your interest. We&apos;ll contact you within one
-            business day to discuss your venue.
+            {t('contact.form.successText')}
           </p>
         </motion.div>
       ) : (
@@ -62,34 +35,76 @@ const ContactForm = () => {
           key="form"
         >
           <div className={styles.formGrid}>
-            {FORM_FIELDS.map((field) => (
-              <div className={styles.formField} key={field.name}>
-                <label className={styles.fieldLabel} htmlFor={field.name}>
-                  {field.label}
-                </label>
-                <input
-                  className={styles.fieldInput}
-                  id={field.name}
-                  name={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                  required={field.name !== 'phone'}
-                />
-              </div>
-            ))}
+            <div className={styles.formField}>
+              <label className={styles.fieldLabel} htmlFor="venueName">
+                {t('contact.form.venueName')}
+              </label>
+              <input
+                className={styles.fieldInput}
+                id="venueName"
+                name="venueName"
+                type="text"
+                placeholder={t('contact.form.venuePlaceholder')}
+                value={formData.venueName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label className={styles.fieldLabel} htmlFor="contactName">
+                {t('contact.form.yourName')}
+              </label>
+              <input
+                className={styles.fieldInput}
+                id="contactName"
+                name="contactName"
+                type="text"
+                placeholder={t('contact.form.namePlaceholder')}
+                value={formData.contactName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label className={styles.fieldLabel} htmlFor="email">
+                {t('contact.form.emailAddress')}
+              </label>
+              <input
+                className={styles.fieldInput}
+                id="email"
+                name="email"
+                type="email"
+                placeholder={t('contact.form.emailPlaceholder')}
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label className={styles.fieldLabel} htmlFor="phone">
+                {t('contact.form.phone')}
+              </label>
+              <input
+                className={styles.fieldInput}
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder={t('contact.form.phonePlaceholder')}
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </div>
           </div>
 
           <div className={styles.formField}>
             <label className={styles.fieldLabel} htmlFor="message">
-              Message (Optional)
+              {t('contact.form.message')}
             </label>
             <textarea
               className={`${styles.fieldInput} ${styles.fieldTextarea}`}
               id="message"
               name="message"
-              placeholder="Tell us about your venue, number of guests, any questions..."
+              placeholder={t('contact.form.messagePlaceholder')}
               value={formData.message}
               onChange={handleChange}
               rows={4}
@@ -97,7 +112,7 @@ const ContactForm = () => {
           </div>
 
           <button type="submit" className={styles.submitButton}>
-            Send Message
+            {t('contact.form.submit')}
           </button>
         </motion.form>
       )}

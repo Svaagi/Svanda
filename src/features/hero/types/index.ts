@@ -7,4 +7,5 @@ export interface BlobConfig {
   blur: number;
   delay: number;
   duration: number;
+  borderRadius?: string;
 }

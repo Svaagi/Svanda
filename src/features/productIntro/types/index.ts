@@ -4,4 +4,5 @@ export interface FeatureCard {
   title: string;
   description: string;
   accentColor: string;
+  translationKey: string;
 }

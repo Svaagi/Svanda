@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 import { ContactView } from 'features/contact';
 import { GalleryView } from 'features/gallery';
 import { HeroView } from 'features/hero';
@@ -7,6 +5,7 @@ import { HowItWorksView } from 'features/howItWorks';
 import { NavigationView } from 'features/navigation';
 import { ProductIntroView } from 'features/productIntro';
 import { ProductShowcaseView } from 'features/productShowcase';
+import SectionReveal from 'features/shared/SectionReveal';
 import { SocialProofView } from 'features/socialProof';
 import { WhyVenuesView } from 'features/whyVenues';
 
@@ -18,29 +17,33 @@ const App = () => (
     <main className={styles.scenePage}>
       <HeroView />
 
-      <motion.div
-        className={styles.sceneBridgeHeroToProduct}
-        initial={{ opacity: 0, y: 40, rotate: 2 }}
-        whileInView={{ opacity: 1, y: 0, rotate: 2 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
-      >
-        <div className={styles.bridgeCard}>
-          <span className={styles.bridgeCardTitle}>Songs Available</span>
-          <span className={styles.bridgeCardStat}>25,000+</span>
-          <span className={styles.bridgeCardSub}>
-            From pop to classics — every crowd, every night
-          </span>
-        </div>
-      </motion.div>
+      <SectionReveal wipe="tiltRight" zIndex={2} marginTop="-200px" endOffset={0.6} parallaxY="10%">
+        <ProductIntroView />
+      </SectionReveal>
 
-      <ProductIntroView />
-      <HowItWorksView />
-      <GalleryView />
-      <SocialProofView />
-      <WhyVenuesView />
-      <ProductShowcaseView />
-      <ContactView />
+      <SectionReveal wipe="vNotch" zIndex={3} marginTop="-200px" endOffset={0.5} parallaxY="7%">
+        <HowItWorksView />
+      </SectionReveal>
+
+      <SectionReveal wipe="tiltLeft" zIndex={4} marginTop="-200px" endOffset={0.65} parallaxY="12%">
+        <GalleryView />
+      </SectionReveal>
+
+      <SectionReveal wipe="wave" zIndex={5} marginTop="-200px" endOffset={0.45} parallaxY="9%">
+        <SocialProofView />
+      </SectionReveal>
+
+      <SectionReveal wipe="stepRight" zIndex={6} marginTop="-200px" endOffset={0.55} parallaxY="6%">
+        <WhyVenuesView />
+      </SectionReveal>
+
+      <SectionReveal wipe="zigzag" zIndex={7} marginTop="-200px" endOffset={0.62} parallaxY="10%">
+        <ProductShowcaseView />
+      </SectionReveal>
+
+      <SectionReveal wipe="tiltSimple" zIndex={8} marginTop="-200px" endOffset={0.48} parallaxY="7%" bgColor="#1f1535">
+        <ContactView />
+      </SectionReveal>
     </main>
   </>
 );

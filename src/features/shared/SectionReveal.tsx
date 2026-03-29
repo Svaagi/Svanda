@@ -1,64 +1,92 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 import { ReactNode, useRef } from 'react';
 
-type Wipe = 'up' | 'tiltL' | 'tiltR';
+type Wipe = 'tiltRight' | 'vNotch' | 'tiltLeft' | 'wave' | 'stepRight' | 'zigzag' | 'tiltSimple';
 
-// Each entry: [start, midpoint, final]
-// Start: collapsed to a horizontal line at the bottom — section invisible.
-// Final: permanent angled top edge — previous section color peeks through.
 const CLIPS: Record<Wipe, [string, string, string]> = {
-  up: [
-    'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-    'polygon(0% 45%,  50%  38%,  100% 45%,  100% 100%, 0% 100%)',
-    'polygon(0% 5%,   50%  0%,   100% 5%,   100% 100%, 0% 100%)',
+  tiltRight: [
+    'polygon(0% 0px, 100% 80px, 100% 80px, 0% 0px)',
+    'polygon(0% 0px, 100% 80px, 100% 54%, 0% 50%)',
+    'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
   ],
-  tiltL: [
-    'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-    'polygon(0% 22%,  100% 46%,  100% 100%, 0% 100%)',
-    'polygon(0% 0%,   100% 7%,   100% 100%, 0% 100%)',
+  vNotch: [
+    'polygon(0% 100px, 50% 0px, 100% 70px, 100% 70px, 0% 100px)',
+    'polygon(0% 100px, 50% 0px, 100% 70px, 100% 54%, 0% 50%)',
+    'polygon(0% 0%, 50% 0%, 100% 0%, 100% 100%, 0% 100%)',
   ],
-  tiltR: [
-    'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-    'polygon(0% 46%,  100% 22%,  100% 100%, 0% 100%)',
-    'polygon(0% 7%,   100% 0%,   100% 100%, 0% 100%)',
+  tiltLeft: [
+    'polygon(0% 80px, 100% 0px, 100% 0px, 0% 80px)',
+    'polygon(0% 80px, 100% 0px, 100% 50%, 0% 54%)',
+    'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+  ],
+  wave: [
+    'polygon(0% 0px, 25% 70px, 60% 20px, 100% 90px, 100% 90px, 0% 0px)',
+    'polygon(0% 0px, 25% 70px, 60% 20px, 100% 90px, 100% 56%, 0% 50%)',
+    'polygon(0% 0%, 25% 0%, 60% 0%, 100% 0%, 100% 100%, 0% 100%)',
+  ],
+  stepRight: [
+    'polygon(0% 0px, 35% 60px, 100% 100px, 100% 100px, 0% 0px)',
+    'polygon(0% 0px, 35% 60px, 100% 100px, 100% 57%, 0% 50%)',
+    'polygon(0% 0%, 35% 0%, 100% 0%, 100% 100%, 0% 100%)',
+  ],
+  zigzag: [
+    'polygon(0% 60px, 33% 0px, 66% 60px, 100% 0px, 100% 0px, 0% 60px)',
+    'polygon(0% 60px, 33% 0px, 66% 60px, 100% 0px, 100% 50%, 0% 54%)',
+    'polygon(0% 0%, 33% 0%, 66% 0%, 100% 0%, 100% 100%, 0% 100%)',
+  ],
+  tiltSimple: [
+    'polygon(0% 90px, 100% 0px, 100% 0px, 0% 90px)',
+    'polygon(0% 90px, 100% 0px, 100% 50%, 0% 56%)',
+    'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
   ],
 };
 
 interface SectionRevealProps {
   children: ReactNode;
-  wipe?: Wipe;
+  wipe: Wipe;
+  zIndex: number;
   marginTop?: string;
-  /**
-   * Background color of the incoming section.
-   * Applied to the wrapper div so it pre-fills the space before the clip
-   * reveals — eliminates gaps caused by the body background showing through
-   * the previous section's bottom clip-path cut.
-   */
-  background: string;
+  endOffset?: number;
+  parallaxY?: string;
+  bgColor?: string;
 }
 
 const SectionReveal = ({
   children,
-  wipe = 'up',
-  marginTop = '-140px',
-  background,
+  wipe,
+  zIndex,
+  marginTop = '-200px',
+  endOffset = 0.55,
+  parallaxY = '8%',
+  bgColor,
 }: SectionRevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: enterProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'start 0.15'],
+    offset: ['start end', `start ${endOffset}`],
+  });
+
+  const { scrollYProgress: throughProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+
+  const ratcheted = useMotionValue(enterProgress.get());
+  useMotionValueEvent(enterProgress, 'change', (v) => {
+    if (v > ratcheted.get()) ratcheted.set(v);
   });
 
   const [p0, p1, p2] = CLIPS[wipe];
-  const clipPath = useTransform(scrollYProgress, [0, 0.5, 1], [p0, p1, p2]);
+  const clipPath = useTransform(ratcheted, [0, 0.5, 1], [p0, p1, p2]);
+  const y = useTransform(throughProgress, [0, 1], [`-${parallaxY}`, parallaxY]);
 
   return (
-    // Wrapper fills with the section's own background color immediately,
-    // so there is never a transparent gap showing through the previous
-    // section's diagonal bottom cut.
-    <div ref={ref} style={{ position: 'relative', marginTop, background }}>
-      <motion.div style={{ clipPath }}>
+    <div
+      ref={ref}
+      style={{ position: 'relative', zIndex, marginTop, ...(bgColor ? { backgroundColor: bgColor } : {}) }}
+    >
+      <motion.div style={{ clipPath, y }}>
         {children}
       </motion.div>
     </div>

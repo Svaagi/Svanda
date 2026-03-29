@@ -4,4 +4,5 @@ export interface StepItem {
   icon: string;
   title: string;
   description: string;
+  translationKey: string;
 }

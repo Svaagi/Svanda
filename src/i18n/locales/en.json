@@ -1,0 +1,162 @@
+{
+  "nav": {
+    "product": "Product",
+    "howItWorks": "How It Works",
+    "gallery": "Gallery",
+    "whySvanda": "Why SVANDA",
+    "contact": "Contact",
+    "bookDemo": "Book a Demo"
+  },
+  "hero": {
+    "eyebrow": "Karaoke & Jukebox One Box",
+    "headline1": "Turn Your Venue",
+    "headline2": "Into the Night's",
+    "headline3": "Main Attraction.",
+    "subheadline": "A self service music machine for modern bars. Guests choose songs, pay directly on the machine. 25,000+ tracks. Zero hassle.",
+    "ctaPrimary": "Book a Demo",
+    "ctaSecondary": "See How It Works",
+    "stat1Label": "Songs",
+    "stat2Label": "Per Song",
+    "stat3Label": "Box. Everything."
+  },
+  "productIntro": {
+    "tag": "The Product",
+    "title1": "One Machine.",
+    "title2": "Infinite Possibilities.",
+    "subtitle": "SVANDA is a vending machine style entertainment box built for bars and venues. It lives in the corner and earns money around the clock.",
+    "features": {
+      "karaokeJukebox": {
+        "title": "Karaoke & Jukebox in One",
+        "description": "No separate setups. One sleek machine handles both karaoke nights and ambient music on demand."
+      },
+      "selfService": {
+        "title": "Guests Pay Per Song",
+        "description": "Customers browse, choose and pay directly on the machine. Typically 10 CZK per song. No staff needed."
+      },
+      "catalogue": {
+        "title": "25,000+ Songs",
+        "description": "From pop to rock, hip hop to classics. An ever growing catalogue that covers every crowd and every mood."
+      },
+      "revenue": {
+        "title": "Passive Venue Revenue",
+        "description": "Every song played generates income. The machine works for your venue 24/7, even during quiet hours."
+      }
+    }
+  },
+  "howItWorks": {
+    "tag": "How It Works",
+    "title1": "Three Steps to",
+    "title2": "Pure Enjoyment",
+    "subtitle": "The whole experience takes seconds. No apps, no accounts, no waiting. Just walk up, choose, and play.",
+    "steps": {
+      "browse": {
+        "title": "Browse the Catalogue",
+        "description": "Guests walk up to the machine and search from 25,000+ songs directly on the touchscreen."
+      },
+      "pay": {
+        "title": "Pay on the Machine",
+        "description": "One tap to pay. The integrated payment terminal accepts cards and contactless payments."
+      },
+      "play": {
+        "title": "Sing or Play",
+        "description": "The song plays through the system as karaoke with lyrics, or as music for the whole bar."
+      }
+    }
+  },
+  "gallery": {
+    "tag": "Real People. Real Bars.",
+    "title1": "The Atmosphere",
+    "title2": "Speaks for Itself."
+  },
+  "socialProof": {
+    "tag": "Trusted by Venues",
+    "titlePrefix": "Already Live at",
+    "subtitle": "The first SVANDA installation is running at Lemon Music Bar with real guests, real songs, and real results every night.",
+    "quote": "\"SVANDA completely changed our bar nights. Guests queue up to use it. The machine basically runs itself and earns us money while we focus on service.\"",
+    "authorName": "Owner Name",
+    "authorRole": "Owner",
+    "stat1Number": "1",
+    "stat1Label": "Live Venue",
+    "stat2Number": "Nightly",
+    "stat2Label": "Usage",
+    "stat3Number": "100%",
+    "stat3Label": "Satisfied"
+  },
+  "whyVenues": {
+    "tag": "Why Venues Choose SVANDA",
+    "title1": "Built for Bars.",
+    "title2": "Loved by Guests.",
+    "subtitle": "Everything your venue needs from an entertainment system and nothing it doesn't.",
+    "benefits": {
+      "twoInOne": {
+        "title": "Karaoke + Jukebox in One",
+        "description": "Replace two separate systems with one sleek machine. Karaoke nights and music only evenings both handled."
+      },
+      "selfService": {
+        "title": "Fully Self Service",
+        "description": "No dedicated staff needed. Guests interact, pay, and enjoy completely independently."
+      },
+      "affordable": {
+        "title": "Affordable for Venues",
+        "description": "Low upfront cost and simple installation. No complex setup, no monthly software surprises."
+      },
+      "revenue": {
+        "title": "Per Song Revenue",
+        "description": "Every song played generates direct income. The machine pays for itself and keeps earning."
+      },
+      "catalogue": {
+        "title": "25,000+ Song Catalogue",
+        "description": "Pop, rock, hip hop, folk, classics. Something for every guest, every night."
+      },
+      "presence": {
+        "title": "Eye Catching Presence",
+        "description": "The machine is a visual statement in your venue. Guests notice it, approach it, and come back for it."
+      }
+    }
+  },
+  "showcase": {
+    "tag": "The Machine",
+    "title1": "Designed to",
+    "title2": "Impress.",
+    "subtitle": "A physical machine that looks as good as it performs. Click the hotspots to explore its features.",
+    "hotspots": {
+      "screen": {
+        "label": "Touchscreen Interface",
+        "description": "Large HD touchscreen for browsing the full song catalogue."
+      },
+      "payment": {
+        "label": "Payment Terminal",
+        "description": "Contactless and card payments. No cash needed."
+      },
+      "speaker": {
+        "label": "Audio Output",
+        "description": "Connects directly to your venue sound system."
+      }
+    }
+  },
+  "contact": {
+    "tag": "Get in Touch",
+    "title1": "Ready to",
+    "title2": "Elevate Your Venue?",
+    "subtitle": "Fill in the form and we'll get back to you within one business day. We'll handle the full setup and you just enjoy the results.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "promise": "We respond to every inquiry. If you're a bar or venue owner curious about SVANDA we want to hear from you.",
+    "form": {
+      "venueName": "Venue Name",
+      "venuePlaceholder": "e.g. The Blue Moon Bar",
+      "yourName": "Your Name",
+      "namePlaceholder": "Full name",
+      "emailAddress": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone (Optional)",
+      "phonePlaceholder": "+420 000 000 000",
+      "message": "Message (Optional)",
+      "messagePlaceholder": "Tell us about your venue, number of guests, any questions...",
+      "submit": "Send Message",
+      "successTitle": "We'll be in touch!",
+      "successText": "Thank you for your interest. We'll contact you within one business day to discuss your venue."
+    },
+    "footerTagline": "The Modern Music Machine for Venues."
+  }
+}

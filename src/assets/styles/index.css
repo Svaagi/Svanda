@@ -15,15 +15,15 @@
   --color-text-primary: #111111;
   --color-text-secondary: #555555;
   --color-text-muted: #999999;
-  --color-accent-orange: #ff6b35;
-  --color-accent-pink: #ff3d7f;
+  --color-accent-orange: #7c3aed;
+  --color-accent-pink: #e040a0;
   --color-accent-blue: #4facfe;
   --color-accent-purple: #a78bfa;
-  --color-blob-1: rgba(255, 107, 53, 0.35);
-  --color-blob-2: rgba(255, 61, 127, 0.3);
+  --color-blob-1: rgba(124, 58, 237, 0.35);
+  --color-blob-2: rgba(224, 64, 160, 0.3);
   --color-blob-3: rgba(79, 172, 254, 0.3);
   --color-blob-4: rgba(167, 139, 250, 0.25);
-  --color-blob-5: rgba(255, 200, 150, 0.4);
+  --color-blob-5: rgba(167, 139, 250, 0.4);
   --border-glass: 1px solid rgba(255, 255, 255, 0.5);
   --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.08);
   --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.1);
@@ -79,7 +79,7 @@ img {
 }
 
 ::selection {
-  background: rgba(255, 107, 53, 0.2);
+  background: rgba(124, 58, 237, 0.2);
   color: var(--color-text-primary);
 }
 

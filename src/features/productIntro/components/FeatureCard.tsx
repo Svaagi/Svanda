@@ -16,6 +16,7 @@ library.add(faMusic, faHandPointer, faCompactDisc, faCoins);
 interface FeatureCardProps {
   card: FeatureCardType;
   index: number;
+  isWide?: boolean;
 }
 
 const cardVariants = {
@@ -31,9 +32,9 @@ const cardVariants = {
   }),
 };
 
-const FeatureCardComponent = ({ card, index }: FeatureCardProps) => (
+const FeatureCardComponent = ({ card, index, isWide }: FeatureCardProps) => (
   <motion.div
-    className={styles.featureCard}
+    className={`${styles.featureCard}${isWide ? ` ${styles.featureCardWide}` : ''}`}
     style={{ '--card-accent': card.accentColor } as React.CSSProperties}
     variants={cardVariants}
     custom={index}
@@ -50,6 +51,13 @@ const FeatureCardComponent = ({ card, index }: FeatureCardProps) => (
     </div>
     <h3 className={styles.featureTitle}>{card.title}</h3>
     <p className={styles.featureDescription}>{card.description}</p>
+    {isWide && (
+      <FontAwesomeIcon
+        icon={['fas', card.icon as 'music']}
+        className={styles.featureDecorIcon}
+        aria-hidden
+      />
+    )}
   </motion.div>
 );
 

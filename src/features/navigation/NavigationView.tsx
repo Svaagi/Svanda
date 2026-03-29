@@ -1,15 +1,30 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { scrollToSection } from 'utils';
 
-import { NAV_ITEMS } from './constants';
 import { useScrolled } from './hooks';
 import styles from './navigation.module.css';
 
+const LANGUAGES = [
+  { code: 'cs', label: 'CS' },
+  { code: 'sk', label: 'SK' },
+  { code: 'en', label: 'EN' },
+];
+
 const NavigationView = () => {
+  const { t, i18n } = useTranslation();
   const isScrolled = useScrolled();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const navItems = [
+    { label: t('nav.product'), sectionId: 'product' },
+    { label: t('nav.howItWorks'), sectionId: 'how-it-works' },
+    { label: t('nav.gallery'), sectionId: 'gallery' },
+    { label: t('nav.whySvanda'), sectionId: 'why-venues' },
+    { label: t('nav.contact'), sectionId: 'contact' },
+  ];
 
   const handleNavClick = (sectionId: string) => {
     scrollToSection(sectionId);
@@ -34,7 +49,7 @@ const NavigationView = () => {
         </button>
 
         <ul className={styles.navLinks}>
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <li key={item.sectionId}>
               <button
                 className={styles.navLink}
@@ -46,11 +61,23 @@ const NavigationView = () => {
           ))}
         </ul>
 
+        <div className={styles.langSwitcher}>
+          {LANGUAGES.map((lang) => (
+            <button
+              key={lang.code}
+              className={`${styles.langButton} ${i18n.language === lang.code ? styles.langButtonActive : ''}`}
+              onClick={() => i18n.changeLanguage(lang.code)}
+            >
+              {lang.label}
+            </button>
+          ))}
+        </div>
+
         <button
           className={styles.ctaButton}
           onClick={() => handleNavClick('contact')}
         >
-          Book a Demo
+          {t('nav.bookDemo')}
         </button>
 
         <button
@@ -73,7 +100,7 @@ const NavigationView = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           >
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <button
                 key={item.sectionId}
                 className={styles.mobileNavLink}
@@ -82,11 +109,22 @@ const NavigationView = () => {
                 {item.label}
               </button>
             ))}
+            <div className={styles.mobileLangSwitcher}>
+              {LANGUAGES.map((lang) => (
+                <button
+                  key={lang.code}
+                  className={`${styles.langButton} ${i18n.language === lang.code ? styles.langButtonActive : ''}`}
+                  onClick={() => i18n.changeLanguage(lang.code)}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
             <button
               className={styles.mobileCta}
               onClick={() => handleNavClick('contact')}
             >
-              Book a Demo
+              {t('nav.bookDemo')}
             </button>
           </motion.div>
         )}

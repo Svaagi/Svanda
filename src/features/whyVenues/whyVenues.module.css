@@ -1,18 +1,15 @@
 .whyVenues {
   position: relative;
-  padding: 300px 60px 200px;
+  min-height: calc(100vh + 300px);
+  padding: 160px 60px 240px;
   overflow: hidden;
-  z-index: 6;
-  margin-top: -160px;
-  /* diagonal TOP: left=0px, center-left dips to 80px, right leads to 140px */
-  clip-path: polygon(0 0, 35% 100px, 100% 140px, 100% 100%, 0 100%);
 }
 
 .sectionMainBg {
   position: absolute;
   inset: -30%;
   z-index: 0;
-  background: linear-gradient(175deg, #f8f5f1 0%, #f0ece6 50%, #ede8e2 100%);
+  background: linear-gradient(175deg, #faf7f3 0%, #f4f0ea 50%, #f8f5f0 100%);
   will-change: opacity, transform;
 }
 
@@ -24,38 +21,30 @@
   will-change: transform;
 }
 
-/* blobA: at 55% — lands right at the diagonal on section entry (blobsY=-450px) */
 .blobA {
   position: absolute;
-  top: 55%;
-  left: 10%;
-  width: 85%;
-  height: 80%;
-  background: radial-gradient(
-    ellipse,
-    rgba(167, 139, 250, 0.48) 0%,
-    rgba(79, 172, 254, 0.22) 45%,
-    transparent 65%
-  );
-  border-radius: 50%;
-  filter: blur(30px);
+  width: 660px;
+  height: 660px;
+  top: -12%;
+  left: -10%;
+  background:
+    radial-gradient(circle at 32% 27%, rgba(210,200,255,0.82) 0%, transparent 26%),
+    radial-gradient(circle at 46% 44%, rgba(124,58,237,0.95) 0%, rgba(167,100,255,0.70) 32%, rgba(79,172,254,0.30) 60%, transparent 78%);
+  border-radius: 60% 40% 50% 50% / 46% 54% 52% 48%;
+  filter: blur(7px);
 }
 
-/* blobB: sweeps through from above */
 .blobB {
   position: absolute;
-  top: 15%;
-  right: -5%;
-  width: 75%;
-  height: 75%;
-  background: radial-gradient(
-    ellipse,
-    rgba(255, 61, 127, 0.36) 0%,
-    rgba(167, 139, 250, 0.16) 45%,
-    transparent 65%
-  );
-  border-radius: 50%;
-  filter: blur(35px);
+  width: 600px;
+  height: 600px;
+  top: 4%;
+  right: -8%;
+  background:
+    radial-gradient(circle at 33% 28%, rgba(215,235,255,0.80) 0%, transparent 25%),
+    radial-gradient(circle at 50% 46%, rgba(79,172,254,0.92) 0%, rgba(167,139,250,0.65) 34%, rgba(120,60,220,0.28) 62%, transparent 78%);
+  border-radius: 46% 54% 42% 58% / 54% 46% 56% 44%;
+  filter: blur(7px);
 }
 
 .backgroundAccent {
@@ -63,24 +52,19 @@
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  will-change: transform;
 }
 
-/* blobC at 72%: fastest layer, maximum speed contrast */
 .blobC {
   position: absolute;
-  top: 72%;
-  left: -5%;
-  width: 60%;
-  height: 60%;
-  background: radial-gradient(
-    ellipse,
-    rgba(79, 172, 254, 0.28) 0%,
-    rgba(167, 139, 250, 0.12) 50%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  filter: blur(25px);
+  width: 520px;
+  height: 520px;
+  top: 50%;
+  left: 20%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(245,225,255,0.75) 0%, transparent 25%),
+    radial-gradient(circle at 50% 52%, rgba(167,80,250,0.88) 0%, rgba(200,80,220,0.55) 38%, transparent 65%);
+  border-radius: 38% 62% 56% 44% / 60% 40% 58% 42%;
+  filter: blur(8px);
 }
 
 .sectionInner {
@@ -102,11 +86,14 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent-purple);
-  background: rgba(167, 139, 250, 0.1);
-  border: 1px solid rgba(167, 139, 250, 0.2);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.85);
   padding: 5px 16px;
   border-radius: var(--radius-pill);
   margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
 .sectionTitle {
@@ -136,87 +123,78 @@
 .benefitsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 56px 48px;
+  padding: 0 8px;
 }
 
 .benefitItem {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 20px;
-  padding: 28px 24px;
-  box-shadow: var(--shadow-glass);
-  transition: box-shadow 0.3s ease, transform 0.25s ease;
-}
-
-.benefitItem:hover {
-  box-shadow: var(--shadow-card);
-  transform: translateY(-4px);
+  cursor: default;
 }
 
 .benefitIconWrap {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 1);
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  border: 1px solid;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease;
+}
+
+.benefitItem:hover .benefitIconWrap {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
 }
 
 .benefitIcon {
-  font-size: 16px;
-  color: var(--color-text-primary);
+  font-size: 24px;
 }
 
 .benefitContent {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0;
 }
 
 .benefitTitle {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--color-text-primary);
+  margin-bottom: 8px;
 }
 
 .benefitDescription {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 @media (max-width: 1100px) {
   .benefitsGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 48px 40px;
   }
 }
 
 @media (max-width: 900px) {
   .whyVenues {
-    padding: 240px 40px 160px;
+    padding: 130px 40px 200px;
   }
 }
 
 @media (max-width: 640px) {
   .whyVenues {
-    padding: 200px 24px 140px;
+    padding: 110px 24px 180px;
   }
 
   .benefitsGrid {
     grid-template-columns: 1fr;
-  }
-
-  .benefitItem {
-    padding: 20px;
+    gap: 40px;
   }
 }

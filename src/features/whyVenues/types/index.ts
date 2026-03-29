@@ -3,4 +3,5 @@ export interface BenefitItem {
   icon: string;
   title: string;
   description: string;
+  translationKey: string;
 }

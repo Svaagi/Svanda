@@ -15,7 +15,7 @@ const GlassBlob = ({ config }: GlassBlobProps) => (
       top: config.top,
       left: config.left,
       background: config.color,
-      borderRadius: '50%',
+      borderRadius: config.borderRadius ?? '50%',
       filter: `blur(${config.blur}px)`,
       pointerEvents: 'none',
     }}

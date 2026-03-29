@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { DEMO_CLIENT_NAME } from 'constants';
 
@@ -7,41 +8,37 @@ import { TestimonialCard } from './components';
 import styles from './socialProof.module.css';
 import { TestimonialData } from './types';
 
-const LEMON_TESTIMONIAL: TestimonialData = {
-  quote:
-    '"SVANDA completely changed our bar nights. Guests queue up to use it — the machine basically runs itself and earns us money while we focus on service."',
-  authorName: 'Owner Name',
-  authorRole: 'Owner',
-  venueName: DEMO_CLIENT_NAME,
-  photoPath: '/assets/testimonials/lemon-music-bar-owner.jpg',
-};
-
 const SocialProofView = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-200px', '200px']);
-  const blobsY = useTransform(scrollYProgress, [0, 1], ['-450px', '450px']);
-  const accentY = useTransform(scrollYProgress, [0, 1], ['-700px', '700px']);
-
-  // Image drifts at its own intermediate speed — adds a 4th depth plane
+  const sectionY = useTransform(scrollYProgress, [0, 1], ['0px', '-300px']);
   const imageY = useTransform(scrollYProgress, [0, 1], ['-160px', '160px']);
 
-  return (
-    <section className={styles.socialProof} ref={sectionRef}>
-      <motion.div className={styles.sectionMainBg} style={{ y: bgY }} />
+  const testimonial: TestimonialData = {
+    quote: t('socialProof.quote'),
+    authorName: t('socialProof.authorName'),
+    authorRole: t('socialProof.authorRole'),
+    venueName: DEMO_CLIENT_NAME,
+    photoPath: '/assets/testimonials/lemon-music-bar-owner.jpg',
+  };
 
-      <motion.div className={styles.background} style={{ y: blobsY }}>
+  return (
+    <motion.section className={styles.socialProof} ref={sectionRef} style={{ y: sectionY }}>
+      <div className={styles.sectionMainBg} />
+
+      <div className={styles.background}>
         <div className={styles.blobA} />
         <div className={styles.blobB} />
-      </motion.div>
+      </div>
 
-      <motion.div className={styles.backgroundAccent} style={{ y: accentY }}>
+      <div className={styles.backgroundAccent}>
         <div className={styles.blobC} />
-      </motion.div>
+      </div>
 
       <div className={styles.sectionInner}>
         <motion.div className={styles.venueImageWrap} style={{ y: imageY }}>
@@ -64,18 +61,17 @@ const SocialProofView = () => {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
-            <span className={styles.sectionTag}>Trusted by Venues</span>
+            <span className={styles.sectionTag}>{t('socialProof.tag')}</span>
             <h2 className={styles.sectionTitle}>
-              Already Live at{' '}
+              {t('socialProof.titlePrefix')}{' '}
               <span className={styles.titleAccent}>{DEMO_CLIENT_NAME}</span>
             </h2>
             <p className={styles.sectionSubtitle}>
-              The first SVANDA installation is running at Lemon Music Bar —
-              with real guests, real songs, and real results every night.
+              {t('socialProof.subtitle')}
             </p>
           </motion.div>
 
-          <TestimonialCard testimonial={LEMON_TESTIMONIAL} />
+          <TestimonialCard testimonial={testimonial} />
 
           <motion.div
             className={styles.statsStrip}
@@ -85,23 +81,23 @@ const SocialProofView = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             <div className={styles.stripStat}>
-              <span className={styles.stripNumber}>1</span>
-              <span className={styles.stripLabel}>Live Venue</span>
+              <span className={styles.stripNumber}>{t('socialProof.stat1Number')}</span>
+              <span className={styles.stripLabel}>{t('socialProof.stat1Label')}</span>
             </div>
             <div className={styles.stripDivider} />
             <div className={styles.stripStat}>
-              <span className={styles.stripNumber}>Nightly</span>
-              <span className={styles.stripLabel}>Usage</span>
+              <span className={styles.stripNumber}>{t('socialProof.stat2Number')}</span>
+              <span className={styles.stripLabel}>{t('socialProof.stat2Label')}</span>
             </div>
             <div className={styles.stripDivider} />
             <div className={styles.stripStat}>
-              <span className={styles.stripNumber}>100%</span>
-              <span className={styles.stripLabel}>Satisfied</span>
+              <span className={styles.stripNumber}>{t('socialProof.stat3Number')}</span>
+              <span className={styles.stripLabel}>{t('socialProof.stat3Label')}</span>
             </div>
           </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
