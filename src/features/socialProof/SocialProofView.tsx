@@ -16,7 +16,6 @@ const SocialProofView = () => {
     offset: ['start end', 'end start'],
   });
 
-  const sectionY = useTransform(scrollYProgress, [0, 1], ['0px', '-300px']);
   const imageY = useTransform(scrollYProgress, [0, 1], ['-160px', '160px']);
 
   const testimonial: TestimonialData = {
@@ -28,7 +27,7 @@ const SocialProofView = () => {
   };
 
   return (
-    <motion.section className={styles.socialProof} ref={sectionRef} style={{ y: sectionY }}>
+    <motion.section className={styles.socialProof} ref={sectionRef} style={{}}>
       <div className={styles.sectionMainBg} />
 
       <div className={styles.background}>

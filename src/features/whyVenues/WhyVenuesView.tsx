@@ -14,7 +14,6 @@ const WhyVenuesView = () => {
     offset: ['start end', 'end start'],
   });
 
-  const sectionY = useTransform(scrollYProgress, [0, 1], ['0px', '-360px']);
   const titleY = useTransform(scrollYProgress, [0, 0.5], ['60px', '0px']);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
 
@@ -25,7 +24,7 @@ const WhyVenuesView = () => {
   }));
 
   return (
-    <motion.section className={styles.whyVenues} id="why-venues" ref={sectionRef} style={{ y: sectionY }}>
+    <motion.section className={styles.whyVenues} id="why-venues" ref={sectionRef} style={{}}>
       <div className={styles.sectionMainBg} />
 
       <div className={styles.background}>

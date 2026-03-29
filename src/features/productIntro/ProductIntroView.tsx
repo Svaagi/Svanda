@@ -14,7 +14,6 @@ const ProductIntroView = () => {
     offset: ['start end', 'end start'],
   });
 
-  const sectionY = useTransform(scrollYProgress, [0, 1], ['0px', '-120px']);
   const titleY = useTransform(scrollYProgress, [0, 0.5], ['60px', '0px']);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
 
@@ -25,7 +24,7 @@ const ProductIntroView = () => {
   }));
 
   return (
-    <motion.section className={styles.productIntro} id="product" ref={sectionRef} style={{ y: sectionY }}>
+    <motion.section className={styles.productIntro} id="product" ref={sectionRef} style={{}}>
       <div className={styles.sectionMainBg} />
 
       <div className={styles.backgroundBlobs}>

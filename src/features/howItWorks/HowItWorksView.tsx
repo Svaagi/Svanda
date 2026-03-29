@@ -14,7 +14,6 @@ const HowItWorksView = () => {
     offset: ['start end', 'end start'],
   });
 
-  const sectionY = useTransform(scrollYProgress, [0, 1], ['0px', '-180px']);
   const titleY = useTransform(scrollYProgress, [0, 0.5], ['60px', '0px']);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
 
@@ -25,7 +24,7 @@ const HowItWorksView = () => {
   }));
 
   return (
-    <motion.section className={styles.howItWorks} id="how-it-works" ref={sectionRef} style={{ y: sectionY }}>
+    <motion.section className={styles.howItWorks} id="how-it-works" ref={sectionRef} style={{}}>
       <div className={styles.sectionMainBg} />
 
       <div className={styles.backgroundLayer}>

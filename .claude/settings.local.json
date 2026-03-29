@@ -11,7 +11,8 @@
       "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/en.json'',''utf8''\\)\\); console.log\\(''valid''\\)\")",
       "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/cs.json'',''utf8''\\)\\); console.log\\(''cs valid''\\)\")",
       "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/en.json'',''utf8''\\)\\); console.log\\(''en valid''\\)\")",
-      "Bash(node -e \":*)"
+      "Bash(node -e \":*)",
+      "Bash(grep '\"\"framer-motion\"\"' package.json)"
     ]
   }
 }

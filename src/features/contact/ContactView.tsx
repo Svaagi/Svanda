@@ -1,8 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 import { CONTACT_EMAIL_PLACEHOLDER, CONTACT_PHONE_PLACEHOLDER } from 'constants';
@@ -14,16 +13,9 @@ library.add(faEnvelope, faPhone);
 
 const ContactView = () => {
   const { t } = useTranslation();
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const sectionY = useTransform(scrollYProgress, [0, 1], ['0px', '-480px']);
 
   return (
-    <motion.section className={styles.contact} id="contact" ref={sectionRef} style={{ y: sectionY }}>
+    <motion.section className={styles.contact} id="contact">
       <div className={styles.sectionMainBg} />
 
       <div className={styles.background}>

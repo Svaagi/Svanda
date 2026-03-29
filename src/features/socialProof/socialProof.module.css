@@ -1,8 +1,9 @@
 .socialProof {
   position: relative;
-  min-height: calc(100vh + 300px);
-  padding: 160px 60px 240px;
+  min-height: 100vh;
   overflow: hidden;
+  padding: 100px 60px 60px;
+  background-color: #080b14;
 
   --color-text-primary: #f0ece6;
   --color-text-secondary: rgba(240, 236, 230, 0.58);
@@ -11,10 +12,9 @@
 
 .sectionMainBg {
   position: absolute;
-  inset: -30%;
+  inset: 0;
   z-index: 0;
   background: linear-gradient(160deg, #080b14 0%, #0f1220 60%, #0a0c18 100%);
-  will-change: opacity, transform;
 }
 
 .background {
@@ -269,7 +269,6 @@
 .statsStrip {
   display: flex;
   align-items: center;
-  gap: 0;
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(28px) saturate(1.5);
   -webkit-backdrop-filter: blur(28px) saturate(1.5);
@@ -329,7 +328,7 @@
 
 @media (max-width: 640px) {
   .socialProof {
-    padding: 110px 24px 280px;
+    padding: 80px 24px 60px;
   }
 
   .statsStrip {

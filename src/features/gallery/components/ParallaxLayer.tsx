@@ -12,14 +12,7 @@ interface ParallaxLayerProps {
 const ParallaxLayer = ({ layer, parallaxY, index }: ParallaxLayerProps) => (
   <motion.div
     className={styles.galleryLayer}
-    style={{
-      top: layer.top,
-      left: layer.left,
-      width: layer.width,
-      zIndex: layer.zIndex,
-      y: parallaxY,
-      rotate: layer.rotate,
-    }}
+    style={{}}
     initial={{ opacity: 0, scale: 0.9 }}
     whileInView={{ opacity: 1, scale: 1 }}
     viewport={{ once: true, amount: 0.1 }}

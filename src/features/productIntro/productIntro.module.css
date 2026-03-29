@@ -1,8 +1,9 @@
 .productIntro {
   position: relative;
-  min-height: calc(100vh + 300px);
-  padding: 160px 60px 240px;
+  min-height: 100vh;
   overflow: hidden;
+  padding: 100px 60px 60px;
+  background-color: #0e1020;
 
   --color-text-primary: #f0ece6;
   --color-text-secondary: rgba(240, 236, 230, 0.62);
@@ -11,10 +12,9 @@
 
 .sectionMainBg {
   position: absolute;
-  inset: -30%;
+  inset: 0;
   z-index: 0;
   background: linear-gradient(160deg, #0e1020 0%, #141826 60%, #121828 100%);
-  will-change: opacity, transform;
 }
 
 .backgroundBlobs {
@@ -22,7 +22,6 @@
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  will-change: transform;
 }
 
 .blobA {
@@ -74,7 +73,7 @@
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   will-change: transform;
 }
 
@@ -95,12 +94,12 @@
 }
 
 .sectionTitle {
-  font-size: clamp(40px, 5vw, 72px);
+  font-size: clamp(32px, 4vw, 56px);
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1.05;
   color: #f0ece6;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .titleAccent {
@@ -121,7 +120,7 @@
 .featureGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 12px;
 }
 
 .featureCard {
@@ -130,14 +129,13 @@
   -webkit-backdrop-filter: blur(28px) saturate(1.6);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-card);
-  padding: 32px;
+  padding: 22px;
   box-shadow:
     0 8px 40px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 -1px 0 rgba(0, 0, 0, 0.06);
   cursor: default;
   position: relative;
-  overflow: hidden;
   transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
   background-image: radial-gradient(
     ellipse at 0% 0%,
@@ -156,14 +154,14 @@
 
 .featureCardWide {
   grid-column: span 2;
-  padding: 48px;
+  padding: 28px;
 }
 
 .featureCardWide .featureIconWrap {
-  width: 64px;
-  height: 64px;
-  border-radius: 20px;
-  margin-bottom: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  margin-bottom: 14px;
 }
 
 .featureCardWide .featureIcon {
@@ -193,15 +191,15 @@
 }
 
 .featureIconWrap {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
@@ -226,7 +224,7 @@
 
 @media (max-width: 900px) {
   .productIntro {
-    padding: 130px 40px 200px;
+    padding: 90px 40px 60px;
   }
 
   .featureGrid {
@@ -239,9 +237,6 @@
   }
 
   .featureCardWide .featureIconWrap {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
     margin-bottom: 20px;
   }
 
@@ -262,7 +257,7 @@
 
 @media (max-width: 640px) {
   .productIntro {
-    padding: 110px 24px 180px;
+    padding: 80px 24px 60px;
   }
 
   .featureCard {
