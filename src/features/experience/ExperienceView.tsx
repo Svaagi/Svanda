@@ -12,16 +12,15 @@ import {
   BOX_DRIFT_TOP,
   BOX_ROTATE_KEYS,
   BOX_ROTATE_VALUES,
-  PANEL_COUNT,
-  PANEL_ENDS,
   PANEL_ENTER_RATIO,
   PANEL_EXIT_RATIO,
-  PANEL_STARTS,
+  PANEL_RANGES,
   SCROLL_HEIGHT_VH,
 } from './experience.constants';
 import { useScrollProgress } from './hooks/useScrollProgress';
 import styles from './experience.module.css';
 
+/** Derive per-panel motion values from a shared scroll progress MotionValue. */
 function usePanelMotion(prog: MotionValue<number>, start: number, end: number) {
   const span      = end - start;
   const enterEnd  = start + span * PANEL_ENTER_RATIO;
@@ -54,32 +53,43 @@ const ExperienceView = () => {
   const ref      = useRef<HTMLDivElement>(null);
   const progress = useScrollProgress(ref);
 
+  /** Box drifts downward as user scrolls — creates clear "going down with scroll" feel */
   const boxY       = useTransform(progress, [0, 1], [BOX_DRIFT_TOP, BOX_DRIFT_BOTTOM]);
   const boxRotateY = useTransform(progress, BOX_ROTATE_KEYS, BOX_ROTATE_VALUES);
 
-  // Hooks must be called unconditionally — one per panel
-  const panel0 = usePanelMotion(progress, PANEL_STARTS[0], PANEL_ENDS[0]);
-  const panel1 = usePanelMotion(progress, PANEL_STARTS[1], PANEL_ENDS[1]);
-  const panel2 = usePanelMotion(progress, PANEL_STARTS[2], PANEL_ENDS[2]);
-  const panel3 = usePanelMotion(progress, PANEL_STARTS[3], PANEL_ENDS[3]);
-  const panel4 = usePanelMotion(progress, PANEL_STARTS[4], PANEL_ENDS[4]);
-  const panel5 = usePanelMotion(progress, PANEL_STARTS[5], PANEL_ENDS[5]);
+  /**
+   * Panels use OVERLAPPING scroll ranges (see PANEL_RANGES).
+   * When panel N exits, panel N+1 is already fading in — crossfade, never blank.
+   * Hook calls MUST remain unconditional and in fixed order.
+   */
+  const panel0 = usePanelMotion(progress, PANEL_RANGES[0][0], PANEL_RANGES[0][1]);
+  const panel1 = usePanelMotion(progress, PANEL_RANGES[1][0], PANEL_RANGES[1][1]);
+  const panel2 = usePanelMotion(progress, PANEL_RANGES[2][0], PANEL_RANGES[2][1]);
+  const panel3 = usePanelMotion(progress, PANEL_RANGES[3][0], PANEL_RANGES[3][1]);
+  const panel4 = usePanelMotion(progress, PANEL_RANGES[4][0], PANEL_RANGES[4][1]);
+  const panel5 = usePanelMotion(progress, PANEL_RANGES[5][0], PANEL_RANGES[5][1]);
 
   return (
     <>
+      {/* ── scroll driver: sticky stage pins inside ─────────── */}
       <div
         ref={ref}
         className={styles.experienceWrapper}
-        style={{ height: `${PANEL_COUNT * SCROLL_HEIGHT_VH}vh` }}
+        style={{ height: `${SCROLL_HEIGHT_VH}vh` }}
       >
         <div className={styles.stickyStage}>
 
+          {/* ────────────────────────────────────────────────────
+              CENTRAL OBJECT — z:10, always centered
+              Drifts downward via boxY as user scrolls
+              Rocks via boxRotateY + floats via CentralObject animation
+              ─────────────────────────────────────────────────── */}
           <CentralObject rotateY={boxRotateY} y={boxY} />
 
           {/* ══════════════════════════════════════════════════
-              PANEL 0 · INTRO
-              Big title from bottom BEHIND box (z:5)
-              Descriptor from right IN FRONT (z:15)
+              PANEL 0 · INTRO  [0.00 → 0.20]
+              ── "JUKEBOX NOVEJ GENERÁCIE" rises up (BEHIND, z:5)
+              ── Descriptor slides in from right (IN FRONT, z:15)
               ════════════════════════════════════════════════ */}
 
           <div className={`${styles.abs} ${styles.zBehind}`}
@@ -93,7 +103,7 @@ const ExperienceView = () => {
           </div>
 
           <div className={`${styles.abs} ${styles.zFront}`}
-            style={{ right: '6%', bottom: '14%' }}>
+            style={{ right: '6%', bottom: '16%' }}>
             <motion.div style={{ opacity: panel0.opacity, x: panel0.xRight }}>
               <span className={styles.tag}>SVANDA — Produkt</span>
               <p className={styles.body}>
@@ -105,17 +115,17 @@ const ExperienceView = () => {
           </div>
 
           <div className={`${styles.abs} ${styles.zFront}`}
-            style={{ top: '7%', right: '6%' }}>
+            style={{ top: '8%', right: '7%' }}>
             <motion.div style={{ opacity: panel0.opacity, x: panel0.xRight }}>
               <span className={styles.eyebrowLabel}>001</span>
             </motion.div>
           </div>
 
           {/* ══════════════════════════════════════════════════
-              PANEL 1 · WHAT IT IS
-              KARAOKE from left IN FRONT (z:15)
-              JUKEBOX from right BEHIND (z:5)
-              Side text from right MID (z:12)
+              PANEL 1 · WHAT IT IS  [0.16 → 0.36]
+              ── "KARAOKE." from left  IN FRONT (z:15)
+              ── "JUKEBOX."  from right BEHIND  (z:5)
+              ── Explanation from right MID (z:12)
               ════════════════════════════════════════════════ */}
 
           <div className={`${styles.abs} ${styles.zFront}`}
@@ -155,9 +165,9 @@ const ExperienceView = () => {
           </div>
 
           {/* ══════════════════════════════════════════════════
-              PANEL 2 · HOW IT WORKS
-              "01 02 03" bg from left BEHIND (z:5)
-              Step details from right IN FRONT (z:15)
+              PANEL 2 · HOW IT WORKS  [0.32 → 0.52]
+              ── "01 02 03" from left BEHIND (z:5)
+              ── Step list  from right IN FRONT (z:15)
               ════════════════════════════════════════════════ */}
 
           <div className={`${styles.abs} ${styles.zBehind}`}
@@ -211,11 +221,11 @@ const ExperienceView = () => {
           </div>
 
           {/* ══════════════════════════════════════════════════
-              PANEL 3 · BENEFITS
-              PASÍVNY from left BEHIND (z:5)
-              PRÍJEM from right IN FRONT (z:15)
-              Benefit list bottom-left MID (z:12)
-              Stat counter top-right IN FRONT (z:15)
+              PANEL 3 · BENEFITS  [0.48 → 0.68]
+              ── "PASÍVNY" from left BEHIND  (z:5)
+              ── "PRÍJEM."  from right IN FRONT (z:15)
+              ── Benefit list bottom-left MID (z:12)
+              ── Stat counter top-right IN FRONT (z:15)
               ════════════════════════════════════════════════ */}
 
           <div className={`${styles.abs} ${styles.zBehind}`}
@@ -229,7 +239,7 @@ const ExperienceView = () => {
           </div>
 
           <div className={`${styles.abs} ${styles.zFront}`}
-            style={{ bottom: '7%', right: '-1%' }}>
+            style={{ bottom: '6%', right: '-1%' }}>
             <motion.div
               className={`${styles.displayLarge} ${styles.textRight}`}
               style={{ opacity: panel3.opacity, x: panel3.xRight }}
@@ -239,7 +249,7 @@ const ExperienceView = () => {
           </div>
 
           <div className={`${styles.abs} ${styles.zMid}`}
-            style={{ left: '6%', bottom: '18%' }}>
+            style={{ left: '6%', bottom: '20%' }}>
             <motion.div style={{ opacity: panel3.opacity, y: panel3.yDown }}>
               <span className={styles.tag}>Výhody pre podnik</span>
               <div className={styles.benefitsList}>
@@ -254,7 +264,7 @@ const ExperienceView = () => {
           </div>
 
           <div className={`${styles.abs} ${styles.zFront}`}
-            style={{ top: '7%', right: '7%' }}>
+            style={{ top: '8%', right: '7%' }}>
             <motion.div style={{ opacity: panel3.opacity, x: panel3.xRight }}>
               <span className={styles.statBig}>10</span>
               <span className={styles.statUnit}>CZK / pieseň</span>
@@ -262,10 +272,10 @@ const ExperienceView = () => {
           </div>
 
           {/* ══════════════════════════════════════════════════
-              PANEL 4 · LEMON MUSIC CLUB
-              LEMON from top center BEHIND (z:5)
-              MUSIC CLUB from bottom center IN FRONT (z:15)
-              Venue card left MID (z:12)
+              PANEL 4 · LEMON MUSIC CLUB  [0.64 → 0.84]
+              ── "LEMON"      drops from top center BEHIND (z:5)
+              ── "MUSIC CLUB" rises from bottom center IN FRONT (z:15)
+              ── Venue card left MID (z:12)
               ════════════════════════════════════════════════ */}
 
           <div className={`${styles.abs} ${styles.zBehind}`}
@@ -310,11 +320,11 @@ const ExperienceView = () => {
           </div>
 
           {/* ══════════════════════════════════════════════════
-              PANEL 5 · PRODUCT PRESENCE
-              Ghost SVANDA scales in center BEHIND (z:5)
-              Feature table from right IN FRONT (z:15)
-              Left descriptor from left IN FRONT (z:15)
-              Tagline bottom center IN FRONT (z:15)
+              PANEL 5 · PRODUCT  [0.80 → 1.00]
+              ── Ghost "SVANDA" scales in center BEHIND (z:5)
+              ── Feature table from right IN FRONT (z:15)
+              ── Left descriptor  IN FRONT (z:15)
+              ── Tagline bottom center IN FRONT (z:15)
               ════════════════════════════════════════════════ */}
 
           <div className={`${styles.abs} ${styles.zBehind}`}
@@ -355,7 +365,7 @@ const ExperienceView = () => {
           </div>
 
           <div className={`${styles.abs} ${styles.zFront}`}
-            style={{ bottom: '9%', left: '50%', transform: 'translateX(-50%)' }}>
+            style={{ bottom: '10%', left: '50%', transform: 'translateX(-50%)' }}>
             <motion.div
               className={`${styles.productTagline} ${styles.textCenter}`}
               style={{ opacity: panel5.opacity, y: panel5.yDown }}
@@ -367,6 +377,7 @@ const ExperienceView = () => {
         </div>
       </div>
 
+      {/* ── Dark animated section immediately follows ─────── */}
       <MassiveMusicSection />
     </>
   );

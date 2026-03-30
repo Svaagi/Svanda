@@ -1,10 +1,9 @@
 /* ═══════════════════════════════════════════════════════════
-   STRUCTURE — sticky scroll wrapper
+   STRUCTURE
    ══════════════════════════════════════════════════════════ */
 
 .experienceWrapper {
-  /* 6 panels × 100 vh scroll space each */
-  height: 600vh;
+  /* height set via inline style from SCROLL_HEIGHT_VH constant */
 }
 
 .stickyStage {
@@ -13,15 +12,10 @@
   height: 100vh;
   overflow: hidden;
   background: #ffffff;
-  /* own stacking context */
   isolation: isolate;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   POSITIONING HELPERS
-   Used as wrapper divs around motion.div to separate
-   position: absolute + centering from Framer Motion transforms.
-   ══════════════════════════════════════════════════════════ */
+/* ─── Positioning helpers ───────────────────────────────── */
 
 .abs {
   position: absolute;
@@ -29,13 +23,12 @@
   user-select: none;
 }
 
-/* z-index text layers relative to box (z:10) */
 .zBehind { z-index: 5; }
 .zMid    { z-index: 12; }
 .zFront  { z-index: 15; }
 
 /* ═══════════════════════════════════════════════════════════
-   CENTRAL OBJECT — karaoke machine
+   CENTRAL OBJECT
    ══════════════════════════════════════════════════════════ */
 
 .centralWrapper {
@@ -146,7 +139,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TYPOGRAPHY — display scale
+   DISPLAY TYPOGRAPHY
    ══════════════════════════════════════════════════════════ */
 
 .displayMassive {
@@ -156,7 +149,6 @@
   letter-spacing: -0.05em;
   line-height: 0.85;
   color: #0a0a0a;
-  white-space: nowrap;
 }
 
 .displayHuge {
@@ -171,7 +163,7 @@
 
 .displayLarge {
   font-family: var(--font-display);
-  font-size: clamp(48px, 9.5vw, 135px);
+  font-size: clamp(44px, 8.5vw, 120px);
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 0.88;
@@ -179,58 +171,64 @@
   white-space: nowrap;
 }
 
-/* ghost — very light version for background layer */
-.ghost {
-  color: #ebebeb;
-}
+.ghost { color: #e8e8e8; }
 
 .textRight  { text-align: right; }
 .textCenter { text-align: center; }
 
 /* ═══════════════════════════════════════════════════════════
-   CONTENT ELEMENTS — shared across panels
+   SHARED CONTENT ELEMENTS
    ══════════════════════════════════════════════════════════ */
 
 .tag {
   display: block;
   font-family: var(--font-primary);
-  font-size: clamp(9px, 0.85vw, 11px);
+  font-size: clamp(9px, 0.75vw, 11px);
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #aaa;
+  color: #bbb;
   margin-bottom: clamp(8px, 1vw, 14px);
 }
 
 .body {
   font-family: var(--font-primary);
-  font-size: clamp(12px, 1.25vw, 16px);
+  font-size: clamp(13px, 1.25vw, 17px);
   font-weight: 400;
   color: #444;
   line-height: 1.6;
   margin: 0;
-  max-width: clamp(200px, 24vw, 300px);
+  max-width: clamp(200px, 22vw, 280px);
 }
 
 .micro {
   display: block;
   margin-top: 12px;
   font-family: var(--font-primary);
-  font-size: clamp(9px, 0.8vw, 10px);
+  font-size: clamp(9px, 0.75vw, 10px);
   color: #ccc;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
+.eyebrowLabel {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(11px, 1vw, 14px);
+  font-weight: 700;
+  color: #ddd;
+  letter-spacing: 0.18em;
+}
+
 /* ═══════════════════════════════════════════════════════════
-   PANEL 3 — HOW IT WORKS
+   PANEL 2 — HOW IT WORKS
    ══════════════════════════════════════════════════════════ */
 
 .bgNumbers {
   display: flex;
   flex-direction: column;
   font-family: var(--font-display);
-  font-size: clamp(66px, 13vw, 170px);
+  font-size: clamp(60px, 12vw, 160px);
   font-weight: 900;
   letter-spacing: -0.06em;
   line-height: 0.84;
@@ -238,7 +236,7 @@
 }
 
 .stepsPanel {
-  width: clamp(220px, 30vw, 400px);
+  width: clamp(220px, 28vw, 370px);
   display: flex;
   flex-direction: column;
 }
@@ -246,8 +244,8 @@
 .stepRow {
   display: flex;
   align-items: flex-start;
-  gap: clamp(12px, 1.6vw, 22px);
-  padding: clamp(14px, 1.8vw, 22px) 0;
+  gap: clamp(12px, 1.5vw, 20px);
+  padding: clamp(12px, 1.6vw, 20px) 0;
 }
 
 .stepDivider {
@@ -257,18 +255,18 @@
 
 .stepNum {
   font-family: var(--font-display);
-  font-size: clamp(34px, 5vw, 68px);
+  font-size: clamp(30px, 4.5vw, 60px);
   font-weight: 900;
   color: #ddd;
   line-height: 1;
   letter-spacing: -0.04em;
   flex-shrink: 0;
-  width: clamp(46px, 6.5vw, 82px);
+  width: clamp(42px, 6vw, 76px);
 }
 
 .stepTitle {
   font-family: var(--font-display);
-  font-size: clamp(15px, 1.8vw, 24px);
+  font-size: clamp(14px, 1.6vw, 22px);
   font-weight: 700;
   color: #111;
   line-height: 1.1;
@@ -277,7 +275,7 @@
 
 .stepDesc {
   font-family: var(--font-primary);
-  font-size: clamp(10px, 0.95vw, 13px);
+  font-size: clamp(10px, 0.9vw, 13px);
   color: #aaa;
   font-weight: 400;
   line-height: 1.5;
@@ -285,43 +283,62 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PANEL 4 — BENEFITS
+   PANEL 3 — BENEFITS
    ══════════════════════════════════════════════════════════ */
 
 .benefitsList {
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 1vw, 13px);
-  margin-top: 10px;
+  gap: clamp(8px, 1vw, 12px);
+  margin-top: 8px;
 }
 
 .benefitItem {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-family: var(--font-primary);
-  font-size: clamp(12px, 1.2vw, 16px);
+  font-size: clamp(13px, 1.2vw, 17px);
   font-weight: 600;
   color: #111;
 }
 
-.benefitDot {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #111;
+.benefitIcon {
+  font-size: clamp(14px, 1.3vw, 18px);
+  line-height: 1;
   flex-shrink: 0;
+  min-width: 20px;
+}
+
+.statBig {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 110px);
+  font-weight: 900;
+  color: #111;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.statUnit {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 600;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 4px;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PANEL 5 — LEMON MUSIC CLUB
+   PANEL 4 — LEMON MUSIC CLUB
    ══════════════════════════════════════════════════════════ */
 
 .venueCard {
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.3vw, 16px);
+  gap: clamp(10px, 1.2vw, 16px);
   max-width: clamp(180px, 20vw, 260px);
 }
 
@@ -343,9 +360,15 @@
   font-family: var(--font-primary);
 }
 
+.venueInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .venueQuote {
   font-family: var(--font-primary);
-  font-size: clamp(12px, 1.2vw, 16px);
+  font-size: clamp(12px, 1.15vw, 16px);
   font-style: italic;
   color: #333;
   line-height: 1.55;
@@ -357,7 +380,7 @@
 .venueCite {
   display: block;
   font-style: normal;
-  font-size: clamp(9px, 0.85vw, 11px);
+  font-size: clamp(9px, 0.8vw, 11px);
   color: #aaa;
   margin-top: 8px;
   font-weight: 600;
@@ -366,14 +389,14 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PANEL 6 — PRODUCT
+   PANEL 5 — PRODUCT
    ══════════════════════════════════════════════════════════ */
 
 .featureList {
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-top: 14px;
+  margin-top: 12px;
   width: clamp(180px, 22vw, 280px);
 }
 
@@ -381,14 +404,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: clamp(10px, 1.2vw, 16px) 0;
+  padding: clamp(9px, 1.1vw, 14px) 0;
   border-bottom: 1px solid #f0f0f0;
   gap: 16px;
 }
 
 .featureLabel {
   font-family: var(--font-primary);
-  font-size: clamp(9px, 0.85vw, 11px);
+  font-size: clamp(9px, 0.8vw, 11px);
   font-weight: 600;
   color: #bbb;
   text-transform: uppercase;
@@ -406,7 +429,7 @@
 
 .productTagline {
   font-family: var(--font-primary);
-  font-size: clamp(12px, 1.3vw, 18px);
+  font-size: clamp(13px, 1.3vw, 18px);
   font-weight: 500;
   color: #aaa;
   letter-spacing: 0.04em;
@@ -414,7 +437,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   MASSIVE MUSIC SECTION — dark animated background
+   MASSIVE MUSIC SECTION — dark animated bg
    ══════════════════════════════════════════════════════════ */
 
 .massiveSection {
