@@ -1,9 +1,5 @@
-import { NavItem } from '../types';
-
-export const NAV_ITEMS: NavItem[] = [
-  { label: 'Product', sectionId: 'product' },
-  { label: 'How It Works', sectionId: 'how-it-works' },
-  { label: 'Gallery', sectionId: 'gallery' },
-  { label: 'Why SVANDA', sectionId: 'why-venues' },
-  { label: 'Contact', sectionId: 'contact' },
+export const LANGUAGES = [
+  { code: 'cs', label: 'CS' },
+  { code: 'sk', label: 'SK' },
+  { code: 'en', label: 'EN' },
 ];

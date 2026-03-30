@@ -1,1 +1,0 @@
-export { useGalleryParallax } from './useGalleryParallax';

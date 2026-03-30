@@ -1,7 +1,7 @@
 import { motion, MotionValue } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
-import { ANIMATION_DURATION_SLOW, ANIMATION_STAGGER_CHILDREN } from 'constants';
+import { ANIMATION_DURATION_SLOW, ANIMATION_STAGGER_CHILDREN, EASING_STANDARD } from 'constants';
 import { scrollToSection } from 'utils';
 
 import { GlassBlob, ProductPlaceholder } from './components';
@@ -26,7 +26,7 @@ const wordVariant = {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { duration: ANIMATION_DURATION_SLOW, ease: [0.4, 0, 0.2, 1] },
+    transition: { duration: ANIMATION_DURATION_SLOW, ease: EASING_STANDARD },
   },
 };
 
@@ -107,7 +107,7 @@ const HeroView = () => {
             </button>
             <button
               className={styles.secondaryCta}
-              onClick={() => scrollToSection('product')}
+              onClick={() => scrollToSection('contact')}
             >
               {t('hero.ctaSecondary')}
             </button>
@@ -141,7 +141,7 @@ const HeroView = () => {
           style={{ y: productY as MotionValue<number> }}
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 1, delay: 0.6, ease: EASING_STANDARD }}
         >
           <ProductPlaceholder />
         </motion.div>

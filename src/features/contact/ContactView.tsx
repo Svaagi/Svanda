@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
-import { CONTACT_EMAIL_PLACEHOLDER, CONTACT_PHONE_PLACEHOLDER } from 'constants';
+import { CONTACT_EMAIL_PLACEHOLDER, CONTACT_PHONE_PLACEHOLDER, EASING_STANDARD } from 'constants';
 
 import { ContactForm } from './components';
 import styles from './contact.module.css';
@@ -31,7 +31,7 @@ const ContactView = () => {
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.8, ease: EASING_STANDARD }}
           >
             <span className={styles.sectionTag}>{t('contact.tag')}</span>
             <h2 className={styles.sectionTitle}>
@@ -98,7 +98,7 @@ const ContactView = () => {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.8, delay: 0.1, ease: EASING_STANDARD }}
           >
             <div className={styles.formCard}>
               <ContactForm />

@@ -2,16 +2,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { EASING_STANDARD } from 'constants';
 import { scrollToSection } from 'utils';
 
+import { LANGUAGES } from './constants';
 import { useScrolled } from './hooks';
 import styles from './navigation.module.css';
-
-const LANGUAGES = [
-  { code: 'cs', label: 'CS' },
-  { code: 'sk', label: 'SK' },
-  { code: 'en', label: 'EN' },
-];
 
 const NavigationView = () => {
   const { t, i18n } = useTranslation();
@@ -19,10 +15,6 @@ const NavigationView = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const navItems = [
-    { label: t('nav.product'), sectionId: 'product' },
-    { label: t('nav.howItWorks'), sectionId: 'how-it-works' },
-    { label: t('nav.gallery'), sectionId: 'gallery' },
-    { label: t('nav.whySvanda'), sectionId: 'why-venues' },
     { label: t('nav.contact'), sectionId: 'contact' },
   ];
 
@@ -38,7 +30,7 @@ const NavigationView = () => {
       className={`${styles.nav} ${isScrolled ? styles.navScrolled : ''}`}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 0.8, ease: EASING_STANDARD }}
     >
       <div className={styles.navInner}>
         <button
@@ -98,7 +90,7 @@ const NavigationView = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.3, ease: EASING_STANDARD }}
           >
             {navItems.map((item) => (
               <button

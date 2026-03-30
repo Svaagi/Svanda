@@ -1,9 +1,5 @@
 {
   "nav": {
-    "product": "Product",
-    "howItWorks": "How It Works",
-    "gallery": "Gallery",
-    "whySvanda": "Why SVANDA",
     "contact": "Contact",
     "bookDemo": "Book a Demo"
   },
@@ -19,118 +15,64 @@
     "stat2Label": "Per Song",
     "stat3Label": "Box. Everything."
   },
-  "productIntro": {
-    "tag": "The Product",
-    "title1": "One Machine.",
-    "title2": "Infinite Possibilities.",
-    "subtitle": "SVANDA is a vending machine style entertainment box built for bars and venues. It lives in the corner and earns money around the clock.",
-    "features": {
-      "karaokeJukebox": {
-        "title": "Karaoke & Jukebox in One",
-        "description": "No separate setups. One sleek machine handles both karaoke nights and ambient music on demand."
+  "productReveal": {
+    "eyebrow": "The Machine",
+    "word1": "Karaoke.",
+    "word2": "Jukebox.",
+    "descriptor": "One device. Two experiences."
+  },
+  "howItWorks": {
+    "tag": "Simple by Design",
+    "headline": "Three taps.",
+    "headline2": "One night.",
+    "steps": {
+      "choose": {
+        "num": "01",
+        "title": "Choose a Song",
+        "desc": "Browse 25,000+ tracks on the touchscreen. Karaoke or music — your choice."
       },
-      "selfService": {
-        "title": "Guests Pay Per Song",
-        "description": "Customers browse, choose and pay directly on the machine. Typically 10 CZK per song. No staff needed."
+      "pay": {
+        "num": "02",
+        "title": "Pay Directly",
+        "desc": "Tap to pay. No app, no account, no staff needed. Just music."
+      },
+      "play": {
+        "num": "03",
+        "title": "It Plays",
+        "desc": "Your song queues up instantly. The crowd sings along."
+      }
+    }
+  },
+  "atmosphere": {
+    "tag": "Live in the Wild",
+    "venue": "Lemon Music Club",
+    "location": "Prague, Czech Republic",
+    "since": "Operating Since 2023",
+    "quote": "Our guests stay later and spend more. SVANDA basically runs itself.",
+    "quoteAuthor": "Lemon Music Club, Prague"
+  },
+  "benefits": {
+    "tag": "Why Bar Owners Choose SVANDA",
+    "headline1": "Passive",
+    "headline2": "Income.",
+    "headline3": "Zero Hassle.",
+    "cta": "Get SVANDA for Your Venue",
+    "items": {
+      "revenue": {
+        "title": "New Revenue Stream",
+        "desc": "Every song played earns you money. Guests pay directly at 10 CZK per song."
+      },
+      "noStaff": {
+        "title": "Zero Staff Needed",
+        "desc": "The machine handles song selection, payments, queuing, and playback."
       },
       "catalogue": {
         "title": "25,000+ Songs",
-        "description": "From pop to rock, hip hop to classics. An ever growing catalogue that covers every crowd and every mood."
+        "desc": "From classics to chart toppers. Karaoke and jukebox in one box."
       },
-      "revenue": {
-        "title": "Passive Venue Revenue",
-        "description": "Every song played generates income. The machine works for your venue 24/7, even during quiet hours."
-      }
-    }
-  },
-  "howItWorks": {
-    "tag": "How It Works",
-    "title1": "Three Steps to",
-    "title2": "Pure Enjoyment",
-    "subtitle": "The whole experience takes seconds. No apps, no accounts, no waiting. Just walk up, choose, and play.",
-    "steps": {
-      "browse": {
-        "title": "Browse the Catalogue",
-        "description": "Guests walk up to the machine and search from 25,000+ songs directly on the touchscreen."
-      },
-      "pay": {
-        "title": "Pay on the Machine",
-        "description": "One tap to pay. The integrated payment terminal accepts cards and contactless payments."
-      },
-      "play": {
-        "title": "Sing or Play",
-        "description": "The song plays through the system as karaoke with lyrics, or as music for the whole bar."
-      }
-    }
-  },
-  "gallery": {
-    "tag": "Real People. Real Bars.",
-    "title1": "The Atmosphere",
-    "title2": "Speaks for Itself."
-  },
-  "socialProof": {
-    "tag": "Trusted by Venues",
-    "titlePrefix": "Already Live at",
-    "subtitle": "The first SVANDA installation is running at Lemon Music Bar with real guests, real songs, and real results every night.",
-    "quote": "\"SVANDA completely changed our bar nights. Guests queue up to use it. The machine basically runs itself and earns us money while we focus on service.\"",
-    "authorName": "Owner Name",
-    "authorRole": "Owner",
-    "stat1Number": "1",
-    "stat1Label": "Live Venue",
-    "stat2Number": "Nightly",
-    "stat2Label": "Usage",
-    "stat3Number": "100%",
-    "stat3Label": "Satisfied"
-  },
-  "whyVenues": {
-    "tag": "Why Venues Choose SVANDA",
-    "title1": "Built for Bars.",
-    "title2": "Loved by Guests.",
-    "subtitle": "Everything your venue needs from an entertainment system and nothing it doesn't.",
-    "benefits": {
-      "twoInOne": {
-        "title": "Karaoke + Jukebox in One",
-        "description": "Replace two separate systems with one sleek machine. Karaoke nights and music only evenings both handled."
-      },
-      "selfService": {
-        "title": "Fully Self Service",
-        "description": "No dedicated staff needed. Guests interact, pay, and enjoy completely independently."
-      },
-      "affordable": {
-        "title": "Affordable for Venues",
-        "description": "Low upfront cost and simple installation. No complex setup, no monthly software surprises."
-      },
-      "revenue": {
-        "title": "Per Song Revenue",
-        "description": "Every song played generates direct income. The machine pays for itself and keeps earning."
-      },
-      "catalogue": {
-        "title": "25,000+ Song Catalogue",
-        "description": "Pop, rock, hip hop, folk, classics. Something for every guest, every night."
-      },
-      "presence": {
-        "title": "Eye Catching Presence",
-        "description": "The machine is a visual statement in your venue. Guests notice it, approach it, and come back for it."
-      }
-    }
-  },
-  "showcase": {
-    "tag": "The Machine",
-    "title1": "Designed to",
-    "title2": "Impress.",
-    "subtitle": "A physical machine that looks as good as it performs. Click the hotspots to explore its features.",
-    "hotspots": {
-      "screen": {
-        "label": "Touchscreen Interface",
-        "description": "Large HD touchscreen for browsing the full song catalogue."
-      },
-      "payment": {
-        "label": "Payment Terminal",
-        "description": "Contactless and card payments. No cash needed."
-      },
-      "speaker": {
-        "label": "Audio Output",
-        "description": "Connects directly to your venue sound system."
+      "setup": {
+        "title": "Full Service Included",
+        "desc": "We install, maintain, and update. You just collect the earnings."
       }
     }
   },

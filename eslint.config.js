@@ -66,5 +66,11 @@ export default [
       'no-magic-numbers': 'off',
     },
   },
+  {
+    files: ['**/constants/index.ts', 'src/constants/index.ts'],
+    rules: {
+      'no-magic-numbers': 'off',
+    },
+  },
   eslintConfigPrettier,
 ];

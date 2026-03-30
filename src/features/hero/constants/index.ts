@@ -1,5 +1,11 @@
 import { BlobConfig } from '../types';
 
+export const HERO_PARALLAX_SCROLL_RANGE = 800;
+export const HERO_PARALLAX_BLOBS_OFFSET = -240;
+export const HERO_PARALLAX_TEXT_OFFSET = -120;
+export const HERO_PARALLAX_PRODUCT_OFFSET = -60;
+export const HERO_PARALLAX_OPACITY_SCROLL_RANGE = 480;
+
 export const HERO_BLOBS: BlobConfig[] = [
   {
     id: 'blob-orange',
