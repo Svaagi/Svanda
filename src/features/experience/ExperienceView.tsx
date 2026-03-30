@@ -1,258 +1,363 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
 
 import CentralObject from './components/CentralObject';
 import MassiveMusicSection from './components/MassiveMusicSection';
 import styles from './experience.module.css';
 
+// ─── Per-panel motion values ─────────────────────────────────────────────────
+//
+// Each panel occupies [start → end] of scroll progress.
+// Within that range:  first 15% = fade in,  last 15% = fade out.
+//
+const usePanelMotion = (
+  progress: MotionValue<number>,
+  start: number,
+  end: number,
+) => {
+  const span = end - start;
+  const holdIn  = start + span * 0.15;
+  const holdOut = end   - span * 0.15;
+
+  return {
+    opacity: useTransform(progress, [start, holdIn, holdOut, end], [0, 1, 1, 0]),
+    xLeft:   useTransform(progress, [start, holdIn, holdOut, end], [-260, 0, 0,  200]),
+    xRight:  useTransform(progress, [start, holdIn, holdOut, end], [ 260, 0, 0, -200]),
+    yUp:     useTransform(progress, [start, holdIn, holdOut, end], [ -70, 0, 0,   50]),
+    yDown:   useTransform(progress, [start, holdIn, holdOut, end], [  70, 0, 0,  -50]),
+    scale:   useTransform(progress, [start, holdIn, holdOut, end], [0.88, 1, 1, 0.95]),
+  };
+};
+
+const BENEFITS = [
+  'Nový príjem bez námahy',
+  'Funguje bez obsluhy',
+  'Nonstop prevádzka',
+  'Jednoduchá inštalácia',
+] as const;
+
+const FEATURES = [
+  { label: 'Dizajn',     val: 'Elegantný & kompaktný' },
+  { label: 'Obsluha',    val: 'Samoobslužný' },
+  { label: 'Inštalácia', val: 'Plug & play' },
+  { label: 'Podpora',    val: 'Full servis zadarmo' },
+] as const;
+
 const ExperienceView = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: ref,
     offset: ['start start', 'end end'],
   });
 
-  // ── Central object rocking across panels ────────────────
-  const boxRotateY = useTransform(
-    scrollYProgress,
-    [0, 0.25, 0.5, 0.75, 1.0],
-    [-14, 16, -10, 14, -8],
-  );
+  // Box slowly rocks as user scrolls through all 6 panels
+  const boxRotateY = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [-16, 14, -10, 16]);
 
-  // ── Panel 1: KARAOKE / JUKEBOX  (0 → 0.25) ─────────────
-  const p1Opacity = useTransform(
-    scrollYProgress,
-    [0, 0.04, 0.21, 0.25],
-    [0, 1, 1, 0],
-  );
-  const p1KaraokeX = useTransform(
-    scrollYProgress,
-    [0, 0.07, 0.21, 0.25],
-    [-280, 0, 0, 180],
-  );
-  const p1JukeboxX = useTransform(
-    scrollYProgress,
-    [0, 0.07, 0.21, 0.25],
-    [280, 0, 0, -180],
-  );
-  const p1DescOpacity = useTransform(
-    scrollYProgress,
-    [0.07, 0.11, 0.20, 0.25],
-    [0, 1, 1, 0],
-  );
-
-  // ── Panel 2: HOW IT WORKS  (0.25 → 0.5) ────────────────
-  const p2Opacity = useTransform(
-    scrollYProgress,
-    [0.25, 0.29, 0.46, 0.50],
-    [0, 1, 1, 0],
-  );
-  const p2X = useTransform(
-    scrollYProgress,
-    [0.25, 0.32, 0.46, 0.50],
-    [320, 0, 0, -220],
-  );
-
-  // ── Panel 3: LEMON MUSIC CLUB  (0.5 → 0.75) ────────────
-  const p3Opacity = useTransform(
-    scrollYProgress,
-    [0.50, 0.54, 0.71, 0.75],
-    [0, 1, 1, 0],
-  );
-  const p3Scale = useTransform(scrollYProgress, [0.50, 0.58], [0.88, 1]);
-  const p3LemonY = useTransform(
-    scrollYProgress,
-    [0.50, 0.57, 0.71, 0.75],
-    [-50, 0, 0, -30],
-  );
-  const p3MusicY = useTransform(
-    scrollYProgress,
-    [0.50, 0.57, 0.71, 0.75],
-    [50, 0, 0, 30],
-  );
-
-  // ── Panel 4: PASSIVE INCOME  (0.75 → 1.0) ──────────────
-  const p4Opacity = useTransform(
-    scrollYProgress,
-    [0.75, 0.79, 0.96, 1.00],
-    [0, 1, 1, 0],
-  );
-  const p4PassiveX = useTransform(
-    scrollYProgress,
-    [0.75, 0.83, 0.96, 1.00],
-    [-260, 0, 0, 160],
-  );
-  const p4IncomeX = useTransform(
-    scrollYProgress,
-    [0.75, 0.83, 0.96, 1.00],
-    [260, 0, 0, -160],
-  );
-  const p4BenefitsY = useTransform(
-    scrollYProgress,
-    [0.75, 0.84],
-    [60, 0],
-  );
-
-  const BENEFITS = [
-    'New Revenue Stream',
-    'Zero Staff Needed',
-    '25,000+ Songs',
-    'Full Service Included',
-  ];
+  // 6 panels, each gets 1/6 of the scroll space (= 100 vh per panel)
+  const SEG = 1 / 6;
+  const p1 = usePanelMotion(scrollYProgress, 0,         SEG);
+  const p2 = usePanelMotion(scrollYProgress, SEG,       SEG * 2);
+  const p3 = usePanelMotion(scrollYProgress, SEG * 2,   SEG * 3);
+  const p4 = usePanelMotion(scrollYProgress, SEG * 3,   SEG * 4);
+  const p5 = usePanelMotion(scrollYProgress, SEG * 4,   SEG * 5);
+  const p6 = usePanelMotion(scrollYProgress, SEG * 5,   1.0);
 
   return (
     <>
-      {/* ─── SCROLL DRIVER ────────────────────────────────── */}
-      <div ref={containerRef} className={styles.stickyWrapper}>
+      {/* 600 vh scroll driver — sticky stage pins inside */}
+      <div ref={ref} className={styles.experienceWrapper}>
         <div className={styles.stickyStage}>
 
-          {/* ── Central Object (always visible, z:10) ──────── */}
+          {/* ════════════════════════════════════════════════════
+              CENTRAL OBJECT — always centered, z: 10
+              Floats + rocks via boxRotateY driven by scroll
+              ════════════════════════════════════════════════ */}
           <CentralObject rotateY={boxRotateY} />
 
-          {/* ══════════════════════════════════════════════════
-              PANEL 1 — KARAOKE / JUKEBOX
+          {/* ════════════════════════════════════════════════════
+              PANEL 1 — INTRO
+              "JUKEBOX NOVEJ GENERÁCIE" slides from top (behind box)
+              Descriptor slides from right (in front)
               ════════════════════════════════════════════════ */}
 
-          {/* "KARAOKE." — in front of box, z:15 */}
-          <motion.div
-            className={styles.p1Karaoke}
-            style={{ opacity: p1Opacity, x: p1KaraokeX }}
-          >
-            KARAOKE.
-          </motion.div>
+          {/* Title — BEHIND box (z:5) */}
+          <div className={`${styles.abs} ${styles.zBehind}`} style={{ top: '5%', left: '-1%' }}>
+            <motion.div
+              className={styles.displayMassive}
+              style={{ opacity: p1.opacity, y: p1.yUp }}
+            >
+              JUKEBOX<br />NOVEJ<br />GENERÁCIE
+            </motion.div>
+          </div>
 
-          {/* "JUKEBOX." — behind box, z:5 */}
-          <motion.div
-            className={styles.p1Jukebox}
-            style={{ opacity: p1Opacity, x: p1JukeboxX }}
-          >
-            JUKEBOX.
-          </motion.div>
+          {/* Descriptor — IN FRONT of box (z:15) */}
+          <div className={`${styles.abs} ${styles.zFront}`} style={{ right: '6%', bottom: '18%' }}>
+            <motion.div style={{ opacity: p1.opacity, x: p1.xRight }}>
+              <span className={styles.tag}>SVANDA — Produkt</span>
+              <p className={styles.body}>
+                Samoobslužný systém pre bary.<br />
+                Karaoke aj jukebox v jednom zariadení.
+              </p>
+              <span className={styles.micro}>Praha · V prevádzke od 2023</span>
+            </motion.div>
+          </div>
 
-          {/* Small descriptor */}
-          <motion.div
-            className={styles.p1Desc}
-            style={{ opacity: p1DescOpacity }}
-          >
-            <span>One device.</span>
-            <span>Two experiences.</span>
-          </motion.div>
-
-          {/* ══════════════════════════════════════════════════
-              PANEL 2 — HOW IT WORKS
-              ════════════════════════════════════════════════ */}
-          <motion.div
-            className={styles.panel2}
-            style={{ opacity: p2Opacity, x: p2X }}
-          >
-            <div className={styles.p2Step}>
-              <span className={styles.p2Num}>01</span>
-              <div className={styles.p2StepText}>
-                <span className={styles.p2Title}>Choose a Song</span>
-                <span className={styles.p2StepDesc}>
-                  25,000+ tracks on the touchscreen
-                </span>
-              </div>
-            </div>
-
-            <div className={styles.p2Divider} />
-
-            <div className={styles.p2Step}>
-              <span className={styles.p2Num}>02</span>
-              <div className={styles.p2StepText}>
-                <span className={styles.p2Title}>Tap to Pay</span>
-                <span className={styles.p2StepDesc}>
-                  No app. No staff. 10 CZK per song.
-                </span>
-              </div>
-            </div>
-
-            <div className={styles.p2Divider} />
-
-            <div className={styles.p2Step}>
-              <span className={styles.p2Num}>03</span>
-              <div className={styles.p2StepText}>
-                <span className={styles.p2Title}>It Plays</span>
-                <span className={styles.p2StepDesc}>
-                  Your song queues up instantly.
-                </span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* ══════════════════════════════════════════════════
-              PANEL 3 — LEMON MUSIC CLUB
+          {/* ════════════════════════════════════════════════════
+              PANEL 2 — WHAT IT IS
+              "KARAOKE." slides from left (in front, z:15)
+              "JUKEBOX." slides from right (behind, z:5)
+              Side text from right
               ════════════════════════════════════════════════ */}
 
-          {/* "LEMON" — behind box, z:5 */}
-          <motion.div
-            className={styles.p3Lemon}
-            style={{ opacity: p3Opacity, y: p3LemonY }}
-          >
-            LEMON
-          </motion.div>
+          {/* KARAOKE — IN FRONT */}
+          <div className={`${styles.abs} ${styles.zFront}`} style={{ top: '7%', left: '-1%' }}>
+            <motion.div
+              className={styles.displayHuge}
+              style={{ opacity: p2.opacity, x: p2.xLeft }}
+            >
+              KARAOKE.
+            </motion.div>
+          </div>
 
-          {/* "MUSIC CLUB" — in front of box, z:15 */}
-          <motion.div
-            className={styles.p3MusicClub}
-            style={{ opacity: p3Opacity, y: p3MusicY }}
-          >
-            MUSIC CLUB
-          </motion.div>
+          {/* JUKEBOX — BEHIND */}
+          <div className={`${styles.abs} ${styles.zBehind}`} style={{ bottom: '7%', right: '-1%' }}>
+            <motion.div
+              className={`${styles.displayHuge} ${styles.textRight}`}
+              style={{ opacity: p2.opacity, x: p2.xRight }}
+            >
+              JUKEBOX.
+            </motion.div>
+          </div>
 
-          {/* Photo + quote — z:8 */}
-          <motion.div
-            className={styles.p3Content}
-            style={{ opacity: p3Opacity, scale: p3Scale }}
-          >
-            <div className={styles.p3Photo}>
-              {/* REPLACE: <img src="/photos/lemon-music-club.jpg" alt="Lemon Music Club" /> */}
-              <span className={styles.p3PhotoLabel}>PHOTO</span>
-            </div>
-            <blockquote className={styles.p3Quote}>
-              "Our guests stay later and spend more."
-              <cite className={styles.p3Cite}>— Lemon Music Club, Prague</cite>
-            </blockquote>
-          </motion.div>
+          {/* Side text — MID */}
+          <div className={`${styles.abs} ${styles.zMid}`} style={{ right: '7%', top: '50%', transform: 'translateY(-50%)' }}>
+            <motion.div style={{ opacity: p2.opacity, x: p2.xRight }}>
+              <span className={styles.tag}>Čo je SVANDA</span>
+              <p className={styles.body}>
+                Karaoke aj jukebox v jednom stroji.<br />
+                Hostia si vyberajú a platia sami.
+              </p>
+              <p className={styles.body} style={{ marginTop: 10 }}>
+                Bez obsluhy. Bez aplikácie.<br />
+                Zapneš — funguje.
+              </p>
+            </motion.div>
+          </div>
 
-          {/* ══════════════════════════════════════════════════
-              PANEL 4 — PASSIVE INCOME
+          {/* ════════════════════════════════════════════════════
+              PANEL 3 — HOW IT WORKS
+              Big bg numbers "01 02 03" from left (behind, z:5)
+              Step detail panel from right (front, z:15)
               ════════════════════════════════════════════════ */}
 
-          {/* "PASSIVE" — behind box, z:5 */}
-          <motion.div
-            className={styles.p4Passive}
-            style={{ opacity: p4Opacity, x: p4PassiveX }}
+          {/* Background numbers — BEHIND */}
+          <div
+            className={`${styles.abs} ${styles.zBehind}`}
+            style={{ left: '3%', top: '50%', transform: 'translateY(-50%)' }}
           >
-            PASSIVE
-          </motion.div>
+            <motion.div
+              className={styles.bgNumbers}
+              style={{ opacity: p3.opacity, x: p3.xLeft }}
+            >
+              <span>01</span>
+              <span>02</span>
+              <span>03</span>
+            </motion.div>
+          </div>
 
-          {/* "INCOME." — in front of box, z:15 */}
-          <motion.div
-            className={styles.p4Income}
-            style={{ opacity: p4Opacity, x: p4IncomeX }}
+          {/* Step details — IN FRONT */}
+          <div
+            className={`${styles.abs} ${styles.zFront}`}
+            style={{ right: '5%', top: '50%', transform: 'translateY(-50%)' }}
           >
-            INCOME.
-          </motion.div>
+            <motion.div
+              className={styles.stepsPanel}
+              style={{ opacity: p3.opacity, x: p3.xRight }}
+            >
+              <span className={styles.tag}>Ako to funguje</span>
 
-          {/* Benefit list — z:12 */}
-          <motion.div
-            className={styles.p4Benefits}
-            style={{ opacity: p4Opacity, y: p4BenefitsY }}
-          >
-            {BENEFITS.map((b) => (
-              <div key={b} className={styles.p4BenefitItem}>
-                <span className={styles.p4BenefitDot} />
-                {b}
+              <div className={styles.stepRow}>
+                <span className={styles.stepNum}>01</span>
+                <div>
+                  <div className={styles.stepTitle}>Vyber skladbu</div>
+                  <div className={styles.stepDesc}>25 000+ skladieb na dotykovej obrazovke</div>
+                </div>
               </div>
-            ))}
-          </motion.div>
+
+              <div className={styles.stepDivider} />
+
+              <div className={styles.stepRow}>
+                <span className={styles.stepNum}>02</span>
+                <div>
+                  <div className={styles.stepTitle}>Zaplať priamo</div>
+                  <div className={styles.stepDesc}>Bez obsluhy. Bez aplikácie. 10 CZK / pieseň.</div>
+                </div>
+              </div>
+
+              <div className={styles.stepDivider} />
+
+              <div className={styles.stepRow}>
+                <span className={styles.stepNum}>03</span>
+                <div>
+                  <div className={styles.stepTitle}>Hudba hrá</div>
+                  <div className={styles.stepDesc}>Tvoja pieseň sa spustí okamžite.</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ════════════════════════════════════════════════════
+              PANEL 4 — BENEFITS
+              "PASÍVNY" from left top (behind)
+              "PRÍJEM." from right bottom (front)
+              List from bottom left (mid)
+              ════════════════════════════════════════════════ */}
+
+          {/* PASÍVNY — BEHIND */}
+          <div className={`${styles.abs} ${styles.zBehind}`} style={{ top: '7%', left: '-1%' }}>
+            <motion.div
+              className={styles.displayLarge}
+              style={{ opacity: p4.opacity, x: p4.xLeft }}
+            >
+              PASÍVNY
+            </motion.div>
+          </div>
+
+          {/* PRÍJEM — IN FRONT */}
+          <div className={`${styles.abs} ${styles.zFront}`} style={{ bottom: '7%', right: '-1%' }}>
+            <motion.div
+              className={`${styles.displayLarge} ${styles.textRight}`}
+              style={{ opacity: p4.opacity, x: p4.xRight }}
+            >
+              PRÍJEM.
+            </motion.div>
+          </div>
+
+          {/* Benefits list — MID */}
+          <div className={`${styles.abs} ${styles.zMid}`} style={{ left: '6%', bottom: '20%' }}>
+            <motion.div style={{ opacity: p4.opacity, y: p4.yDown }}>
+              <span className={styles.tag}>Výhody pre podnik</span>
+              <div className={styles.benefitsList}>
+                {BENEFITS.map((b) => (
+                  <div key={b} className={styles.benefitItem}>
+                    <span className={styles.benefitDot} />
+                    {b}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ════════════════════════════════════════════════════
+              PANEL 5 — LEMON MUSIC CLUB
+              "LEMON" drops from top center (behind)
+              "MUSIC CLUB" rises from bottom center (front)
+              Photo + quote reveals on left (mid)
+              ════════════════════════════════════════════════ */}
+
+          {/* LEMON — BEHIND, top center */}
+          <div
+            className={`${styles.abs} ${styles.zBehind}`}
+            style={{ top: '4%', left: '50%', transform: 'translateX(-50%)' }}
+          >
+            <motion.div
+              className={`${styles.displayHuge} ${styles.textCenter}`}
+              style={{ opacity: p5.opacity, y: p5.yUp }}
+            >
+              LEMON
+            </motion.div>
+          </div>
+
+          {/* MUSIC CLUB — IN FRONT, bottom center */}
+          <div
+            className={`${styles.abs} ${styles.zFront}`}
+            style={{ bottom: '5%', left: '50%', transform: 'translateX(-50%)' }}
+          >
+            <motion.div
+              className={`${styles.displayLarge} ${styles.textCenter}`}
+              style={{ opacity: p5.opacity, y: p5.yDown }}
+            >
+              MUSIC CLUB
+            </motion.div>
+          </div>
+
+          {/* Venue card — MID, left side */}
+          <div
+            className={`${styles.abs} ${styles.zMid}`}
+            style={{ left: '5%', top: '50%', transform: 'translateY(-50%)' }}
+          >
+            <motion.div
+              className={styles.venueCard}
+              style={{ opacity: p5.opacity, scale: p5.scale }}
+            >
+              <div className={styles.venuePlaceholder}>
+                {/* REPLACE: <img src="/photos/lemon-music-club.jpg" alt="Lemon Music Club" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> */}
+                <span className={styles.photoLabel}>PHOTO</span>
+              </div>
+              <span className={styles.tag}>Už v prevádzke · Praha</span>
+              <blockquote className={styles.venueQuote}>
+                "Hostia zostávajú dlhšie a míňajú viac."
+                <cite className={styles.venueCite}>— Lemon Music Club</cite>
+              </blockquote>
+            </motion.div>
+          </div>
+
+          {/* ════════════════════════════════════════════════════
+              PANEL 6 — PRODUCT PRESENCE
+              "SVANDA" ghost text centered, scales in (behind)
+              Feature list from right (front)
+              Tagline from bottom center (front)
+              ════════════════════════════════════════════════ */}
+
+          {/* Ghost SVANDA — BEHIND, center */}
+          <div
+            className={`${styles.abs} ${styles.zBehind}`}
+            style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+          >
+            <motion.div
+              className={`${styles.displayMassive} ${styles.ghost} ${styles.textCenter}`}
+              style={{ opacity: p6.opacity, scale: p6.scale }}
+            >
+              SVANDA
+            </motion.div>
+          </div>
+
+          {/* Feature list — IN FRONT, right side */}
+          <div
+            className={`${styles.abs} ${styles.zFront}`}
+            style={{ right: '6%', top: '50%', transform: 'translateY(-50%)' }}
+          >
+            <motion.div style={{ opacity: p6.opacity, x: p6.xRight }}>
+              <span className={styles.tag}>Produkt</span>
+              <div className={styles.featureList}>
+                {FEATURES.map(({ label, val }) => (
+                  <div key={label} className={styles.featureRow}>
+                    <span className={styles.featureLabel}>{label}</span>
+                    <span className={styles.featureVal}>{val}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Tagline — IN FRONT, bottom center */}
+          <div
+            className={`${styles.abs} ${styles.zFront}`}
+            style={{ bottom: '10%', left: '50%', transform: 'translateX(-50%)' }}
+          >
+            <motion.div
+              className={`${styles.productTagline} ${styles.textCenter}`}
+              style={{ opacity: p6.opacity, y: p6.yDown }}
+            >
+              Výrazný prvok každého podniku.
+            </motion.div>
+          </div>
 
         </div>
       </div>
 
-      {/* ─── MASSIVE MUSIC SECTION ───────────────────────── */}
+      {/* ── Dark color-shifting section after sticky ── */}
       <MassiveMusicSection />
     </>
   );

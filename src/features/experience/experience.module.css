@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════
-   STICKY SCROLL EXPERIENCE
+   STRUCTURE — sticky scroll wrapper
    ══════════════════════════════════════════════════════════ */
 
-.stickyWrapper {
-  height: 500vh;
-  position: relative;
+.experienceWrapper {
+  /* 6 panels × 100 vh scroll space each */
+  height: 600vh;
 }
 
 .stickyStage {
@@ -13,13 +13,29 @@
   height: 100vh;
   overflow: hidden;
   background: #ffffff;
-  /* isolate stacking context for z-index layering */
+  /* own stacking context */
   isolation: isolate;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CENTRAL OBJECT — karaoke machine box
-   z-index: 10  (text can go above [15] or below [5])
+   POSITIONING HELPERS
+   Used as wrapper divs around motion.div to separate
+   position: absolute + centering from Framer Motion transforms.
+   ══════════════════════════════════════════════════════════ */
+
+.abs {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* z-index text layers relative to box (z:10) */
+.zBehind { z-index: 5; }
+.zMid    { z-index: 12; }
+.zFront  { z-index: 15; }
+
+/* ═══════════════════════════════════════════════════════════
+   CENTRAL OBJECT — karaoke machine
    ══════════════════════════════════════════════════════════ */
 
 .centralWrapper {
@@ -35,17 +51,17 @@
 }
 
 .blackBox {
-  width: clamp(130px, 13vw, 190px);
-  height: clamp(190px, 19vw, 280px);
-  background: linear-gradient(160deg, #1e1e1e 0%, #0a0a0a 55%, #131313 100%);
-  border-radius: clamp(12px, 1.4vw, 18px);
+  width: clamp(120px, 11vw, 170px);
+  height: clamp(180px, 17vw, 260px);
+  background: linear-gradient(160deg, #1e1e1e 0%, #0a0a0a 55%, #141414 100%);
+  border-radius: clamp(10px, 1.2vw, 16px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
     inset 0 -1px 0 rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(0, 0, 0, 0.8),
-    0 40px 80px rgba(0, 0, 0, 0.55),
-    0 8px 24px rgba(0, 0, 0, 0.35);
+    0 40px 80px rgba(0, 0, 0, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -55,11 +71,11 @@
   top: 12%;
   left: 10%;
   right: 10%;
-  height: 37%;
+  height: 36%;
   background: #04040e;
-  border-radius: 7px;
-  overflow: hidden;
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,37 +84,33 @@
 .boxScreenGlow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 50% 35%,
-    rgba(60, 100, 255, 0.14) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at 50% 35%, rgba(60, 100, 255, 0.14) 0%, transparent 70%);
 }
 
 .boxScreenLabel {
   position: relative;
   z-index: 1;
   font-family: var(--font-display);
-  font-size: clamp(10px, 1.2vw, 16px);
+  font-size: clamp(9px, 1vw, 14px);
   font-weight: 700;
   letter-spacing: 0.22em;
-  color: rgba(80, 120, 255, 0.55);
+  color: rgba(80, 120, 255, 0.5);
   text-transform: uppercase;
 }
 
 .boxSpeakers {
   position: absolute;
-  bottom: 27%;
+  bottom: 28%;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
-  gap: clamp(7px, 0.9vw, 12px);
+  gap: clamp(6px, 0.8vw, 10px);
 }
 
 .boxSpeakerDot {
-  width: clamp(5px, 0.7vw, 9px);
-  height: clamp(5px, 0.7vw, 9px);
+  width: clamp(4px, 0.6vw, 8px);
+  height: clamp(4px, 0.6vw, 8px);
   border-radius: 50%;
   background: #181818;
   border: 1px solid rgba(255, 255, 255, 0.04);
@@ -106,12 +118,12 @@
 
 .boxPayment {
   position: absolute;
-  bottom: 9%;
+  bottom: 10%;
   left: 10%;
   right: 10%;
-  height: clamp(16px, 1.8vw, 24px);
+  height: clamp(14px, 1.6vw, 20px);
   background: #111111;
-  border-radius: 5px;
+  border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.04);
   display: flex;
   align-items: center;
@@ -121,301 +133,179 @@
 .boxPaymentBar {
   height: 3px;
   width: 48%;
-  background: rgba(80, 120, 255, 0.18);
+  background: rgba(80, 120, 255, 0.16);
   border-radius: 2px;
 }
 
 .boxShadow {
-  width: clamp(90px, 10vw, 140px);
-  height: 18px;
-  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.28) 0%, transparent 70%);
+  width: clamp(80px, 9vw, 130px);
+  height: 16px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.25) 0%, transparent 70%);
   border-radius: 50%;
   margin-top: 6px;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PANEL 1 — KARAOKE / JUKEBOX
+   TYPOGRAPHY — display scale
    ══════════════════════════════════════════════════════════ */
 
-/* In FRONT of box — z: 15 */
-.p1Karaoke {
-  position: absolute;
-  top: 5%;
-  left: -2%;
+.displayMassive {
   font-family: var(--font-display);
-  font-size: clamp(80px, 18vw, 240px);
+  font-size: clamp(72px, 15vw, 210px);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  color: #0a0a0a;
+  white-space: nowrap;
+}
+
+.displayHuge {
+  font-family: var(--font-display);
+  font-size: clamp(62px, 13vw, 180px);
   font-weight: 900;
   letter-spacing: -0.05em;
   line-height: 0.88;
   color: #0a0a0a;
-  z-index: 15;
-  pointer-events: none;
   white-space: nowrap;
-  user-select: none;
 }
 
-/* BEHIND box — z: 5 */
-.p1Jukebox {
-  position: absolute;
-  bottom: 7%;
-  right: -2%;
+.displayLarge {
   font-family: var(--font-display);
-  font-size: clamp(80px, 18vw, 240px);
+  font-size: clamp(48px, 9.5vw, 135px);
   font-weight: 900;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   line-height: 0.88;
   color: #0a0a0a;
-  z-index: 5;
-  pointer-events: none;
   white-space: nowrap;
-  text-align: right;
-  user-select: none;
 }
 
-.p1Desc {
-  position: absolute;
-  top: 50%;
-  right: 7%;
-  transform: translateY(-50%);
-  z-index: 12;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  pointer-events: none;
+/* ghost — very light version for background layer */
+.ghost {
+  color: #ebebeb;
 }
 
-.p1Desc span {
-  font-family: var(--font-primary);
-  font-size: clamp(11px, 1.4vw, 18px);
-  font-weight: 500;
-  color: #888;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.textRight  { text-align: right; }
+.textCenter { text-align: center; }
+
+/* ═══════════════════════════════════════════════════════════
+   CONTENT ELEMENTS — shared across panels
+   ══════════════════════════════════════════════════════════ */
+
+.tag {
   display: block;
+  font-family: var(--font-primary);
+  font-size: clamp(9px, 0.85vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: clamp(8px, 1vw, 14px);
+}
+
+.body {
+  font-family: var(--font-primary);
+  font-size: clamp(12px, 1.25vw, 16px);
+  font-weight: 400;
+  color: #444;
+  line-height: 1.6;
+  margin: 0;
+  max-width: clamp(200px, 24vw, 300px);
+}
+
+.micro {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-primary);
+  font-size: clamp(9px, 0.8vw, 10px);
+  color: #ccc;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PANEL 2 — HOW IT WORKS (slides from right)
-   z: 12
+   PANEL 3 — HOW IT WORKS
    ══════════════════════════════════════════════════════════ */
 
-.panel2 {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44%;
+.bgNumbers {
   display: flex;
   flex-direction: column;
-  z-index: 12;
-  padding-right: 6%;
-  pointer-events: none;
+  font-family: var(--font-display);
+  font-size: clamp(66px, 13vw, 170px);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.84;
+  color: #efefef;
 }
 
-.p2Step {
+.stepsPanel {
+  width: clamp(220px, 30vw, 400px);
+  display: flex;
+  flex-direction: column;
+}
+
+.stepRow {
   display: flex;
   align-items: flex-start;
-  gap: clamp(16px, 2vw, 28px);
-  padding: clamp(16px, 2.2vw, 28px) 0;
+  gap: clamp(12px, 1.6vw, 22px);
+  padding: clamp(14px, 1.8vw, 22px) 0;
 }
 
-.p2Divider {
+.stepDivider {
   height: 1px;
-  background: #ebebeb;
+  background: #f0f0f0;
 }
 
-.p2Num {
+.stepNum {
   font-family: var(--font-display);
-  font-size: clamp(40px, 6vw, 80px);
+  font-size: clamp(34px, 5vw, 68px);
   font-weight: 900;
-  color: #e0e0e0;
+  color: #ddd;
   line-height: 1;
   letter-spacing: -0.04em;
   flex-shrink: 0;
-  width: clamp(52px, 7.5vw, 100px);
+  width: clamp(46px, 6.5vw, 82px);
 }
 
-.p2StepText {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding-top: 6px;
-}
-
-.p2Title {
+.stepTitle {
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.2vw, 30px);
+  font-size: clamp(15px, 1.8vw, 24px);
   font-weight: 700;
   color: #111;
   line-height: 1.1;
+  padding-top: 4px;
 }
 
-.p2StepDesc {
+.stepDesc {
   font-family: var(--font-primary);
-  font-size: clamp(11px, 1.1vw, 15px);
-  color: #999;
+  font-size: clamp(10px, 0.95vw, 13px);
+  color: #aaa;
   font-weight: 400;
-  line-height: 1.45;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   PANEL 3 — LEMON MUSIC CLUB
-   ══════════════════════════════════════════════════════════ */
-
-/* BEHIND box — z: 5 */
-.p3Lemon {
-  position: absolute;
-  top: 2%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-size: clamp(90px, 19vw, 250px);
-  font-weight: 900;
-  letter-spacing: -0.06em;
-  line-height: 0.85;
-  color: #0a0a0a;
-  z-index: 5;
-  pointer-events: none;
-  white-space: nowrap;
-  user-select: none;
-}
-
-/* IN FRONT of box — z: 15 */
-.p3MusicClub {
-  position: absolute;
-  bottom: 4%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-size: clamp(54px, 10vw, 136px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.88;
-  color: #0a0a0a;
-  z-index: 15;
-  pointer-events: none;
-  white-space: nowrap;
-  user-select: none;
-}
-
-/* Photo + quote — z: 8 */
-.p3Content {
-  position: absolute;
-  left: 5%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 8;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(14px, 1.8vw, 22px);
-  pointer-events: none;
-  max-width: clamp(200px, 22vw, 300px);
-}
-
-.p3Photo {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: #161616;
-  border-radius: 4px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* REPLACE with: <img src="lemon-music-club-photo.jpg" alt="Lemon Music Club" /> */
-}
-
-.p3PhotoLabel {
-  font-family: var(--font-primary);
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: #444;
-  text-transform: uppercase;
-}
-
-.p3Quote {
-  font-family: var(--font-primary);
-  font-size: clamp(13px, 1.4vw, 18px);
-  font-style: italic;
-  color: #333;
   line-height: 1.5;
-  border-left: 2px solid #0a0a0a;
-  padding-left: 14px;
-  margin: 0;
-}
-
-.p3Cite {
-  display: block;
-  font-style: normal;
-  font-size: clamp(10px, 1vw, 13px);
-  color: #999;
-  margin-top: 8px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  margin-top: 4px;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PANEL 4 — PASSIVE INCOME
+   PANEL 4 — BENEFITS
    ══════════════════════════════════════════════════════════ */
 
-/* BEHIND box — z: 5 */
-.p4Passive {
-  position: absolute;
-  top: 10%;
-  left: -2%;
-  font-family: var(--font-display);
-  font-size: clamp(70px, 15vw, 200px);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  color: #0a0a0a;
-  z-index: 5;
-  pointer-events: none;
-  white-space: nowrap;
-  user-select: none;
-}
-
-/* IN FRONT of box — z: 15 */
-.p4Income {
-  position: absolute;
-  bottom: 12%;
-  right: -2%;
-  font-family: var(--font-display);
-  font-size: clamp(70px, 15vw, 200px);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  color: #0a0a0a;
-  z-index: 15;
-  pointer-events: none;
-  white-space: nowrap;
-  text-align: right;
-  user-select: none;
-}
-
-/* Benefits list — z: 12 */
-.p4Benefits {
-  position: absolute;
-  left: 6%;
-  bottom: 12%;
-  z-index: 12;
+.benefitsList {
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.2vw, 16px);
-  pointer-events: none;
+  gap: clamp(8px, 1vw, 13px);
+  margin-top: 10px;
 }
 
-.p4BenefitItem {
+.benefitItem {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-family: var(--font-primary);
-  font-size: clamp(13px, 1.4vw, 18px);
+  font-size: clamp(12px, 1.2vw, 16px);
   font-weight: 600;
   color: #111;
 }
 
-.p4BenefitDot {
+.benefitDot {
   display: inline-block;
   width: 5px;
   height: 5px;
@@ -425,7 +315,106 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   MASSIVE MUSIC SECTION  — dark color-shifting background
+   PANEL 5 — LEMON MUSIC CLUB
+   ══════════════════════════════════════════════════════════ */
+
+.venueCard {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.3vw, 16px);
+  max-width: clamp(180px, 20vw, 260px);
+}
+
+.venuePlaceholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #161616;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photoLabel {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: #555;
+  text-transform: uppercase;
+  font-family: var(--font-primary);
+}
+
+.venueQuote {
+  font-family: var(--font-primary);
+  font-size: clamp(12px, 1.2vw, 16px);
+  font-style: italic;
+  color: #333;
+  line-height: 1.55;
+  border-left: 2px solid #111;
+  padding-left: 14px;
+  margin: 0;
+}
+
+.venueCite {
+  display: block;
+  font-style: normal;
+  font-size: clamp(9px, 0.85vw, 11px);
+  color: #aaa;
+  margin-top: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PANEL 6 — PRODUCT
+   ══════════════════════════════════════════════════════════ */
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 14px;
+  width: clamp(180px, 22vw, 280px);
+}
+
+.featureRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(10px, 1.2vw, 16px) 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 16px;
+}
+
+.featureLabel {
+  font-family: var(--font-primary);
+  font-size: clamp(9px, 0.85vw, 11px);
+  font-weight: 600;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  flex-shrink: 0;
+}
+
+.featureVal {
+  font-family: var(--font-primary);
+  font-size: clamp(11px, 1vw, 14px);
+  font-weight: 500;
+  color: #111;
+  text-align: right;
+}
+
+.productTagline {
+  font-family: var(--font-primary);
+  font-size: clamp(12px, 1.3vw, 18px);
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MASSIVE MUSIC SECTION — dark animated background
    ══════════════════════════════════════════════════════════ */
 
 .massiveSection {
@@ -486,41 +475,41 @@
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 0.88;
-  color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.2);
   display: block;
   margin-top: clamp(6px, 1.2vw, 18px);
   user-select: none;
 }
 
 .massiveTagline {
-  margin-top: clamp(28px, 4.5vw, 56px);
+  margin-top: clamp(28px, 4vw, 52px);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
   font-family: var(--font-primary);
-  font-size: clamp(11px, 1.3vw, 17px);
+  font-size: clamp(10px, 1.2vw, 16px);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.28);
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .massiveTaglineDot {
-  color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.1);
 }
 
 .massiveCta {
   margin-top: clamp(28px, 4vw, 48px);
   display: inline-block;
-  padding: clamp(14px, 1.5vw, 18px) clamp(28px, 3vw, 42px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: clamp(13px, 1.4vw, 17px) clamp(28px, 3vw, 42px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
   font-family: var(--font-primary);
-  font-size: clamp(12px, 1.2vw, 16px);
+  font-size: clamp(11px, 1.1vw, 15px);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
@@ -529,7 +518,7 @@
 }
 
 .massiveCta:hover {
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.55);
   color: #fff;
   background: rgba(255, 255, 255, 0.05);
 }
