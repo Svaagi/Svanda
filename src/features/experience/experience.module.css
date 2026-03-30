@@ -1,31 +1,40 @@
 /* ═══════════════════════════════════════════════════════════
-   STRUCTURE
+   SCROLL WRAPPER + STICKY STAGE
    ══════════════════════════════════════════════════════════ */
 
 .experienceWrapper {
-  /* height set via inline style from SCROLL_HEIGHT_VH constant */
+  /* height set inline from SCROLL_HEIGHT_VH constant */
 }
 
 .stickyStage {
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
+  overflow: hidden;          /* clips off-screen panel containers      */
   background: #ffffff;
-  isolation: isolate;
+  isolation: isolate;        /* own stacking context                   */
 }
 
-/* ─── Positioning helpers ───────────────────────────────── */
+/* ─── Panel container ───────────────────────────────────────
+   Each panel is a full-stage absolute layer.
+   X or Y transform slides the WHOLE panel on/off screen.
+   Panels are always opacity:1 — off-screen ones are simply
+   clipped by overflow:hidden on .stickyStage.
+   ─────────────────────────────────────────────────────────── */
+
+.panel {
+  position: absolute;
+  inset: 0;
+  /* no z-index → box (z:10) always renders above all panels  */
+}
+
+/* ─── Intra-panel positioning ───────────────────────────── */
 
 .abs {
   position: absolute;
   pointer-events: none;
   user-select: none;
 }
-
-.zBehind { z-index: 5; }
-.zMid    { z-index: 12; }
-.zFront  { z-index: 15; }
 
 /* ═══════════════════════════════════════════════════════════
    CENTRAL OBJECT
@@ -36,7 +45,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 10;               /* above all panel containers              */
   pointer-events: none;
   display: flex;
   flex-direction: column;
@@ -61,17 +70,15 @@
 
 .boxScreen {
   position: absolute;
-  top: 12%;
-  left: 10%;
-  right: 10%;
+  top: 12%; left: 10%; right: 10%;
   height: 36%;
   background: #04040e;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.04);
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .boxScreenGlow {
@@ -93,9 +100,7 @@
 
 .boxSpeakers {
   position: absolute;
-  bottom: 28%;
-  left: 0;
-  right: 0;
+  bottom: 28%; left: 0; right: 0;
   display: flex;
   justify-content: center;
   gap: clamp(6px, 0.8vw, 10px);
@@ -111,9 +116,7 @@
 
 .boxPayment {
   position: absolute;
-  bottom: 10%;
-  left: 10%;
-  right: 10%;
+  bottom: 10%; left: 10%; right: 10%;
   height: clamp(14px, 1.6vw, 20px);
   background: #111111;
   border-radius: 4px;
@@ -144,7 +147,7 @@
 
 .displayMassive {
   font-family: var(--font-display);
-  font-size: clamp(72px, 15vw, 210px);
+  font-size: clamp(72px, 14vw, 200px);
   font-weight: 900;
   letter-spacing: -0.05em;
   line-height: 0.85;
@@ -153,7 +156,7 @@
 
 .displayHuge {
   font-family: var(--font-display);
-  font-size: clamp(62px, 13vw, 180px);
+  font-size: clamp(60px, 12vw, 170px);
   font-weight: 900;
   letter-spacing: -0.05em;
   line-height: 0.88;
@@ -163,7 +166,7 @@
 
 .displayLarge {
   font-family: var(--font-display);
-  font-size: clamp(44px, 8.5vw, 120px);
+  font-size: clamp(44px, 8vw, 115px);
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 0.88;
@@ -171,10 +174,9 @@
   white-space: nowrap;
 }
 
-.ghost { color: #e8e8e8; }
-
-.textRight  { text-align: right; }
-.textCenter { text-align: center; }
+.ghost       { color: #e6e6e6; }
+.textRight   { text-align: right; }
+.textCenter  { text-align: center; }
 
 /* ═══════════════════════════════════════════════════════════
    SHARED CONTENT ELEMENTS
@@ -193,7 +195,7 @@
 
 .body {
   font-family: var(--font-primary);
-  font-size: clamp(13px, 1.25vw, 17px);
+  font-size: clamp(13px, 1.2vw, 17px);
   font-weight: 400;
   color: #444;
   line-height: 1.6;
@@ -220,15 +222,13 @@
   letter-spacing: 0.18em;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PANEL 2 — HOW IT WORKS
-   ══════════════════════════════════════════════════════════ */
+/* ── Panel 2 — How It Works ─────────────────────────────── */
 
 .bgNumbers {
   display: flex;
   flex-direction: column;
   font-family: var(--font-display);
-  font-size: clamp(60px, 12vw, 160px);
+  font-size: clamp(56px, 11vw, 155px);
   font-weight: 900;
   letter-spacing: -0.06em;
   line-height: 0.84;
@@ -236,7 +236,7 @@
 }
 
 .stepsPanel {
-  width: clamp(220px, 28vw, 370px);
+  width: clamp(220px, 27vw, 360px);
   display: flex;
   flex-direction: column;
 }
@@ -244,24 +244,21 @@
 .stepRow {
   display: flex;
   align-items: flex-start;
-  gap: clamp(12px, 1.5vw, 20px);
-  padding: clamp(12px, 1.6vw, 20px) 0;
+  gap: clamp(10px, 1.4vw, 18px);
+  padding: clamp(11px, 1.5vw, 19px) 0;
 }
 
-.stepDivider {
-  height: 1px;
-  background: #f0f0f0;
-}
+.stepDivider { height: 1px; background: #f0f0f0; }
 
 .stepNum {
   font-family: var(--font-display);
-  font-size: clamp(30px, 4.5vw, 60px);
+  font-size: clamp(28px, 4.5vw, 58px);
   font-weight: 900;
   color: #ddd;
   line-height: 1;
   letter-spacing: -0.04em;
   flex-shrink: 0;
-  width: clamp(42px, 6vw, 76px);
+  width: clamp(40px, 6vw, 75px);
 }
 
 .stepTitle {
@@ -277,14 +274,11 @@
   font-family: var(--font-primary);
   font-size: clamp(10px, 0.9vw, 13px);
   color: #aaa;
-  font-weight: 400;
   line-height: 1.5;
   margin-top: 4px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PANEL 3 — BENEFITS
-   ══════════════════════════════════════════════════════════ */
+/* ── Panel 3 — Benefits ─────────────────────────────────── */
 
 .benefitsList {
   display: flex;
@@ -304,7 +298,7 @@
 }
 
 .benefitIcon {
-  font-size: clamp(14px, 1.3vw, 18px);
+  font-size: clamp(14px, 1.2vw, 17px);
   line-height: 1;
   flex-shrink: 0;
   min-width: 20px;
@@ -313,7 +307,7 @@
 .statBig {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(48px, 8vw, 110px);
+  font-size: clamp(48px, 8vw, 108px);
   font-weight: 900;
   color: #111;
   letter-spacing: -0.04em;
@@ -323,7 +317,7 @@
 .statUnit {
   display: block;
   font-family: var(--font-primary);
-  font-size: clamp(10px, 0.9vw, 13px);
+  font-size: clamp(10px, 0.85vw, 12px);
   font-weight: 600;
   color: #aaa;
   text-transform: uppercase;
@@ -331,9 +325,7 @@
   margin-top: 4px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PANEL 4 — LEMON MUSIC CLUB
-   ══════════════════════════════════════════════════════════ */
+/* ── Panel 4 — Venue ────────────────────────────────────── */
 
 .venueCard {
   display: flex;
@@ -360,15 +352,11 @@
   font-family: var(--font-primary);
 }
 
-.venueInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
+.venueInfo { display: flex; flex-direction: column; gap: 4px; }
 
 .venueQuote {
   font-family: var(--font-primary);
-  font-size: clamp(12px, 1.15vw, 16px);
+  font-size: clamp(12px, 1.1vw, 15px);
   font-style: italic;
   color: #333;
   line-height: 1.55;
@@ -388,14 +376,11 @@
   letter-spacing: 0.1em;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PANEL 5 — PRODUCT
-   ══════════════════════════════════════════════════════════ */
+/* ── Panel 5 — Product ──────────────────────────────────── */
 
 .featureList {
   display: flex;
   flex-direction: column;
-  gap: 0;
   margin-top: 12px;
   width: clamp(180px, 22vw, 280px);
 }
@@ -437,7 +422,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   MASSIVE MUSIC SECTION — dark animated bg
+   MASSIVE MUSIC SECTION
    ══════════════════════════════════════════════════════════ */
 
 .massiveSection {
@@ -454,14 +439,9 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    #080010 0%,
-    #0d001e 14%,
-    #1a0008 28%,
-    #000818 42%,
-    #0a0022 56%,
-    #16000e 70%,
-    #000d22 84%,
-    #080010 100%
+    #080010 0%, #0d001e 14%, #1a0008 28%,
+    #000818 42%, #0a0022 56%, #16000e 70%,
+    #000d22 84%, #080010 100%
   );
   background-size: 500% 500%;
   animation: massiveGradient 12s ease infinite;
@@ -519,9 +499,7 @@
   text-transform: uppercase;
 }
 
-.massiveTaglineDot {
-  color: rgba(255, 255, 255, 0.1);
-}
+.massiveTaglineDot { color: rgba(255, 255, 255, 0.1); }
 
 .massiveCta {
   margin-top: clamp(28px, 4vw, 48px);

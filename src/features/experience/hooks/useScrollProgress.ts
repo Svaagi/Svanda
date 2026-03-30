@@ -1,38 +1,40 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useLayoutEffect } from 'react';
 import { MotionValue, useMotionValue } from 'framer-motion';
 
 /**
- * Tracks scroll progress (0→1) of an element using getBoundingClientRect.
- * More reliable than useScroll({ target }) when large fixed/driver elements
- * precede the section in the DOM.
+ * Returns a MotionValue (0→1) tracking how far the user has scrolled
+ * through the target element.  Uses a raw scroll listener driven by
+ * Framer Motion's scheduler so derived useTransform values update in sync.
  */
 export function useScrollProgress(ref: RefObject<HTMLElement>): MotionValue<number> {
   const progress = useMotionValue(0);
 
-  useEffect(
+  useLayoutEffect(
     function attachScrollListener() {
-      const element = ref.current;
-      if (!element) {
-        return undefined;
-      }
-
       function update() {
-        const scrollable = element!.offsetHeight - window.innerHeight;
-        if (scrollable <= 0) {
-          return;
-        }
-        const rect = element!.getBoundingClientRect();
-        progress.set(Math.max(0, Math.min(1, -rect.top / scrollable)));
+        const element = ref.current;
+        if (!element) return;
+
+        const scrollable = element.offsetHeight - window.innerHeight;
+        if (scrollable < 1) return;
+
+        const rect = element.getBoundingClientRect();
+        const raw  = -rect.top / scrollable;
+        progress.set(Math.min(1, Math.max(0, raw)));
       }
 
-      window.addEventListener('scroll', update, { passive: true });
       update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
 
       return function cleanup() {
         window.removeEventListener('scroll', update);
+        window.removeEventListener('resize', update);
       };
     },
-    [progress, ref],
+    // progress and ref are stable refs — effect runs once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   return progress;
