@@ -1,11 +1,13 @@
 import { useRef } from 'react';
-import { useScroll } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { ContactView } from 'features/contact';
 import { ExperienceView } from 'features/experience';
 import { HeroView } from 'features/hero';
 import SectionReveal from 'features/hero/SectionReveal';
 import { NavigationView } from 'features/navigation';
+
+import { HERO_STAGE_FADE_START, HERO_STAGE_GONE } from 'constants';
 
 import styles from './app.module.css';
 
@@ -19,12 +21,22 @@ const App = () => {
     offset: ['start start', 'end end'],
   });
 
+  // Once the hero wipe is done the fixed stage must get out of the way
+  // so the sections below it can be seen and interacted with.
+  const stageOpacity = useTransform(scrollYProgress, [HERO_STAGE_FADE_START, 1.0], [1, 0]);
+  const stagePointerEvents = useTransform(scrollYProgress, (progress) =>
+    progress >= HERO_STAGE_GONE ? 'none' : 'auto',
+  );
+
   return (
     <>
       <NavigationView />
 
       {/* Fixed viewport stage — Hero curtain only. */}
-      <main className={styles.scenePage}>
+      <motion.main
+        className={styles.scenePage}
+        style={{ opacity: stageOpacity, pointerEvents: stagePointerEvents }}
+      >
         {/* White backdrop: matches the dummy section so the curtain reveal is seamless. */}
         <SectionReveal zIndex={1} scrollYProgress={scrollYProgress} bgColor="#ffffff" />
         {/* Hero wipes away via curtain to expose the backdrop. */}
@@ -37,7 +49,7 @@ const App = () => {
         >
           <HeroView />
         </SectionReveal>
-      </main>
+      </motion.main>
 
       {/* Scroll driver for the Hero curtain (200 vh = visible + wipe). */}
       <div
