@@ -1,525 +1,271 @@
-/* ═══════════════════════════════════════════════════════════
-   SCROLL WRAPPER + STICKY STAGE
-   ══════════════════════════════════════════════════════════ */
-
-.experienceWrapper {
-  /* height set inline from SCROLL_HEIGHT_VH constant */
+.section {
+  position: relative;
+  min-height: 120vh;
+  isolation: isolate;
 }
 
-.stickyStage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;          /* clips off-screen panel containers      */
-  background: #ffffff;
-  isolation: isolate;        /* own stacking context                   */
-}
-
-/* ─── Panel container ───────────────────────────────────────
-   Each panel is a full-stage absolute layer.
-   X or Y transform slides the WHOLE panel on/off screen.
-   Panels are always opacity:1 — off-screen ones are simply
-   clipped by overflow:hidden on .stickyStage.
-   ─────────────────────────────────────────────────────────── */
-
-.panel {
+/* Radial orb — glowing sphere, bright core burning outward */
+.gradientBg {
   position: absolute;
   inset: 0;
-  /* no z-index → box (z:10) always renders above all panels  */
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 72% 66% at 50% 42%,
+    #ffef80 0%,
+    #ff7000 14%,
+    #ff0055 32%,
+    #9500ff 55%,
+    #1a0040 78%,
+    #06000f 100%
+  );
+  animation: orbBreath 10s ease-in-out infinite;
 }
 
-/* ─── Intra-panel positioning ───────────────────────────── */
+@keyframes orbBreath {
+  0%,  100% { filter: hue-rotate(0deg)   brightness(1);    }
+  33%        { filter: hue-rotate(28deg)  brightness(1.1);  }
+  66%        { filter: hue-rotate(-22deg) brightness(0.95); }
+}
 
-.abs {
+/* 3D ridged surface — dark valley + bright peak per ring cycle */
+.circlesA,
+.circlesB {
   position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: repeating-radial-gradient(
+    circle at 50% 42%,
+    rgba(0,   0,   0,   0.45) 0px,    /* dark shadow valley */
+    rgba(0,   0,   0,   0.0)  12px,   /* fade out shadow */
+    rgba(255, 255, 255, 0.0)  14px,
+    rgba(255, 255, 255, 0.55) 17px,   /* bright highlight ridge peak */
+    rgba(255, 255, 255, 0.0)  20px,   /* fade highlight */
+    rgba(0,   0,   0,   0.45) 28px    /* next valley */
+  );
+  transform-origin: 50% 42%;
   pointer-events: none;
-  user-select: none;
+  mix-blend-mode: overlay;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CENTRAL OBJECT
-   ══════════════════════════════════════════════════════════ */
+.circlesA {
+  animation: ringsOut 5s linear infinite;
+}
 
-.centralWrapper {
+.circlesB {
+  animation: ringsOut 5s linear infinite;
+  animation-delay: -2.5s;
+}
+
+@keyframes ringsOut {
+  0%   { transform: scale(1);   opacity: 1; }
+  75%  { opacity: 0.5; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Film grain — physical texture quality */
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 320px 320px;
+  pointer-events: none;
+}
+
+/* Massive background title */
+.bgTitle {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;               /* above all panel containers              */
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(100px, 24vw, 340px);
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.08);
+  letter-spacing: -0.05em;
+  white-space: nowrap;
   pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.blackBox {
-  width: clamp(120px, 11vw, 170px);
-  height: clamp(180px, 17vw, 260px);
-  background: linear-gradient(160deg, #1e1e1e 0%, #0a0a0a 55%, #141414 100%);
-  border-radius: clamp(10px, 1.2vw, 16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(0, 0, 0, 0.8),
-    0 40px 80px rgba(0, 0, 0, 0.5),
-    0 8px 24px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.boxScreen {
-  position: absolute;
-  top: 12%; left: 10%; right: 10%;
-  height: 36%;
-  background: #04040e;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.boxScreenGlow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 35%, rgba(60, 100, 255, 0.14) 0%, transparent 70%);
-}
-
-.boxScreenLabel {
-  position: relative;
+  user-select: none;
   z-index: 1;
-  font-family: var(--font-display);
-  font-size: clamp(9px, 1vw, 14px);
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: rgba(80, 120, 255, 0.5);
-  text-transform: uppercase;
 }
 
-.boxSpeakers {
+.viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* PLAY badge */
+.playBadge {
   position: absolute;
-  bottom: 28%; left: 0; right: 0;
-  display: flex;
-  justify-content: center;
-  gap: clamp(6px, 0.8vw, 10px);
-}
-
-.boxSpeakerDot {
-  width: clamp(4px, 0.6vw, 8px);
-  height: clamp(4px, 0.6vw, 8px);
-  border-radius: 50%;
-  background: #181818;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.boxPayment {
-  position: absolute;
-  bottom: 10%; left: 10%; right: 10%;
-  height: clamp(14px, 1.6vw, 20px);
-  background: #111111;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-}
-
-.boxPaymentBar {
-  height: 3px;
-  width: 48%;
-  background: rgba(80, 120, 255, 0.16);
-  border-radius: 2px;
-}
-
-.boxShadow {
-  width: clamp(80px, 9vw, 130px);
-  height: 16px;
-  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.25) 0%, transparent 70%);
-  border-radius: 50%;
-  margin-top: 6px;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   DISPLAY TYPOGRAPHY
-   ══════════════════════════════════════════════════════════ */
-
-.displayMassive {
-  font-family: var(--font-display);
-  font-size: clamp(72px, 14vw, 200px);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.85;
-  color: #0a0a0a;
-}
-
-.displayHuge {
-  font-family: var(--font-display);
-  font-size: clamp(60px, 12vw, 170px);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  color: #0a0a0a;
-  white-space: nowrap;
-}
-
-.displayLarge {
-  font-family: var(--font-display);
-  font-size: clamp(44px, 8vw, 115px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.88;
-  color: #0a0a0a;
-  white-space: nowrap;
-}
-
-.ghost       { color: #e6e6e6; }
-.textRight   { text-align: right; }
-.textCenter  { text-align: center; }
-
-/* ═══════════════════════════════════════════════════════════
-   SHARED CONTENT ELEMENTS
-   ══════════════════════════════════════════════════════════ */
-
-.tag {
-  display: block;
-  font-family: var(--font-primary);
-  font-size: clamp(9px, 0.75vw, 11px);
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #bbb;
-  margin-bottom: clamp(8px, 1vw, 14px);
-}
-
-.body {
-  font-family: var(--font-primary);
-  font-size: clamp(13px, 1.2vw, 17px);
-  font-weight: 400;
-  color: #444;
-  line-height: 1.6;
-  margin: 0;
-  max-width: clamp(200px, 22vw, 280px);
-}
-
-.micro {
-  display: block;
-  margin-top: 12px;
-  font-family: var(--font-primary);
-  font-size: clamp(9px, 0.75vw, 10px);
-  color: #ccc;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.eyebrowLabel {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(11px, 1vw, 14px);
-  font-weight: 700;
-  color: #ddd;
-  letter-spacing: 0.18em;
-}
-
-/* ── Panel 2 — How It Works ─────────────────────────────── */
-
-.bgNumbers {
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-display);
-  font-size: clamp(56px, 11vw, 155px);
-  font-weight: 900;
-  letter-spacing: -0.06em;
-  line-height: 0.84;
-  color: #efefef;
-}
-
-.stepsPanel {
-  width: clamp(220px, 27vw, 360px);
-  display: flex;
-  flex-direction: column;
-}
-
-.stepRow {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(10px, 1.4vw, 18px);
-  padding: clamp(11px, 1.5vw, 19px) 0;
-}
-
-.stepDivider { height: 1px; background: #f0f0f0; }
-
-.stepNum {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 4.5vw, 58px);
-  font-weight: 900;
-  color: #ddd;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  flex-shrink: 0;
-  width: clamp(40px, 6vw, 75px);
-}
-
-.stepTitle {
-  font-family: var(--font-display);
-  font-size: clamp(14px, 1.6vw, 22px);
-  font-weight: 700;
-  color: #111;
-  line-height: 1.1;
-  padding-top: 4px;
-}
-
-.stepDesc {
-  font-family: var(--font-primary);
-  font-size: clamp(10px, 0.9vw, 13px);
-  color: #aaa;
-  line-height: 1.5;
-  margin-top: 4px;
-}
-
-/* ── Panel 3 — Benefits ─────────────────────────────────── */
-
-.benefitsList {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(8px, 1vw, 12px);
-  margin-top: 8px;
-}
-
-.benefitItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-primary);
-  font-size: clamp(13px, 1.2vw, 17px);
-  font-weight: 600;
-  color: #111;
-}
-
-.benefitIcon {
-  font-size: clamp(14px, 1.2vw, 17px);
-  line-height: 1;
-  flex-shrink: 0;
-  min-width: 20px;
-}
-
-.statBig {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(48px, 8vw, 108px);
-  font-weight: 900;
-  color: #111;
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-
-.statUnit {
-  display: block;
-  font-family: var(--font-primary);
-  font-size: clamp(10px, 0.85vw, 12px);
-  font-weight: 600;
-  color: #aaa;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  margin-top: 4px;
-}
-
-/* ── Panel 4 — Venue ────────────────────────────────────── */
-
-.venueCard {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 1.2vw, 16px);
-  max-width: clamp(180px, 20vw, 260px);
-}
-
-.venuePlaceholder {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: #161616;
-  border-radius: 4px;
+  top: 7%;
+  right: 5vw;
+  width: 58px;
+  height: 28px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 99px;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 15;
 }
 
-.photoLabel {
+.playBadge span {
   font-size: 9px;
-  letter-spacing: 0.3em;
-  color: #555;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.75);
   text-transform: uppercase;
-  font-family: var(--font-primary);
 }
 
-.venueInfo { display: flex; flex-direction: column; gap: 4px; }
-
-.venueQuote {
-  font-family: var(--font-primary);
-  font-size: clamp(12px, 1.1vw, 15px);
-  font-style: italic;
-  color: #333;
-  line-height: 1.55;
-  border-left: 2px solid #111;
-  padding-left: 14px;
-  margin: 0;
+.word {
+  position: absolute;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  line-height: 0.83;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
-.venueCite {
-  display: block;
-  font-style: normal;
-  font-size: clamp(9px, 0.8vw, 11px);
-  color: #aaa;
-  margin-top: 8px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+/* SVANDA — top-left, solid white, in left safe zone */
+.w1 {
+  top: 5%;
+  left: 5vw;
+  font-size: clamp(36px, 7vw, 100px);
+  color: #ffffff;
+  z-index: 15;
 }
 
-/* ── Panel 5 — Product ──────────────────────────────────── */
-
-.featureList {
-  display: flex;
-  flex-direction: column;
-  margin-top: 12px;
-  width: clamp(180px, 22vw, 280px);
+/* EXPERIENCE — top-right, outline, paired with SVANDA above box */
+.w2 {
+  top: 5%;
+  right: 5vw;
+  font-size: clamp(22px, 5.5vw, 80px);
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.7);
+  z-index: 15;
 }
 
-.featureRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: clamp(9px, 1.1vw, 14px) 0;
-  border-bottom: 1px solid #f0f0f0;
-  gap: 16px;
+/* THE FUTURE OF — mid-left, stays in left safe zone */
+.w3 {
+  top: 38%;
+  left: 5vw;
+  font-size: clamp(14px, 4vw, 58px);
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 15;
 }
 
-.featureLabel {
-  font-family: var(--font-primary);
-  font-size: clamp(9px, 0.8vw, 11px);
-  font-weight: 600;
-  color: #bbb;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  flex-shrink: 0;
+/* BAR ENTERTAINMENT — lower-right, stays in right safe zone */
+.w4 {
+  top: 50%;
+  right: 5vw;
+  font-size: clamp(14px, 3vw, 44px);
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.6);
+  z-index: 15;
 }
 
-.featureVal {
-  font-family: var(--font-primary);
-  font-size: clamp(11px, 1vw, 14px);
-  font-weight: 500;
-  color: #111;
+/* SELF-SERVICE. — accent, below box */
+.w5 {
+  bottom: 5%;
+  left: 5vw;
+  font-size: clamp(52px, 11vw, 160px);
+  color: #ffffff;
+  z-index: 15;
+}
+
+/* Sub copy */
+.sub {
+  position: absolute;
+  bottom: 6%;
+  right: 5vw;
+  z-index: 15;
   text-align: right;
 }
 
-.productTagline {
-  font-family: var(--font-primary);
-  font-size: clamp(13px, 1.3vw, 18px);
-  font-weight: 500;
-  color: #aaa;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
+.sub p {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(18px, 1.7vw, 24px);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  max-width: 380px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MASSIVE MUSIC SECTION
-   ══════════════════════════════════════════════════════════ */
-
-.massiveSection {
-  position: relative;
-  min-height: 100vh;
+.cta {
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.massiveBg {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    #080010 0%, #0d001e 14%, #1a0008 28%,
-    #000818 42%, #0a0022 56%, #16000e 70%,
-    #000d22 84%, #080010 100%
-  );
-  background-size: 500% 500%;
-  animation: massiveGradient 12s ease infinite;
-}
-
-@keyframes massiveGradient {
-  0%   { background-position: 0%   50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0%   50%; }
-}
-
-.massiveContent {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 0 4%;
-  width: 100%;
-}
-
-.massiveTextTop {
-  font-family: var(--font-display);
-  font-size: clamp(100px, 22vw, 320px);
-  font-weight: 900;
-  letter-spacing: -0.06em;
-  line-height: 0.83;
-  color: rgba(255, 255, 255, 0.96);
-  display: block;
-  user-select: none;
-}
-
-.massiveTextBot {
-  font-family: var(--font-display);
-  font-size: clamp(50px, 11vw, 155px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.88;
-  color: rgba(255, 255, 255, 0.2);
-  display: block;
-  margin-top: clamp(6px, 1.2vw, 18px);
-  user-select: none;
-}
-
-.massiveTagline {
-  margin-top: clamp(28px, 4vw, 52px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  font-family: var(--font-primary);
-  font-size: clamp(10px, 1.2vw, 16px);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.28);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.massiveTaglineDot { color: rgba(255, 255, 255, 0.1); }
-
-.massiveCta {
-  margin-top: clamp(28px, 4vw, 48px);
-  display: inline-block;
-  padding: clamp(13px, 1.4vw, 17px) clamp(28px, 3vw, 42px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  font-family: var(--font-primary);
-  font-size: clamp(11px, 1.1vw, 15px);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  justify-content: flex-end;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  background: transparent;
-  transition: border-color 0.3s, color 0.3s, background 0.3s;
 }
 
-.massiveCta:hover {
-  border-color: rgba(255, 255, 255, 0.55);
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+.arrow {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.ctaText {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .w1 {
+    font-size: clamp(24px, 7vw, 40px);
+    top: 5%;
+  }
+
+  .w2 {
+    display: none;
+  }
+
+  .w3 {
+    font-size: clamp(13px, 3.5vw, 18px);
+    top: 34%;
+  }
+
+  .w4 {
+    display: none;
+  }
+
+  .w5 {
+    font-size: clamp(36px, 9vw, 52px);
+    white-space: normal;
+    max-width: 80vw;
+    bottom: 24%;
+    line-height: 0.9;
+  }
+
+  .sub {
+    bottom: 5%;
+    left: 5vw;
+    right: 5vw;
+    text-align: left;
+  }
+
+  .sub p {
+    font-size: clamp(14px, 3.5vw, 18px);
+    max-width: none;
+    margin-bottom: 10px;
+  }
+
+  .cta {
+    justify-content: flex-start;
+  }
 }

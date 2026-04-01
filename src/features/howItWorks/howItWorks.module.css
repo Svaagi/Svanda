@@ -1,0 +1,178 @@
+.section {
+  position: relative;
+  min-height: 140vh;
+  background: #f5f3f0;
+}
+
+.ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(200px, 44vw, 600px);
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.02);
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Blob layer ────────────────────────────── */
+.blobLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.tag {
+  position: absolute;
+  top: 7%;
+  right: 5vw;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(0, 0, 0, 0.45);
+  text-transform: uppercase;
+  z-index: 15;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 99px;
+  padding: 5px 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.word {
+  position: absolute;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  line-height: 0.83;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  pointer-events: none;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+/* AKO (3c) — row 1 left, huge. TO FUNGUJE. (10c) — row 1 right, same position */
+.w1 {
+  top: 8%;
+  left: 5vw;
+  font-size: clamp(36px, 16vw, 230px);
+  color: #0a0a0a;
+  z-index: 15;
+}
+
+.w2 {
+  top: 8%;
+  right: 5vw;
+  font-size: clamp(12px, 4.5vw, 65px);
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.7);
+  z-index: 15;
+}
+
+/* 01 SCAN — row 2, left */
+.w3 {
+  top: 34%;
+  left: 5vw;
+  font-size: clamp(28px, 8.5vw, 122px);
+  color: #0a0a0a;
+  z-index: 15;
+}
+
+/* 02 VYBERTE — row 3, right */
+.w4 {
+  top: 52%;
+  right: 5vw;
+  font-size: clamp(20px, 6.5vw, 94px);
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.75);
+  z-index: 15;
+}
+
+/* 03 SPIEVAJTE. (10 chars) — row 5, left, accent */
+.w5 {
+  top: 68%;
+  left: 5vw;
+  font-size: clamp(16px, 5vw, 72px);
+  color: var(--color-accent-orange);
+  z-index: 15;
+}
+
+.num {
+  font-size: 0.28em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(0, 0, 0, 0.45);
+  align-self: center;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 99px;
+  padding: 3px 10px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+}
+
+.w2 .num,
+.w4 .num {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.w5 .num {
+  color: rgba(255, 120, 0, 0.4);
+}
+
+.detail {
+  font-family: 'Syne', sans-serif;
+  position: absolute;
+  font-size: clamp(15px, 1.4vw, 20px);
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.04em;
+  max-width: 260px;
+  line-height: 1.5;
+  z-index: 15;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .detail {
+    display: none;
+  }
+
+  .w1 {
+    font-size: clamp(48px, 12vw, 80px);
+  }
+
+  .w3 {
+    top: 40%;
+    font-size: clamp(36px, 9vw, 60px);
+  }
+
+  .w4 {
+    top: 57%;
+    font-size: clamp(28px, 7.5vw, 50px);
+  }
+
+  .w5 {
+    bottom: 6%;
+    font-size: clamp(40px, 10vw, 72px);
+  }
+}

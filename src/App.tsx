@@ -1,68 +1,74 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-
+import { BenefitsView } from 'features/benefits';
+import { CentralBox } from 'features/centralBox';
 import { ContactView } from 'features/contact';
 import { ExperienceView } from 'features/experience';
 import { HeroView } from 'features/hero';
-import SectionReveal from 'features/hero/SectionReveal';
+import { HowItWorksView } from 'features/howItWorks';
+import { IntroView } from 'features/intro';
+import { LemonClubView } from 'features/lemon';
+import { ModesView } from 'features/modes';
 import { NavigationView } from 'features/navigation';
-
-import { HERO_STAGE_FADE_START, HERO_STAGE_GONE } from 'constants';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 import styles from './app.module.css';
 
+const CURTAIN_GONE = 0.98;
+
 const App = () => {
   const heroDriverRef = useRef<HTMLDivElement>(null);
+  const sectionsRef = useRef<HTMLDivElement>(null);
 
-  // Scoped to the hero scroll driver so progress stays 0→1 over exactly
-  // 200 vh regardless of how many normal sections are added below.
+  // Scoped scroll: 0 → 1 over exactly 100vh (the scroll driver below).
   const { scrollYProgress } = useScroll({
     target: heroDriverRef,
-    offset: ['start start', 'end end'],
+    offset: ['start start', 'end start'],
   });
 
-  // Once the hero wipe is done the fixed stage must get out of the way
-  // so the sections below it can be seen and interacted with.
-  const stageOpacity = useTransform(scrollYProgress, [HERO_STAGE_FADE_START, 1.0], [1, 0]);
-  const stagePointerEvents = useTransform(scrollYProgress, (progress) =>
-    progress >= HERO_STAGE_GONE ? 'none' : 'auto',
+  // Hero curtain slides straight up over the first 100vh of scroll.
+  const curtainY = useTransform(scrollYProgress, [0, 1], ['0%', '-100%']);
+  const curtainPointerEvents = useTransform(scrollYProgress, (progress) =>
+    progress >= CURTAIN_GONE ? 'none' : 'auto',
   );
 
   return (
     <>
       <NavigationView />
 
-      {/* Fixed viewport stage — Hero curtain only. */}
+      {/*
+        Hero curtain — z-index 500, sits above all sections.
+        Translates from y=0 to y=-100% as heroDriver scrolls.
+        Sections start at 100vh (after driver) so they rise into view
+        from the bottom as the curtain lifts — true parallax reveal.
+      */}
       <motion.main
         className={styles.scenePage}
-        style={{ opacity: stageOpacity, pointerEvents: stagePointerEvents }}
+        style={{ y: curtainY, pointerEvents: curtainPointerEvents }}
       >
-        {/* White backdrop: matches the dummy section so the curtain reveal is seamless. */}
-        <SectionReveal zIndex={1} scrollYProgress={scrollYProgress} bgColor="#ffffff" />
-        {/* Hero wipes away via curtain to expose the backdrop. */}
-        <SectionReveal
-          zIndex={2}
-          scrollYProgress={scrollYProgress}
-          scrollRange={[0, 1]}
-          transition="tiltLeft"
-          bgColor="#faf8f4"
-        >
-          <HeroView />
-        </SectionReveal>
+        <HeroView />
       </motion.main>
 
-      {/* Scroll driver for the Hero curtain (200 vh = visible + wipe). */}
+      {/* 100vh of scroll space — drives the curtain lift, nothing visible here */}
       <div
         ref={heroDriverRef}
         className={styles.scrollDriver}
-        style={{ height: '200vh' }}
+        style={{ height: '100vh' }}
         aria-hidden="true"
       />
 
-      {/* Scroll-driven experience between Hero and Contact. */}
-      <ExperienceView />
+      {/* Central box — fixed, fades in/out with middle sections */}
+      <CentralBox containerRef={sectionsRef} />
 
-      {/* Contact — final section. */}
+      {/* Sections start at doc position 100vh — revealed from below as curtain rises */}
+      <div ref={sectionsRef}>
+        <ExperienceView />
+        <IntroView />
+        <HowItWorksView />
+        <ModesView />
+        <BenefitsView />
+        <LemonClubView />
+      </div>
+
       <ContactView />
     </>
   );

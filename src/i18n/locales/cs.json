@@ -1,5 +1,9 @@
 {
   "nav": {
+    "howItWorks": "Jak to funguje",
+    "songs": "Písničky",
+    "modes": "Režimy",
+    "benefits": "Výhody",
     "contact": "Kontakt",
     "bookDemo": "Rezervovat demo"
   },
@@ -15,66 +19,85 @@
     "stat2Label": "Za skladbu",
     "stat3Label": "Box. Vše."
   },
-  "productReveal": {
-    "eyebrow": "Stroj",
-    "word1": "Karaoke.",
-    "word2": "Jukebox.",
-    "descriptor": "Jedno zařízení. Dva zážitky."
+  "intro": {
+    "tag": "Samoobslužné karaoke & jukebox pro bary",
+    "w1": "SAMO",
+    "w2": "OBSLUHA",
+    "w3": "KARAOKE",
+    "w4": "+ JUKEBOX",
+    "w5": "PRO BARY & AKCE",
+    "w6": "18 000+ SKLADEB",
+    "descriptor1": "SVANDA je samoobslužný karaoke & jukebox automat pro bary, kluby a akce.",
+    "descriptor2": "Vaši hosté přijdou, procházejí 18 000+ skladeb, zaplatí kartovým terminálem, vezmou mikrofon a vystoupí, bez DJ ani jakékoli obsluhy. Stroj zvládá frontu, zobrazení a platby zcela samostatně, nonstop.",
+    "pills": {
+      "karaokeBox": "Karaoke Box",
+      "jukebox": "Jukebox",
+      "events": "Akce"
+    }
+  },
+  "statement": {
+    "cornerTag": "10 Kč za skladbu",
+    "w1": "VYBER",
+    "w2": "SI",
+    "w3": "SKLADBU.",
+    "w4": "CHYŤ MIKROFON.",
+    "w5": "ZPÍVEJ.",
+    "w6": "JAKÝKOLIV BAR.\u00A0\u00A0JAKÁKOLI NOC.\u00A0\u00A0JAKÁKOLI SKLADBA."
+  },
+  "catalogue": {
+    "w3": "SKLADEB",
+    "w4": "AKTUALIZOVÁNO TÝDNĚ.",
+    "descriptor1": "Největší karaoke katalog pro samoobslužné podniky.",
+    "descriptor2": "Česky, slovensky, světové hity. Každý žánr, každá dekáda.",
+    "note": "Platba kartovým terminálem\u00A0\u00B7\u00A010 Kč za skladbu"
   },
   "howItWorks": {
-    "tag": "Jednoduché od základu",
-    "headline": "Tři klepnutí.",
-    "headline2": "Jeden večer.",
-    "steps": {
-      "choose": {
-        "num": "01",
-        "title": "Vyber skladbu",
-        "desc": "Prohlédni si 25 000+ skladeb na dotykové obrazovce. Karaoke nebo hudba — tvoje volba."
-      },
-      "pay": {
-        "num": "02",
-        "title": "Zaplať přímo",
-        "desc": "Klepni a zaplať. Bez aplikace, bez účtu, bez obsluhy. Jen hudba."
-      },
-      "play": {
-        "num": "03",
-        "title": "Hraje to",
-        "desc": "Tvoje skladba se okamžitě zařadí do fronty. Dav zpívá spolu."
-      }
-    }
+    "tag": "Tři kroky ke karaoke",
+    "w1": "JAK",
+    "w2": "TO FUNGUJE.",
+    "step1Label": "SCAN",
+    "step1Detail": "Přijďte ke stroji",
+    "step2Label": "VYBERTE",
+    "step2Detail": "Vyberte si skladbu z 18 000+. Zaplaťte kartovým terminálem.",
+    "step3Label": "ZPÍVEJTE."
   },
-  "atmosphere": {
-    "tag": "Živě v praxi",
-    "venue": "Lemon Music Club",
-    "location": "Praha, Česká republika",
-    "since": "V provozu od roku 2023",
-    "quote": "Naši hosté zůstávají déle a utrácejí více. SVANDA se v podstatě řídí sám.",
-    "quoteAuthor": "Lemon Music Club, Praha"
+  "modes": {
+    "tag": "Vyberte si nastavení",
+    "w1": "DVA",
+    "w2": "REŽIMY.",
+    "w5": "NEBO OBOJÍ.",
+    "descLeftTitle": "Karaoke Box",
+    "descLeftDesc": "Hosté zpívají živě na pódiu s texty na obrazovce. Platba za skladbu u terminálu.",
+    "descRightTitle": "Jukebox",
+    "descRightDesc": "Zařaďte skladby jako hudbu na pozadí. Ideální pro atmosféru baru bez DJ."
   },
   "benefits": {
-    "tag": "Proč si majitelé barů vybírají SVANDA",
-    "headline1": "Pasivní",
-    "headline2": "příjem.",
-    "headline3": "Nulová starost.",
-    "cta": "Získejte SVANDA pro váš podnik",
-    "items": {
-      "revenue": {
-        "title": "Nový zdroj příjmů",
-        "desc": "Každá přehraná skladba vám vydělává. Hosté platí přímo za 10 Kč za skladbu."
-      },
-      "noStaff": {
-        "title": "Bez potřeby obsluhy",
-        "desc": "Stroj zvládá výběr skladeb, platby, frontu i přehrávání."
-      },
-      "catalogue": {
-        "title": "25 000+ skladeb",
-        "desc": "Od klasiky po hity. Karaoke a jukebox v jednom boxu."
-      },
-      "setup": {
-        "title": "Kompletní servis v ceně",
-        "desc": "Instalujeme, udržujeme a aktualizujeme. Vy jen sbíráte výdělky."
-      }
-    }
+    "tag": "Vytvořeno pro majitele barů",
+    "w1": "BEZ OBSLUHY",
+    "w2": "FUNGUJE.",
+    "w3": "NULOVÁ ÚDRŽBA.",
+    "w4": "VÍCE",
+    "w5": "PŘÍJMŮ.",
+    "stat1Label": "přehraných skladeb",
+    "stat2Label": "za skladbu",
+    "stat3Label": "potřebná obsluha",
+    "stat4Label": "autonomní provoz",
+    "desc": "Stroj zvládá platby, frontu skladeb a zobrazení, zcela autonomně. Získáte nový zdroj příjmů bez provozních nákladů."
+  },
+  "lemon": {
+    "firstTag": "První instalace SVANDA",
+    "w5": "25 000+ PŘEHRANÝCH SKLADEB",
+    "detail1": "Nepřetržitě v provozu od roku 2024.",
+    "detail2": "Bez obsluhy. Bez výpadků. Čistý příjem."
+  },
+  "experience": {
+    "w2": "ZÁŽITEK",
+    "w3": "BUDOUCNOST",
+    "w4": "BAROVÉ ZÁBAVY",
+    "w5": "SAMOOBSLUŽNÉ.",
+    "subDesc1": "Autonomní. Výdělečné. Nezapomenutelné.",
+    "subDesc2": "Získejte SVANDA pro váš bar, klub nebo příští akci.",
+    "cta": "Kontaktujte nás dnes"
   },
   "contact": {
     "tag": "Kontaktujte nás",
@@ -83,7 +106,7 @@
     "subtitle": "Vyplňte formulář a my se vám ozveme do jednoho pracovního dne. Postaráme se o celé nastavení a vy si jen vychutnáte výsledky.",
     "emailLabel": "Email",
     "phoneLabel": "Telefon",
-    "promise": "Odpovídáme na každý dotaz. Pokud jste majitelem baru nebo podniku a zajímá vás SVANDA rádi vás uslyšíme.",
+    "promise": "Odpovídáme na každý dotaz. Pokud jste majitelem baru nebo podniku a zajímá vás SVANDA, rádi vás uslyšíme.",
     "form": {
       "venueName": "Název podniku",
       "venuePlaceholder": "např. Zlatá podkova",
@@ -95,6 +118,8 @@
       "phonePlaceholder": "+420 000 000 000",
       "message": "Zpráva (nepovinné)",
       "messagePlaceholder": "Řekněte nám o svém podniku, počtu hostů, případné dotazy...",
+      "interestedIn": "Mám zájem o",
+      "thisIsForMy": "Toto je pro můj",
       "submit": "Odeslat zprávu",
       "successTitle": "Ozveme se!",
       "successText": "Děkujeme za váš zájem. Kontaktujeme vás do jednoho pracovního dne pro projednání vašeho podniku."

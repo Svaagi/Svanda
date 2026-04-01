@@ -44,7 +44,7 @@ html {
 }
 
 body {
-  background-color: var(--color-background);
+  background-color: #06000f;
   color: var(--color-text-primary);
   overflow-x: hidden;
   line-height: 1.6;

@@ -1,10 +1,14 @@
 {
   "nav": {
+    "howItWorks": "How It Works",
+    "songs": "Songs",
+    "modes": "Modes",
+    "benefits": "Benefits",
     "contact": "Contact",
     "bookDemo": "Book a Demo"
   },
   "hero": {
-    "eyebrow": "Karaoke & Jukebox One Box",
+    "eyebrow": "Karaoke & Jukebox. One Box.",
     "headline1": "Turn Your Venue",
     "headline2": "Into the Night's",
     "headline3": "Main Attraction.",
@@ -15,66 +19,85 @@
     "stat2Label": "Per Song",
     "stat3Label": "Box. Everything."
   },
-  "productReveal": {
-    "eyebrow": "The Machine",
-    "word1": "Karaoke.",
-    "word2": "Jukebox.",
-    "descriptor": "One device. Two experiences."
+  "intro": {
+    "tag": "Self service karaoke & jukebox for bars",
+    "w1": "SELF",
+    "w2": "SERVICE",
+    "w3": "KARAOKE",
+    "w4": "+ JUKEBOX",
+    "w5": "FOR BARS & EVENTS",
+    "w6": "18,000+ SONGS",
+    "descriptor1": "SVANDA is a self service karaoke & jukebox machine built for bars, clubs, and events.",
+    "descriptor2": "Your guests walk up, browse 18,000+ songs, pay at the card terminal, grab the mic, and perform, all without a DJ or any staff involved. The machine handles the queue, the display, and the payments completely on its own, around the clock.",
+    "pills": {
+      "karaokeBox": "Karaoke Box",
+      "jukebox": "Jukebox",
+      "events": "Events"
+    }
+  },
+  "statement": {
+    "cornerTag": "10 CZK per song",
+    "w1": "PICK",
+    "w2": "A",
+    "w3": "SONG.",
+    "w4": "GRAB THE MIC.",
+    "w5": "SING.",
+    "w6": "ANY BAR.\u00A0\u00A0ANY NIGHT.\u00A0\u00A0ANY SONG."
+  },
+  "catalogue": {
+    "w3": "SONGS",
+    "w4": "UPDATED WEEKLY.",
+    "descriptor1": "The biggest karaoke catalogue for self service venues.",
+    "descriptor2": "Czech, Slovak, international hits. Every genre, every decade.",
+    "note": "Payment via card terminal\u00A0\u00B7\u00A010 CZK per song"
   },
   "howItWorks": {
-    "tag": "Simple by Design",
-    "headline": "Three taps.",
-    "headline2": "One night.",
-    "steps": {
-      "choose": {
-        "num": "01",
-        "title": "Choose a Song",
-        "desc": "Browse 25,000+ tracks on the touchscreen. Karaoke or music — your choice."
-      },
-      "pay": {
-        "num": "02",
-        "title": "Pay Directly",
-        "desc": "Tap to pay. No app, no account, no staff needed. Just music."
-      },
-      "play": {
-        "num": "03",
-        "title": "It Plays",
-        "desc": "Your song queues up instantly. The crowd sings along."
-      }
-    }
+    "tag": "Three steps to karaoke",
+    "w1": "HOW",
+    "w2": "IT WORKS.",
+    "step1Label": "SCAN",
+    "step1Detail": "Walk up to the machine",
+    "step2Label": "SELECT",
+    "step2Detail": "Pick any song from 18,000+. Pay at the card terminal.",
+    "step3Label": "SING."
   },
-  "atmosphere": {
-    "tag": "Live in the Wild",
-    "venue": "Lemon Music Club",
-    "location": "Prague, Czech Republic",
-    "since": "Operating Since 2023",
-    "quote": "Our guests stay later and spend more. SVANDA basically runs itself.",
-    "quoteAuthor": "Lemon Music Club, Prague"
+  "modes": {
+    "tag": "Choose your setup",
+    "w1": "TWO",
+    "w2": "MODES.",
+    "w5": "OR BOTH.",
+    "descLeftTitle": "Karaoke Box",
+    "descLeftDesc": "Guests sing live on stage with full lyrics on screen. Pay per song at the terminal.",
+    "descRightTitle": "Jukebox",
+    "descRightDesc": "Queue up songs for background music. Perfect for bar ambience without a DJ."
   },
   "benefits": {
-    "tag": "Why Bar Owners Choose SVANDA",
-    "headline1": "Passive",
-    "headline2": "Income.",
-    "headline3": "Zero Hassle.",
-    "cta": "Get SVANDA for Your Venue",
-    "items": {
-      "revenue": {
-        "title": "New Revenue Stream",
-        "desc": "Every song played earns you money. Guests pay directly at 10 CZK per song."
-      },
-      "noStaff": {
-        "title": "Zero Staff Needed",
-        "desc": "The machine handles song selection, payments, queuing, and playback."
-      },
-      "catalogue": {
-        "title": "25,000+ Songs",
-        "desc": "From classics to chart toppers. Karaoke and jukebox in one box."
-      },
-      "setup": {
-        "title": "Full Service Included",
-        "desc": "We install, maintain, and update. You just collect the earnings."
-      }
-    }
+    "tag": "Built for bar owners",
+    "w1": "NO STAFF",
+    "w2": "NEEDED.",
+    "w3": "ZERO MAINTENANCE.",
+    "w4": "MORE",
+    "w5": "REVENUE.",
+    "stat1Label": "songs played",
+    "stat2Label": "per song",
+    "stat3Label": "staff required",
+    "stat4Label": "autonomous operation",
+    "desc": "The machine handles payments, song queue, and display, completely autonomously. You gain a new revenue stream with zero operational overhead."
+  },
+  "lemon": {
+    "firstTag": "First SVANDA installation",
+    "w5": "25,000+ SONGS PLAYED",
+    "detail1": "Running continuously since 2024.",
+    "detail2": "No staff. No downtime. Pure revenue."
+  },
+  "experience": {
+    "w2": "EXPERIENCE",
+    "w3": "THE FUTURE OF",
+    "w4": "BAR ENTERTAINMENT",
+    "w5": "SELF SERVICE.",
+    "subDesc1": "Autonomous. Profitable. Unforgettable.",
+    "subDesc2": "Get SVANDA for your bar, club, or next event.",
+    "cta": "Contact us today"
   },
   "contact": {
     "tag": "Get in Touch",
@@ -83,7 +106,7 @@
     "subtitle": "Fill in the form and we'll get back to you within one business day. We'll handle the full setup and you just enjoy the results.",
     "emailLabel": "Email",
     "phoneLabel": "Phone",
-    "promise": "We respond to every inquiry. If you're a bar or venue owner curious about SVANDA we want to hear from you.",
+    "promise": "We respond to every inquiry. If you're a bar or venue owner curious about SVANDA, we want to hear from you.",
     "form": {
       "venueName": "Venue Name",
       "venuePlaceholder": "e.g. The Blue Moon Bar",
@@ -95,6 +118,8 @@
       "phonePlaceholder": "+420 000 000 000",
       "message": "Message (Optional)",
       "messagePlaceholder": "Tell us about your venue, number of guests, any questions...",
+      "interestedIn": "I'm interested in",
+      "thisIsForMy": "This is for my",
       "submit": "Send Message",
       "successTitle": "We'll be in touch!",
       "successText": "Thank you for your interest. We'll contact you within one business day to discuss your venue."

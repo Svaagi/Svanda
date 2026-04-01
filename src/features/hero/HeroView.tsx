@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ANIMATION_DURATION_SLOW, ANIMATION_STAGGER_CHILDREN, EASING_STANDARD } from 'constants';
 import { scrollToSection } from 'utils';
 
-import { GlassBlob, ProductPlaceholder } from './components';
+import { GlassBlob, Hero3D } from './components';
 import { HERO_BLOBS } from './constants';
 import styles from './hero.module.css';
 import { useHeroParallax } from './hooks';
@@ -32,7 +32,7 @@ const wordVariant = {
 
 const HeroView = () => {
   const { t } = useTranslation();
-  const { blobsY, textY, opacityOut, productY } = useHeroParallax();
+  const { blobsY, textY, opacityOut } = useHeroParallax();
 
   return (
     <section className={styles.hero} id="hero">
@@ -46,6 +46,10 @@ const HeroView = () => {
       </motion.div>
 
       <div className={styles.noiseOverlay} />
+
+      <div className={styles.hero3dWrapper}>
+        <Hero3D />
+      </div>
 
       <div className={styles.heroContent}>
         <motion.div
@@ -134,16 +138,6 @@ const HeroView = () => {
               <span className={styles.statLabel}>{t('hero.stat3Label')}</span>
             </div>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          className={styles.productColumn}
-          style={{ y: productY as MotionValue<number> }}
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.6, ease: EASING_STANDARD }}
-        >
-          <ProductPlaceholder />
         </motion.div>
       </div>
 

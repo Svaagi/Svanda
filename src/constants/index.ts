@@ -1,5 +1,5 @@
-export const CONTACT_EMAIL_PLACEHOLDER = 'info@svanda.cz';
-export const CONTACT_PHONE_PLACEHOLDER = '+420 000 000 000';
+export const CONTACT_EMAIL = 'business@svanda.fun';
+export const CONTACT_PHONE = '+420730199269';
 
 export const ANIMATION_DURATION_SLOW = 1.0;
 export const ANIMATION_STAGGER_CHILDREN = 0.1;

@@ -12,7 +12,20 @@
       "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/cs.json'',''utf8''\\)\\); console.log\\(''cs valid''\\)\")",
       "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''src/i18n/locales/en.json'',''utf8''\\)\\); console.log\\(''en valid''\\)\")",
       "Bash(node -e \":*)",
-      "Bash(grep '\"\"framer-motion\"\"' package.json)"
+      "Bash(grep '\"\"framer-motion\"\"' package.json)",
+      "Bash(node -e \"console.log\\(require\\(''./node_modules/@react-three/fiber/package.json''\\).version\\)\")",
+      "Bash(sed -i 's/color: rgba\\(255, 255, 255, 0.28\\)/color: rgba\\(255, 255, 255, 0.55\\)/g' lemon/lemon.module.css)",
+      "Bash(sed -i 's/color: rgba\\(255, 255, 255, 0.8\\)/color: rgba\\(255, 255, 255, 0.9\\)/g' experience/experience.module.css)",
+      "Bash(grep -E '\\\\.\\(tsx|ts\\)$')",
+      "Bash(find c:UsersjozefDesktopSVANDAweb -type f \\\\\\(-name *router* -o -name *route* \\\\\\))",
+      "Bash(node -e \"require\\(''three''\\); console.log\\(''three ok''\\)\")",
+      "Bash(node -e \"require\\(''@react-three/fiber''\\); console.log\\(''fiber ok''\\)\")",
+      "Bash(node -e \"require\\(''@react-three/drei''\\); console.log\\(''drei ok''\\)\")",
+      "Bash(python3 -c \":*)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\jozef\\.claude\\projects\\c--Users-jozef-Desktop-SVANDA-web\\memory",
+      "\\tmp"
     ]
   }
 }

@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
-import { CONTACT_EMAIL_PLACEHOLDER, CONTACT_PHONE_PLACEHOLDER, EASING_STANDARD } from 'constants';
-
+import { CONTACT_EMAIL, CONTACT_PHONE, EASING_STANDARD } from 'constants';
 import { ContactForm } from './components';
 import styles from './contact.module.css';
 
@@ -53,14 +52,11 @@ const ContactView = () => {
                 <div className={styles.contactItemContent}>
                   <span className={styles.contactItemLabel}>{t('contact.emailLabel')}</span>
                   <a
-                    href={`mailto:${CONTACT_EMAIL_PLACEHOLDER}`}
+                    href={`mailto:${CONTACT_EMAIL}`}
                     className={styles.contactItemValue}
                   >
-                    {CONTACT_EMAIL_PLACEHOLDER}
+                    {CONTACT_EMAIL}
                   </a>
-                  <span className={styles.contactItemNote}>
-                    REPLACE: update with real email
-                  </span>
                 </div>
               </div>
 
@@ -74,14 +70,11 @@ const ContactView = () => {
                 <div className={styles.contactItemContent}>
                   <span className={styles.contactItemLabel}>{t('contact.phoneLabel')}</span>
                   <a
-                    href={`tel:${CONTACT_PHONE_PLACEHOLDER}`}
+                    href={`tel:${CONTACT_PHONE}`}
                     className={styles.contactItemValue}
                   >
-                    {CONTACT_PHONE_PLACEHOLDER}
+                    {CONTACT_PHONE}
                   </a>
-                  <span className={styles.contactItemNote}>
-                    REPLACE: update with real phone
-                  </span>
                 </div>
               </div>
             </div>
