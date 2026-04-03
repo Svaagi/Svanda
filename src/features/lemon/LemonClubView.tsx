@@ -33,24 +33,24 @@ const LemonClubView = () => {
     offset: ['start end', 'end start'],
   });
 
-  // "LEMON" — top-left, from far left
-  const x1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [-700, 0, 0, -500]);
-  // "MUSIC CLUB" — outline, top-right, from right
-  const x2 = useTransform(scrollYProgress, [0.03, 0.24, 0.72, 0.94], [700, 0, 0, 500]);
+  // "LEMON" — top-left, from far left (decorative, shorter travel)
+  const x1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [-300, 0, 0, -220]);
+  // "MUSIC CLUB" — outline, top-right, from right (shorter travel)
+  const x2 = useTransform(scrollYProgress, [0.03, 0.24, 0.72, 0.94], [300, 0, 0, 220]);
   // "FIRST CUSTOMER" tag — drops from top
-  const y3 = useTransform(scrollYProgress, [0.05, 0.24, 0.72, 0.94], [-40, 0, 0, -30]);
-  // "BRNO, 2024" — rises from bottom, right side
-  const y4 = useTransform(scrollYProgress, [0.1, 0.32, 0.72, 0.94], [60, 0, 0, 45]);
+  const y3 = useTransform(scrollYProgress, [0.05, 0.24, 0.72, 0.94], [-24, 0, 0, -18]);
+  // "BRNO, 2024" — rises from bottom
+  const y4 = useTransform(scrollYProgress, [0.1, 0.32, 0.72, 0.94], [36, 0, 0, 26]);
   // Left photos — parallax up
-  const yPhotosL = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const yPhotosL = useTransform(scrollYProgress, [0, 1], [40, -40]);
   // Right photos — slightly different parallax
-  const yPhotosR = useTransform(scrollYProgress, [0, 1], [80, -40]);
-  // "25,000+ SONGS PLAYED" — diagonal from bottom-left
-  const x5 = useTransform(scrollYProgress, [0.14, 0.36, 0.72, 0.94], [-400, 0, 0, -280]);
-  const y5 = useTransform(scrollYProgress, [0.14, 0.36, 0.72, 0.94], [100, 0, 0, -70]);
-  // Detail — from right
-  const x6 = useTransform(scrollYProgress, [0.18, 0.4, 0.72, 0.94], [240, 0, 0, 170]);
-  const r6 = useTransform(scrollYProgress, [0.18, 0.4, 0.72, 0.94], [4, 0, 0, -3]);
+  const yPhotosR = useTransform(scrollYProgress, [0, 1], [50, -25]);
+  // "25,000+ SONGS PLAYED" — gentle diagonal from bottom-left, stays in left lane
+  const x5 = useTransform(scrollYProgress, [0.14, 0.36, 0.72, 0.94], [-180, 0, 0, -130]);
+  const y5 = useTransform(scrollYProgress, [0.14, 0.36, 0.72, 0.94], [50, 0, 0, -36]);
+  // Detail — from right, shorter travel
+  const x6 = useTransform(scrollYProgress, [0.18, 0.4, 0.72, 0.94], [120, 0, 0, 80]);
+  const r6 = useTransform(scrollYProgress, [0.18, 0.4, 0.72, 0.94], [3, 0, 0, -2]);
   // Ghost text drift
   const bgX = useTransform(scrollYProgress, [0, 1], [-20, 20]);
 
@@ -58,13 +58,11 @@ const LemonClubView = () => {
 
   return (
     <section ref={ref} className={styles.section} id="lemon">
-      <div className={styles.darkBg} />
-
-      <motion.div className={styles.ghost} style={{ x: bgX }}>
-        LEMON
-      </motion.div>
-
       <motion.div className={styles.viewport} style={{ opacity }}>
+        <div className={styles.darkBg} />
+        <motion.div className={styles.ghost} style={{ x: bgX }}>
+          LEMON
+        </motion.div>
         <div className={styles.blobLayer}>
           {BLOBS.map((blob) => <GlassBlob key={blob.id} config={blob} />)}
         </div>

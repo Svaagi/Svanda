@@ -3,7 +3,6 @@ import { CentralBox } from 'features/centralBox';
 import { ContactView } from 'features/contact';
 import { ExperienceView } from 'features/experience';
 import { HeroView } from 'features/hero';
-import { HowItWorksView } from 'features/howItWorks';
 import { IntroView } from 'features/intro';
 import { LemonClubView } from 'features/lemon';
 import { ModesView } from 'features/modes';
@@ -63,7 +62,6 @@ const App = () => {
       <div ref={sectionsRef}>
         <ExperienceView />
         <IntroView />
-        <HowItWorksView />
         <ModesView />
         <BenefitsView />
         <LemonClubView />

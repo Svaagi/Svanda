@@ -41,33 +41,37 @@ const ModesView = () => {
     offset: ['start end', 'end start'],
   });
 
-  // "TWO" — top-left, from far left, exits top
-  const x1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [-900, 0, 0, 0]);
-  const y1exit = useTransform(scrollYProgress, [0.72, 0.94], [0, -200]);
+  // "TWO" — top-left, sweeps in from far left with slight downward arc, exits upward
+  const x1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [-420, 0, 0, 0]);
+  const y1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [60, 0, 0, 0]);
+  const y1exit = useTransform(scrollYProgress, [0.72, 0.94], [0, -160]);
 
-  // "MODES." — outline, top-right, from far right, exits bottom
-  const x2 = useTransform(scrollYProgress, [0.03, 0.24, 0.72, 0.94], [900, 0, 0, 0]);
-  const y2exit = useTransform(scrollYProgress, [0.72, 0.94], [0, 200]);
+  // "MODES." — top-right, diagonal from top-right corner, exits down
+  const x2 = useTransform(scrollYProgress, [0.03, 0.25, 0.72, 0.94], [360, 0, 0, 0]);
+  const y2 = useTransform(scrollYProgress, [0.03, 0.25, 0.72, 0.94], [-80, 0, 0, 0]);
+  const y2exit = useTransform(scrollYProgress, [0.72, 0.94], [0, 160]);
 
-  // "KARAOKE BOX" — mid-left, diagonal from bottom-left
-  const x3 = useTransform(scrollYProgress, [0.08, 0.3, 0.72, 0.94], [-700, 0, 0, -500]);
-  const y3 = useTransform(scrollYProgress, [0.08, 0.3, 0.72, 0.94], [200, 0, 0, -150]);
+  // "KARAOKE BOX" — left-center, diagonal from bottom-left, exits up-left
+  const x3 = useTransform(scrollYProgress, [0.08, 0.30, 0.72, 0.94], [-300, 0, 0, -180]);
+  const y3 = useTransform(scrollYProgress, [0.08, 0.30, 0.72, 0.94], [160, 0, 0, -80]);
 
-  // "JUKEBOX" — mid-right, outline, diagonal from top-right
-  const x4 = useTransform(scrollYProgress, [0.1, 0.33, 0.72, 0.94], [600, 0, 0, 450]);
-  const y4 = useTransform(scrollYProgress, [0.1, 0.33, 0.72, 0.94], [-200, 0, 0, 130]);
+  // "JUKEBOX" — right, diagonal from top-right corner, exits down-right
+  const x4 = useTransform(scrollYProgress, [0.10, 0.33, 0.72, 0.94], [280, 0, 0, 180]);
+  const y4 = useTransform(scrollYProgress, [0.10, 0.33, 0.72, 0.94], [-120, 0, 0, 80]);
 
-  // "OR BOTH." — center-bottom, rises, exits left with rotation
-  const y5 = useTransform(scrollYProgress, [0.16, 0.38, 0.72, 0.94], [200, 0, 0, 0]);
-  const x5exit = useTransform(scrollYProgress, [0.72, 0.94], [0, -300]);
+  // "OR BOTH." — bottom-left, rises from below, exits left with rotation
+  const y5 = useTransform(scrollYProgress, [0.16, 0.38, 0.72, 0.94], [160, 0, 0, 0]);
+  const x5exit = useTransform(scrollYProgress, [0.72, 0.94], [0, -140]);
   const r5 = useTransform(scrollYProgress, [0.16, 0.38, 0.72, 0.94], [8, 0, 0, -5]);
 
-  // Descriptors for each mode — from bottom, alternating sides
-  const xDescL = useTransform(scrollYProgress, [0.22, 0.44, 0.74, 0.94], [-250, 0, 0, -180]);
-  const xDescR = useTransform(scrollYProgress, [0.22, 0.44, 0.74, 0.94], [250, 0, 0, 180]);
+  // Descriptors — staggered diagonal, left lower / right higher for asymmetric composition
+  const xDescL = useTransform(scrollYProgress, [0.24, 0.46, 0.74, 0.94], [-240, 0, 0, -180]);
+  const yDescL = useTransform(scrollYProgress, [0.24, 0.46], [50, 0]);
+  const xDescR = useTransform(scrollYProgress, [0.24, 0.46, 0.74, 0.94], [240, 0, 0, 180]);
+  const yDescR = useTransform(scrollYProgress, [0.24, 0.46], [-50, 0]);
 
   // Tag — drops from top
-  const yTag = useTransform(scrollYProgress, [0.02, 0.2, 0.74, 0.94], [-50, 0, 0, -35]);
+  const yTag = useTransform(scrollYProgress, [0.02, 0.20, 0.74, 0.94], [-50, 0, 0, -36]);
 
   const opacity = useTransform(scrollYProgress, [0.01, 0.18, 0.79, 0.96], [0, 1, 1, 0]);
 
@@ -85,7 +89,7 @@ const ModesView = () => {
           {t('modes.tag')}
         </motion.div>
 
-        {/* TWO */}
+        {/* TWO — top-left, large solid, diagonal arc entry */}
         <motion.div
           className={`${styles.word} ${styles.w1}`}
           style={{ x: x1, y: y1exit }}
@@ -93,7 +97,7 @@ const ModesView = () => {
           {t('modes.w1')}
         </motion.div>
 
-        {/* MODES. (outline, behind box) */}
+        {/* MODES. — top-right, outline, diagonal from corner */}
         <motion.div
           className={`${styles.word} ${styles.w2}`}
           style={{ x: x2, y: y2exit }}
@@ -101,19 +105,19 @@ const ModesView = () => {
           {t('modes.w2')}
         </motion.div>
 
-        {/* KARAOKE BOX — in front */}
+        {/* KARAOKE BOX — left-center, strong diagonal */}
         <motion.div className={`${styles.word} ${styles.w3}`} style={{ x: x3, y: y3 }}>
           KARAOKE
           <br />
           BOX
         </motion.div>
 
-        {/* JUKEBOX — outline, behind */}
+        {/* JUKEBOX — right, outline, diagonal from top-right */}
         <motion.div className={`${styles.word} ${styles.w4}`} style={{ x: x4, y: y4 }}>
           JUKEBOX
         </motion.div>
 
-        {/* OR BOTH. — accent, center-bottom */}
+        {/* OR BOTH. — bottom-left, accent, rises then exits left */}
         <motion.div
           className={`${styles.word} ${styles.w5}`}
           style={{ y: y5, x: x5exit, rotate: r5 }}
@@ -121,13 +125,14 @@ const ModesView = () => {
           {t('modes.w5')}
         </motion.div>
 
-        {/* Mode descriptions */}
-        <motion.div className={styles.descLeft} style={{ x: xDescL }}>
+        {/* Descriptor left — staggered diagonal, enters lower */}
+        <motion.div className={styles.descLeft} style={{ x: xDescL, y: yDescL }}>
           <strong>{t('modes.descLeftTitle')}</strong>
           <p>{t('modes.descLeftDesc')}</p>
         </motion.div>
 
-        <motion.div className={styles.descRight} style={{ x: xDescR }}>
+        {/* Descriptor right — staggered diagonal, enters higher */}
+        <motion.div className={styles.descRight} style={{ x: xDescR, y: yDescR }}>
           <strong>{t('modes.descRightTitle')}</strong>
           <p>{t('modes.descRightDesc')}</p>
         </motion.div>

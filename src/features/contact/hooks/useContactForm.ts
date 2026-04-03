@@ -27,6 +27,8 @@ const VENUE_LABELS: Record<ContactVenueType, string> = {
 export const useContactForm = () => {
   const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_STATE);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -39,30 +41,35 @@ export const useContactForm = () => {
     setFormData((previous) => ({ ...previous, [field]: value }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
-    const subject = encodeURIComponent(
-      `SVANDA Inquiry — ${MODE_LABELS[formData.mode]} — ${VENUE_LABELS[formData.venueType]}`,
-    );
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `SVANDA Inquiry — ${MODE_LABELS[formData.mode]} — ${VENUE_LABELS[formData.venueType]}`,
+          name: formData.contactName,
+          venue: formData.venueName,
+          email: formData.email,
+          phone: formData.phone || '—',
+          mode: MODE_LABELS[formData.mode],
+          for: VENUE_LABELS[formData.venueType],
+          message: formData.message || '—',
+        }),
+      });
 
-    const body = encodeURIComponent(
-      [
-        `Name: ${formData.contactName}`,
-        `Venue: ${formData.venueName}`,
-        `Email: ${formData.email}`,
-        formData.phone ? `Phone: ${formData.phone}` : '',
-        `Mode: ${MODE_LABELS[formData.mode]}`,
-        `For: ${VENUE_LABELS[formData.venueType]}`,
-        formData.message ? `\nMessage:\n${formData.message}` : '',
-      ]
-        .filter(Boolean)
-        .join('\n'),
-    );
-
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    setIsSubmitted(true);
+      if (!response.ok) throw new Error('Submission failed');
+      setIsSubmitted(true);
+    } catch {
+      setError('Something went wrong. Please try again or email us directly.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  return { formData, isSubmitted, handleChange, handleSelect, handleSubmit };
+  return { formData, isSubmitted, isLoading, error, handleChange, handleSelect, handleSubmit };
 };

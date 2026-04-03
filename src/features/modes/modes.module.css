@@ -1,6 +1,5 @@
 .section {
   position: relative;
-  min-height: 120vh;
   background: #0a0a0a;
 }
 
@@ -20,8 +19,7 @@
 }
 
 .viewport {
-  position: sticky;
-  top: 0;
+  position: relative;
   height: 100vh;
   overflow: hidden;
   background: #0a0a0a;
@@ -66,71 +64,77 @@
   pointer-events: none;
 }
 
-/* TWO — top-left, solid white, in front */
+/* TWO — decorative bg, top-left, large but low opacity/z */
 .w1 {
   top: 6%;
   left: 5vw;
-  font-size: clamp(72px, 16vw, 230px);
+  font-size: clamp(48px, 9vw, 130px);
   color: #ffffff;
-  z-index: 15;
+  opacity: 0.15;
+  z-index: 2;
 }
 
-/* MODES. — upper-right, outline, behind */
+/* MODES. — decorative outline, top-right, constrained */
 .w2 {
-  top: 6%;
+  top: 5%;
   right: 5vw;
-  font-size: clamp(32px, 8vw, 116px);
+  font-size: clamp(18px, 3.5vw, 54px);
+  max-width: 30vw;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5);
-  z-index: 15;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+  z-index: 5;
 }
 
-/* KARAOKE BOX — mid-left, solid white, in front */
+/* KARAOKE BOX — content, left, constrained away from center */
 .w3 {
-  top: 32%;
+  top: 34%;
   left: 5vw;
-  font-size: clamp(28px, 7vw, 100px);
+  font-size: clamp(14px, 2.8vw, 42px);
+  max-width: 28vw;
   color: #ffffff;
   z-index: 15;
-  line-height: 0.85;
+  line-height: 0.88;
+  white-space: normal;
 }
 
-/* JUKEBOX — mid-right, outline, behind */
+/* JUKEBOX — content, right, constrained away from center */
 .w4 {
-  top: 50%;
+  top: 46%;
   right: 5vw;
-  font-size: clamp(28px, 7vw, 100px);
+  font-size: clamp(14px, 2.8vw, 42px);
+  max-width: 28vw;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.6);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.6);
   z-index: 15;
+  text-align: right;
 }
 
-/* OR BOTH. — accent, bottom-center, in front */
+/* OR BOTH. — content accent, bottom-left, constrained */
 .w5 {
-  bottom: 8%;
+  bottom: 10%;
   left: 5vw;
-  font-size: clamp(40px, 10vw, 144px);
+  font-size: clamp(20px, 4.5vw, 66px);
+  max-width: 30vw;
   color: var(--color-accent-orange);
   z-index: 15;
 }
 
-/* Mode descriptors */
-.descLeft,
-.descRight {
+/* Mode descriptors — staggered vertical placement for asymmetry */
+.descLeft {
   position: absolute;
-  bottom: 24%;
+  bottom: 28%;
+  left: 5vw;
+  max-width: min(260px, 28vw);
   z-index: 15;
 }
 
-.descLeft {
-  left: 5vw;
-  max-width: 360px;
-}
-
 .descRight {
+  position: absolute;
+  bottom: 18%;
   right: 5vw;
-  max-width: 360px;
+  max-width: min(260px, 28vw);
   text-align: right;
+  z-index: 15;
 }
 
 .descLeft strong,
@@ -147,9 +151,9 @@
 .descLeft p,
 .descRight p {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(17px, 1.6vw, 22px);
+  font-size: clamp(13px, 1.2vw, 17px);
   color: rgba(255, 255, 255, 0.55);
-  line-height: 1.65;
+  line-height: 1.55;
 }
 
 @media (max-width: 768px) {
@@ -158,40 +162,29 @@
   }
 
   .w4 {
-    top: 38%;
-    left: 5vw;
-    right: auto;
-    text-align: left;
-  }
-
-  .descLeft {
-    bottom: 32%;
-    max-width: calc(100vw - 10vw);
+    top: 40%;
+    right: 5vw;
   }
 
   .descRight {
-    bottom: 16%;
-    right: auto;
-    left: 5vw;
-    text-align: left;
-    max-width: calc(100vw - 10vw);
+    bottom: 14%;
   }
 }
 
 @media (max-width: 480px) {
   .w3 {
-    top: 28%;
+    top: 30%;
   }
 
   .w4 {
-    top: 42%;
+    top: 44%;
   }
 
   .descLeft {
-    bottom: 36%;
+    bottom: 32%;
   }
 
   .descRight {
-    bottom: 18%;
+    bottom: 16%;
   }
 }

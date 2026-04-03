@@ -13,7 +13,7 @@ const CentralBox = ({ containerRef }: Props) => {
     offset: ['start end', 'end start'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.04, 0.88, 0.97], [0, 1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.04, 0.82, 0.93], [0, 1, 1, 0], { clamp: true });
 
   return (
     <motion.div className={styles.wrapper} style={{ opacity }} aria-hidden="true">

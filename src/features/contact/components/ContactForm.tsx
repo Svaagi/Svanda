@@ -19,7 +19,7 @@ const VENUE_TYPES: { value: ContactVenueType; label: string }[] = [
 
 const ContactForm = () => {
   const { t } = useTranslation();
-  const { formData, isSubmitted, handleChange, handleSelect, handleSubmit } =
+  const { formData, isSubmitted, isLoading, error, handleChange, handleSelect, handleSubmit } =
     useContactForm();
 
   return (
@@ -158,8 +158,9 @@ const ContactForm = () => {
             />
           </div>
 
-          <button type="submit" className={styles.submitButton}>
-            {t('contact.form.submit')}
+          {error && <p className={styles.errorText}>{error}</p>}
+          <button type="submit" className={styles.submitButton} disabled={isLoading}>
+            {isLoading ? t('contact.form.submitting') : t('contact.form.submit')}
           </button>
         </motion.form>
       )}

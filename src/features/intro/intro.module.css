@@ -1,32 +1,24 @@
 .section {
   position: relative;
-  min-height: 120vh;
   background: #ffffff;
 }
 
-.ghost {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(180px, 35vw, 480px);
-  font-weight: 800;
-  color: rgba(0, 0, 0, 0.025);
-  letter-spacing: -0.06em;
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  z-index: 2;
-}
-
+/* ─── Sticky viewport → 3-column grid ────────────────────────────────────────
+   Column 1: left content    Column 2: SAFE ZONE (reserved)    Column 3: right content
+   Text lives in col 1 or col 3. It is physically impossible for it to occupy col 2.
+   The CentralBox is position:fixed and visually sits on top of col 2.
+   ─────────────────────────────────────────────────────────────────────────── */
 .viewport {
-  position: sticky;
-  top: 0;
+  position: relative;
   height: 100vh;
   overflow: hidden;
+  display: grid;
+  /* 320px = machine width (300px) + 20px breathing room on each side */
+  grid-template-columns: 1fr minmax(320px, 34vw) 1fr;
+  grid-template-rows: 1fr;
 }
 
+/* Blobs: position:absolute inside a sticky container → spans full viewport */
 .blobLayer {
   position: absolute;
   inset: 0;
@@ -35,6 +27,38 @@
   overflow: hidden;
 }
 
+/* ─── LEFT COLUMN ─── */
+.leftCol {
+  position: relative;   /* establishes containing block for absolute children */
+  height: 100%;
+  overflow: hidden;     /* hard clip: nothing exits this column to the right */
+  z-index: 5;
+  /* DEBUG — uncomment to verify boundary:
+  outline: 2px solid rgba(0, 200, 100, 0.45);
+  background: rgba(0, 200, 100, 0.04); */
+}
+
+/* ─── CENTER SAFE ZONE ─── */
+.centerCol {
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  /* DEBUG — uncomment to verify safe zone:
+  background: rgba(255, 0, 0, 0.07); */
+}
+
+/* ─── RIGHT COLUMN ─── */
+.rightCol {
+  position: relative;   /* establishes containing block for absolute children */
+  height: 100%;
+  overflow: hidden;     /* hard clip: nothing exits this column to the left */
+  z-index: 5;
+  /* DEBUG — uncomment to verify boundary:
+  outline: 2px solid rgba(0, 100, 255, 0.45);
+  background: rgba(0, 100, 255, 0.04); */
+}
+
+/* ─── Tag (inside leftCol) ─── */
 .tag {
   position: absolute;
   top: 7%;
@@ -55,6 +79,7 @@
   white-space: nowrap;
 }
 
+/* ─── Shared word base ─── */
 .word {
   position: absolute;
   font-family: 'Syne', sans-serif;
@@ -65,29 +90,26 @@
   pointer-events: none;
 }
 
-/* SAMO (4c) + OBSLUHA (7c) — row 1, same vertical position */
+/* ── LEFT WORDS (inside leftCol) ──
+   left: 5vw is relative to leftCol's left edge = viewport left edge. ✓
+   overflow:hidden on leftCol prevents any rightward spillage.            */
+
+/* SAMO — decorative background word, left */
 .w1 {
-  top: 14%;
-  left: 5vw;
-  font-size: clamp(36px, 12vw, 173px);
-  color: #0a0a0a;
-  z-index: 15;
+  top: 10%;
+  left: 2vw;
+  font-size: clamp(44px, 10vw, 130px);
+  max-width: 100%;
+  color: rgba(10, 10, 10, 0.1);
+  z-index: 2;
 }
 
-.w2 {
-  top: 14%;
-  right: 5vw;
-  font-size: clamp(20px, 7vw, 101px);
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.85);
-  z-index: 15;
-}
-
-/* KARAOKE (7c) + + JUKEBOX (8c) — row 2, same vertical position */
+/* KARAOKE — content word, left */
 .w3 {
-  top: 38%;
+  top: 28%;
   left: 5vw;
-  font-size: clamp(20px, 7vw, 101px);
+  font-size: clamp(13px, 3vw, 42px);
+  max-width: calc(100% - 5vw);
   background: linear-gradient(135deg, #7c3aed 0%, #e040a0 50%, #4facfe 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -95,45 +117,64 @@
   z-index: 15;
 }
 
-.w4 {
-  top: 38%;
+/* ── RIGHT WORDS (inside rightCol) ──
+   right: 5vw is relative to rightCol's right edge = viewport right edge. ✓
+   overflow:hidden on rightCol prevents any leftward spillage.             */
+
+/* OBSLUHA — content word, right */
+.w2 {
+  top: 10%;
   right: 5vw;
-  font-size: clamp(16px, 6vw, 86px);
+  font-size: clamp(13px, 3vw, 42px);
+  max-width: calc(100% - 5vw);
   color: transparent;
-  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.6);
+  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.80);
   z-index: 15;
 }
 
-/* 18 000+ SKLADIEB — bottom right, below box */
+/* + JUKEBOX — decorative background word, right */
+.w4 {
+  top: 28%;
+  right: 2vw;
+  font-size: clamp(32px, 7.5vw, 100px);
+  max-width: 100%;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+/* 18 000+ SKLADIEB — content accent, bottom right */
 .w6 {
-  bottom: 8%;
+  bottom: 9%;
   right: 5vw;
-  font-size: clamp(14px, 5vw, 72px);
+  font-size: clamp(11px, 1.9vw, 26px);
+  max-width: calc(100% - 5vw);
   color: var(--color-accent-orange);
   letter-spacing: -0.02em;
   z-index: 15;
 }
 
+/* ─── Descriptor (inside leftCol) ─── */
 .descriptor {
   position: absolute;
   bottom: 6%;
   left: 5vw;
   z-index: 15;
-  max-width: 480px;
+  max-width: clamp(180px, 26vw, 340px);
 }
 
 .descriptor p {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(17px, 1.6vw, 22px);
+  font-size: clamp(13px, 1.2vw, 17px);
   color: rgba(0, 0, 0, 0.55);
-  line-height: 1.75;
+  line-height: 1.65;
   margin-bottom: 8px;
 }
 
 .descriptor p + p {
-  font-size: clamp(15px, 1.4vw, 20px);
+  font-size: clamp(12px, 1.1vw, 16px);
   color: rgba(0, 0, 0, 0.35);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .pills {

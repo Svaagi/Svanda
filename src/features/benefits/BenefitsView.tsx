@@ -5,6 +5,26 @@ import { useTranslation } from 'react-i18next';
 import GlassBlob from 'features/hero/components/GlassBlob';
 import styles from './benefits.module.css';
 
+const PANEL_SLIDE_START = 0.7;
+
+// Animation travel distances (px). Negative = enters/exits left, positive = enters/exits right.
+// Kept well within the side columns so no element can drift toward center.
+const ENTER_L1 = -280;
+const EXIT_L1  = -220;
+const ENTER_L4 = -240;
+const EXIT_L4  = -180;
+const ENTER_R2 =  280;
+const EXIT_R2  =  220;
+const ENTER_R5 =  200;
+const EXIT_R5  =  150;
+const ENTER_DESC = 180;
+const EXIT_DESC  = 130;
+// Vertical travel distances (px). Positive = enters from below, negative = enters from above.
+const ENTER_Y_STATS =  80;
+const EXIT_Y_STATS  =  56;
+const ENTER_Y_TAG   = -44;
+const EXIT_Y_TAG    = -32;
+
 const BLOBS = [
   {
     id: 'b-gold', size: 600, top: '-12%', left: '54%',
@@ -33,20 +53,23 @@ const BenefitsView = () => {
     offset: ['start end', 'end start'],
   });
 
-  // "BEZ OBSLUHY" — row 1 left, from far left
-  const x1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [-900, 0, 0, -700]);
-  // "FUNGUJE." — row 1 right (same row), from far right
-  const x2 = useTransform(scrollYProgress, [0.03, 0.24, 0.72, 0.94], [900, 0, 0, 700]);
-  // "VIAC" — row 2 left, from left
-  const x4 = useTransform(scrollYProgress, [0.1, 0.32, 0.72, 0.94], [-700, 0, 0, -500]);
-  // "PRÍJMOV." — row 2 right (same row), from right
-  const x5 = useTransform(scrollYProgress, [0.12, 0.35, 0.72, 0.94], [600, 0, 0, 450]);
-  // Stats — rise from bottom
-  const yStats = useTransform(scrollYProgress, [0.22, 0.44, 0.74, 0.94], [100, 0, 0, 70]);
-  // Descriptor — from left
-  const xDesc = useTransform(scrollYProgress, [0.25, 0.46, 0.74, 0.94], [-300, 0, 0, -220]);
-  // Tag from top
-  const yTag = useTransform(scrollYProgress, [0.02, 0.2, 0.74, 0.94], [-50, 0, 0, -38]);
+  // clamp: true — prevents extrapolation beyond defined scroll range at both ends,
+  // guaranteeing no element can overshoot its bounded side at any scroll position.
+
+  // "BEZ OBSLUHY" — row 1 left, enters/exits left (x <= 0)
+  const x1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [ENTER_L1, 0, 0, EXIT_L1], { clamp: true });
+  // "FUNGUJE." — row 1 right, enters/exits right (x >= 0)
+  const x2 = useTransform(scrollYProgress, [0.03, 0.24, 0.72, 0.94], [ENTER_R2, 0, 0, EXIT_R2], { clamp: true });
+  // "VIAC" — row 2 left, staggered slightly after row 1 (x <= 0)
+  const x4 = useTransform(scrollYProgress, [0.07, 0.28, 0.72, 0.94], [ENTER_L4, 0, 0, EXIT_L4], { clamp: true });
+  // "PRÍJMOV." — row 2 right, staggered after row 1 (x >= 0)
+  const x5 = useTransform(scrollYProgress, [0.09, 0.31, 0.72, 0.94], [ENTER_R5, 0, 0, EXIT_R5], { clamp: true });
+  // Stats — rise from bottom (vertical only, no horizontal risk)
+  const yStats = useTransform(scrollYProgress, [0.22, 0.44, 0.74, 0.94], [ENTER_Y_STATS, 0, 0, EXIT_Y_STATS], { clamp: true });
+  // Descriptor — from right (x >= 0)
+  const xDesc = useTransform(scrollYProgress, [0.25, 0.46, 0.74, 0.94], [ENTER_DESC, 0, 0, EXIT_DESC], { clamp: true });
+  // Tag from top (vertical only)
+  const yTag = useTransform(scrollYProgress, [0.02, 0.2, 0.74, 0.94], [ENTER_Y_TAG, 0, 0, EXIT_Y_TAG], { clamp: true });
 
   const opacity = useTransform(scrollYProgress, [0.01, 0.18, 0.79, 0.96], [0, 1, 1, 0]);
 
@@ -59,58 +82,72 @@ const BenefitsView = () => {
           {BLOBS.map((blob) => <GlassBlob key={blob.id} config={blob} />)}
         </div>
 
-        {/* Tag */}
-        <motion.div className={styles.tag} style={{ y: yTag }}>
-          {t('benefits.tag')}
-        </motion.div>
+        {/* Grid — three columns: left content | center safe zone | right content */}
+        <div className={styles.grid}>
 
-        {/* BEZ OBSLUHY — row 1 left */}
-        <motion.div className={`${styles.word} ${styles.w1}`} style={{ x: x1 }}>
-          {t('benefits.w1')}
-        </motion.div>
+          {/* LEFT COLUMN — x animations only go left (x <= 0) */}
+          <div className={styles.leftCol}>
+            {/* Tag */}
+            <motion.div className={styles.tag} style={{ y: yTag }}>
+              {t('benefits.tag')}
+            </motion.div>
 
-        {/* FUNGUJE. — row 1 right (same row) */}
-        <motion.div className={`${styles.word} ${styles.w2}`} style={{ x: x2 }}>
-          {t('benefits.w2')}
-        </motion.div>
+            {/* BEZ OBSLUHY — row 1 left, slides in from left */}
+            <motion.div className={`${styles.word} ${styles.w1}`} style={{ x: x1 }}>
+              {t('benefits.w1')}
+            </motion.div>
 
-        {/* VIAC — row 2 left */}
-        <motion.div className={`${styles.word} ${styles.w4}`} style={{ x: x4 }}>
-          {t('benefits.w4')}
-        </motion.div>
+            {/* VIAC — row 2 left, slides in from left */}
+            <motion.div className={`${styles.word} ${styles.w4}`} style={{ x: x4 }}>
+              {t('benefits.w4')}
+            </motion.div>
 
-        {/* PRÍJMOV. — row 2 right (same row) */}
-        <motion.div className={`${styles.word} ${styles.w5}`} style={{ x: x5 }}>
-          {t('benefits.w5')}
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div className={styles.stats} style={{ y: yStats }}>
-          <div className={styles.stat}>
-            <span className={styles.val}>25,000+</span>
-            <span className={styles.label}>{t('benefits.stat1Label')}</span>
+            {/* Stats */}
+            <motion.div className={styles.stats} style={{ y: yStats }}>
+              <div className={styles.stat}>
+                <span className={styles.val}>25,000+</span>
+                <span className={styles.label}>{t('benefits.stat1Label')}</span>
+              </div>
+              <div className={styles.divider} />
+              <div className={styles.stat}>
+                <span className={styles.val}>10 CZK</span>
+                <span className={styles.label}>{t('benefits.stat2Label')}</span>
+              </div>
+              <div className={styles.divider} />
+              <div className={styles.stat}>
+                <span className={styles.val}>0</span>
+                <span className={styles.label}>{t('benefits.stat3Label')}</span>
+              </div>
+              <div className={styles.divider} />
+              <div className={styles.stat}>
+                <span className={styles.val}>24/7</span>
+                <span className={styles.label}>{t('benefits.stat4Label')}</span>
+              </div>
+            </motion.div>
           </div>
-          <div className={styles.divider} />
-          <div className={styles.stat}>
-            <span className={styles.val}>10 CZK</span>
-            <span className={styles.label}>{t('benefits.stat2Label')}</span>
-          </div>
-          <div className={styles.divider} />
-          <div className={styles.stat}>
-            <span className={styles.val}>0</span>
-            <span className={styles.label}>{t('benefits.stat3Label')}</span>
-          </div>
-          <div className={styles.divider} />
-          <div className={styles.stat}>
-            <span className={styles.val}>24/7</span>
-            <span className={styles.label}>{t('benefits.stat4Label')}</span>
-          </div>
-        </motion.div>
 
-        {/* Descriptor */}
-        <motion.p className={styles.desc} style={{ x: xDesc }}>
-          {t('benefits.desc')}
-        </motion.p>
+          {/* CENTER COLUMN — empty safe zone for the karaoke machine */}
+          <div className={styles.centerCol} />
+
+          {/* RIGHT COLUMN — x animations only go right (x >= 0) */}
+          <div className={styles.rightCol}>
+            {/* FUNGUJE. — row 1 right, slides in from right */}
+            <motion.div className={`${styles.word} ${styles.w2}`} style={{ x: x2 }}>
+              {t('benefits.w2')}
+            </motion.div>
+
+            {/* PRÍJMOV. — row 2 right, slides in from right */}
+            <motion.div className={`${styles.word} ${styles.w5}`} style={{ x: x5 }}>
+              {t('benefits.w5')}
+            </motion.div>
+
+            {/* Descriptor — slides in from right */}
+            <motion.p className={styles.desc} style={{ x: xDesc }}>
+              {t('benefits.desc')}
+            </motion.p>
+          </div>
+
+        </div>
       </motion.div>
     </section>
   );
