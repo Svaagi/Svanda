@@ -2,33 +2,41 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import GlassBlob from 'features/hero/components/GlassBlob';
+import GlassBlob from 'components/GlassBlob';
 import styles from './modes.module.css';
 
 const BLOBS = [
   {
-    id: 'm-electric', size: 680, top: '-16%', left: '-8%',
+    id: 'm-top',
+    size: 640,
+    height: 560,
+    top: '-10%',
+    left: '4%',
     color: [
-      'radial-gradient(circle at 30% 26%, rgba(180,140,255,0.22) 0%, transparent 26%)',
-      'radial-gradient(circle at 48% 44%, rgba(100,0,255,0.75) 0%, rgba(180,0,255,0.50) 38%, rgba(60,0,180,0.20) 68%, transparent 82%)',
+      'radial-gradient(circle at 26% 28%, rgba(112,0,255,1.0) 0%, transparent 42%)',
+      'radial-gradient(circle at 65% 46%, rgba(245,18,102,1.0) 0%, transparent 40%)',
+      'radial-gradient(circle at 46% 80%, rgba(178,0,228,0.90) 0%, transparent 34%)',
     ].join(', '),
-    blur: 4, delay: 0, duration: 9, borderRadius: '60% 40% 52% 48% / 50% 62% 38% 50%',
+    delay: 0,
+    duration: 11,
+    borderRadius: '74% 26% 28% 72% / 22% 76% 24% 78%',
+    borderRadiusAlt: '26% 74% 76% 24% / 78% 22% 76% 24%',
   },
   {
-    id: 'm-hotpink', size: 580, top: '5%', left: '62%',
+    id: 'm-bottom',
+    size: 600,
+    height: 500,
+    top: '44%',
+    left: 'calc(100% - 580px)',
     color: [
-      'radial-gradient(circle at 34% 28%, rgba(255,160,200,0.22) 0%, transparent 26%)',
-      'radial-gradient(circle at 50% 48%, rgba(255,20,100,0.72) 0%, rgba(255,60,180,0.46) 40%, rgba(180,0,120,0.16) 68%, transparent 82%)',
+      'radial-gradient(circle at 26% 28%, rgba(172,210,180,1.0) 0%, transparent 42%)',
+      'radial-gradient(circle at 65% 54%, rgba(0,232,108,1.0) 0%, transparent 38%)',
+      'radial-gradient(circle at 44% 80%, rgba(0,198,162,0.88) 0%, transparent 34%)',
     ].join(', '),
-    blur: 5, delay: 1, duration: 10, borderRadius: '44% 56% 48% 52% / 58% 44% 56% 42%',
-  },
-  {
-    id: 'm-neongreen', size: 520, top: '48%', left: '28%',
-    color: [
-      'radial-gradient(circle at 36% 30%, rgba(160,255,180,0.18) 0%, transparent 26%)',
-      'radial-gradient(circle at 50% 50%, rgba(0,255,100,0.62) 0%, rgba(0,200,160,0.38) 42%, rgba(0,120,200,0.14) 68%, transparent 82%)',
-    ].join(', '),
-    blur: 6, delay: 1.8, duration: 11, borderRadius: '52% 48% 56% 44% / 46% 58% 42% 54%',
+    delay: 1.2,
+    duration: 13,
+    borderRadius: '26% 74% 72% 28% / 76% 24% 74% 26%',
+    borderRadiusAlt: '74% 26% 26% 74% / 24% 76% 28% 72%',
   },
 ];
 
@@ -51,24 +59,24 @@ const ModesView = () => {
   const y2 = useTransform(scrollYProgress, [0.03, 0.25, 0.72, 0.94], [-80, 0, 0, 0]);
   const y2exit = useTransform(scrollYProgress, [0.72, 0.94], [0, 160]);
 
-  // "KARAOKE BOX" — left-center, diagonal from bottom-left, exits up-left
-  const x3 = useTransform(scrollYProgress, [0.08, 0.30, 0.72, 0.94], [-300, 0, 0, -180]);
-  const y3 = useTransform(scrollYProgress, [0.08, 0.30, 0.72, 0.94], [160, 0, 0, -80]);
+  // "KARAOKE BOX" — left, slides from left, exits left
+  const x3 = useTransform(scrollYProgress, [0.08, 0.28, 0.72, 0.94], [-260, 0, 0, -180]);
+  const y3 = useTransform(scrollYProgress, [0.08, 0.28, 0.72, 0.94], [60, 0, 0, -60]);
 
-  // "JUKEBOX" — right, diagonal from top-right corner, exits down-right
-  const x4 = useTransform(scrollYProgress, [0.10, 0.33, 0.72, 0.94], [280, 0, 0, 180]);
-  const y4 = useTransform(scrollYProgress, [0.10, 0.33, 0.72, 0.94], [-120, 0, 0, 80]);
+  // "JUKEBOX" — right, slides from right, exits right
+  const x4 = useTransform(scrollYProgress, [0.10, 0.30, 0.72, 0.94], [260, 0, 0, 180]);
+  const y4 = useTransform(scrollYProgress, [0.10, 0.30, 0.72, 0.94], [-60, 0, 0, 60]);
 
-  // "OR BOTH." — bottom-left, rises from below, exits left with rotation
-  const y5 = useTransform(scrollYProgress, [0.16, 0.38, 0.72, 0.94], [160, 0, 0, 0]);
-  const x5exit = useTransform(scrollYProgress, [0.72, 0.94], [0, -140]);
-  const r5 = useTransform(scrollYProgress, [0.16, 0.38, 0.72, 0.94], [8, 0, 0, -5]);
+  // "OR BOTH." — bottom-left, rises from below, exits left
+  const y5 = useTransform(scrollYProgress, [0.16, 0.38, 0.72, 0.94], [120, 0, 0, 0]);
+  const x5exit = useTransform(scrollYProgress, [0.72, 0.94], [0, -120]);
+  const r5 = useTransform(scrollYProgress, [0.16, 0.38, 0.72, 0.94], [6, 0, 0, -4]);
 
-  // Descriptors — staggered diagonal, left lower / right higher for asymmetric composition
-  const xDescL = useTransform(scrollYProgress, [0.24, 0.46, 0.74, 0.94], [-240, 0, 0, -180]);
-  const yDescL = useTransform(scrollYProgress, [0.24, 0.46], [50, 0]);
-  const xDescR = useTransform(scrollYProgress, [0.24, 0.46, 0.74, 0.94], [240, 0, 0, 180]);
-  const yDescR = useTransform(scrollYProgress, [0.24, 0.46], [-50, 0]);
+  // Descriptors — enter with headlines, slide in from sides
+  const xDescL = useTransform(scrollYProgress, [0.16, 0.36, 0.74, 0.94], [-180, 0, 0, -140]);
+  const yDescL = useTransform(scrollYProgress, [0.16, 0.36], [0, 0]);
+  const xDescR = useTransform(scrollYProgress, [0.16, 0.36, 0.74, 0.94], [180, 0, 0, 140]);
+  const yDescR = useTransform(scrollYProgress, [0.16, 0.36], [0, 0]);
 
   // Tag — drops from top
   const yTag = useTransform(scrollYProgress, [0.02, 0.20, 0.74, 0.94], [-50, 0, 0, -36]);

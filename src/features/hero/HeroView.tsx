@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { ANIMATION_DURATION_SLOW, ANIMATION_STAGGER_CHILDREN, EASING_STANDARD } from 'constants';
 import { scrollToSection } from 'utils';
 
-import { GlassBlob, Hero3D } from './components';
+import GlassBlob from 'components/GlassBlob';
+
+import { Hero3D } from './components';
 import { HERO_BLOBS } from './constants';
 import styles from './hero.module.css';
 import { useHeroParallax } from './hooks';

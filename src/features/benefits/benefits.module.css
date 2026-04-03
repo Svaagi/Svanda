@@ -37,7 +37,7 @@
 /* ── Tag ─────────────────────────────────────── */
 .tag {
   position: absolute;
-  top: 7%;
+  top: 8%;
   left: 5vw;
   font-size: 12px;
   font-weight: 600;
@@ -73,20 +73,20 @@
    (z-index:auto) naturally — no artificial exclusion needed.
    ─────────────────────────────────────────────────────────────── */
 
-/* "BEZ OBSLUHY" — top-left anchor — content text, must not reach center */
+/* "BEZ OBSLUHY" — upper-left; tag sits just above, these two form a left cluster */
 .w1 {
-  top: 13%;
+  top: 16%;
   left: 5vw;
   font-size: clamp(14px, 3.8vw, 54px);
   color: #0a0a0a;
   z-index: 15;
 }
 
-/* "FUNGUJE." — upper-right — content text, must not reach center */
+/* "FUNGUJE." — mid-right; fills the right-of-machine zone (machine: ~22%-75% tall) */
 .w2 {
-  top: 24%;
+  top: 30%;
   right: 5vw;
-  font-size: clamp(14px, 4.4vw, 62px);
+  font-size: clamp(14px, 4.2vw, 60px);
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.7);
   z-index: 15;
@@ -97,19 +97,20 @@
   display: none;
 }
 
-/* "VIAC" — background/decorative ghost word; allowed behind box */
+/* "VIAC" — background ghost anchored mid-left; large so it fills vertical void */
 .w4 {
-  top: 34%;
-  left: 3vw;
+  top: 35%;
+  left: 2vw;
   font-size: clamp(28px, 9.5vw, 136px);
-  color: rgba(10, 10, 10, 0.10);
+  color: rgba(10, 10, 10, 0.09);
   z-index: 2;
   pointer-events: none;
 }
 
-/* "PRÍJMOV." — lower-right — content text, must not reach center */
+/* "PRÍJMOV." — lower-right; sits below w2 + desc, filling bottom-right zone */
 .w5 {
   top: 54%;
+  bottom: auto;
   right: 5vw;
   font-size: clamp(14px, 4vw, 58px);
   color: var(--color-accent-orange);
@@ -119,7 +120,7 @@
 /* ── Stats ───────────────────────────────────── */
 .stats {
   position: absolute;
-  bottom: 6%;
+  bottom: 9%;
   left: 5vw;
   display: flex;
   align-items: center;
@@ -162,17 +163,18 @@
   flex-shrink: 0;
 }
 
-/* ── Descriptor ──────────────────────────────── */
+/* ── Descriptor — sits between w2 and w5, tight right cluster */
 .desc {
   position: absolute;
-  top: 63%;
+  top: 42%;
+  bottom: auto;
   right: 5vw;
   font-family: 'Syne', sans-serif;
-  font-size: clamp(18px, 1.8vw, 26px);
+  font-size: clamp(12px, 1.2vw, 17px);
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(0, 0, 0, 0.55);
   line-height: 1.55;
-  max-width: 420px;
+  max-width: 280px;
   text-align: right;
   z-index: 15;
 }
@@ -184,7 +186,8 @@
   }
 
   .w5 {
-    top: 57%;
+    top: 58%;
+    bottom: auto;
     right: 5vw;
     left: auto;
   }

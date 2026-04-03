@@ -14,20 +14,20 @@ const ExperienceView = () => {
     offset: ['start end', 'end start'],
   });
 
-  // "SVANDA" — decorative bg, slides from left
-  const x1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [-600, 0, 0, -500]);
-  // "EXPERIENCE" — outline, from right — stays in right lane
-  const x2 = useTransform(scrollYProgress, [0.03, 0.24, 0.72, 0.94], [400, 0, 0, 320]);
-  // "THE FUTURE OF" — drops from top
-  const y3 = useTransform(scrollYProgress, [0.06, 0.28, 0.72, 0.94], [-80, 0, 0, -60]);
-  // "BAR ENTERTAINMENT" — rises from bottom
-  const y4 = useTransform(scrollYProgress, [0.1, 0.32, 0.72, 0.94], [100, 0, 0, -80]);
-  // "SELF-SERVICE." — diagonal from bottom-left, shorter travel
-  const x5 = useTransform(scrollYProgress, [0.14, 0.36, 0.72, 0.94], [-280, 0, 0, -200]);
-  const y5 = useTransform(scrollYProgress, [0.14, 0.36, 0.72, 0.94], [80, 0, 0, -60]);
-  // Sub copy — from right with rotation
-  const x6 = useTransform(scrollYProgress, [0.2, 0.42, 0.74, 0.94], [200, 0, 0, 160]);
-  const r6 = useTransform(scrollYProgress, [0.2, 0.42, 0.74, 0.94], [4, 0, 0, -3]);
+  // SVANDA — decorative, enters from left, exits left
+  const x1 = useTransform(scrollYProgress, [0.02, 0.22, 0.72, 0.94], [-700, 0, 0, -560]);
+  // EXPERIENCE — right lane, enters from right, exits right
+  const x2 = useTransform(scrollYProgress, [0.03, 0.24, 0.72, 0.94], [360, 0, 0, 300]);
+  // THE FUTURE OF — left lane beside box, slides in from left
+  const y3 = useTransform(scrollYProgress, [0.06, 0.28, 0.72, 0.94], [-60, 0, 0, -50]);
+  // BAR ENTERTAINMENT — right lane beside box, slides in from right
+  const y4 = useTransform(scrollYProgress, [0.1, 0.32, 0.72, 0.94], [80, 0, 0, -60]);
+  // SELF-SERVICE. — left lane, slides in from left
+  const x5 = useTransform(scrollYProgress, [0.14, 0.36, 0.72, 0.94], [-300, 0, 0, -240]);
+  const y5 = useTransform(scrollYProgress, [0.14, 0.36, 0.72, 0.94], [40, 0, 0, -30]);
+  // Sub copy — bottom-right, slides from right, slight rotation
+  const x6 = useTransform(scrollYProgress, [0.2, 0.42, 0.74, 0.94], [220, 0, 0, 180]);
+  const r6 = useTransform(scrollYProgress, [0.2, 0.42, 0.74, 0.94], [3, 0, 0, -2]);
   // Bg title drift
   const bgX = useTransform(scrollYProgress, [0, 1], [-30, 30]);
   // PLAY badge — from top

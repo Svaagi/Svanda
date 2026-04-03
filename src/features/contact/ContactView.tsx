@@ -5,8 +5,62 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 import { CONTACT_EMAIL, CONTACT_PHONE, EASING_STANDARD } from 'constants';
+import GlassBlob, { BlobConfig } from 'components/GlassBlob';
 import { ContactForm } from './components';
 import styles from './contact.module.css';
+
+const BLOBS: BlobConfig[] = [
+  {
+    id: 'c-top',
+    size: 620,
+    height: 540,
+    top: '-8%',
+    left: '4%',
+    color: [
+      'radial-gradient(circle at 18% 22%, rgba(222,32,62,0.92) 0%, transparent 48%)',
+      'radial-gradient(circle at 76% 36%, rgba(245,78,110,0.88) 0%, transparent 44%)',
+      'radial-gradient(circle at 48% 78%, rgba(198,78,158,0.84) 0%, transparent 42%)',
+      'rgba(220, 55, 120, 0.20)',
+    ].join(', '),
+    delay: 0,
+    duration: 12,
+    borderRadius: '76% 24% 28% 72% / 22% 76% 24% 78%',
+    borderRadiusAlt: '26% 74% 74% 26% / 76% 24% 78% 22%',
+  },
+  {
+    id: 'c-right',
+    size: 580,
+    height: 500,
+    top: '0%',
+    left: 'calc(100% - 540px)',
+    color: [
+      'radial-gradient(circle at 20% 24%, rgba(48,152,248,0.90) 0%, transparent 46%)',
+      'radial-gradient(circle at 74% 50%, rgba(75,215,238,0.88) 0%, transparent 44%)',
+      'radial-gradient(circle at 44% 80%, rgba(118,142,252,0.84) 0%, transparent 42%)',
+      'rgba(80, 160, 240, 0.18)',
+    ].join(', '),
+    delay: 0.9,
+    duration: 14,
+    borderRadius: '24% 76% 72% 28% / 74% 24% 76% 26%',
+    borderRadiusAlt: '74% 26% 24% 76% / 24% 76% 22% 78%',
+  },
+  {
+    id: 'c-bottom',
+    size: 560,
+    height: 480,
+    top: '48%',
+    left: 'calc(50% - 280px)',
+    color: [
+      'radial-gradient(circle at 26% 28%, rgba(178,208,196,1.0) 0%, transparent 42%)',
+      'radial-gradient(circle at 65% 54%, rgba(248,62,130,1.0) 0%, transparent 38%)',
+      'radial-gradient(circle at 44% 80%, rgba(202,85,175,0.88) 0%, transparent 34%)',
+    ].join(', '),
+    delay: 0.4,
+    duration: 13,
+    borderRadius: '28% 72% 76% 24% / 76% 26% 74% 24%',
+    borderRadiusAlt: '76% 24% 26% 74% / 24% 74% 26% 76%',
+  },
+];
 
 library.add(faEnvelope, faPhone);
 
@@ -18,9 +72,7 @@ const ContactView = () => {
       <div className={styles.sectionMainBg} />
 
       <div className={styles.background}>
-        <div className={styles.bgBlobLeft} />
-        <div className={styles.bgBlobRight} />
-        <div className={styles.bgBlobAccent} />
+        {BLOBS.map((blob) => <GlassBlob key={blob.id} config={blob} />)}
       </div>
 
       <div className={styles.sectionInner}>

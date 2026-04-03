@@ -129,73 +129,84 @@
   pointer-events: none;
 }
 
-/* SVANDA — decorative background, large, behind the box */
+/* SVANDA — decorative ghost, bleeds through center behind box */
 .w1 {
-  top: 4%;
-  left: 3vw;
-  font-size: clamp(60px, 13vw, 190px);
-  color: rgba(255, 255, 255, 0.06);
+  top: 18%;
+  left: -1vw;
+  font-size: clamp(80px, 16vw, 230px);
+  color: rgba(255, 255, 255, 0.05);
   z-index: 3;
 }
 
-/* EXPERIENCE — top-right, outline, content — constrained to right lane */
+/* Lane constraint: text width must fit between viewport edge and box edge
+   Right lane: max-width = 50vw - 5vw(padding) - 155px(box half+gap) = calc(45vw - 155px)
+   Left lane:  same formula from the left                                              */
+
+/* EXPERIENCE — right lane, aligns with box top ~25vh */
 .w2 {
-  top: 5%;
+  top: 25%;
   right: 5vw;
-  font-size: clamp(13px, 2.4vw, 34px);
+  font-size: clamp(14px, 2.6vw, 38px);
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7);
-  max-width: 26vw;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.65);
+  max-width: calc(45vw - 155px);
+  overflow: hidden;
   z-index: 15;
 }
 
-/* THE FUTURE OF — mid-left, content — constrained to left lane */
-.w3 {
-  top: 38%;
-  left: 5vw;
-  font-size: clamp(11px, 2vw, 28px);
-  color: rgba(255, 255, 255, 0.5);
-  max-width: 24vw;
-  z-index: 15;
-}
-
-/* BAR ENTERTAINMENT — lower-right, content — constrained to right lane */
+/* BAR ENTERTAINMENT — right lane, immediately below EXPERIENCE */
 .w4 {
-  top: 50%;
+  top: 34%;
   right: 5vw;
-  font-size: clamp(11px, 1.8vw, 26px);
+  font-size: clamp(12px, 2.2vw, 32px);
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.6);
-  max-width: 26vw;
+  max-width: calc(45vw - 155px);
+  overflow: hidden;
   z-index: 15;
 }
 
-/* SELF-SERVICE. — content, bottom-left, constrained */
-.w5 {
-  bottom: 5%;
+/* THE FUTURE OF — left lane, aligns with box top-half ~30vh */
+.w3 {
+  top: 28%;
   left: 5vw;
-  font-size: clamp(30px, 5.5vw, 82px);
-  color: #ffffff;
-  max-width: 38vw;
+  font-size: clamp(13px, 2.4vw, 34px);
+  color: rgba(255, 255, 255, 0.55);
+  max-width: calc(45vw - 155px);
+  overflow: hidden;
   z-index: 15;
 }
 
-/* Sub copy */
+/* SELF-SERVICE. — left lane, tight below w3, font sized to fit lane */
+.w5 {
+  top: 38%;
+  left: 5vw;
+  /* Size so word fits in lane: lane ≈ 45vw - 155px, ~14 chars × 0.52em */
+  font-size: clamp(18px, calc((45vw - 155px) / 8), 62px);
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 0.9;
+  max-width: calc(45vw - 155px);
+  z-index: 15;
+}
+
+/* Sub copy — right lane, tight below w4 */
 .sub {
   position: absolute;
-  bottom: 6%;
+  top: 44%;
   right: 5vw;
   z-index: 15;
   text-align: right;
+  max-width: calc(45vw - 155px);
 }
 
 .sub p {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(12px, 1.2vw, 17px);
-  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(11px, 1.1vw, 15px);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
-  margin-bottom: 14px;
-  max-width: 280px;
+  margin-bottom: 12px;
 }
 
 .cta {
@@ -228,41 +239,51 @@
 
 @media (max-width: 768px) {
   .w1 {
-    font-size: clamp(24px, 7vw, 40px);
-    top: 5%;
+    font-size: clamp(60px, 22vw, 110px);
+    top: 14%;
+    left: -2vw;
   }
 
   .w2 {
     display: none;
   }
 
+  /* THE FUTURE OF — left, near box top */
   .w3 {
-    font-size: clamp(13px, 3.5vw, 18px);
-    top: 34%;
+    top: 24%;
+    left: 5vw;
+    font-size: clamp(12px, 4vw, 22px);
+    max-width: 42vw;
+    overflow: hidden;
   }
 
   .w4 {
     display: none;
   }
 
+  /* SELF-SERVICE. — left, immediately below w3 */
   .w5 {
-    font-size: clamp(26px, 7vw, 44px);
-    white-space: normal;
-    max-width: 70vw;
-    bottom: 22%;
+    top: 33%;
+    left: 5vw;
+    font-size: clamp(16px, calc((42vw) / 8), 40px);
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 42vw;
     line-height: 0.9;
   }
 
+  /* Sub — bottom, full-width */
   .sub {
+    top: auto;
     bottom: 5%;
     left: 5vw;
     right: 5vw;
+    max-width: none;
     text-align: left;
   }
 
   .sub p {
-    font-size: clamp(14px, 3.5vw, 18px);
-    max-width: none;
+    font-size: clamp(12px, 3.5vw, 16px);
     margin-bottom: 10px;
   }
 

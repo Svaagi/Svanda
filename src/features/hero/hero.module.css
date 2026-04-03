@@ -29,11 +29,11 @@
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 80px 60px 40px;
+  padding: clamp(72px, 9vh, 120px) 60px clamp(24px, 3vh, 60px);
   gap: 48px;
   width: 100%;
   box-sizing: border-box;
@@ -59,18 +59,18 @@
   border: 1px solid rgba(255, 255, 255, 0.85);
   padding: 6px 16px;
   border-radius: var(--radius-pill);
-  margin-bottom: 16px;
+  margin-bottom: clamp(8px, 1.2vh, 16px);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 .headline {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(48px, 5.2vw, 86px);
+  font-size: clamp(40px, min(5.2vw, 8.5vh), 86px);
   font-weight: 800;
   line-height: 0.90;
   letter-spacing: -0.05em;
   color: var(--color-text-primary);
-  margin-bottom: 20px;
+  margin-bottom: clamp(8px, 1.5vh, 20px);
 }
 
 .headlineBlock {
@@ -90,14 +90,14 @@
   line-height: 1.55;
   color: var(--color-text-secondary);
   max-width: 480px;
-  margin-bottom: 24px;
+  margin-bottom: clamp(12px, 2vh, 24px);
 }
 
 .ctaRow {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 32px;
+  margin-bottom: clamp(16px, 2.5vh, 32px);
 }
 
 .primaryCta,
@@ -218,10 +218,10 @@
 
   .heroContent {
     flex-direction: column;
-    padding: 72px 40px 40px;
+    padding: clamp(64px, 8vh, 100px) 40px clamp(20px, 3vh, 60px);
     gap: 40px;
     text-align: center;
-    align-items: center;
+    align-items: flex-start;
   }
 
   .textColumn {
@@ -246,7 +246,7 @@
   }
 
   .heroContent {
-    padding: 72px 24px 40px;
+    padding: clamp(56px, 7vh, 72px) 24px clamp(16px, 3vh, 40px);
   }
 
   .ctaRow {

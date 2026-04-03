@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import GlassBlob from 'features/hero/components/GlassBlob';
+import GlassBlob from 'components/GlassBlob';
 import styles from './benefits.module.css';
 
 const PANEL_SLIDE_START = 0.7;
@@ -27,20 +27,36 @@ const EXIT_Y_TAG    = -32;
 
 const BLOBS = [
   {
-    id: 'b-gold', size: 600, top: '-12%', left: '54%',
+    id: 'b-gold',
+    size: 620,
+    height: 540,
+    top: '-10%',
+    left: 'calc(100% - 600px)',
     color: [
-      'radial-gradient(circle at 34% 28%, rgba(255,250,200,0.84) 0%, transparent 26%)',
-      'radial-gradient(circle at 50% 48%, rgba(255,180,0,0.90) 0%, rgba(220,120,0,0.58) 40%, rgba(180,60,0,0.20) 68%, transparent 82%)',
+      'radial-gradient(circle at 26% 26%, rgba(255,195,0,1.0) 0%, transparent 42%)',
+      'radial-gradient(circle at 66% 52%, rgba(235,120,0,1.0) 0%, transparent 40%)',
+      'radial-gradient(circle at 46% 82%, rgba(200,148,75,0.88) 0%, transparent 34%)',
     ].join(', '),
-    blur: 7, delay: 0, duration: 9, borderRadius: '52% 48% 44% 56% / 46% 58% 42% 54%',
+    delay: 0,
+    duration: 11,
+    borderRadius: '76% 24% 30% 70% / 26% 74% 22% 78%',
+    borderRadiusAlt: '28% 72% 74% 26% / 76% 22% 78% 24%',
   },
   {
-    id: 'b-mint', size: 540, top: '46%', left: '-8%',
+    id: 'b-teal',
+    size: 600,
+    height: 500,
+    top: '42%',
+    left: '4%',
     color: [
-      'radial-gradient(circle at 36% 30%, rgba(210,255,240,0.82) 0%, transparent 26%)',
-      'radial-gradient(circle at 50% 50%, rgba(0,180,140,0.88) 0%, rgba(0,160,200,0.56) 40%, rgba(60,80,220,0.20) 68%, transparent 82%)',
+      'radial-gradient(circle at 26% 28%, rgba(175,215,200,1.0) 0%, transparent 42%)',
+      'radial-gradient(circle at 66% 54%, rgba(0,178,145,1.0) 0%, transparent 38%)',
+      'radial-gradient(circle at 20% 78%, rgba(0,148,198,0.90) 0%, transparent 34%)',
     ].join(', '),
-    blur: 8, delay: 1.2, duration: 11, borderRadius: '44% 56% 58% 42% / 56% 44% 52% 48%',
+    delay: 1.0,
+    duration: 13,
+    borderRadius: '22% 78% 74% 26% / 74% 24% 76% 26%',
+    borderRadiusAlt: '74% 26% 24% 76% / 24% 76% 26% 74%',
   },
 ];
 
