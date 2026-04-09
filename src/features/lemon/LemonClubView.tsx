@@ -2,48 +2,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import GlassBlob from 'components/GlassBlob';
+import LavaField from 'components/LavaField';
+import { useBlobColors } from 'hooks/useBlobColors';
 import styles from './lemon.module.css';
-
-const BLOBS = [
-  {
-    id: 'l-top',
-    size: 620,
-    height: 540,
-    top: '-10%',
-    left: 'calc(100% - 600px)',
-    color: [
-      'radial-gradient(circle at 24% 26%, rgba(255,225,0,0.52) 0%, transparent 40%)',
-      'radial-gradient(circle at 65% 50%, rgba(255,158,0,0.50) 0%, transparent 34%)',
-      'radial-gradient(circle at 44% 82%, rgba(235,88,28,0.44) 0%, transparent 36%)',
-    ].join(', '),
-    delay: 0,
-    duration: 12,
-    borderRadius: '76% 24% 26% 74% / 24% 78% 22% 76%',
-    borderRadiusAlt: '24% 76% 78% 22% / 76% 22% 74% 26%',
-  },
-  {
-    id: 'l-bottom',
-    size: 600,
-    height: 500,
-    top: '42%',
-    left: '3%',
-    color: [
-      'radial-gradient(circle at 22% 24%, rgba(178,208,195,0.46) 0%, transparent 36%)',
-      'radial-gradient(circle at 72% 50%, rgba(118,52,240,0.44) 0%, transparent 40%)',
-      'radial-gradient(circle at 44% 80%, rgba(0,198,242,0.40) 0%, transparent 34%)',
-      'rgba(100, 140, 220, 0.10)',
-    ].join(', '),
-    delay: 1.0,
-    duration: 14,
-    borderRadius: '24% 76% 74% 26% / 76% 22% 78% 24%',
-    borderRadiusAlt: '76% 24% 22% 78% / 22% 76% 24% 74%',
-  },
-];
 
 const LemonClubView = () => {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
+  const { lemon: lemonColors } = useBlobColors();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -75,15 +41,14 @@ const LemonClubView = () => {
 
   return (
     <section ref={ref} className={styles.section} id="lemon">
+      <div className={styles.blobLayer}>
+        <LavaField id="lemon" colors={[...lemonColors.top, ...lemonColors.bottom]} />
+      </div>
       <motion.div className={styles.viewport} style={{ opacity }}>
         <div className={styles.darkBg} />
         <motion.div className={styles.ghost} style={{ x: bgX }}>
           LEMON
         </motion.div>
-        <div className={styles.blobLayer}>
-          {BLOBS.map((blob) => <GlassBlob key={blob.id} config={blob} />)}
-        </div>
-
         {/* First customer tag — top-right */}
         <motion.div className={styles.firstTag} style={{ y: y3 }}>
           {t('lemon.firstTag')}

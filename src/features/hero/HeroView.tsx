@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { ANIMATION_DURATION_SLOW, ANIMATION_STAGGER_CHILDREN, EASING_STANDARD } from 'constants';
 import { scrollToSection } from 'utils';
 
-import GlassBlob from 'components/GlassBlob';
+import LavaField from 'components/LavaField';
+import { useBlobColors } from 'hooks/useBlobColors';
 
 import { Hero3D } from './components';
-import { HERO_BLOBS } from './constants';
 import styles from './hero.module.css';
 import { useHeroParallax } from './hooks';
 
@@ -35,6 +35,7 @@ const wordVariant = {
 const HeroView = () => {
   const { t } = useTranslation();
   const { blobsY, textY, opacityOut } = useHeroParallax();
+  const { hero: heroColors } = useBlobColors();
 
   return (
     <section className={styles.hero} id="hero">
@@ -42,9 +43,7 @@ const HeroView = () => {
         className={styles.blobLayer}
         style={{ y: blobsY as MotionValue<number> }}
       >
-        {HERO_BLOBS.map((blobConfig) => (
-          <GlassBlob key={blobConfig.id} config={blobConfig} />
-        ))}
+        <LavaField id="hero" colors={[...heroColors.topLeft, ...heroColors.bottomLeft, ...heroColors.topRight]} />
       </motion.div>
 
       <div className={styles.noiseOverlay} />

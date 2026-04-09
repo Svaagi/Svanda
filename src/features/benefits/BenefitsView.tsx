@@ -2,7 +2,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import GlassBlob from 'components/GlassBlob';
+import LavaField from 'components/LavaField';
+import { useBlobColors } from 'hooks/useBlobColors';
 import styles from './benefits.module.css';
 
 const PANEL_SLIDE_START = 0.7;
@@ -25,44 +26,10 @@ const EXIT_Y_STATS  =  56;
 const ENTER_Y_TAG   = -44;
 const EXIT_Y_TAG    = -32;
 
-const BLOBS = [
-  {
-    id: 'b-gold',
-    size: 620,
-    height: 540,
-    top: '-10%',
-    left: 'calc(100% - 600px)',
-    color: [
-      'radial-gradient(circle at 26% 26%, rgba(255,195,0,0.52) 0%, transparent 40%)',
-      'radial-gradient(circle at 66% 52%, rgba(235,120,0,0.50) 0%, transparent 34%)',
-      'radial-gradient(circle at 46% 82%, rgba(200,148,75,0.42) 0%, transparent 36%)',
-    ].join(', '),
-    delay: 0,
-    duration: 11,
-    borderRadius: '76% 24% 30% 70% / 26% 74% 22% 78%',
-    borderRadiusAlt: '28% 72% 74% 26% / 76% 22% 78% 24%',
-  },
-  {
-    id: 'b-teal',
-    size: 600,
-    height: 500,
-    top: '42%',
-    left: '4%',
-    color: [
-      'radial-gradient(circle at 26% 28%, rgba(175,215,200,0.48) 0%, transparent 40%)',
-      'radial-gradient(circle at 66% 54%, rgba(0,178,145,0.46) 0%, transparent 34%)',
-      'radial-gradient(circle at 20% 78%, rgba(0,148,198,0.42) 0%, transparent 36%)',
-    ].join(', '),
-    delay: 1.0,
-    duration: 13,
-    borderRadius: '22% 78% 74% 26% / 74% 24% 76% 26%',
-    borderRadiusAlt: '74% 26% 24% 76% / 24% 76% 26% 74%',
-  },
-];
-
 const BenefitsView = () => {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
+  const { benefits: benefitsColors } = useBlobColors();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -92,12 +59,10 @@ const BenefitsView = () => {
   return (
     <section ref={ref} className={styles.section} id="benefits">
       <div className={styles.ghost}>REVENUE</div>
-
+      <div className={styles.blobLayer}>
+        <LavaField id="benefits" colors={[...benefitsColors.gold, ...benefitsColors.teal]} />
+      </div>
       <motion.div className={styles.viewport} style={{ opacity }}>
-        <div className={styles.blobLayer}>
-          {BLOBS.map((blob) => <GlassBlob key={blob.id} config={blob} />)}
-        </div>
-
         {/* Grid — three columns: left content | center safe zone | right content */}
         <div className={styles.grid}>
 

@@ -2,47 +2,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import GlassBlob from 'components/GlassBlob';
+import LavaField from 'components/LavaField';
+import { useBlobColors } from 'hooks/useBlobColors';
 import styles from './modes.module.css';
-
-const BLOBS = [
-  {
-    id: 'm-top',
-    size: 640,
-    height: 560,
-    top: '-10%',
-    left: '4%',
-    color: [
-      'radial-gradient(circle at 26% 28%, rgba(112,0,255,0.52) 0%, transparent 40%)',
-      'radial-gradient(circle at 65% 46%, rgba(245,18,102,0.50) 0%, transparent 34%)',
-      'radial-gradient(circle at 46% 80%, rgba(178,0,228,0.44) 0%, transparent 36%)',
-    ].join(', '),
-    delay: 0,
-    duration: 11,
-    borderRadius: '74% 26% 28% 72% / 22% 76% 24% 78%',
-    borderRadiusAlt: '26% 74% 76% 24% / 78% 22% 76% 24%',
-  },
-  {
-    id: 'm-bottom',
-    size: 600,
-    height: 500,
-    top: '44%',
-    left: 'calc(100% - 580px)',
-    color: [
-      'radial-gradient(circle at 26% 28%, rgba(172,210,180,0.50) 0%, transparent 40%)',
-      'radial-gradient(circle at 65% 54%, rgba(0,232,108,0.48) 0%, transparent 34%)',
-      'radial-gradient(circle at 44% 80%, rgba(0,198,162,0.42) 0%, transparent 36%)',
-    ].join(', '),
-    delay: 1.2,
-    duration: 13,
-    borderRadius: '26% 74% 72% 28% / 76% 24% 74% 26%',
-    borderRadiusAlt: '74% 26% 26% 74% / 24% 76% 28% 72%',
-  },
-];
 
 const ModesView = () => {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
+  const { modes: modesColors } = useBlobColors();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -86,12 +53,10 @@ const ModesView = () => {
   return (
     <section ref={ref} className={styles.section} id="modes">
       <div className={styles.ghost}>MODES</div>
-
+      <div className={styles.blobLayer}>
+        <LavaField id="modes" colors={[...modesColors.top, ...modesColors.bottom]} />
+      </div>
       <motion.div className={styles.viewport} style={{ opacity }}>
-        <div className={styles.blobLayer}>
-          {BLOBS.map((blob) => <GlassBlob key={blob.id} config={blob} />)}
-        </div>
-
         {/* Tag */}
         <motion.div className={styles.tag} style={{ y: yTag }}>
           {t('modes.tag')}

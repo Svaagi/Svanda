@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { EASING_STANDARD } from 'constants';
+import { useBlobPalette } from 'context/BlobColorContext';
 import { scrollToSection } from 'utils';
 
 import { LANGUAGES } from './constants';
@@ -12,6 +13,7 @@ import styles from './navigation.module.css';
 const NavigationView = () => {
   const { t, i18n } = useTranslation();
   const isScrolled = useScrolled();
+  const { palette, toggle, blurEnabled, toggleBlur } = useBlobPalette();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const navItems = [
@@ -55,6 +57,22 @@ const NavigationView = () => {
             </li>
           ))}
         </ul>
+
+        <button
+          className={styles.paletteToggle}
+          onClick={toggle}
+          title={palette === 'subtle' ? 'Switch to glossy blobs' : palette === 'glossy' ? 'Switch to vivid blobs' : 'Switch to subtle blobs'}
+        >
+          {palette === 'subtle' ? '◯' : palette === 'glossy' ? '◑' : '●'}
+        </button>
+
+        <button
+          className={`${styles.blurToggle} ${blurEnabled ? styles.blurToggleActive : ''}`}
+          onClick={toggleBlur}
+          title={blurEnabled ? 'Disable blob blur' : 'Enable blob blur'}
+        >
+          ⬤
+        </button>
 
         <div className={styles.langSwitcher}>
           {LANGUAGES.map((lang) => (

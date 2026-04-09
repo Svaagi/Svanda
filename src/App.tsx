@@ -1,3 +1,4 @@
+import GlobalLavaLamp from 'components/GlobalLavaLamp';
 import { BenefitsView } from 'features/benefits';
 import { CentralBox } from 'features/centralBox';
 import { ContactView } from 'features/contact';
@@ -18,13 +19,11 @@ const App = () => {
   const heroDriverRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLDivElement>(null);
 
-  // Scoped scroll: 0 → 1 over exactly 100vh (the scroll driver below).
   const { scrollYProgress } = useScroll({
     target: heroDriverRef,
     offset: ['start start', 'end start'],
   });
 
-  // Hero curtain slides straight up over the first 100vh of scroll.
   const curtainY = useTransform(scrollYProgress, [0, 1], ['0%', '-100%']);
   const curtainPointerEvents = useTransform(scrollYProgress, (progress) =>
     progress >= CURTAIN_GONE ? 'none' : 'auto',
@@ -32,14 +31,22 @@ const App = () => {
 
   return (
     <>
+      {/*
+       * Global lava lamp — position: fixed; z-index: -1.
+       * Renders above the body background but below all in-flow content.
+       * Transparent/semi-transparent sections let it show through.
+       * Blobs run continuously; sections are layers above this single system.
+       */}
+      <GlobalLavaLamp />
+
       <NavigationView />
 
       {/*
-        Hero curtain — z-index 500, sits above all sections.
-        Translates from y=0 to y=-100% as heroDriver scrolls.
-        Sections start at 100vh (after driver) so they rise into view
-        from the bottom as the curtain lifts — true parallax reveal.
-      */}
+       * Hero curtain — isolation: isolate keeps it as its own stacking context,
+       * so the global lamp doesn't bleed through. The hero LavaField uses the
+       * same blob configs from LavaLampContext, so timing is in sync with the
+       * global lamp — when the curtain slides away the transition is seamless.
+       */}
       <motion.main
         className={styles.scenePage}
         style={{ y: curtainY, pointerEvents: curtainPointerEvents }}
@@ -47,7 +54,6 @@ const App = () => {
         <HeroView />
       </motion.main>
 
-      {/* 100vh of scroll space — drives the curtain lift, nothing visible here */}
       <div
         ref={heroDriverRef}
         className={styles.scrollDriver}
@@ -55,10 +61,8 @@ const App = () => {
         aria-hidden="true"
       />
 
-      {/* Central box — fixed, fades in/out with middle sections */}
       <CentralBox containerRef={sectionsRef} />
 
-      {/* Sections start at doc position 100vh — revealed from below as curtain rises */}
       <div ref={sectionsRef}>
         <ExperienceView />
         <IntroView />

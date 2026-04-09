@@ -1,0 +1,16 @@
+/*
+ * GlobalLavaLamp — fixed, full-viewport, behind all content.
+ *
+ * z-index: -1  renders above the body background (#06000f) but below all
+ *              in-flow elements and above-zero stacking contexts.
+ *              Transparent/semi-transparent sections let it show through.
+ */
+.lamp {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: visible;
+}
