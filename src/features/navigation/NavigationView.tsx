@@ -17,9 +17,10 @@ const NavigationView = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const navItems = [
-    { label: t('nav.howItWorks'), sectionId: 'how-it-works' },
-{ label: t('nav.modes'), sectionId: 'modes' },
-    { label: t('nav.benefits'), sectionId: 'benefits' },
+    { label: t('nav.what'), sectionId: 'experience' },
+    { label: t('nav.howItWorks'), sectionId: 'benefits' },
+    { label: t('nav.modes'), sectionId: 'modes' },
+    { label: t('nav.songs'), sectionId: 'intro' },
     { label: t('nav.contact'), sectionId: 'contact' },
   ];
 

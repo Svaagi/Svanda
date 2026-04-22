@@ -24,13 +24,9 @@
   overflow: hidden;
 }
 
-/* ── Blob layer ────────────────────────────── */
+/* ── Blob layer hidden on this middle section per user request ─ */
 .blobLayer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: visible;
+  display: none;
 }
 
 .tag {
@@ -155,43 +151,204 @@
   line-height: 1.55;
 }
 
-@media (max-width: 768px) {
-  .w2 {
-    display: none;
-  }
+/* ── Body block: venue + event offerings ──────────────────────────────── */
+.body {
+  position: relative;
+  z-index: 50;
+  background: #0a0a0a;
+  padding: clamp(72px, 10vh, 120px) clamp(20px, 5vw, 64px);
+}
 
-  .w3 {
-    top: 24%;
-  }
+.bodyInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 4vh, 40px);
+}
 
-  .descLeft {
-    top: 36%;
-  }
+.bodyTag {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent-orange);
+}
 
-  .w4 {
-    top: 28%;
-    right: 5vw;
-  }
+.bodyTitle {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  max-width: 22ch;
+}
 
-  .descRight {
-    top: 42%;
+.offerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.offer {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: clamp(22px, 2.5vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #ffffff;
+}
+
+.offerDark {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #0a0a0a;
+}
+
+.offerTitle {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.offerSub {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.offerDark .offerSub {
+  color: rgba(10, 10, 10, 0.62);
+}
+
+.offerList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.offerList li {
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.offerList strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.offerList span {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.55;
+}
+
+.offerBody {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(10, 10, 10, 0.72);
+}
+
+.offerTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.offerTags span {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.08);
+  border: 1px solid rgba(10, 10, 10, 0.12);
+  color: #0a0a0a;
+}
+
+@media (max-width: 860px) {
+  .offerGrid {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 480px) {
-  .w3 {
-    top: 22%;
+/* Mobile: switch to plain vertical flow, override framer-motion inline transforms */
+@media (max-width: 768px) {
+  .viewport {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    padding: 96px 6vw 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
-  .descLeft {
-    top: 34%;
+  .ghost {
+    display: none;
+  }
+
+  .tag,
+  .word,
+  .descLeft,
+  .descRight {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-width: 100%;
+    transform: none !important;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .tag {
+    align-self: flex-start;
+  }
+
+  .w1 {
+    display: none;
+  }
+
+  .w2 {
+    display: block;
+    font-size: clamp(28px, 8vw, 44px);
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55);
+  }
+
+  .w3,
+  .w4,
+  .w5 {
+    font-size: clamp(28px, 8vw, 44px);
   }
 
   .w4 {
-    top: 52%;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.75);
+  }
+
+  .descLeft,
+  .descRight {
+    max-width: 100%;
+    text-align: left;
   }
 
   .descRight {
-    top: 64%;
+    margin-top: 8px;
   }
 }

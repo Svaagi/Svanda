@@ -111,6 +111,22 @@ const LemonClubView = () => {
           </p>
         </motion.div>
       </motion.div>
+
+      <div className={styles.body}>
+        <div className={styles.bodyInner}>
+          <span className={styles.bodyTag}>{t('lemon.bodyTag')}</span>
+          <h3 className={styles.bodyTitle}>{t('lemon.bodyTitle')}</h3>
+
+          <ul className={styles.faqList}>
+            {[1, 2, 3, 4, 5, 6].map((index) => (
+              <li key={index} className={styles.faqItem}>
+                <h4 className={styles.faqQuestion}>{t(`lemon.q${index}`)}</h4>
+                <p className={styles.faqAnswer}>{t(`lemon.a${index}`)}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </section>
   );
 };

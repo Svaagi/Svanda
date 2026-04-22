@@ -18,13 +18,9 @@
   grid-template-rows: 1fr;
 }
 
-/* Blobs: position:absolute inside a sticky container → spans full viewport */
+/* Blobs: hidden on this middle section per user request (kept at hero/contact only) */
 .blobLayer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: visible;
+  display: none;
 }
 
 /* ─── LEFT COLUMN ─── */
@@ -207,4 +203,149 @@
   border-radius: 99px;
   color: var(--color-text-secondary);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Body block — readable rich content below the sticky viewport ─────── */
+.body {
+  position: relative;
+  z-index: 50;
+  background: #ffffff;
+  padding: clamp(72px, 10vh, 120px) clamp(20px, 5vw, 64px);
+}
+
+.bodyInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.bodyTag {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent-orange);
+}
+
+.bodyTitle {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4.5vw, 44px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  max-width: 22ch;
+}
+
+.bodyPara {
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  max-width: 64ch;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.genre {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.16);
+  color: var(--color-accent-orange);
+}
+
+.bodyNote {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+}
+
+/* Mobile: switch from absolute 3-column grid to normal vertical flow.
+   Override framer-motion inline transforms so scroll-driven word shifts
+   do not push content off-screen. */
+@media (max-width: 768px) {
+  .viewport {
+    display: block;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    padding: 96px 6vw 64px;
+  }
+
+  .leftCol,
+  .centerCol,
+  .rightCol {
+    position: static;
+    height: auto;
+  }
+
+  .centerCol {
+    display: none;
+  }
+
+  .tag,
+  .word,
+  .descriptor {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-width: 100%;
+    transform: none !important;
+    white-space: normal;
+  }
+
+  .tag {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .word {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  /* Hide decorative ghost words. They only work in the absolute layout. */
+  .w1,
+  .w4 {
+    display: none;
+  }
+
+  .w3,
+  .w2,
+  .w6 {
+    font-size: clamp(28px, 8vw, 44px);
+    line-height: 1;
+  }
+
+  .w6 {
+    font-size: clamp(16px, 4.5vw, 22px);
+    margin-top: 4px;
+    margin-bottom: 24px;
+  }
+
+  .descriptor {
+    margin-top: 12px;
+    max-width: 100%;
+  }
+
+  .descriptor p {
+    font-size: 15px;
+  }
+
+  .descriptor p + p {
+    font-size: 14px;
+  }
 }

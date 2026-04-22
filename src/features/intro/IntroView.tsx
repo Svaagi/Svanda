@@ -113,6 +113,30 @@ const IntroView = () => {
         </div>
 
       </motion.div>
+
+      <div className={styles.body}>
+        <div className={styles.bodyInner}>
+          <span className={styles.bodyTag}>{t('intro.bodyTag')}</span>
+          <h3 className={styles.bodyTitle}>{t('intro.bodyTitle')}</h3>
+          <p className={styles.bodyPara}>{t('intro.bodyPara1')}</p>
+          <p className={styles.bodyPara}>{t('intro.bodyPara2')}</p>
+          <div className={styles.genres}>
+            <span className={styles.genre}>Rock</span>
+            <span className={styles.genre}>Pop</span>
+            <span className={styles.genre}>80s & 90s</span>
+            <span className={styles.genre}>Česká klasika</span>
+            <span className={styles.genre}>Slovenské hity</span>
+            <span className={styles.genre}>Country</span>
+            <span className={styles.genre}>Svatební</span>
+            <span className={styles.genre}>Metal</span>
+            <span className={styles.genre}>Dance</span>
+            <span className={styles.genre}>Disco</span>
+            <span className={styles.genre}>Folk</span>
+            <span className={styles.genre}>Párty</span>
+          </div>
+          <p className={styles.bodyNote}>{t('intro.bodyNote')}</p>
+        </div>
+      </div>
     </section>
   );
 };

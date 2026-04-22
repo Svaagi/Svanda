@@ -31,22 +31,10 @@ const App = () => {
 
   return (
     <>
-      {/*
-       * Global lava lamp — position: fixed; z-index: -1.
-       * Renders above the body background but below all in-flow content.
-       * Transparent/semi-transparent sections let it show through.
-       * Blobs run continuously; sections are layers above this single system.
-       */}
       <GlobalLavaLamp />
 
       <NavigationView />
 
-      {/*
-       * Hero curtain — isolation: isolate keeps it as its own stacking context,
-       * so the global lamp doesn't bleed through. The hero LavaField uses the
-       * same blob configs from LavaLampContext, so timing is in sync with the
-       * global lamp — when the curtain slides away the transition is seamless.
-       */}
       <motion.main
         className={styles.scenePage}
         style={{ y: curtainY, pointerEvents: curtainPointerEvents }}

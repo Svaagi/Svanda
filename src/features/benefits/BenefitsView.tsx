@@ -130,6 +130,23 @@ const BenefitsView = () => {
 
         </div>
       </motion.div>
+
+      <div className={styles.body}>
+        <div className={styles.bodyInner}>
+          <span className={styles.bodyTag}>{t('benefits.bodyTag')}</span>
+          <h3 className={styles.bodyTitle}>{t('benefits.bodyTitle')}</h3>
+
+          <div className={styles.steps}>
+            {[1, 2, 3, 4].map((index) => (
+              <div key={index} className={styles.step}>
+                <span className={styles.stepNumber}>{t(`benefits.step${index}Number`)}</span>
+                <h4 className={styles.stepTitle}>{t(`benefits.step${index}Title`)}</h4>
+                <p className={styles.stepBody}>{t(`benefits.step${index}Body`)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

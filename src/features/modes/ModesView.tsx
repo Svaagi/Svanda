@@ -110,6 +110,42 @@ const ModesView = () => {
           <p>{t('modes.descRightDesc')}</p>
         </motion.div>
       </motion.div>
+
+      <div className={styles.body}>
+        <div className={styles.bodyInner}>
+          <span className={styles.bodyTag}>{t('modes.bodyTag')}</span>
+          <h3 className={styles.bodyTitle}>{t('modes.bodyTitle')}</h3>
+
+          <div className={styles.offerGrid}>
+            <article className={styles.offer}>
+              <h4 className={styles.offerTitle}>{t('modes.venueTitle')}</h4>
+              <p className={styles.offerSub}>{t('modes.venueSub')}</p>
+              <ul className={styles.offerList}>
+                <li>
+                  <strong>{t('modes.venueOption1Title')}</strong>
+                  <span>{t('modes.venueOption1Body')}</span>
+                </li>
+                <li>
+                  <strong>{t('modes.venueOption2Title')}</strong>
+                  <span>{t('modes.venueOption2Body')}</span>
+                </li>
+              </ul>
+            </article>
+
+            <article className={`${styles.offer} ${styles.offerDark}`}>
+              <h4 className={styles.offerTitle}>{t('modes.eventTitle')}</h4>
+              <p className={styles.offerSub}>{t('modes.eventSub')}</p>
+              <p className={styles.offerBody}>{t('modes.eventBody')}</p>
+              <div className={styles.offerTags}>
+                <span>{t('modes.eventTag1')}</span>
+                <span>{t('modes.eventTag2')}</span>
+                <span>{t('modes.eventTag3')}</span>
+                <span>{t('modes.eventTag4')}</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

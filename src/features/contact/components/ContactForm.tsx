@@ -1,10 +1,10 @@
+import { EASING_STANDARD } from 'constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
-import { EASING_STANDARD } from 'constants';
-import { ContactMode, ContactVenueType } from '../types';
-import { useContactForm } from '../hooks';
 import styles from '../contact.module.css';
+import { useContactForm } from '../hooks';
+import { ContactMode, ContactVenueType } from '../types';
 
 const MODES: { value: ContactMode; label: string }[] = [
   { value: 'karaoke', label: 'Karaoke Box' },
@@ -47,6 +47,14 @@ const ContactForm = () => {
           exit={{ opacity: 0 }}
           key="form"
         >
+          <input
+            type="text"
+            name="botcheck"
+            tabIndex={-1}
+            autoComplete="off"
+            style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+            aria-hidden="true"
+          />
           {/* Mode selector */}
           <div className={styles.formField}>
             <label className={styles.fieldLabel}>{t('contact.form.interestedIn')}</label>

@@ -1,9 +1,12 @@
 {
   "nav": {
+    "what": "Čo je",
     "howItWorks": "Ako to funguje",
+    "offerings": "Podniky a akcie",
     "songs": "Piesne",
     "modes": "Režimy",
     "benefits": "Výhody",
+    "faq": "Časté otázky",
     "contact": "Kontakt",
     "bookDemo": "Rezervovať demo"
   },
@@ -19,6 +22,16 @@
     "stat2Label": "Za skladbu",
     "stat3Label": "Box. Všetko."
   },
+  "what": {
+    "tag": "Čo je SVANDA",
+    "title1": "Karaoke, ktoré",
+    "title2": "si riadi samo.",
+    "body1": "SVANDA je samoobslužný karaoke box s vstavaným jukeboxom. Hostia prídu, vyberú si z tisícov skladieb na dotykovej obrazovke, zaplatia na kartovom termináli a chytia bezdrôtový mikrofón. Box sa sám postará o front, zobrazenie textu aj platby.",
+    "body2": "Prepínajte medzi karaoke režimom s plným textom na obrazovke a jukebox režimom s kurátorovanou hudbou na pozadí bez DJa. Oba režimy môžu bežať naraz, alebo ich striedajte podľa večera.",
+    "pill1": "Karaoke režim",
+    "pill2": "Jukebox režim",
+    "pill3": "Oba naraz"
+  },
   "intro": {
     "tag": "Samoobslužné karaoke & jukebox pre bary",
     "w1": "SAMO",
@@ -28,12 +41,17 @@
     "w5": "PRE BARY & AKCIE",
     "w6": "18 000+ SKLADIEB",
     "descriptor1": "SVANDA je samoobslužný karaoke & jukebox automat pre bary, kluby a akcie.",
-    "descriptor2": "Vaši hostia prídu, prezerajú 18 000+ skladieb, zaplatia kartovým terminálom, vezmú mikrofón a vystúpia, bez DJ ani akejkoľvek obsluhy. Stroj zvláda frontu, zobrazenie a platby úplne samostatne, nonstop.",
+    "descriptor2": "Vaši hostia prídu, prezerajú tisíce skladieb, zaplatia kartovým terminálom, vezmú mikrofón a vystúpia, bez DJ ani akejkoľvek obsluhy. Stroj zvláda frontu, zobrazenie a platby úplne samostatne, nonstop.",
     "pills": {
       "karaokeBox": "Karaoke Box",
       "jukebox": "Jukebox",
       "events": "Akcie"
-    }
+    },
+    "bodyTag": "Knižnica",
+    "bodyTitle": "5 000+ karaoke skladieb. A ešte väčšia jukebox knižnica.",
+    "bodyPara1": "Vaši hostia si môžu vybrať z viac ako 5 000 karaoke skladieb s textami na obrazovke, plus oveľa väčšia jukebox knižnica pre hudbu na pozadí. Slovensky, česky, anglicky a ďalej. Rock, pop, 80s klasika, aktuálne hity, country, dance, svadobné evergreeny, metal, slovenské hity.",
+    "bodyPara2": "Čokoľvek vaša partia vykríkne, pravdepodobne to máme. Keď niečo chýba, doplníme to do katalógu počas pár dní, zadarmo.",
+    "bodyNote": "Katalóg priebežne rozširujeme. Návrhy vítame."
   },
   "statement": {
     "cornerTag": "10 CZK za skladbu",
@@ -42,14 +60,14 @@
     "w3": "SKLADBU.",
     "w4": "CHYŤ MIKROFÓN.",
     "w5": "SPIEVAJ.",
-    "w6": "KTORÝKOĽVEK BAR.\u00A0\u00A0KTORÁKOĽVEK NOC.\u00A0\u00A0KTORÁKOĽVEK PIESEŇ."
+    "w6": "KTORÝKOĽVEK BAR.  KTORÁKOĽVEK NOC.  KTORÁKOĽVEK PIESEŇ."
   },
   "catalogue": {
     "w3": "SKLADIEB",
     "w4": "AKTUALIZOVANÉ TÝŽDENNE.",
     "descriptor1": "Najväčší karaoke katalóg pre samoobslužné podniky.",
     "descriptor2": "Česky, slovensky, svetové hity. Každý žáner, každá dekáda.",
-    "note": "Platba kartovým terminálom\u00A0\u00B7\u00A010 CZK za skladbu"
+    "note": "Platba kartovým terminálom · 10 CZK za skladbu"
   },
   "howItWorks": {
     "tag": "Tri kroky ku karaoke",
@@ -61,6 +79,42 @@
     "step2Detail": "Vyberte si skladbu z 18 000+. Zaplaťte kartovým terminálom.",
     "step3Label": "SPIEVAJTE."
   },
+  "offerings": {
+    "tag": "Dva spôsoby využitia",
+    "title1": "Vo vašom podniku",
+    "title2": "alebo na vašej akcii.",
+    "venueTitle": "Pre podniky",
+    "venueSub": "Trvalá inštalácia. Bary, kluby, reštaurácie, bowling, súkromné kluby.",
+    "venueOption1Title": "Platba za skladbu",
+    "venueOption1Body": "Box nainštalujeme zadarmo. Vaši hostia platia 10 Kč za skladbu na kartovom termináli. Vy poskytnete miesto, my sa postaráme o zvyšok.",
+    "venueOption2Title": "Zadarmo pre hostí",
+    "venueOption2Body": "Box si mesačne prenajmete a vaši hostia spievajú zadarmo. Ideálne pre členské kluby, súkromné priestory alebo podniky, kde má byť hudba súčasťou servisu.",
+    "eventTitle": "Pre akcie",
+    "eventSub": "Jednorazový prenájom na svadby, oslavy, firemné večierky, festivaly.",
+    "eventBody": "Box privezieme, postavíme a po akcii odvezieme. Vy sa rozhodnete, či hostia platia za skladbu alebo spievajú zadarmo. Tak či tak SVANDA odmuzikuje celú akciu. Minimum jedna noc, pre festivaly a víkendy zostavíme balíček.",
+    "eventTag1": "Svadby",
+    "eventTag2": "Firemné",
+    "eventTag3": "Festivaly",
+    "eventTag4": "Súkromné",
+    "cta": "Dopytovať"
+  },
+  "how": {
+    "tag": "Ako to funguje",
+    "title1": "Štyri kroky.",
+    "title2": "Bez obsluhy.",
+    "step1Number": "01",
+    "step1Title": "Výber",
+    "step1Body": "Hosť príde k dotykovke a vyhľadá si z 5 000+ karaoke skladieb alebo celej jukebox knižnice.",
+    "step2Number": "02",
+    "step2Title": "Platba",
+    "step2Body": "Priloží kartu k terminálu. 10 Kč za skladbu. Tento krok preskočíte, ak prevádzkujete automat zadarmo.",
+    "step3Number": "03",
+    "step3Title": "Spev",
+    "step3Body": "Chytí bezdrôtový mikrofón. Plný text beží na hlavnej obrazovke, takže sa môže pridať celý lokál.",
+    "step4Number": "04",
+    "step4Title": "Fronta",
+    "step4Body": "Box sám riadi playlist. Nikto nemusí behať a pýtať sa, kto je ďalší."
+  },
   "modes": {
     "tag": "Vyberte si nastavenie",
     "w1": "DVA",
@@ -69,7 +123,22 @@
     "descLeftTitle": "Karaoke Box",
     "descLeftDesc": "Hostia spievajú naživo na pódiu s textami na obrazovke. Platba za skladbu pri termináli.",
     "descRightTitle": "Jukebox",
-    "descRightDesc": "Zaraďte skladby ako hudbu na pozadí. Ideálne pre atmosféru baru bez DJ."
+    "descRightDesc": "Zaraďte skladby ako hudbu na pozadí. Ideálne pre atmosféru baru bez DJ.",
+    "bodyTag": "Podnik alebo akcia",
+    "bodyTitle": "Vo vašom podniku, alebo na vašej akcii.",
+    "venueTitle": "Pre podniky",
+    "venueSub": "Trvalá inštalácia. Bary, kluby, reštaurácie, bowling, súkromné kluby.",
+    "venueOption1Title": "Platba za skladbu",
+    "venueOption1Body": "Box nainštalujeme zadarmo. Hostia platia 10 Kč za skladbu na termináli. Vy poskytnete miesto, my sa postaráme o zvyšok.",
+    "venueOption2Title": "Zadarmo pre hostí",
+    "venueOption2Body": "Box si mesačne prenajmete a vaši hostia spievajú zadarmo. Ideálne pre členské kluby, súkromné priestory alebo podniky, kde má byť hudba súčasťou servisu.",
+    "eventTitle": "Pre akcie",
+    "eventSub": "Jednorazový prenájom na svadby, oslavy, firemné večierky, festivaly.",
+    "eventBody": "Box privezieme, postavíme a po akcii odvezieme. Vy sa rozhodnete, či hostia platia za skladbu alebo spievajú zadarmo. Tak či tak SVANDA odmuzikuje celú akciu. Minimum jedna noc, pre festivaly a víkendy zostavíme balíček.",
+    "eventTag1": "Svadby",
+    "eventTag2": "Firemné",
+    "eventTag3": "Festivaly",
+    "eventTag4": "Súkromné"
   },
   "benefits": {
     "tag": "Vytvorené pre majiteľov barov",
@@ -82,22 +151,88 @@
     "stat2Label": "za skladbu",
     "stat3Label": "potrebná obsluha",
     "stat4Label": "autonómna prevádzka",
-    "desc": "Stroj zvláda platby, frontu skladieb a zobrazenie, úplne autonómne. Získate nový zdroj príjmov bez prevádzkových nákladov."
+    "desc": "Stroj zvláda platby, frontu skladieb a zobrazenie, úplne autonómne. Získate nový zdroj príjmov bez prevádzkových nákladov.",
+    "bodyTag": "Ako to funguje",
+    "bodyTitle": "Štyri kroky. Bez obsluhy.",
+    "step1Number": "01",
+    "step1Title": "Výber",
+    "step1Body": "Hosť príde k dotykovke a vyhľadá si z 5 000+ karaoke skladieb alebo celej jukebox knižnice.",
+    "step2Number": "02",
+    "step2Title": "Platba",
+    "step2Body": "Priloží kartu k terminálu. 10 Kč za skladbu. Tento krok preskočíte, ak prevádzkujete automat zadarmo.",
+    "step3Number": "03",
+    "step3Title": "Spev",
+    "step3Body": "Chytí bezdrôtový mikrofón. Plný text beží na hlavnej obrazovke, takže sa môže pridať celý lokál.",
+    "step4Number": "04",
+    "step4Title": "Fronta",
+    "step4Body": "Box sám riadi playlist. Nikto nemusí behať a pýtať sa, kto je ďalší."
+  },
+  "songs": {
+    "tag": "Knižnica",
+    "title1": "5 000+ karaoke skladieb.",
+    "title2": "A ešte väčšia jukebox knižnica.",
+    "body": "Slovensky, česky, anglicky a ďalej. Rock, pop, 80s klasika, aktuálne hity, country, dance, svadobné evergreeny, metal, slovenské hity. Čokoľvek vaša partia vykríkne, pravdepodobne to máme.",
+    "note": "Katalóg priebežne rozširujeme. Ak niečo chýba, doplníme.",
+    "genre1": "Rock",
+    "genre2": "Pop",
+    "genre3": "80s & 90s",
+    "genre4": "Česká klasika",
+    "genre5": "Slovenské hity",
+    "genre6": "Country",
+    "genre7": "Svadobné",
+    "genre8": "Metal",
+    "genre9": "Dance",
+    "genre10": "Disco",
+    "genre11": "Folk",
+    "genre12": "Párty"
   },
   "lemon": {
     "firstTag": "Prvá inštalácia SVANDA",
     "w5": "25 000+ PREHRANÝCH SKLADIEB",
     "detail1": "Nepretržite v prevádzke od roku 2024.",
-    "detail2": "Bez obsluhy. Bez výpadkov. Čistý príjem."
+    "detail2": "Bez obsluhy. Bez výpadkov. Čistý príjem.",
+    "bodyTag": "Časté otázky",
+    "bodyTitle": "Rýchle odpovede.",
+    "q1": "Kto stroj inštaluje?",
+    "a1": "My. Privezieme, zapojíme platobný terminál aj internet a zaškolíme obsluhu. Zvyčajne 2 až 3 hodiny na mieste a v ten istý deň bežíte.",
+    "q2": "Potrebuje to internet?",
+    "a2": "Áno. Knižnica skladieb sa streamuje z našich serverov a platby kartou potrebujú pripojenie. Stačí bežná Wi-Fi v podniku.",
+    "q3": "Môžete doplniť skladby, ktoré nemáme?",
+    "a3": "Povedzte, čo chýba, a doplníme to do katalógu. Väčšinou do niekoľkých dní.",
+    "q4": "Čo keď sa niečo pokazí?",
+    "a4": "Riešime podporu na diaľku aj na mieste. Väčšina vecí je vyriešená ešte v ten istý deň.",
+    "q5": "Koľko to zaberie miesta?",
+    "a5": "Zhruba 1 m² podlahy a zásuvka. Obrazovka, reproduktory, mikrofón aj platobný terminál sú súčasťou stroja.",
+    "q6": "Je minimálna doba prenájmu na akciách?",
+    "a6": "Minimum je jedna noc. Pre víkendy, festivaly a viacdňové akcie zostavíme balíček."
   },
   "experience": {
-    "w2": "ZÁŽITOK",
-    "w3": "BUDÚCNOSŤ",
-    "w4": "BAROVEJ ZÁBAVY",
-    "w5": "SAMOOBSLUŽNÉ.",
-    "subDesc1": "Autonómne. Výnosné. Nezabudnuteľné.",
-    "subDesc2": "Získajte SVANDA pre váš bar, klub alebo ďalšiu akciu.",
-    "cta": "Kontaktujte nás dnes"
+    "tag": "Čo je SVANDA",
+    "title1": "Karaoke, ktoré",
+    "title2": "si riadi samo.",
+    "body1": "SVANDA je samoobslužný karaoke box s vstavaným jukeboxom. Hostia prídu, vyberú si z tisícov skladieb na dotykovej obrazovke, zaplatia na kartovom termináli a chytia bezdrôtový mikrofón. Box sa sám postará o front, zobrazenie textu aj platby, nonstop.",
+    "body2": "Prepínajte medzi karaoke režimom s plným textom na obrazovke a jukebox režimom s kurátorovanou hudbou na pozadí bez DJa. Oba režimy môžu bežať naraz, alebo ich striedajte podľa večera. Funguje ako trvalá inštalácia u vás v podniku, alebo ako jednorazový prenájom na akciu.",
+    "pill1": "Karaoke režim",
+    "pill2": "Jukebox režim",
+    "pill3": "Oba naraz",
+    "cta": "Chcem vedieť viac"
+  },
+  "faq": {
+    "tag": "Časté otázky",
+    "title1": "Rýchle",
+    "title2": "odpovede.",
+    "q1": "Kto stroj inštaluje?",
+    "a1": "My. Privezieme, zapojíme platobný terminál aj internet a zaškolíme obsluhu. Zvyčajne 2 až 3 hodiny na mieste a v ten istý deň bežíte.",
+    "q2": "Potrebuje to internet?",
+    "a2": "Áno. Knižnica skladieb sa streamuje z našich serverov a platby kartou potrebujú pripojenie. Stačí bežná Wi-Fi v podniku.",
+    "q3": "Môžete doplniť skladby, ktoré nemáme?",
+    "a3": "Povedzte, čo chýba, a doplníme to do katalógu. Väčšinou do niekoľkých dní.",
+    "q4": "Čo keď sa niečo pokazí?",
+    "a4": "Riešime podporu na diaľku aj na mieste. Väčšina vecí je vyriešená ešte v ten istý deň.",
+    "q5": "Koľko to zaberie miesta?",
+    "a5": "Zhruba 1 m² podlahy a zásuvka. Obrazovka, reproduktory, mikrofón aj platobný terminál sú súčasťou stroja.",
+    "q6": "Je minimálna doba prenájmu na akciách?",
+    "a6": "Minimum je jedna noc. Pre víkendy, festivaly a viacdňové akcie zostavíme balíček."
   },
   "contact": {
     "tag": "Kontaktujte nás",

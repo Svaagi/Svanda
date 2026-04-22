@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-import { CONTACT_EMAIL } from 'constants';
 import { ContactFormData, ContactMode, ContactVenueType } from '../types';
 
 const INITIAL_FORM_STATE: ContactFormData = {
@@ -24,6 +23,8 @@ const VENUE_LABELS: Record<ContactVenueType, string> = {
   event: 'Event',
 };
 
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
+
 export const useContactForm = () => {
   const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_STATE);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -46,23 +47,42 @@ export const useContactForm = () => {
     setIsLoading(true);
     setError(null);
 
+    if (!ACCESS_KEY) {
+      setError('Contact form is not configured. Please email us directly.');
+      setIsLoading(false);
+      return;
+    }
+
+    const honeypot = (event.currentTarget.elements.namedItem('botcheck') as HTMLInputElement | null)?.value;
+    if (honeypot) {
+      setIsSubmitted(true);
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          _subject: `SVANDA Inquiry — ${MODE_LABELS[formData.mode]} — ${VENUE_LABELS[formData.venueType]}`,
+          access_key: ACCESS_KEY,
+          from_name: 'SVANDA Website',
+          subject: `SVANDA Inquiry - ${MODE_LABELS[formData.mode]} - ${VENUE_LABELS[formData.venueType]}`,
+          replyto: formData.email,
           name: formData.contactName,
           venue: formData.venueName,
           email: formData.email,
-          phone: formData.phone || '—',
-          mode: MODE_LABELS[formData.mode],
-          for: VENUE_LABELS[formData.venueType],
-          message: formData.message || '—',
+          phone: formData.phone || '-',
+          interested_in: MODE_LABELS[formData.mode],
+          venue_type: VENUE_LABELS[formData.venueType],
+          message: formData.message || '-',
         }),
       });
 
-      if (!response.ok) throw new Error('Submission failed');
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Submission failed');
+      }
       setIsSubmitted(true);
     } catch {
       setError('Something went wrong. Please try again or email us directly.');
