@@ -9,8 +9,31 @@
   overflow: hidden;
   isolation: isolate;
   z-index: 500;
-  /* Bottom shadow so the curtain has physical weight as it rises */
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  /* Bottom shadow so the curtain has physical weight as it rises.
+     Kept slim so it doesn't inflate the composited layer during the
+     curtain transform and stutter the hero→next section transition. */
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  will-change: transform;
+}
+
+/* Mobile: drop the curtain/fixed layout entirely. Hero flows as a normal
+   section and sizes to its content, so there's no forced 100vh empty area
+   below it. The scroll-driver (which exists only to give the curtain its
+   scroll range) is hidden. */
+@media (max-width: 768px) {
+  .scenePage {
+    position: relative !important;
+    height: auto !important;
+    transform: none !important;
+    z-index: auto;
+    overflow: visible;
+    box-shadow: none;
+    will-change: auto;
+  }
+
+  .scrollDriver {
+    display: none;
+  }
 }
 
 /* Invisible element whose sole job is to give the page its scroll height.

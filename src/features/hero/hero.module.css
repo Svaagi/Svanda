@@ -212,11 +212,13 @@
 
 @media (max-width: 1024px) {
   .hero {
-    padding-bottom: 60px;
+    min-height: 0;
+    padding-bottom: 40px;
   }
 
   .heroContent {
     flex-direction: column;
+    min-height: 0;
     padding: clamp(64px, 8vh, 100px) 40px clamp(20px, 3vh, 60px);
     gap: 40px;
     text-align: center;

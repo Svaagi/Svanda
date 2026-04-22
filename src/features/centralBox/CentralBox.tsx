@@ -10,21 +10,22 @@ interface Props {
 }
 
 const CentralBox = ({ containerRef }: Props) => {
+  const isMobile = useIsMobile();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
-  const isMobile = useIsMobile();
 
   const opacity = useTransform(scrollYProgress, [0, 0.04, 0.82, 0.93], [0, 1, 1, 0], { clamp: true });
 
-  const machineAnimate = isMobile
-    ? undefined
-    : {
-        rotateY: [-8, 8, -8],
-        rotateX: [3, -2, 3],
-        y: [0, -16, 0],
-      };
+  if (isMobile) return null;
+
+  const machineAnimate = {
+    rotateY: [-8, 8, -8],
+    rotateX: [3, -2, 3],
+    y: [0, -16, 0],
+  };
 
   return (
     <motion.div className={styles.wrapper} style={{ opacity }} aria-hidden="true">

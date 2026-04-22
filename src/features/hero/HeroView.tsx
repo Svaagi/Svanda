@@ -41,19 +41,21 @@ const HeroView = () => {
 
   return (
     <section className={styles.hero} id="hero">
-      <motion.div
-        className={styles.blobLayer}
-        style={{ y: blobsY as MotionValue<number> }}
-      >
-        <LavaField id="hero" colors={[...heroColors.topLeft, ...heroColors.bottomLeft, ...heroColors.topRight]} />
-      </motion.div>
-
-      <div className={styles.noiseOverlay} />
-
       {!isMobile && (
-        <div className={styles.hero3dWrapper}>
-          <Hero3D />
-        </div>
+        <>
+          <motion.div
+            className={styles.blobLayer}
+            style={{ y: blobsY as MotionValue<number> }}
+          >
+            <LavaField id="hero" colors={[...heroColors.topLeft, ...heroColors.bottomLeft, ...heroColors.topRight]} />
+          </motion.div>
+
+          <div className={styles.noiseOverlay} />
+
+          <div className={styles.hero3dWrapper}>
+            <Hero3D />
+          </div>
+        </>
       )}
 
       <div className={styles.heroContent}>

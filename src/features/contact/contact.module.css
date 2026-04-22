@@ -400,8 +400,12 @@
 }
 
 @media (max-width: 768px) {
+  .contact {
+    min-height: 0;
+  }
+
   .sectionInner {
-    padding: 60px 20px;
+    padding: 56px 20px;
     align-items: flex-start;
   }
 

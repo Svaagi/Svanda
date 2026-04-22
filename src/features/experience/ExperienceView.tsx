@@ -2,24 +2,32 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useIsMobile } from 'hooks/useIsMobile';
 import { scrollToSection } from 'utils';
 import styles from './experience.module.css';
 
 const ExperienceView = () => {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
+  /*
+   * On mobile every useTransform adds JS work per scroll event — and this
+   * section appears right as the hero curtain is sliding away, compounding
+   * the main-thread load and causing the transition stutter. Skip the
+   * scroll-driven motion on mobile and let the layout render statically.
+   */
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   });
 
-  const bgX = useTransform(scrollYProgress, [0, 1], [-30, 30]);
-  const leftY = useTransform(scrollYProgress, [0.08, 0.3, 0.7, 0.94], [60, 0, 0, -40]);
-  const leftOpacity = useTransform(scrollYProgress, [0.05, 0.22, 0.78, 0.94], [0, 1, 1, 0]);
-  const rightY = useTransform(scrollYProgress, [0.12, 0.34, 0.7, 0.94], [60, 0, 0, -40]);
-  const rightOpacity = useTransform(scrollYProgress, [0.08, 0.26, 0.78, 0.94], [0, 1, 1, 0]);
-  const yPlay = useTransform(scrollYProgress, [0.04, 0.22, 0.74, 0.94], [-60, 0, 0, -44]);
+  const bgX = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [-30, 30]);
+  const leftY = useTransform(scrollYProgress, [0.08, 0.3, 0.7, 0.94], isMobile ? [0, 0, 0, 0] : [60, 0, 0, -40]);
+  const leftOpacity = useTransform(scrollYProgress, [0.05, 0.22, 0.78, 0.94], isMobile ? [1, 1, 1, 1] : [0, 1, 1, 0]);
+  const rightY = useTransform(scrollYProgress, [0.12, 0.34, 0.7, 0.94], isMobile ? [0, 0, 0, 0] : [60, 0, 0, -40]);
+  const rightOpacity = useTransform(scrollYProgress, [0.08, 0.26, 0.78, 0.94], isMobile ? [1, 1, 1, 1] : [0, 1, 1, 0]);
+  const yPlay = useTransform(scrollYProgress, [0.04, 0.22, 0.74, 0.94], isMobile ? [0, 0, 0, 0] : [-60, 0, 0, -44]);
 
   return (
     <section ref={ref} className={styles.section} id="experience">

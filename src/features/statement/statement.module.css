@@ -113,9 +113,9 @@
     position: relative;
     top: auto;
     height: auto;
-    min-height: 100vh;
+    min-height: 0;
     overflow: visible;
-    padding: 96px 6vw 64px;
+    padding: 72px 6vw 56px;
     display: flex;
     flex-direction: column;
     gap: 18px;

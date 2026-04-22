@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -32,6 +32,7 @@ const NavigationView = () => {
   const handleMobileToggle = () => setIsMobileOpen((previous) => !previous);
 
   return (
+    <>
     <motion.nav
       className={`${styles.nav} ${isScrolled ? styles.navScrolled : ''}`}
       initial={{ y: -100, opacity: 0 }}
@@ -42,8 +43,9 @@ const NavigationView = () => {
         <button
           className={styles.logo}
           onClick={() => scrollToSection('hero')}
+          aria-label="SVANDA"
         >
-          SVANDA
+          <img src="/svanda-logo.png" alt="SVANDA" className={styles.logoImage} />
         </button>
 
         <ul className={styles.navLinks}>
@@ -105,45 +107,42 @@ const NavigationView = () => {
         </button>
       </div>
 
-      <AnimatePresence>
-        {isMobileOpen && (
-          <motion.div
-            className={styles.mobileMenu}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: EASING_STANDARD }}
-          >
-            {navItems.map((item) => (
-              <button
-                key={item.sectionId}
-                className={styles.mobileNavLink}
-                onClick={() => handleNavClick(item.sectionId)}
-              >
-                {item.label}
-              </button>
-            ))}
-            <div className={styles.mobileLangSwitcher}>
-              {LANGUAGES.map((lang) => (
-                <button
-                  key={lang.code}
-                  className={`${styles.langButton} ${i18n.language === lang.code ? styles.langButtonActive : ''}`}
-                  onClick={() => i18n.changeLanguage(lang.code)}
-                >
-                  {lang.label}
-                </button>
-              ))}
-            </div>
-            <button
-              className={styles.mobileCta}
-              onClick={() => handleNavClick('contact')}
-            >
-              {t('nav.bookDemo')}
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.nav>
+
+    <div
+      className={`${styles.mobileMenu} ${isMobileOpen ? styles.mobileMenuOpen : ''}`}
+      aria-hidden={!isMobileOpen}
+    >
+      <div className={styles.mobileMenuInner}>
+        {navItems.map((item) => (
+          <button
+            key={item.sectionId}
+            className={styles.mobileNavLink}
+            onClick={() => handleNavClick(item.sectionId)}
+          >
+            {item.label}
+          </button>
+        ))}
+        <div className={styles.mobileLangSwitcher}>
+          {LANGUAGES.map((lang) => (
+            <button
+              key={lang.code}
+              className={`${styles.langButton} ${i18n.language === lang.code ? styles.langButtonActive : ''}`}
+              onClick={() => i18n.changeLanguage(lang.code)}
+            >
+              {lang.label}
+            </button>
+          ))}
+        </div>
+        <button
+          className={styles.mobileCta}
+          onClick={() => handleNavClick('contact')}
+        >
+          {t('nav.bookDemo')}
+        </button>
+      </div>
+    </div>
+    </>
   );
 };
 
