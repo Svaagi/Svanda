@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import LavaField from 'components/LavaField';
 import { useBlobColors } from 'hooks/useBlobColors';
+import crowdPhoto from 'assets/images/lemon/crowd.jpg';
+import groupPhoto from 'assets/images/lemon/group.jpg';
+import vocalistPhoto from 'assets/images/lemon/vocalist.jpg';
 import styles from './lemon.module.css';
 
 const LemonClubView = () => {
@@ -54,9 +57,9 @@ const LemonClubView = () => {
           {t('lemon.firstTag')}
         </motion.div>
 
-        {/* Brno, 2024 — top-left under LEMON */}
+        {/* Brno, 2025 — top-left under LEMON */}
         <motion.div className={styles.since} style={{ y: y4 }}>
-          Brno, 2024
+          Brno, 2025
         </motion.div>
 
         {/* LEMON */}
@@ -72,29 +75,17 @@ const LemonClubView = () => {
         {/* Left photo column — 1 tall photo */}
         <motion.div className={styles.photoLeft} style={{ y: yPhotosL }}>
           <div className={styles.photo}>
-            <div className={styles.photoPlaceholder}>
-              {/* REPLACE: real photo of vocalist or bar atmosphere */}
-              <span className={styles.photoLabel}>Vocalist on stage</span>
-              <span className={styles.photoNote}>Replace with real photo</span>
-            </div>
+            <img src={vocalistPhoto} alt="Vocalist on stage" className={styles.photoImg} />
           </div>
         </motion.div>
 
         {/* Right photo column — 2 stacked photos */}
         <motion.div className={styles.photoRight} style={{ y: yPhotosR }}>
           <div className={styles.photo}>
-            <div className={styles.photoPlaceholder}>
-              {/* REPLACE: real photo */}
-              <span className={styles.photoLabel}>Bar crowd</span>
-              <span className={styles.photoNote}>Replace with real photo</span>
-            </div>
+            <img src={crowdPhoto} alt="Bar crowd" className={styles.photoImg} />
           </div>
           <div className={styles.photo}>
-            <div className={styles.photoPlaceholder}>
-              {/* REPLACE: real photo */}
-              <span className={styles.photoLabel}>Machine in action</span>
-              <span className={styles.photoNote}>Replace with real photo</span>
-            </div>
+            <img src={groupPhoto} alt="Group at the bar" className={styles.photoImg} />
           </div>
         </motion.div>
 
@@ -111,22 +102,6 @@ const LemonClubView = () => {
           </p>
         </motion.div>
       </motion.div>
-
-      <div className={styles.body}>
-        <div className={styles.bodyInner}>
-          <span className={styles.bodyTag}>{t('lemon.bodyTag')}</span>
-          <h3 className={styles.bodyTitle}>{t('lemon.bodyTitle')}</h3>
-
-          <ul className={styles.faqList}>
-            {[1, 2, 3, 4, 5, 6].map((index) => (
-              <li key={index} className={styles.faqItem}>
-                <h4 className={styles.faqQuestion}>{t(`lemon.q${index}`)}</h4>
-                <p className={styles.faqAnswer}>{t(`lemon.a${index}`)}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </section>
   );
 };

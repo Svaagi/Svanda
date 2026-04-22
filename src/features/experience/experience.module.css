@@ -3,7 +3,6 @@
   isolation: isolate;
 }
 
-/* Radial orb — glowing sphere, bright core burning outward */
 .gradientBg {
   position: absolute;
   inset: 0;
@@ -26,7 +25,6 @@
   66%        { filter: hue-rotate(-22deg) brightness(0.95); }
 }
 
-/* 3D ridged surface — dark valley + bright peak per ring cycle */
 .circlesA,
 .circlesB {
   position: absolute;
@@ -78,7 +76,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Syne', sans-serif;
-  font-size: clamp(100px, 24vw, 340px);
+  font-size: clamp(100px, 24vw, 380px);
   font-weight: 800;
   color: rgba(0, 0, 0, 0.08);
   letter-spacing: -0.05em;
@@ -91,17 +89,15 @@
 .viewport {
   position: relative;
   min-height: 100vh;
-  padding: clamp(96px, 14vh, 160px) clamp(24px, 5vw, 72px) clamp(80px, 10vh, 120px);
-  display: flex;
-  align-items: center;
+  padding: clamp(80px, 12vh, 140px) clamp(24px, 5vw, 72px) clamp(64px, 8vh, 100px);
 }
 
 .playBadge {
   position: absolute;
   top: 7%;
   right: 5vw;
-  width: 58px;
-  height: 28px;
+  width: clamp(48px, 4.5vw, 72px);
+  height: clamp(24px, 2.2vw, 36px);
   border: 1.5px solid rgba(255, 255, 255, 0.55);
   border-radius: 99px;
   display: flex;
@@ -111,34 +107,36 @@
 }
 
 .playBadge span {
-  font-size: 9px;
+  font-size: clamp(9px, 0.75vw, 12px);
   font-weight: 700;
   letter-spacing: 0.22em;
   color: rgba(255, 255, 255, 0.85);
   text-transform: uppercase;
 }
 
-/* Readable content block — left lane to avoid the centered 3D box */
-.content {
-  position: relative;
+/* LEFT content — tag + title + body paragraphs */
+.contentLeft {
+  position: absolute;
+  top: clamp(96px, 14vh, 160px);
+  left: clamp(24px, 5vw, 72px);
   z-index: 15;
-  max-width: min(620px, calc(50vw - 180px));
+  max-width: min(560px, calc(50vw - 160px));
   display: flex;
   flex-direction: column;
-  gap: clamp(16px, 2.5vh, 28px);
+  gap: clamp(14px, 1.8vw, 24px);
   color: #ffffff;
 }
 
 .tag {
   align-self: flex-start;
-  font-size: 12px;
+  font-size: clamp(12px, 1vw, 16px);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
+  color: #ffffff;
   background: rgba(255, 255, 255, 0.10);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  padding: 7px 16px;
+  padding: clamp(7px, 0.7vw, 10px) clamp(14px, 1.2vw, 20px);
   border-radius: 999px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -146,9 +144,9 @@
 
 .title {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(34px, 5vw, 64px);
+  font-size: clamp(36px, 5.2vw, 84px);
   font-weight: 800;
-  line-height: 1;
+  line-height: 0.98;
   letter-spacing: -0.035em;
   color: #ffffff;
 }
@@ -167,26 +165,39 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  font-size: clamp(14px, 1.1vw, 17px);
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.88);
-  max-width: 56ch;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+  gap: clamp(10px, 1.1vw, 18px);
+  font-size: clamp(15px, 1.2vw, 22px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
+}
+
+/* RIGHT content — pills + stats + CTA */
+.contentRight {
+  position: absolute;
+  top: clamp(96px, 14vh, 160px);
+  right: clamp(24px, 5vw, 72px);
+  z-index: 15;
+  max-width: min(440px, calc(50vw - 160px));
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vh, 36px);
+  align-items: flex-end;
+  color: #ffffff;
 }
 
 .pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 4px;
+  gap: 10px;
+  justify-content: flex-end;
 }
 
 .pill {
-  font-size: 12px;
+  font-size: clamp(13px, 1.05vw, 18px);
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 7px 14px;
+  padding: clamp(8px, 0.8vw, 12px) clamp(14px, 1.3vw, 22px);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.22);
@@ -195,20 +206,61 @@
   -webkit-backdrop-filter: blur(6px);
 }
 
+.stats {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 32px);
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.statNum {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 2.4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.statLabel {
+  font-size: clamp(10px, 0.8vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.statDivider {
+  width: 1px;
+  height: clamp(28px, 3vh, 44px);
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
 .cta {
-  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   background: #ffffff;
   color: #0f0f12;
-  font-size: 14px;
+  font-size: clamp(14px, 1.1vw, 18px);
   font-weight: 700;
-  padding: 13px 24px;
+  padding: clamp(12px, 1.1vw, 18px) clamp(22px, 2vw, 32px);
   border-radius: 999px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   letter-spacing: 0.02em;
-  margin-top: 8px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -218,7 +270,7 @@
 }
 
 .arrow {
-  font-size: 18px;
+  font-size: clamp(16px, 1.3vw, 22px);
   line-height: 1;
 }
 
@@ -226,25 +278,39 @@
   letter-spacing: 0.02em;
 }
 
-@media (max-width: 1024px) {
-  .content {
-    max-width: min(520px, calc(60vw - 120px));
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .viewport {
-    padding: 96px 6vw 64px;
-    align-items: flex-start;
+    padding: 96px 6vw 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    justify-content: flex-start;
   }
 
-  .content {
+  .contentLeft,
+  .contentRight {
+    position: static;
     max-width: 100%;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .pills {
+    justify-content: flex-start;
+  }
+
+  .stats {
+    justify-content: flex-start;
+  }
+
+  .stat {
+    align-items: flex-start;
+    text-align: left;
   }
 
   .bgTitle {
-    font-size: clamp(64px, 22vw, 140px);
-    top: 18%;
+    font-size: clamp(64px, 22vw, 180px);
+    top: 16%;
   }
 
   .playBadge {

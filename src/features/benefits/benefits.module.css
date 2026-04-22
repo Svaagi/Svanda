@@ -34,10 +34,10 @@
   position: absolute;
   top: 8%;
   left: 5vw;
-  font-size: 12px;
+  font-size: clamp(12px, 1vw, 16px);
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: rgba(0, 0, 0, 0.45);
+  color: rgba(0, 0, 0, 0.55);
   text-transform: uppercase;
   z-index: 15;
   white-space: nowrap;
@@ -46,7 +46,7 @@
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 99px;
-  padding: 5px 14px;
+  padding: clamp(5px, 0.55vw, 9px) clamp(12px, 1.1vw, 18px);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
@@ -72,18 +72,18 @@
 .w1 {
   top: 16%;
   left: 5vw;
-  font-size: clamp(14px, 3.8vw, 54px);
+  font-size: clamp(28px, 4.4vw, 76px);
   color: #0a0a0a;
   z-index: 15;
 }
 
-/* "FUNGUJE." — mid-right; fills the right-of-machine zone (machine: ~22%-75% tall) */
+/* "FUNGUJE." — mid-right; pushed below the descriptor so the two don't overlap */
 .w2 {
-  top: 30%;
+  top: 40%;
   right: 5vw;
-  font-size: clamp(14px, 4.2vw, 60px);
+  font-size: clamp(30px, 4.8vw, 84px);
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.7);
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.75);
   z-index: 15;
 }
 
@@ -102,12 +102,12 @@
   pointer-events: none;
 }
 
-/* "PRÍJMOV." — lower-right; sits below w2 + desc, filling bottom-right zone */
+/* "PRÍJMOV." — lower-right; sits below FUNGUJE filling bottom-right zone */
 .w5 {
-  top: 54%;
+  top: 62%;
   bottom: auto;
   right: 5vw;
-  font-size: clamp(14px, 4vw, 58px);
+  font-size: clamp(28px, 4.6vw, 80px);
   color: var(--color-accent-orange);
   z-index: 15;
 }
@@ -136,127 +136,96 @@
 
 .val {
   font-family: 'Inter', sans-serif;
-  font-size: 22px;
+  font-size: clamp(22px, 2.2vw, 40px);
   font-weight: 700;
   color: #0a0a0a;
   letter-spacing: 0;
 }
 
 .label {
-  font-size: 10px;
+  font-size: clamp(10px, 0.85vw, 14px);
   font-weight: 500;
   letter-spacing: 0.1em;
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.35);
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .divider {
   width: 1px;
-  height: 36px;
-  background: rgba(0, 0, 0, 0.1);
+  height: clamp(36px, 3.5vh, 52px);
+  background: rgba(0, 0, 0, 0.12);
   flex-shrink: 0;
 }
 
 /* ── Descriptor — sits between w2 and w5, tight right cluster */
 .desc {
   position: absolute;
-  top: 42%;
+  top: 22%;
   bottom: auto;
   right: 5vw;
   font-family: 'Syne', sans-serif;
-  font-size: clamp(12px, 1.2vw, 17px);
+  font-size: clamp(15px, 1.3vw, 24px);
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.55);
-  line-height: 1.55;
-  max-width: 280px;
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 1.5;
+  max-width: min(380px, 34vw);
   text-align: right;
   z-index: 15;
 }
 
-/* ── Body block: how-it-works steps ──────────────────────────────── */
-.body {
-  position: relative;
-  z-index: 50;
-  background: #ffffff;
-  padding: clamp(72px, 10vh, 120px) clamp(20px, 5vw, 64px);
-}
-
-.bodyInner {
-  max-width: 1100px;
-  margin: 0 auto;
+/* ── Inline how-it-works steps — fills the empty mid-left lane */
+.stepsInline {
+  position: absolute;
+  top: 30%;
+  left: 5vw;
+  max-width: min(400px, 36vw);
   display: flex;
   flex-direction: column;
-  gap: clamp(24px, 4vh, 40px);
+  gap: clamp(10px, 1.2vh, 18px);
+  z-index: 15;
+  text-align: left;
 }
 
-.bodyTag {
-  align-self: flex-start;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent-orange);
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(10px, 1vw, 16px);
+  justify-content: flex-start;
 }
 
-.bodyTitle {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 4.5vw, 48px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--color-text-primary);
-  max-width: 22ch;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.step {
-  background: #faf8f4;
-  border: 1px solid rgba(15, 15, 18, 0.07);
-  border-radius: 18px;
-  padding: clamp(18px, 2vw, 26px);
+.stepItem > div {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
+  max-width: 320px;
 }
 
-.stepNumber {
+.stepNum {
   font-family: 'Syne', sans-serif;
-  font-size: 13px;
+  font-size: clamp(13px, 1.05vw, 18px);
   font-weight: 800;
   letter-spacing: 0.1em;
   color: var(--color-accent-orange);
+  min-width: 32px;
+  text-align: left;
+  padding-top: 3px;
 }
 
-.stepTitle {
+.stepItem strong {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(20px, 2vw, 24px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--color-text-primary);
+  font-size: clamp(14px, 1.15vw, 20px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(0, 0, 0, 0.88);
+  text-transform: uppercase;
 }
 
-.stepBody {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-}
-
-@media (max-width: 960px) {
-  .steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 520px) {
-  .steps {
-    grid-template-columns: 1fr;
-  }
+.stepDesc {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(13px, 1.1vw, 18px);
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1.45;
 }
 
 /* ── Mobile: switch to vertical flow, override framer-motion inline transforms */
@@ -278,7 +247,8 @@
   .tag,
   .word,
   .desc,
-  .stats {
+  .stats,
+  .stepsInline {
     position: static;
     top: auto;
     left: auto;
@@ -287,6 +257,14 @@
     max-width: 100%;
     transform: none !important;
     white-space: normal;
+    text-align: left;
+  }
+
+  .stepItem {
+    justify-content: flex-start;
+  }
+
+  .stepNum {
     text-align: left;
   }
 

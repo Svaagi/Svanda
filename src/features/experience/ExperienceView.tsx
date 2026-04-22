@@ -15,8 +15,10 @@ const ExperienceView = () => {
   });
 
   const bgX = useTransform(scrollYProgress, [0, 1], [-30, 30]);
-  const contentY = useTransform(scrollYProgress, [0.08, 0.3, 0.7, 0.94], [60, 0, 0, -40]);
-  const contentOpacity = useTransform(scrollYProgress, [0.05, 0.22, 0.78, 0.94], [0, 1, 1, 0]);
+  const leftY = useTransform(scrollYProgress, [0.08, 0.3, 0.7, 0.94], [60, 0, 0, -40]);
+  const leftOpacity = useTransform(scrollYProgress, [0.05, 0.22, 0.78, 0.94], [0, 1, 1, 0]);
+  const rightY = useTransform(scrollYProgress, [0.12, 0.34, 0.7, 0.94], [60, 0, 0, -40]);
+  const rightOpacity = useTransform(scrollYProgress, [0.08, 0.26, 0.78, 0.94], [0, 1, 1, 0]);
   const yPlay = useTransform(scrollYProgress, [0.04, 0.22, 0.74, 0.94], [-60, 0, 0, -44]);
 
   return (
@@ -36,8 +38,8 @@ const ExperienceView = () => {
         </motion.div>
 
         <motion.div
-          className={styles.content}
-          style={{ y: contentY, opacity: contentOpacity }}
+          className={styles.contentLeft}
+          style={{ y: leftY, opacity: leftOpacity }}
         >
           <span className={styles.tag}>{t('experience.tag')}</span>
 
@@ -52,11 +54,33 @@ const ExperienceView = () => {
             <p>{t('experience.body1')}</p>
             <p>{t('experience.body2')}</p>
           </div>
+        </motion.div>
 
+        <motion.div
+          className={styles.contentRight}
+          style={{ y: rightY, opacity: rightOpacity }}
+        >
           <div className={styles.pills}>
             <span className={styles.pill}>{t('experience.pill1')}</span>
             <span className={styles.pill}>{t('experience.pill2')}</span>
             <span className={styles.pill}>{t('experience.pill3')}</span>
+          </div>
+
+          <div className={styles.stats}>
+            <div className={styles.stat}>
+              <span className={styles.statNum}>5 000+</span>
+              <span className={styles.statLabel}>{t('hero.stat1Label')}</span>
+            </div>
+            <div className={styles.statDivider} />
+            <div className={styles.stat}>
+              <span className={styles.statNum}>10 Kč</span>
+              <span className={styles.statLabel}>{t('hero.stat2Label')}</span>
+            </div>
+            <div className={styles.statDivider} />
+            <div className={styles.stat}>
+              <span className={styles.statNum}>24/7</span>
+              <span className={styles.statLabel}>{t('hero.stat3Label')}</span>
+            </div>
           </div>
 
           <button className={styles.cta} onClick={() => scrollToSection('contact')}>

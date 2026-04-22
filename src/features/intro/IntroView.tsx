@@ -44,8 +44,6 @@ const IntroView = () => {
   const x2 = useTransform(scrollYProgress, [0.04, 0.25, 0.72, 0.89], [ANIM.xFarRight, 0, 0, ANIM.xExitFarRight]);
   // "+ JUKEBOX" — exits fourth
   const x4 = useTransform(scrollYProgress, [0.10, 0.32, 0.74, 0.91], [ANIM.xMidRight, 0, 0, ANIM.xExitMidRight]);
-  // "18 000+ SKLADIEB" — exits fifth
-  const x6 = useTransform(scrollYProgress, [0.18, 0.40, 0.75, 0.92], [ANIM.xNearRight, 0, 0, ANIM.xExitNearRight]);
 
   // VERTICAL (no horizontal crossing risk)
   // Descriptor — exits last
@@ -83,6 +81,7 @@ const IntroView = () => {
           {/* Descriptor */}
           <motion.div className={styles.descriptor} style={{ y: y7 }}>
             <p>{t('intro.descriptor1')}</p>
+            <p>{t('intro.descriptor2')}</p>
             <div className={styles.pills}>
               <span>{t('intro.pills.karaokeBox')}</span>
               <span>{t('intro.pills.jukebox')}</span>
@@ -106,37 +105,26 @@ const IntroView = () => {
             {t('intro.w4')}
           </motion.div>
 
-          {/* 18 000+ SKLADIEB */}
-          <motion.div className={`${styles.word} ${styles.w6}`} style={{ x: x6 }}>
-            {t('intro.w6')}
+          {/* Library body — fills the empty middle-right region */}
+          <motion.div className={styles.library} style={{ y: y7 }}>
+            <h4 className={styles.libraryTitle}>{t('intro.bodyTitle')}</h4>
+            <p>{t('intro.bodyPara1')}</p>
+            <div className={styles.genres}>
+              <span>Rock</span>
+              <span>Pop</span>
+              <span>80s & 90s</span>
+              <span>Česká klasika</span>
+              <span>Slovenské hity</span>
+              <span>Country</span>
+              <span>Svatební</span>
+              <span>Metal</span>
+              <span>Dance</span>
+              <span>Párty</span>
+            </div>
           </motion.div>
         </div>
 
       </motion.div>
-
-      <div className={styles.body}>
-        <div className={styles.bodyInner}>
-          <span className={styles.bodyTag}>{t('intro.bodyTag')}</span>
-          <h3 className={styles.bodyTitle}>{t('intro.bodyTitle')}</h3>
-          <p className={styles.bodyPara}>{t('intro.bodyPara1')}</p>
-          <p className={styles.bodyPara}>{t('intro.bodyPara2')}</p>
-          <div className={styles.genres}>
-            <span className={styles.genre}>Rock</span>
-            <span className={styles.genre}>Pop</span>
-            <span className={styles.genre}>80s & 90s</span>
-            <span className={styles.genre}>Česká klasika</span>
-            <span className={styles.genre}>Slovenské hity</span>
-            <span className={styles.genre}>Country</span>
-            <span className={styles.genre}>Svatební</span>
-            <span className={styles.genre}>Metal</span>
-            <span className={styles.genre}>Dance</span>
-            <span className={styles.genre}>Disco</span>
-            <span className={styles.genre}>Folk</span>
-            <span className={styles.genre}>Párty</span>
-          </div>
-          <p className={styles.bodyNote}>{t('intro.bodyNote')}</p>
-        </div>
-      </div>
     </section>
   );
 };

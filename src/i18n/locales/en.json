@@ -39,7 +39,7 @@
     "w3": "KARAOKE",
     "w4": "+ JUKEBOX",
     "w5": "FOR BARS & EVENTS",
-    "w6": "18,000+ SONGS",
+    "w6": "5,000+ SONGS",
     "descriptor1": "SVANDA is a self service karaoke & jukebox machine built for bars, clubs, and events.",
     "descriptor2": "Your guests walk up, browse thousands of songs, pay at the card terminal, grab the mic, and perform, all without a DJ or any staff involved. The machine handles the queue, the display, and the payments completely on its own, around the clock.",
     "pills": {
@@ -48,10 +48,10 @@
       "events": "Events"
     },
     "bodyTag": "The library",
-    "bodyTitle": "5,000+ karaoke songs. A jukebox library even bigger.",
-    "bodyPara1": "Your guests can pick from over 5,000 karaoke tracks with on-screen lyrics, plus a much larger jukebox library for background music. Czech, Slovak, English, and more. Rock, pop, 80s classics, current hits, country, dance, wedding staples, metal, Czech evergreens.",
-    "bodyPara2": "Whatever your crowd is going to shout for, we probably have it. If something is missing, we add it to the catalog in a few days, no extra cost.",
-    "bodyNote": "Catalog updated continuously. Requests welcome."
+    "bodyTitle": "5,000+ tracks.",
+    "bodyPara1": "Karaoke with on-screen lyrics, plus a much larger jukebox library for background music. Czech, Slovak, English and more. Rock, pop, 80s, country, dance, wedding, metal.",
+    "bodyPara2": "Whatever your crowd is going to shout for, we probably have it. If something is missing, we add it in a few days.",
+    "bodyNote": "Catalog updated continuously."
   },
   "statement": {
     "cornerTag": "10 CZK per song",
@@ -142,12 +142,12 @@
   },
   "benefits": {
     "tag": "Built for bar owners",
-    "w1": "NO STAFF",
-    "w2": "NEEDED.",
+    "w1": "NO STAFF.",
+    "w2": "NONSTOP.",
     "w3": "ZERO MAINTENANCE.",
     "w4": "MORE",
-    "w5": "REVENUE.",
-    "stat1Label": "songs played",
+    "w5": "PROFIT.",
+    "stat1Label": "songs",
     "stat2Label": "per song",
     "stat3Label": "staff required",
     "stat4Label": "autonomous operation",
@@ -188,9 +188,9 @@
   },
   "lemon": {
     "firstTag": "First SVANDA installation",
-    "w5": "25,000+ SONGS PLAYED",
-    "detail1": "Running continuously since 2024.",
-    "detail2": "No staff. No downtime. Pure revenue.",
+    "w5": "NON-STOP KARAOKE.",
+    "detail1": "Running continuously since 2025.",
+    "detail2": "No staff. No downtime. Packed every weekend.",
     "bodyTag": "FAQ",
     "bodyTitle": "Quick answers.",
     "q1": "Who installs the machine?",

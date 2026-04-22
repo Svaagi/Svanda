@@ -57,7 +57,7 @@
   position: absolute;
   top: 7%;
   left: 5vw;
-  font-size: 12px;
+  font-size: clamp(12px, 1vw, 16px);
   font-weight: 600;
   letter-spacing: 0.1em;
   color: var(--color-accent-orange);
@@ -66,7 +66,7 @@
   backdrop-filter: blur(16px) saturate(1.5);
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
   border: 1px solid rgba(255, 255, 255, 0.85);
-  padding: 5px 14px;
+  padding: clamp(5px, 0.55vw, 9px) clamp(12px, 1.1vw, 18px);
   border-radius: var(--radius-pill);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   z-index: 15;
@@ -113,9 +113,9 @@
 
 /* KARAOKE — content, mid-left, directly beside box upper half */
 .w3 {
-  top: 38%;
+  top: 34%;
   left: 5vw;
-  font-size: clamp(14px, 3.5vw, 50px);
+  font-size: clamp(28px, 4vw, 72px);
   max-width: calc(100% - 5vw);
   background: linear-gradient(135deg, #7c3aed 0%, #e040a0 50%, #4facfe 100%);
   -webkit-background-clip: text;
@@ -132,7 +132,7 @@
 .w2 {
   top: 10%;
   right: 5vw;
-  font-size: clamp(14px, 3.5vw, 50px);
+  font-size: clamp(28px, 4vw, 72px);
   max-width: calc(100% - 5vw);
   color: transparent;
   -webkit-text-stroke: 2px rgba(0, 0, 0, 0.80);
@@ -152,9 +152,9 @@
 
 /* 18 000+ SKLADIEB — content accent, bottom-right */
 .w6 {
-  bottom: 12%;
+  bottom: 10%;
   right: 5vw;
-  font-size: clamp(12px, 2vw, 28px);
+  font-size: clamp(18px, 2.4vw, 40px);
   max-width: calc(100% - 5vw);
   color: var(--color-accent-orange);
   letter-spacing: -0.02em;
@@ -164,38 +164,38 @@
 /* ─── Descriptor (inside leftCol) ─── */
 .descriptor {
   position: absolute;
-  bottom: 7%;
+  bottom: 6%;
   left: 5vw;
   z-index: 15;
-  max-width: clamp(180px, 30vw, 380px);
+  max-width: clamp(260px, 32vw, 440px);
 }
 
 .descriptor p {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(13px, 1.2vw, 17px);
-  color: rgba(0, 0, 0, 0.55);
-  line-height: 1.65;
-  margin-bottom: 8px;
+  font-size: clamp(16px, 1.4vw, 26px);
+  color: rgba(0, 0, 0, 0.72);
+  line-height: 1.5;
+  margin-bottom: 12px;
 }
 
 .descriptor p + p {
-  font-size: clamp(12px, 1.1vw, 16px);
-  color: rgba(0, 0, 0, 0.35);
-  margin-bottom: 16px;
+  font-size: clamp(15px, 1.25vw, 22px);
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
 }
 
 .pills {
   display: flex;
-  gap: 10px;
+  gap: clamp(8px, 0.8vw, 14px);
   flex-wrap: wrap;
 }
 
 .pills span {
-  font-size: 12px;
+  font-size: clamp(12px, 0.95vw, 16px);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 5px 12px;
+  padding: clamp(6px, 0.6vw, 10px) clamp(12px, 1.1vw, 18px);
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(16px) saturate(1.5);
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
@@ -205,71 +205,53 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
-/* ── Body block — readable rich content below the sticky viewport ─────── */
-.body {
-  position: relative;
-  z-index: 50;
-  background: #ffffff;
-  padding: clamp(72px, 10vh, 120px) clamp(20px, 5vw, 64px);
+/* Library body block — fills empty middle-right region in rightCol */
+.library {
+  position: absolute;
+  top: 48%;
+  right: 5vw;
+  z-index: 15;
+  max-width: clamp(260px, 32vw, 420px);
+  text-align: right;
 }
 
-.bodyInner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.bodyTag {
-  align-self: flex-start;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent-orange);
-}
-
-.bodyTitle {
+.libraryTitle {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 4.5vw, 44px);
+  font-size: clamp(18px, 1.9vw, 32px);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--color-text-primary);
-  max-width: 22ch;
+  letter-spacing: 0.02em;
+  color: var(--color-accent-orange);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  line-height: 1.15;
 }
 
-.bodyPara {
-  font-size: clamp(15px, 1.1vw, 17px);
-  line-height: 1.65;
-  color: var(--color-text-secondary);
-  max-width: 64ch;
+.library p {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(15px, 1.3vw, 24px);
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.55;
+  margin-bottom: 16px;
 }
 
 .genres {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
+  gap: clamp(6px, 0.6vw, 10px);
+  justify-content: flex-end;
 }
 
-.genre {
-  font-size: 12px;
+.genres span {
+  font-size: clamp(12px, 0.95vw, 16px);
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 7px 14px;
-  border-radius: 999px;
-  background: rgba(124, 58, 237, 0.08);
-  border: 1px solid rgba(124, 58, 237, 0.16);
+  padding: clamp(6px, 0.6vw, 10px) clamp(12px, 1.1vw, 18px);
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.22);
+  border-radius: 99px;
   color: var(--color-accent-orange);
 }
 
-.bodyNote {
-  font-size: 13px;
-  color: var(--color-text-muted);
-  margin-top: 6px;
-}
 
 /* Mobile: switch from absolute 3-column grid to normal vertical flow.
    Override framer-motion inline transforms so scroll-driven word shifts
@@ -296,7 +278,8 @@
 
   .tag,
   .word,
-  .descriptor {
+  .descriptor,
+  .library {
     position: static;
     top: auto;
     left: auto;
@@ -305,6 +288,15 @@
     max-width: 100%;
     transform: none !important;
     white-space: normal;
+    text-align: left;
+  }
+
+  .library {
+    margin-top: 20px;
+  }
+
+  .genres {
+    justify-content: flex-start;
   }
 
   .tag {

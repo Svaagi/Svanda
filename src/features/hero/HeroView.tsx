@@ -125,7 +125,7 @@ const HeroView = () => {
             transition={{ duration: 0.8, delay: 1.8 }}
           >
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>25,000+</span>
+              <span className={styles.statNumber}>5,000+</span>
               <span className={styles.statLabel}>{t('hero.stat1Label')}</span>
             </div>
             <div className={styles.statDivider} />

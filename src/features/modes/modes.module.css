@@ -33,10 +33,10 @@
   position: absolute;
   top: 7%;
   left: 5vw;
-  font-size: 12px;
+  font-size: clamp(12px, 1vw, 16px);
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.65);
   text-transform: uppercase;
   z-index: 15;
   white-space: nowrap;
@@ -45,7 +45,7 @@
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 99px;
-  padding: 5px 14px;
+  padding: clamp(5px, 0.55vw, 9px) clamp(12px, 1.1vw, 18px);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -73,19 +73,19 @@
 .w2 {
   top: 7%;
   right: 5vw;
-  font-size: clamp(18px, 3.2vw, 50px);
-  max-width: 30vw;
+  font-size: clamp(28px, 3.8vw, 68px);
+  max-width: 34vw;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.45);
   z-index: 5;
 }
 
 /* KARAOKE BOX — left cluster headline, upper-mid beside box top */
 .w3 {
-  top: 26%;
+  top: 24%;
   left: 5vw;
-  font-size: clamp(16px, 3vw, 46px);
-  max-width: 30vw;
+  font-size: clamp(28px, 3.8vw, 66px);
+  max-width: 34vw;
   color: #ffffff;
   z-index: 15;
   line-height: 0.88;
@@ -93,41 +93,41 @@
 
 /* JUKEBOX — right cluster headline, offset slightly lower than w3 */
 .w4 {
-  top: 32%;
+  top: 30%;
   right: 5vw;
-  font-size: clamp(16px, 3vw, 46px);
-  max-width: 30vw;
+  font-size: clamp(28px, 3.8vw, 66px);
+  max-width: 34vw;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.6);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7);
   z-index: 15;
   text-align: right;
 }
 
 /* OR BOTH. — accent, bottom-left, close to bottom edge */
 .w5 {
-  bottom: 8%;
+  bottom: 6%;
   left: 5vw;
-  font-size: clamp(22px, 4.5vw, 66px);
-  max-width: 32vw;
+  font-size: clamp(36px, 5.5vw, 96px);
+  max-width: 40vw;
   color: var(--color-accent-orange);
   z-index: 15;
 }
 
-/* descLeft — paired tight under KARAOKE BOX (w3 at 26%) */
+/* descLeft — merged headline + desc + venue offer, paired under KARAOKE BOX (w3 at 24%) */
 .descLeft {
   position: absolute;
-  top: 40%;
+  top: 38%;
   left: 5vw;
-  max-width: min(260px, 28vw);
+  max-width: min(380px, 36vw);
   z-index: 15;
 }
 
-/* descRight — paired tight under JUKEBOX (w4 at 32%) */
+/* descRight — merged headline + desc + events offer, paired under JUKEBOX (w4 at 30%) */
 .descRight {
   position: absolute;
-  top: 46%;
+  top: 40%;
   right: 5vw;
-  max-width: min(260px, 28vw);
+  max-width: min(380px, 36vw);
   text-align: right;
   z-index: 15;
 }
@@ -135,156 +135,69 @@
 .descLeft strong,
 .descRight strong {
   display: block;
-  font-size: 13px;
+  font-size: clamp(13px, 1.1vw, 18px);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 12px;
 }
 
 .descLeft p,
 .descRight p {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(13px, 1.2vw, 17px);
-  color: rgba(255, 255, 255, 0.55);
-  line-height: 1.55;
+  font-size: clamp(16px, 1.4vw, 26px);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.45;
 }
 
-/* ── Body block: venue + event offerings ──────────────────────────────── */
-.body {
-  position: relative;
-  z-index: 50;
-  background: #0a0a0a;
-  padding: clamp(72px, 10vh, 120px) clamp(20px, 5vw, 64px);
+/* Nested offering block inside descLeft/descRight */
+.offerBlock {
+  margin-top: clamp(14px, 2vh, 22px);
+  padding-top: clamp(12px, 1.6vh, 20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.bodyInner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(24px, 4vh, 40px);
-}
-
-.bodyTag {
-  align-self: flex-start;
-  font-size: 12px;
+.offerLabel {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(12px, 1vw, 16px) !important;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-accent-orange);
+  color: var(--color-accent-orange) !important;
+  margin-bottom: 8px !important;
 }
 
-.bodyTitle {
+.offerText {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 4.5vw, 48px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  max-width: 22ch;
+  font-size: clamp(14px, 1.2vw, 20px) !important;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72) !important;
+  margin-bottom: 0 !important;
 }
 
-.offerGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.offer {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: clamp(22px, 2.5vw, 32px);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  color: #ffffff;
-}
-
-.offerDark {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #0a0a0a;
-}
-
-.offerTitle {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(22px, 2.4vw, 28px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-
-.offerSub {
-  font-size: 14px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.offerDark .offerSub {
-  color: rgba(10, 10, 10, 0.62);
-}
-
-.offerList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.offerList li {
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.offerList strong {
-  font-size: 14px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.offerList span {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.55;
-}
-
-.offerBody {
-  font-size: 15px;
-  line-height: 1.65;
-  color: rgba(10, 10, 10, 0.72);
+.descRight .offerBlock {
+  text-align: right;
 }
 
 .offerTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: auto;
+  gap: clamp(6px, 0.6vw, 10px);
+  margin-top: 10px;
+  justify-content: flex-end;
 }
 
 .offerTags span {
-  font-size: 12px;
+  font-size: clamp(11px, 0.9vw, 15px);
   font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(10, 10, 10, 0.08);
-  border: 1px solid rgba(10, 10, 10, 0.12);
-  color: #0a0a0a;
-}
-
-@media (max-width: 860px) {
-  .offerGrid {
-    grid-template-columns: 1fr;
-  }
+  letter-spacing: 0.05em;
+  padding: clamp(5px, 0.5vw, 8px) clamp(10px, 1vw, 16px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 99px;
+  color: #ffffff;
 }
 
 /* Mobile: switch to plain vertical flow, override framer-motion inline transforms */
@@ -316,6 +229,14 @@
     transform: none !important;
     white-space: normal;
     text-align: left;
+  }
+
+  .descRight .offerBlock {
+    text-align: left;
+  }
+
+  .offerTags {
+    justify-content: flex-start;
   }
 
   .tag {

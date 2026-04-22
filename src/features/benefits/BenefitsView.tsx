@@ -83,10 +83,42 @@ const BenefitsView = () => {
               {t('benefits.w4')}
             </motion.div>
 
+            {/* How-it-works inline — 4 compact steps fill the empty left lane */}
+            <motion.div className={styles.stepsInline} style={{ x: x1 }}>
+              <div className={styles.stepItem}>
+                <span className={styles.stepNum}>{t('benefits.step1Number')}</span>
+                <div>
+                  <strong>{t('benefits.step1Title')}</strong>
+                  <span className={styles.stepDesc}>{t('benefits.step1Body')}</span>
+                </div>
+              </div>
+              <div className={styles.stepItem}>
+                <span className={styles.stepNum}>{t('benefits.step2Number')}</span>
+                <div>
+                  <strong>{t('benefits.step2Title')}</strong>
+                  <span className={styles.stepDesc}>{t('benefits.step2Body')}</span>
+                </div>
+              </div>
+              <div className={styles.stepItem}>
+                <span className={styles.stepNum}>{t('benefits.step3Number')}</span>
+                <div>
+                  <strong>{t('benefits.step3Title')}</strong>
+                  <span className={styles.stepDesc}>{t('benefits.step3Body')}</span>
+                </div>
+              </div>
+              <div className={styles.stepItem}>
+                <span className={styles.stepNum}>{t('benefits.step4Number')}</span>
+                <div>
+                  <strong>{t('benefits.step4Title')}</strong>
+                  <span className={styles.stepDesc}>{t('benefits.step4Body')}</span>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Stats */}
             <motion.div className={styles.stats} style={{ y: yStats }}>
               <div className={styles.stat}>
-                <span className={styles.val}>25,000+</span>
+                <span className={styles.val}>5,000+</span>
                 <span className={styles.label}>{t('benefits.stat1Label')}</span>
               </div>
               <div className={styles.divider} />
@@ -130,23 +162,6 @@ const BenefitsView = () => {
 
         </div>
       </motion.div>
-
-      <div className={styles.body}>
-        <div className={styles.bodyInner}>
-          <span className={styles.bodyTag}>{t('benefits.bodyTag')}</span>
-          <h3 className={styles.bodyTitle}>{t('benefits.bodyTitle')}</h3>
-
-          <div className={styles.steps}>
-            {[1, 2, 3, 4].map((index) => (
-              <div key={index} className={styles.step}>
-                <span className={styles.stepNumber}>{t(`benefits.step${index}Number`)}</span>
-                <h4 className={styles.stepTitle}>{t(`benefits.step${index}Title`)}</h4>
-                <p className={styles.stepBody}>{t(`benefits.step${index}Body`)}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </section>
   );
 };

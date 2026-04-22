@@ -39,7 +39,7 @@
     "w3": "KARAOKE",
     "w4": "+ JUKEBOX",
     "w5": "PRO BARY & AKCE",
-    "w6": "18 000+ SKLADEB",
+    "w6": "5 000+ SKLADEB",
     "descriptor1": "SVANDA je samoobslužný karaoke & jukebox automat pro bary, kluby a akce.",
     "descriptor2": "Vaši hosté přijdou, procházejí tisíce skladeb, zaplatí kartovým terminálem, vezmou mikrofon a vystoupí, bez DJ ani jakékoli obsluhy. Stroj zvládá frontu, zobrazení a platby zcela samostatně, nonstop.",
     "pills": {
@@ -48,10 +48,10 @@
       "events": "Akce"
     },
     "bodyTag": "Knihovna",
-    "bodyTitle": "5 000+ karaoke skladeb. A ještě větší jukebox knihovna.",
-    "bodyPara1": "Vaši hosté si můžou vybrat z více než 5 000 karaoke skladeb s texty na obrazovce, plus mnohem větší jukebox knihovna pro hudbu na pozadí. Česky, slovensky, anglicky a dál. Rock, pop, 80s klasika, aktuální hity, country, dance, svatební evergreeny, metal, české hity.",
-    "bodyPara2": "Cokoli vaše parta vykřikne, pravděpodobně to máme. Když něco chybí, doplníme to do katalogu během pár dní, zdarma.",
-    "bodyNote": "Katalog průběžně rozšiřujeme. Návrhy vítáme."
+    "bodyTitle": "5 000+ skladeb.",
+    "bodyPara1": "Karaoke s texty na obrazovce a mnohem větší jukebox knihovna pro hudbu na pozadí. Česky, slovensky, anglicky. Rock, pop, 80s, country, dance, svatební, metal.",
+    "bodyPara2": "Cokoli vaše parta vykřikne, pravděpodobně to máme. Když něco chybí, doplníme to během pár dní.",
+    "bodyNote": "Katalog průběžně rozšiřujeme."
   },
   "statement": {
     "cornerTag": "10 Kč za skladbu",
@@ -142,12 +142,12 @@
   },
   "benefits": {
     "tag": "Vytvořeno pro majitele barů",
-    "w1": "BEZ OBSLUHY",
-    "w2": "FUNGUJE.",
+    "w1": "BEZ OBSLUHY.",
+    "w2": "NONSTOP.",
     "w3": "NULOVÁ ÚDRŽBA.",
-    "w4": "VÍCE",
-    "w5": "PŘÍJMŮ.",
-    "stat1Label": "přehraných skladeb",
+    "w4": "ČISTÝ",
+    "w5": "PROFIT.",
+    "stat1Label": "skladeb",
     "stat2Label": "za skladbu",
     "stat3Label": "potřebná obsluha",
     "stat4Label": "autonomní provoz",
@@ -188,9 +188,9 @@
   },
   "lemon": {
     "firstTag": "První instalace SVANDA",
-    "w5": "25 000+ PŘEHRANÝCH SKLADEB",
-    "detail1": "Nepřetržitě v provozu od roku 2024.",
-    "detail2": "Bez obsluhy. Bez výpadků. Čistý příjem.",
+    "w5": "NONSTOP KARAOKE.",
+    "detail1": "Nepřetržitě v provozu od roku 2025.",
+    "detail2": "Bez obsluhy. Bez výpadků. Plno každý víkend.",
     "bodyTag": "Časté otázky",
     "bodyTitle": "Rychlé odpovědi.",
     "q1": "Kdo stroj instaluje?",
