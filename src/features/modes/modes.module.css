@@ -272,4 +272,10 @@
   .descRight {
     margin-top: 8px;
   }
+
+  .tag {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.12);
+  }
 }

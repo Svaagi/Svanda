@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 import { phaseDelay, useLavaLamp } from 'context/LavaLampContext';
 import { useBlobPalette } from 'context/BlobColorContext';
+import { useIsMobile } from 'hooks/useIsMobile';
 import styles from './globalLavaLamp.module.css';
 
 const PALETTE_OPACITY: Record<string, number> = {
@@ -82,9 +83,22 @@ const EDGE_OPACITY  = 0.60;
 const EASE = [0.4, 0, 0.6, 1] as const;
 
 const GlobalLavaLamp = () => {
-  const { blobs, startTime } = useLavaLamp();
+  const { blobs: allBlobs, startTime } = useLavaLamp();
   const { palette, blurEnabled } = useBlobPalette();
+  const isMobile = useIsMobile();
   const opacity = PALETTE_OPACITY[palette] ?? PALETTE_OPACITY.subtle;
+
+  /*
+   * Desktop: 9 blobs (3 large + 6 medium). Mobile: 5 blobs (3 large + 2 medium).
+   * The 12 small "droplet" blobs cost the most per frame and contribute the
+   * least visually — drop them on both. Mobile also skips the metaball SVG
+   * filter entirely (feGaussianBlur + feColorMatrix on a full-viewport fixed
+   * SVG is the single largest GPU cost).
+   */
+  const blobs = useMemo(
+    () => (isMobile ? allBlobs.slice(0, 5) : allBlobs.slice(0, 9)),
+    [allBlobs, isMobile],
+  );
 
   const blobColors = useMemo(() =>
     blobs.map((_, i) => ({
@@ -104,7 +118,7 @@ const GlobalLavaLamp = () => {
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
       aria-hidden="true"
-      style={blurEnabled ? { filter: 'blur(8px)' } : undefined}
+      style={blurEnabled && !isMobile ? { filter: 'blur(8px)' } : undefined}
     >
       <defs>
         {blobs.map((blob, i) => (
@@ -134,26 +148,11 @@ const GlobalLavaLamp = () => {
       </defs>
 
       {/*
-       * All blobs share one filtered group — the filter sees the entire group
-       * so overlapping halos from different blobs produce the smooth merge.
-       *
-       * ANIMATION DESIGN:
-       *   repeatType: 'loop'   — directed cycle (not oscillation)
-       *   times: CYCLE_TIMES   — rise takes 45%, fall takes 33%, pauses = 22%
-       *   first keyframe === last keyframe → perfectly seamless loop
-       *
-       *   phaseDelay() returns a negative Framer Motion delay so this
-       *   GlobalLavaLamp (and every section LavaField) joins mid-cycle at the
-       *   exact phase that matches how long the app has been running.
-       *   Blobs feel continuous regardless of when the component mounts.
-       *
-       * NO rx/ry animation.
-       *   Each blob is a constant ellipse (rx ≠ ry → never a perfect circle).
-       *   The only motion is cx/cy (position).
-       *   Organic shape change comes from the metaball filter, not from
-       *   individual blob scaling — which is exactly what "no scaling" means.
+       * On mobile the metaball filter is skipped — feGaussianBlur+feColorMatrix
+       * on a full-viewport animated SVG is too expensive. Blobs render as plain
+       * soft radial gradients; the lava-lamp mood survives.
        */}
-      <g filter="url(#gl-metaball)">
+      <g filter={isMobile ? undefined : 'url(#gl-metaball)'}>
         {blobs.map((blob) => (
           <motion.ellipse
             key={blob.id}

@@ -110,16 +110,16 @@ const IntroView = () => {
             <h4 className={styles.libraryTitle}>{t('intro.bodyTitle')}</h4>
             <p>{t('intro.bodyPara1')}</p>
             <div className={styles.genres}>
-              <span>Rock</span>
-              <span>Pop</span>
-              <span>80s & 90s</span>
-              <span>Česká klasika</span>
-              <span>Slovenské hity</span>
-              <span>Country</span>
-              <span>Svatební</span>
-              <span>Metal</span>
-              <span>Dance</span>
-              <span>Párty</span>
+              <span>{t('intro.genre1')}</span>
+              <span>{t('intro.genre2')}</span>
+              <span>{t('intro.genre3')}</span>
+              <span>{t('intro.genre4')}</span>
+              <span>{t('intro.genre5')}</span>
+              <span>{t('intro.genre6')}</span>
+              <span>{t('intro.genre7')}</span>
+              <span>{t('intro.genre8')}</span>
+              <span>{t('intro.genre9')}</span>
+              <span>{t('intro.genre10')}</span>
             </div>
           </motion.div>
         </div>

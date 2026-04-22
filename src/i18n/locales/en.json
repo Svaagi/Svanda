@@ -8,7 +8,13 @@
     "benefits": "Benefits",
     "faq": "FAQ",
     "contact": "Contact",
-    "bookDemo": "Book a Demo"
+    "bookDemo": "Book a Demo",
+    "toggleMenu": "Toggle menu",
+    "paletteSubtleToGlossy": "Switch to glossy blobs",
+    "paletteGlossyToVivid": "Switch to vivid blobs",
+    "paletteVividToSubtle": "Switch to subtle blobs",
+    "blurEnable": "Enable blob blur",
+    "blurDisable": "Disable blob blur"
   },
   "hero": {
     "eyebrow": "Karaoke & Jukebox. One Box.",
@@ -20,7 +26,8 @@
     "ctaSecondary": "See How It Works",
     "stat1Label": "Songs",
     "stat2Label": "Per Song",
-    "stat3Label": "Box. Everything."
+    "stat3Label": "Box. Everything.",
+    "hint3d": "drag · toss · spin"
   },
   "what": {
     "tag": "What is SVANDA",
@@ -51,7 +58,17 @@
     "bodyTitle": "5,000+ tracks.",
     "bodyPara1": "Karaoke with on-screen lyrics, plus a much larger jukebox library for background music. Czech, Slovak, English and more. Rock, pop, 80s, country, dance, wedding, metal.",
     "bodyPara2": "Whatever your crowd is going to shout for, we probably have it. If something is missing, we add it in a few days.",
-    "bodyNote": "Catalog updated continuously."
+    "bodyNote": "Catalog updated continuously.",
+    "genre1": "Rock",
+    "genre2": "Pop",
+    "genre3": "80s & 90s",
+    "genre4": "Czech classics",
+    "genre5": "Slovak hits",
+    "genre6": "Country",
+    "genre7": "Wedding",
+    "genre8": "Metal",
+    "genre9": "Dance",
+    "genre10": "Party"
   },
   "statement": {
     "cornerTag": "10 CZK per song",
@@ -119,6 +136,9 @@
     "tag": "Choose your setup",
     "w1": "TWO",
     "w2": "MODES.",
+    "w3Line1": "KARAOKE",
+    "w3Line2": "BOX",
+    "w4": "JUKEBOX",
     "w5": "OR BOTH.",
     "descLeftTitle": "Karaoke Box",
     "descLeftDesc": "Guests sing live on stage with full lyrics on screen. Pay per song at the terminal.",
@@ -189,6 +209,9 @@
   "lemon": {
     "firstTag": "First SVANDA installation",
     "w5": "NON-STOP KARAOKE.",
+    "altVocalist": "Vocalist on stage",
+    "altCrowd": "Bar crowd",
+    "altGroup": "Group at the bar",
     "detail1": "Running continuously since 2025.",
     "detail2": "No staff. No downtime. Packed every weekend.",
     "bodyTag": "FAQ",
@@ -255,6 +278,11 @@
       "messagePlaceholder": "Tell us about your venue, number of guests, any questions...",
       "interestedIn": "I'm interested in",
       "thisIsForMy": "This is for my",
+      "modeKaraoke": "Karaoke Box",
+      "modeJukebox": "Jukebox",
+      "modeBoth": "Both",
+      "venueBar": "Bar / Club",
+      "venueEvent": "Event",
       "submit": "Send Message",
       "submitting": "Sending...",
       "successTitle": "We'll be in touch!",

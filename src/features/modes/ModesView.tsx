@@ -80,14 +80,14 @@ const ModesView = () => {
 
         {/* KARAOKE BOX — left-center, strong diagonal */}
         <motion.div className={`${styles.word} ${styles.w3}`} style={{ x: x3, y: y3 }}>
-          KARAOKE
+          {t('modes.w3Line1')}
           <br />
-          BOX
+          {t('modes.w3Line2')}
         </motion.div>
 
         {/* JUKEBOX — right, outline, diagonal from top-right */}
         <motion.div className={`${styles.word} ${styles.w4}`} style={{ x: x4, y: y4 }}>
-          JUKEBOX
+          {t('modes.w4')}
         </motion.div>
 
         {/* OR BOTH. — bottom-left, accent, rises then exits left */}

@@ -62,7 +62,7 @@ const NavigationView = () => {
         <button
           className={styles.paletteToggle}
           onClick={toggle}
-          title={palette === 'subtle' ? 'Switch to glossy blobs' : palette === 'glossy' ? 'Switch to vivid blobs' : 'Switch to subtle blobs'}
+          title={palette === 'subtle' ? t('nav.paletteSubtleToGlossy') : palette === 'glossy' ? t('nav.paletteGlossyToVivid') : t('nav.paletteVividToSubtle')}
         >
           {palette === 'subtle' ? '◯' : palette === 'glossy' ? '◑' : '●'}
         </button>
@@ -70,7 +70,7 @@ const NavigationView = () => {
         <button
           className={`${styles.blurToggle} ${blurEnabled ? styles.blurToggleActive : ''}`}
           onClick={toggleBlur}
-          title={blurEnabled ? 'Disable blob blur' : 'Enable blob blur'}
+          title={blurEnabled ? t('nav.blurDisable') : t('nav.blurEnable')}
         >
           ⬤
         </button>
@@ -97,7 +97,7 @@ const NavigationView = () => {
         <button
           className={styles.mobileToggle}
           onClick={handleMobileToggle}
-          aria-label="Toggle menu"
+          aria-label={t('nav.toggleMenu')}
         >
           <span className={`${styles.hamburgerLine} ${isMobileOpen ? styles.hamburgerLineOpen1 : ''}`} />
           <span className={`${styles.hamburgerLine} ${isMobileOpen ? styles.hamburgerLineOpen2 : ''}`} />

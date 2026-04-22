@@ -16,13 +16,6 @@
     #1a0040 78%,
     #06000f 100%
   );
-  animation: orbBreath 10s ease-in-out infinite;
-}
-
-@keyframes orbBreath {
-  0%,  100% { filter: hue-rotate(0deg)   brightness(1);    }
-  33%        { filter: hue-rotate(28deg)  brightness(1.1);  }
-  66%        { filter: hue-rotate(-22deg) brightness(0.95); }
 }
 
 .circlesA,
@@ -42,6 +35,7 @@
   transform-origin: 50% 42%;
   pointer-events: none;
   mix-blend-mode: overlay;
+  will-change: transform, opacity;
 }
 
 .circlesA {
@@ -301,6 +295,8 @@
 
   .stats {
     justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 
   .stat {
@@ -314,6 +310,48 @@
   }
 
   .playBadge {
+    display: none;
+  }
+}
+
+/* ── Mobile perf: drop expensive infinite animations, filters, and blend-modes ──
+ * hue-rotate keyframes + mix-blend-mode cause full-screen recomposition every
+ * frame during scroll. Removing these fixes the hero→experience stutter.
+ */
+@media (max-width: 768px) {
+  .title {
+    font-size: clamp(32px, 8vw, 56px);
+  }
+
+  .body {
+    font-size: 15px;
+  }
+
+  .gradientBg {
+    animation: none;
+  }
+
+  .circlesA,
+  .circlesB {
+    display: none;
+  }
+
+  .grain {
+    display: none;
+  }
+
+  .tag,
+  .pill {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .statNum {
+    font-size: 22px;
+  }
+
+  .statDivider {
     display: none;
   }
 }

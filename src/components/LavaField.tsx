@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { generateLavaBlobs } from 'components/lavaBlobs';
 import { phaseDelay, useLavaLamp } from 'context/LavaLampContext';
 import { useBlobPalette } from 'context/BlobColorContext';
+import { useIsMobile } from 'hooks/useIsMobile';
 import styles from './lavaField.module.css';
 
 /** Simple string hash — converts section id to a numeric seed. */
@@ -82,12 +83,18 @@ const LavaField = ({ id, colors }: LavaFieldProps) => {
   // startTime is shared so phaseDelay keeps blobs mid-cycle on mount.
   const { startTime, sessionSeed } = useLavaLamp();
   const { palette, blurEnabled } = useBlobPalette();
+  const isMobile = useIsMobile();
   const opacity = PALETTE_OPACITY[palette] ?? PALETTE_OPACITY.subtle;
 
-  const blobs = useMemo(
-    () => generateLavaBlobs(strHash(id) + sessionSeed),
-    [id, sessionSeed],
-  );
+  /*
+   * Desktop: 9 blobs (3 large + 6 medium). Mobile: 5 blobs (3 large + 2 medium).
+   * The 12 small droplet blobs add the most per-frame cost with the least
+   * visual return — drop them on both tiers.
+   */
+  const blobs = useMemo(() => {
+    const all = generateLavaBlobs(strHash(id) + sessionSeed);
+    return isMobile ? all.slice(0, 5) : all.slice(0, 9);
+  }, [id, sessionSeed, isMobile]);
 
   /*
    * Assign two adjacent palette colors to each blob.
@@ -112,7 +119,7 @@ const LavaField = ({ id, colors }: LavaFieldProps) => {
       viewBox={`0 0 ${VIEWBOX} ${VIEWBOX}`}
       preserveAspectRatio="none"
       aria-hidden="true"
-      style={blurEnabled ? { filter: 'blur(8px)' } : undefined}
+      style={blurEnabled && !isMobile ? { filter: 'blur(8px)' } : undefined}
     >
       <defs>
         {blobs.map((blob, i) => (
@@ -156,7 +163,7 @@ const LavaField = ({ id, colors }: LavaFieldProps) => {
        * rx / ry — volume-preserving deformation (narrow+tall when rising,
        *           wide+flat when resting at bottom)
        */}
-      <g filter={`url(#${filterId(id)})`}>
+      <g filter={isMobile ? undefined : `url(#${filterId(id)})`}>
         {blobs.map((blob) => (
           <motion.ellipse
             key={blob.id}

@@ -75,7 +75,7 @@
 
 .sectionSubtitle {
   font-size: 16px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   line-height: 1.60;
   max-width: 420px;
 }
@@ -158,7 +158,7 @@
 
 .promiseText {
   font-size: 13px;
-  color: var(--color-text-muted);
+  color: var(--color-text-primary);
   line-height: 1.65;
   max-width: 360px;
 }
@@ -401,22 +401,47 @@
 
 @media (max-width: 768px) {
   .sectionInner {
-    padding: 60px 24px;
+    padding: 60px 20px;
     align-items: flex-start;
   }
 
   .footer {
-    padding: 18px 24px;
+    padding: 18px 20px;
     flex-direction: column;
     align-items: flex-start;
     gap: 3px;
   }
 
+  /* Glass card — lighter blur on mobile to reduce GPU load */
   .formCard {
-    padding: 24px 20px;
+    padding: 24px 18px;
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
   }
 
   .formGrid {
     grid-template-columns: 1fr;
+  }
+
+  .fieldInput {
+    font-size: 16px; /* avoid iOS input zoom */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .toggleBtn {
+    font-size: 13px;
+    padding: 9px 16px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .contactItemValue {
+    font-size: 14px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(32px, 9vw, 48px);
   }
 }

@@ -6,6 +6,7 @@ import { scrollToSection } from 'utils';
 
 import LavaField from 'components/LavaField';
 import { useBlobColors } from 'hooks/useBlobColors';
+import { useIsMobile } from 'hooks/useIsMobile';
 
 import { Hero3D } from './components';
 import styles from './hero.module.css';
@@ -36,6 +37,7 @@ const HeroView = () => {
   const { t } = useTranslation();
   const { blobsY, textY, opacityOut } = useHeroParallax();
   const { hero: heroColors } = useBlobColors();
+  const isMobile = useIsMobile();
 
   return (
     <section className={styles.hero} id="hero">
@@ -48,9 +50,11 @@ const HeroView = () => {
 
       <div className={styles.noiseOverlay} />
 
-      <div className={styles.hero3dWrapper}>
-        <Hero3D />
-      </div>
+      {!isMobile && (
+        <div className={styles.hero3dWrapper}>
+          <Hero3D />
+        </div>
+      )}
 
       <div className={styles.heroContent}>
         <motion.div

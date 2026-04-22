@@ -8,7 +8,13 @@
     "benefits": "Výhody",
     "faq": "Časté otázky",
     "contact": "Kontakt",
-    "bookDemo": "Rezervovat demo"
+    "bookDemo": "Rezervovat demo",
+    "toggleMenu": "Přepnout menu",
+    "paletteSubtleToGlossy": "Přepnout na lesklé blobby",
+    "paletteGlossyToVivid": "Přepnout na syté blobby",
+    "paletteVividToSubtle": "Přepnout na jemné blobby",
+    "blurEnable": "Zapnout rozmazání",
+    "blurDisable": "Vypnout rozmazání"
   },
   "hero": {
     "eyebrow": "Karaoke & Jukebox vše v jednom",
@@ -20,7 +26,8 @@
     "ctaSecondary": "Jak to funguje",
     "stat1Label": "Skladeb",
     "stat2Label": "Za skladbu",
-    "stat3Label": "Box. Vše."
+    "stat3Label": "Box. Vše.",
+    "hint3d": "táhni · hoď · otoč"
   },
   "what": {
     "tag": "Co je SVANDA",
@@ -51,7 +58,17 @@
     "bodyTitle": "5 000+ skladeb.",
     "bodyPara1": "Karaoke s texty na obrazovce a mnohem větší jukebox knihovna pro hudbu na pozadí. Česky, slovensky, anglicky. Rock, pop, 80s, country, dance, svatební, metal.",
     "bodyPara2": "Cokoli vaše parta vykřikne, pravděpodobně to máme. Když něco chybí, doplníme to během pár dní.",
-    "bodyNote": "Katalog průběžně rozšiřujeme."
+    "bodyNote": "Katalog průběžně rozšiřujeme.",
+    "genre1": "Rock",
+    "genre2": "Pop",
+    "genre3": "80s & 90s",
+    "genre4": "Česká klasika",
+    "genre5": "Slovenské hity",
+    "genre6": "Country",
+    "genre7": "Svatební",
+    "genre8": "Metal",
+    "genre9": "Dance",
+    "genre10": "Párty"
   },
   "statement": {
     "cornerTag": "10 Kč za skladbu",
@@ -119,6 +136,9 @@
     "tag": "Vyberte si nastavení",
     "w1": "DVA",
     "w2": "REŽIMY.",
+    "w3Line1": "KARAOKE",
+    "w3Line2": "BOX",
+    "w4": "JUKEBOX",
     "w5": "NEBO OBOJÍ.",
     "descLeftTitle": "Karaoke Box",
     "descLeftDesc": "Hosté zpívají živě na pódiu s texty na obrazovce. Platba za skladbu u terminálu.",
@@ -189,6 +209,9 @@
   "lemon": {
     "firstTag": "První instalace SVANDA",
     "w5": "NONSTOP KARAOKE.",
+    "altVocalist": "Zpěvák na pódiu",
+    "altCrowd": "Lidé v baru",
+    "altGroup": "Skupina u baru",
     "detail1": "Nepřetržitě v provozu od roku 2025.",
     "detail2": "Bez obsluhy. Bez výpadků. Plno každý víkend.",
     "bodyTag": "Časté otázky",
@@ -255,6 +278,11 @@
       "messagePlaceholder": "Řekněte nám o svém podniku, počtu hostů, případné dotazy...",
       "interestedIn": "Mám zájem o",
       "thisIsForMy": "Toto je pro můj",
+      "modeKaraoke": "Karaoke Box",
+      "modeJukebox": "Jukebox",
+      "modeBoth": "Obojí",
+      "venueBar": "Bar / Klub",
+      "venueEvent": "Akci",
       "submit": "Odeslat zprávu",
       "submitting": "Odesílá se...",
       "successTitle": "Ozveme se!",

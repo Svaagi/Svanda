@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 
 import styles from './hero3d.module.css';
@@ -12,6 +13,7 @@ const REST_Q = new THREE.Quaternion().setFromEuler(
 );
 
 const Hero3D = () => {
+  const { t } = useTranslation();
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -243,7 +245,7 @@ const Hero3D = () => {
 
   return (
     <div ref={mountRef} className={styles.scene}>
-      <span className={styles.hint}>drag · toss · spin</span>
+      <span className={styles.hint}>{t('hero.hint3d')}</span>
     </div>
   );
 };

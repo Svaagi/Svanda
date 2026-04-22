@@ -75,17 +75,17 @@ const LemonClubView = () => {
         {/* Left photo column — 1 tall photo */}
         <motion.div className={styles.photoLeft} style={{ y: yPhotosL }}>
           <div className={styles.photo}>
-            <img src={vocalistPhoto} alt="Vocalist on stage" className={styles.photoImg} />
+            <img src={vocalistPhoto} alt={t('lemon.altVocalist')} className={styles.photoImg} />
           </div>
         </motion.div>
 
         {/* Right photo column — 2 stacked photos */}
         <motion.div className={styles.photoRight} style={{ y: yPhotosR }}>
           <div className={styles.photo}>
-            <img src={crowdPhoto} alt="Bar crowd" className={styles.photoImg} />
+            <img src={crowdPhoto} alt={t('lemon.altCrowd')} className={styles.photoImg} />
           </div>
           <div className={styles.photo}>
-            <img src={groupPhoto} alt="Group at the bar" className={styles.photoImg} />
+            <img src={groupPhoto} alt={t('lemon.altGroup')} className={styles.photoImg} />
           </div>
         </motion.div>
 

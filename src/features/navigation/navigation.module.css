@@ -267,11 +267,25 @@
 
 @media (max-width: 768px) {
   .nav {
-    padding: 14px 24px;
+    padding: 14px 20px;
+    background: rgba(250, 248, 245, 0.82);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
   }
 
   .navScrolled {
-    padding: 10px 24px;
+    padding: 10px 20px;
+    background: rgba(250, 248, 245, 0.92);
+    backdrop-filter: blur(16px) saturate(1.5);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  }
+
+  .navInner {
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 19px;
   }
 
   .navLinks,
@@ -287,6 +301,8 @@
   }
 
   .mobileMenu {
-    padding: 16px 24px 24px;
+    padding: 16px 20px 24px;
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
   }
 }

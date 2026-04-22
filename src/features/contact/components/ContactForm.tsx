@@ -6,16 +6,19 @@ import styles from '../contact.module.css';
 import { useContactForm } from '../hooks';
 import { ContactMode, ContactVenueType } from '../types';
 
-const MODES: { value: ContactMode; label: string }[] = [
-  { value: 'karaoke', label: 'Karaoke Box' },
-  { value: 'jukebox', label: 'Jukebox' },
-  { value: 'both', label: 'Both' },
-];
+const MODE_VALUES: ContactMode[] = ['karaoke', 'jukebox', 'both'];
+const VENUE_TYPE_VALUES: ContactVenueType[] = ['bar', 'event'];
 
-const VENUE_TYPES: { value: ContactVenueType; label: string }[] = [
-  { value: 'bar', label: 'Bar / Club' },
-  { value: 'event', label: 'Event' },
-];
+const MODE_KEYS: Record<ContactMode, string> = {
+  karaoke: 'contact.form.modeKaraoke',
+  jukebox: 'contact.form.modeJukebox',
+  both: 'contact.form.modeBoth',
+};
+
+const VENUE_KEYS: Record<ContactVenueType, string> = {
+  bar: 'contact.form.venueBar',
+  event: 'contact.form.venueEvent',
+};
 
 const ContactForm = () => {
   const { t } = useTranslation();
@@ -59,14 +62,14 @@ const ContactForm = () => {
           <div className={styles.formField}>
             <label className={styles.fieldLabel}>{t('contact.form.interestedIn')}</label>
             <div className={styles.toggleGroup}>
-              {MODES.map(({ value, label }) => (
+              {MODE_VALUES.map((value) => (
                 <button
                   key={value}
                   type="button"
                   className={`${styles.toggleBtn} ${formData.mode === value ? styles.toggleBtnActive : ''}`}
                   onClick={() => handleSelect('mode', value)}
                 >
-                  {label}
+                  {t(MODE_KEYS[value])}
                 </button>
               ))}
             </div>
@@ -76,14 +79,14 @@ const ContactForm = () => {
           <div className={styles.formField}>
             <label className={styles.fieldLabel}>{t('contact.form.thisIsForMy')}</label>
             <div className={styles.toggleGroup}>
-              {VENUE_TYPES.map(({ value, label }) => (
+              {VENUE_TYPE_VALUES.map((value) => (
                 <button
                   key={value}
                   type="button"
                   className={`${styles.toggleBtn} ${formData.venueType === value ? styles.toggleBtnActive : ''}`}
                   onClick={() => handleSelect('venueType', value)}
                 >
-                  {label}
+                  {t(VENUE_KEYS[value])}
                 </button>
               ))}
             </div>
