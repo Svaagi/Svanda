@@ -1,0 +1,154 @@
+/*
+ * Design tokens: the only file allowed to hold raw colour values.
+ * Dark is the default; `data-theme` and `data-accent` on <html> swap the values.
+ */
+
+:root {
+  /* Accent palette (dark-theme value, then the contrast-safe light-theme value) */
+  --palette-orange: #ff9a3c;
+  --palette-orange-2: #ffb46e;
+  --palette-orange-light: #b5520a;
+  --palette-orange-light-2: #8d3f06;
+  --palette-magenta: #ff4fd8;
+  --palette-magenta-2: #ff7fe4;
+  --palette-magenta-light: #b8158f;
+  --palette-magenta-light-2: #8f0f6f;
+  --palette-ink: #050507;
+  --palette-white: #ffffff;
+  --palette-black: #000000;
+
+  /* Dark theme colours */
+  color-scheme: dark;
+  --color-bg: var(--palette-ink);
+  --color-fg: var(--palette-white);
+  --color-muted: #a9a9b3;
+  --color-dim: #5a5a66;
+  --color-border: #1c1c22;
+  --color-border-2: #2a2a30;
+  --color-input: #0b0b0e;
+  --color-tile: #0d0e12;
+  --color-dot-off: #2c2c34;
+  --color-cap-fg: #e8e8ee;
+  --color-cap-bg: rgb(0 0 0 / 0.45);
+  --color-menu-bg: rgb(5 5 7 / 0.96);
+  --color-nav-rgb: 11 11 14;
+  --color-border-rgb: 28 28 34;
+  --color-shadow: var(--palette-black);
+
+  /* Accent: orange by default */
+  --color-accent: var(--palette-orange);
+  --color-accent-2: var(--palette-orange-2);
+  --color-on-accent: var(--palette-ink);
+  --color-focus: var(--color-accent);
+
+  /* Wordmark letter colours */
+  --color-letter-1: #b6ff4d;
+  --color-letter-2: #3ee6ff;
+  --color-letter-3: var(--palette-orange);
+  --color-letter-4: var(--palette-magenta);
+  --color-letter-5: #7a5cff;
+  --color-letter-6: #5ff5e0;
+
+  /* Typography */
+  --font-pixel: 'Silkscreen', monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-heavy: 800;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 15px;
+  --font-size-base: 16px;
+  --font-size-body: clamp(17px, 1.3vw, 24px);
+  --font-size-xl: 32px;
+  --font-size-display: clamp(40px, 4.4vw, 84px);
+  --line-height-tight: 1.05;
+  --line-height-base: 1.5;
+  --letter-spacing-tight: -0.035em;
+
+  /* Space */
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --nav-height: 64px;
+
+  /* Radius: the pixel look is square; round only for pills and dots */
+  --radius-none: 0;
+  --radius-full: 999px;
+
+  /* Shadows: hard pixel offsets */
+  --shadow-pixel-sm: 3px 3px 0 var(--color-shadow);
+  --shadow-pixel-md: 4px 4px 0 var(--color-shadow);
+  --shadow-pixel-lg: 6px 6px 0 var(--color-shadow);
+
+  /* Focus ring */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-base: 280ms;
+  --duration-page: 1100ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-pixel: steps(2, end);
+
+  /* Stacking */
+  --z-base: 0;
+  --z-raised: 1;
+  --z-overlay: 10;
+  --z-nav: 50;
+  --z-menu: 60;
+  --z-dialog: 100;
+  --z-toast: 110;
+  --z-skip-link: 120;
+}
+
+:root[data-accent='magenta'] {
+  --color-accent: var(--palette-magenta);
+  --color-accent-2: var(--palette-magenta-2);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #f5f5f2;
+  --color-fg: #14141a;
+  --color-muted: #5a5a66;
+  --color-dim: #8a8a94;
+  --color-border: #e2e2de;
+  --color-border-2: #cfcfca;
+  --color-input: var(--palette-white);
+  --color-tile: #e8e8e4;
+  --color-dot-off: #cfcfca;
+  --color-cap-fg: #14141a;
+  --color-cap-bg: rgb(255 255 255 / 0.72);
+  --color-menu-bg: rgb(245 245 242 / 0.97);
+  --color-nav-rgb: 245 245 242;
+  --color-border-rgb: 226 226 222;
+
+  --color-accent: var(--palette-orange-light);
+  --color-accent-2: var(--palette-orange-light-2);
+  --color-on-accent: var(--palette-white);
+
+  --color-letter-1: #5a8f00;
+  --color-letter-2: #0a7f96;
+  --color-letter-3: var(--palette-orange-light);
+  --color-letter-4: var(--palette-magenta-light);
+  --color-letter-5: #5a3fe0;
+  --color-letter-6: #0b7a63;
+}
+
+:root[data-theme='light'][data-accent='magenta'] {
+  --color-accent: var(--palette-magenta-light);
+  --color-accent-2: var(--palette-magenta-light-2);
+}

@@ -128,5 +128,12 @@ export default tseslint.config(
       globals: { ...globals.node },
     },
   },
+  {
+    files: ['apps/site/public/**/*.js'],
+    languageOptions: {
+      sourceType: 'script',
+      globals: { ...globals.browser },
+    },
+  },
   prettierConfig,
 );

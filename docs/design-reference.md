@@ -18,7 +18,7 @@ Line refs: `web:` = `Svanda Web.dc.html`, `stage:` = `svanda-stage.js`,
 | `Svanda Logo Manual.dc.html` | 231 | 7-page logo manual (construction, clear zone, colours, misuse) |
 | `Svanda Mobile.dc.html` | 41 | Phone mockup iframing the page; not a separate design |
 | `jukebox.obj` | 763 KB | The only 3D model |
-| `cursor-*.png` | | Pixel cursors (arrow/hand/text, default + magenta) |
+| `cursor-*.png` | | Pixel cursors (arrow/hand/text, default + magenta); moved to `apps/site/public/cursors/` |
 | `screen-jukebox.png`, `screen-karaoke.png` | | Unreferenced screen renders |
 | `uploads/jukebox-design/` | | Original app palette, CSS, JetBrains Mono woff2, logo, images |
 | `screenshots/` | | Iteration screenshots |

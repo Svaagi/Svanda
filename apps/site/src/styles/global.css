@@ -1,0 +1,111 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+ul,
+ol {
+  margin: 0;
+}
+
+img,
+svg,
+canvas,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent-2);
+}
+
+::placeholder {
+  color: var(--color-dim);
+}
+
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Pixel cursor: decorative and only for fine pointers. `!important` beats component-level
+ * cursor rules so the set stays consistent; text fields keep a text cursor.
+ */
+@media (pointer: fine) {
+  html[data-cursor] {
+    --cursor-arrow: url('/cursors/cursor-arrow.png') 1 1;
+    --cursor-hand: url('/cursors/cursor-hand.png') 9 1;
+    --cursor-text: url('/cursors/cursor-text.png') 7 13;
+  }
+
+  html[data-cursor='magenta'] {
+    --cursor-arrow: url('/cursors/cursor-arrow-magenta.png') 1 1;
+    --cursor-hand: url('/cursors/cursor-hand-magenta.png') 9 1;
+    --cursor-text: url('/cursors/cursor-text-magenta.png') 7 13;
+  }
+
+  html[data-cursor],
+  html[data-cursor] * {
+    cursor: var(--cursor-arrow), auto !important;
+  }
+
+  html[data-cursor] a,
+  html[data-cursor] button,
+  html[data-cursor] [role='button'],
+  html[data-cursor] label {
+    cursor: var(--cursor-hand), pointer !important;
+  }
+
+  html[data-cursor] input,
+  html[data-cursor] textarea {
+    cursor: var(--cursor-text), text !important;
+  }
+}
