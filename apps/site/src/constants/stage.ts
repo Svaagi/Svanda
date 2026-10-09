@@ -37,3 +37,6 @@ export const LAYER_PARALLAX_PX = 90;
 // `--sv-vp` precision: enough for smooth fades without rewriting the style on idle frames.
 export const VP_CSS_DECIMALS = 4;
 export const VP_CSS_PROPERTY = '--sv-vp';
+
+// After a finger lifts, the stage pointer (the hero torch) stays lit this long.
+export const TOUCH_RELEASE_MS = 700;

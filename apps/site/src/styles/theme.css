@@ -69,11 +69,23 @@
   --color-intro-noise-6: var(--palette-cyan);
   --color-intro-noise-7: #ff2d6b;
 
+  /* Hero background: twinkle cells and the ghost wordmark (gradient start to end, and the
+     shade a twinkle lights it to). The torch and floor shadow use --color-fg. */
+  --color-hero-cell-dim: #222225;
+  --color-hero-cell-bright: #48484b;
+  --color-hero-mark-start: #2c2c30;
+  --color-hero-mark-end: #3e3e42;
+  --color-hero-mark-lit-start: #727276;
+  --color-hero-mark-lit-end: #848488;
+  --hero-torch-alpha: 0.22;
+  --hero-shadow-alpha: 0.2;
+
   /* Typography */
   --font-pixel: 'Silkscreen', monospace;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-weight-regular: 400;
+  --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-heavy: 800;
@@ -89,6 +101,7 @@
   --line-height-base: 1.5;
   --letter-spacing-tight: -0.035em;
   --letter-spacing-wide: 0.04em;
+  --letter-spacing-wider: 0.06em;
   --font-size-control: 14px;
 
   /* Space */
@@ -127,6 +140,10 @@
   --dialog-max-width: 560px;
   --dialog-sheet-top: var(--nav-height);
   --toast-max-width: 420px;
+  --hero-overlay-inset: clamp(24px, 6vw, 80px);
+  --hero-overlay-bottom: clamp(40px, 8vh, 72px);
+  --hero-overlay-max-width: 560px;
+  --hero-overlay-fade-rate: 2.5;
 
   /* Borders */
   --border-width-thin: 1px;
@@ -204,6 +221,15 @@
   --color-letter-4: var(--palette-magenta-light);
   --color-letter-5: #5a3fe0;
   --color-letter-6: #0b7a63;
+
+  --color-hero-cell-dim: #dcdcdf;
+  --color-hero-cell-bright: #b6b6b9;
+  --color-hero-mark-start: #c6c6ca;
+  --color-hero-mark-end: #b4b4b8;
+  --color-hero-mark-lit-start: #808084;
+  --color-hero-mark-lit-end: #6e6e72;
+  --hero-torch-alpha: 0.16;
+  --hero-shadow-alpha: 0.28;
 }
 
 :root[data-theme='light'][data-accent='magenta'] {

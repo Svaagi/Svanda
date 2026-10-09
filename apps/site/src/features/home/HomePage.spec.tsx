@@ -2,18 +2,20 @@ import { screen } from '@testing-library/react';
 import { INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE } from 'constants/intro';
 import { STAGE_PAGE_IDS } from 'constants/stage';
 import { renderAtPath } from 'utils/testing';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { HomePage } from './HomePage';
 
 describe('HomePage', () => {
-  // jsdom has no canvas; the intro itself is covered by IntroCanvas.spec.
+  // jsdom has no canvas; the intro and the hero background have their own specs.
   beforeEach(() => {
     window.sessionStorage.setItem(INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE);
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
   });
 
   afterEach(() => {
     window.sessionStorage.clear();
+    vi.restoreAllMocks();
   });
 
   it('renders the copy of the locale in the URL', () => {
@@ -23,8 +25,14 @@ describe('HomePage', () => {
       'data-locale',
       'en',
     );
-    expect(screen.getByTestId('home-page-title')).toHaveTextContent(
-      'Built from scratch.',
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'SVANDA, the karaoke jukebox',
+      }),
+    ).toBe(screen.getByTestId('home-page-title'));
+    expect(screen.getByTestId('hero-overlay-cta')).toHaveTextContent(
+      'EXPLORE SVANDA',
     );
     expect(screen.getByTestId('header-language-switch')).toBeInTheDocument();
   });
@@ -50,6 +58,10 @@ describe('HomePage', () => {
       expect(screen.getByTestId(`page-layer-${pageId}`)).toBeInTheDocument();
     });
     expect(screen.getByTestId('intro')).toBeInTheDocument();
+    expect(screen.getByTestId('hero-background')).toBeInTheDocument();
+    expect(screen.getByTestId('page-layer-top')).toContainElement(
+      screen.getByTestId('hero-overlay'),
+    );
     expect(screen.getByTestId('contact-section')).toHaveAttribute(
       'id',
       'contact',

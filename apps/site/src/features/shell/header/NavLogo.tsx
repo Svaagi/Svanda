@@ -1,5 +1,5 @@
 import { NAV_HOME_ID, NAV_HOME_PAGE, NAV_LOGO_CELL_PX } from 'constants/nav';
-import { usePageLinkClick } from 'features/shell/navLink';
+import { usePageLinkClick } from 'features/stage';
 import { useRef } from 'react';
 import { PixelLogo } from 'ui';
 import { childTestId } from 'utils';

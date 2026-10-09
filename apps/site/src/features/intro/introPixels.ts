@@ -17,6 +17,7 @@ import {
   INTRO_NOISE_SALTS_PER_STEP,
   INTRO_REROLL_PHASE_STEPS,
 } from 'constants/intro';
+import { fillInsetCell } from 'lib/pixel';
 import { hash3 } from 'lib/random';
 
 import type { IntroCell, IntroLayout } from './introLayout';
@@ -106,12 +107,7 @@ export function fillCell(
 ) {
   context.globalAlpha = alpha;
   context.fillStyle = color;
-  context.fillRect(
-    x + insetPx,
-    y + insetPx,
-    size - insetPx - insetPx,
-    size - insetPx - insetPx,
-  );
+  fillInsetCell(context, x, y, size, insetPx);
   context.globalAlpha = 1;
 }
 

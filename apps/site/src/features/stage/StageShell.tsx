@@ -4,6 +4,7 @@ import { childTestId } from 'utils';
 
 import styles from './stageShell.module.css';
 import { useStagePaging } from './useStagePaging';
+import { useStagePointer } from './useStagePointer';
 
 export type StageShellProps = {
   children: ReactNode;
@@ -18,6 +19,7 @@ export function StageShell({
 }: StageShellProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   useStagePaging(viewportRef);
+  useStagePointer(viewportRef);
 
   return (
     <div className={styles.stageShell} data-testid={testId}>

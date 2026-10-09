@@ -1,8 +1,7 @@
 import type { NavItem } from 'constants/nav';
+import { usePageLinkClick } from 'features/stage';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { usePageLinkClick } from './usePageLinkClick';
 
 export type NavLinkProps = {
   item: NavItem;

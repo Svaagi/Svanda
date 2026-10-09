@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import type {
+  FloorShadow,
   IntroPhase,
   NavLogoSlot,
   ScreenQuad,
@@ -20,6 +21,8 @@ type StageValues = {
   pointer: StagePointer;
   grid: StageGrid;
   screenQuad: ScreenQuad | null;
+  // Published by the 3D scene; null while no model stands on the stage.
+  floorShadow: FloorShadow | null;
   viewport: StageViewport;
   navLogoSlot: NavLogoSlot | null;
 };
@@ -32,6 +35,7 @@ type StageActions = {
   setPointer: (pointer: StagePointer) => void;
   setGrid: (grid: StageGrid) => void;
   setScreenQuad: (screenQuad: ScreenQuad | null) => void;
+  setFloorShadow: (floorShadow: FloorShadow | null) => void;
   setViewport: (viewport: StageViewport) => void;
   setNavLogoSlot: (navLogoSlot: NavLogoSlot | null) => void;
 };
@@ -49,6 +53,7 @@ export function createInitialStageValues(): StageValues {
     pointer: { x: 0, y: 0, isActive: false },
     grid: { cell: 0, originX: 0, originY: 0 },
     screenQuad: null,
+    floorShadow: null,
     viewport: { width: 0, height: 0, isMobile: false, isPortrait: false },
     navLogoSlot: null,
   };
@@ -63,6 +68,7 @@ export const useStageStore = create<StageState>()((set) => ({
   setPointer: (pointer) => set({ pointer }),
   setGrid: (grid) => set({ grid }),
   setScreenQuad: (screenQuad) => set({ screenQuad }),
+  setFloorShadow: (floorShadow) => set({ floorShadow }),
   setViewport: (viewport) => set({ viewport }),
   setNavLogoSlot: (navLogoSlot) => set({ navLogoSlot }),
 }));

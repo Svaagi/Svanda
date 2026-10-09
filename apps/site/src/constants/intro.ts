@@ -19,13 +19,7 @@ export const INTRO_COVER_FADE_DURATION_S = 0.9;
 // Reveal variables are written with this precision, and only when they change.
 export const INTRO_VAR_DECIMALS = 3;
 
-// Intro grid: the wordmark spans the width minus a margin, within these cell sizes.
-export const INTRO_CELL_MIN_PX = 8;
-export const INTRO_CELL_MAX_PX = 24;
-export const INTRO_GRID_MARGIN_PX = 40;
 export const INTRO_SEED = 7;
-// Retina canvases are capped: the cells are flat squares, more pixels buy nothing.
-export const INTRO_MAX_DPR = 2;
 
 // Each cell stops flickering at a random moment in this window; noise cells a little later.
 export const INTRO_LOCK_START_S = 1.35;

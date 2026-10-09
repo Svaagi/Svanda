@@ -9,11 +9,13 @@ import {
   VENUES_LAYER_FADE_RATE,
   VENUES_PAGE,
 } from 'constants/stage';
+import { HeroBackground, HeroOverlay } from 'features/hero';
 import { IntroCanvas } from 'features/intro';
 import { Footer, Header, SkipLink } from 'features/shell';
 import { PageLayer, StageShell } from 'features/stage';
 import { useLocale } from 'i18n';
 import { useTranslation } from 'react-i18next';
+import { VisuallyHidden } from 'ui';
 
 import styles from './homePage.module.css';
 
@@ -33,11 +35,16 @@ export function HomePage() {
         data-locale={locale}
       >
         <StageShell>
+          <HeroBackground />
           <PageLayer pageIndex={HERO_PAGE}>
-            <div className={styles.hero}>
-              <h1 data-testid="home-page-title">{t('hero.title')}</h1>
-              <p data-testid="home-page-subtitle">{t('hero.subtitle')}</p>
-            </div>
+            {/* The design shows no hero heading: the page h1 is for crawlers and readers. */}
+            <h1 data-testid="home-page-title">
+              <VisuallyHidden>{t('hero.heading')}</VisuallyHidden>
+            </h1>
+            <p data-testid="home-page-subtitle">
+              <VisuallyHidden>{t('hero.subtitle')}</VisuallyHidden>
+            </p>
+            <HeroOverlay />
           </PageLayer>
           {/* Karaoke copy sits left and drifts in from the right; jukebox mirrors it. */}
           <PageLayer pageIndex={KARAOKE_PAGE} parallaxPx={-LAYER_PARALLAX_PX} />

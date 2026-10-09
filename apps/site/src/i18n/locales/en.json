@@ -26,6 +26,7 @@
     "sk": { "short": "SK", "name": "Slovenčina" }
   },
   "hero": {
+    "heading": "SVANDA, the karaoke jukebox",
     "tag": "KARAOKE JUKEBOX",
     "title": "Built from scratch.",
     "subtitle": "Our own cabinet, our own app, our own karaoke versions of every song.",

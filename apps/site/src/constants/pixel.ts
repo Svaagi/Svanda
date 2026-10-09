@@ -13,6 +13,11 @@ export const ICON_CELL_INSET_PX = 0;
 export const CQ_CELL_FILL_RATIO = 0.84;
 export const CQ_DECIMALS_SCALE = 1000;
 
+// A full-width wordmark spans the width minus a margin, within these cell sizes.
+export const WORDMARK_CELL_MIN_PX = 8;
+export const WORDMARK_CELL_MAX_PX = 24;
+export const WORDMARK_MARGIN_PX = 40;
+
 export const LOGO_CELL_PX = 5;
 export const LOGO_CELL_MOBILE_PX = 4;
 export const ICON_CELL_PX = 3;

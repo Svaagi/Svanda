@@ -8,6 +8,7 @@ export type StagePointer = {
   isActive: boolean;
 };
 
+// The background cell grid in stage px: features snap onto it (venues frame, band).
 export type StageGrid = {
   cell: number;
   originX: number;
@@ -17,6 +18,14 @@ export type StageGrid = {
 export type ScreenPoint = {
   x: number;
   y: number;
+};
+
+// The jukebox base footprint on the floor, plus its copy pushed away from the light, in
+// stage px. The hero background fills the cells inside its convex hull as a pixel shadow.
+export type FloorShadow = {
+  points: readonly ScreenPoint[];
+  // 0..1, follows the model rising into place.
+  alpha: number;
 };
 
 // The jukebox display corners in client px, clockwise from the top left.

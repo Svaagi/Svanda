@@ -1,14 +1,10 @@
 import {
-  INTRO_CELL_MAX_PX,
-  INTRO_CELL_MIN_PX,
-  INTRO_GRID_MARGIN_PX,
   INTRO_LOCK_SPREAD_S,
   INTRO_LOCK_START_S,
   INTRO_NOISE_LOCK_DELAY_S,
   INTRO_SEED,
 } from 'constants/intro';
-import { clamp } from 'lib/math';
-import { BITMAP, bitmapWidth, layoutBitmap } from 'lib/pixel';
+import { BITMAP, bitmapWidth, layoutBitmap, wordmarkCellPx } from 'lib/pixel';
 import { mulberry32 } from 'lib/random';
 
 export const LOGO_COLS = bitmapWidth(BITMAP);
@@ -52,19 +48,10 @@ const LOGO_MODULES = new Map(
   ]),
 );
 
-// The wordmark spans the width minus a margin, in cells of a bounded size.
-export function introCellPx(width: number): number {
-  return clamp(
-    Math.floor((width - INTRO_GRID_MARGIN_PX) / LOGO_COLS),
-    INTRO_CELL_MIN_PX,
-    INTRO_CELL_MAX_PX,
-  );
-}
-
 // A full screen grid with the wordmark centred on it. The PRNG is seeded, so every visit
 // sees the same pattern for the same viewport.
 export function createIntroLayout(width: number, height: number): IntroLayout {
-  const cellPx = introCellPx(width);
+  const cellPx = wordmarkCellPx(width);
   const cols = Math.ceil(width / cellPx);
   const rows = Math.ceil(height / cellPx);
   const originCol = Math.floor((cols - LOGO_COLS) * CENTRE_RATIO);

@@ -1,5 +1,5 @@
-import { INTRO_MAX_DPR } from 'constants/intro';
 import type { NavLogoSlot } from 'features/stage';
+import { bindCanvasSize } from 'lib/canvas';
 
 import { drawIntroFrame } from './introFrame';
 import { createIntroLayout, type IntroLayout } from './introLayout';
@@ -19,20 +19,11 @@ export function createIntroScene(canvas: HTMLCanvasElement): IntroScene | null {
   let layout: IntroLayout = createIntroLayout(0, 0);
   let origin = { x: 0, y: 0 };
 
-  const resize = () => {
-    const width = Math.floor(canvas.clientWidth);
-    const height = Math.floor(canvas.clientHeight);
-    const dpr = Math.min(window.devicePixelRatio || 1, INTRO_MAX_DPR);
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    context.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const unbindSize = bindCanvasSize(canvas, context, (width, height) => {
     layout = createIntroLayout(width, height);
     const rect = canvas.getBoundingClientRect();
     origin = { x: rect.left, y: rect.top };
-  };
-
-  resize();
-  window.addEventListener('resize', resize);
+  });
 
   return {
     draw: (t, navLogoSlot) => {
@@ -43,6 +34,6 @@ export function createIntroScene(canvas: HTMLCanvasElement): IntroScene | null {
       };
       drawIntroFrame(context, { layout, palette, target }, t);
     },
-    dispose: () => window.removeEventListener('resize', resize),
+    dispose: unbindSize,
   };
 }

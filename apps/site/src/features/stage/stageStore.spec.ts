@@ -15,6 +15,7 @@ describe('stageStore', () => {
     expect(state.isReady).toBe(true);
     expect(state.introPhase).toBe('done');
     expect(state.screenQuad).toBeNull();
+    expect(state.floorShadow).toBeNull();
     expect(state.navLogoSlot).toBeNull();
   });
 
@@ -34,6 +35,7 @@ describe('stageStore', () => {
     getState().setPointer({ x: 0.5, y: -0.5, isActive: true });
     getState().setGrid({ cell: 12, originX: 3, originY: 4 });
     getState().setScreenQuad(quad);
+    getState().setFloorShadow({ points: [quad.topLeft], alpha: 0.5 });
     getState().setViewport({
       width: 800,
       height: 900,
@@ -50,6 +52,7 @@ describe('stageStore', () => {
       pointer: { x: 0.5, y: -0.5, isActive: true },
       grid: { cell: 12, originX: 3, originY: 4 },
       screenQuad: quad,
+      floorShadow: { points: [{ x: 0, y: 0 }], alpha: 0.5 },
       viewport: { width: 800, height: 900, isMobile: true, isPortrait: true },
       navLogoSlot: { x: 97.5, y: 19.5, cellPx: 4 },
     });
