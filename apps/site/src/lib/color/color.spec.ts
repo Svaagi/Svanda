@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { mixRgb, parseHexColor, toHexColor } from './color';
+import { mixRgb, parseHexColor, toHexAlphaColor, toHexColor } from './color';
 
 describe('parseHexColor', () => {
   it('reads long and short hex colours', () => {
@@ -35,5 +35,15 @@ describe('toHexColor', () => {
     expect(toHexColor(parseHexColor('#14141a') ?? { r: 0, g: 0, b: 0 })).toBe(
       '#14141a',
     );
+  });
+});
+
+describe('toHexAlphaColor', () => {
+  it('appends the alpha as a byte and clamps it to 0..1', () => {
+    const cyan = { r: 62, g: 230, b: 255 };
+
+    expect(toHexAlphaColor(cyan, 0.7)).toBe('#3ee6ffb3');
+    expect(toHexAlphaColor(cyan, 0)).toBe('#3ee6ff00');
+    expect(toHexAlphaColor(cyan, 2)).toBe('#3ee6ffff');
   });
 });

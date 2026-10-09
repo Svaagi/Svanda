@@ -3,6 +3,7 @@ export {
   easeInOut,
   easeOut,
   easeOutBack,
+  FULL_TURN_RAD,
   HALF,
   lerp,
   roundTo,

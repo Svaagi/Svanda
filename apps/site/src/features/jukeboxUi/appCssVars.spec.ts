@@ -8,7 +8,20 @@ import { describe, expect, it } from 'vitest';
 
 import { glassCssVars, pixelCssVars } from './appCssVars';
 
+const LAVA_CONFIG = {
+  blob1: '#3ee6ff',
+  blob2: '#5ff5e0',
+  blob3: '#2bc4dc',
+  blobAlpha: 0.6,
+  animate: true,
+  speed: 1,
+};
+
 const PIXEL_CONFIG: PixelUiConfig = {
+  ...LAVA_CONFIG,
+  pixel: 12,
+  glitch: true,
+  scan: true,
   base: '#010203',
   acc: '#aabbcc',
   accInk: '#111111',
@@ -23,6 +36,8 @@ const PIXEL_CONFIG: PixelUiConfig = {
 };
 
 const GLASS_CONFIG: GlassUiConfig = {
+  ...LAVA_CONFIG,
+  blur: 10,
   base: '#063d49',
   acc: '#ffd700',
   vip: '#ffd36e',

@@ -1,2 +1,1 @@
-export { GlassJukeboxUi } from './glass';
-export { PixelJukeboxUi } from './pixel';
+export { DisplayCompare } from './displayCompare';

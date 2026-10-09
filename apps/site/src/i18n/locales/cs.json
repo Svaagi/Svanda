@@ -167,6 +167,10 @@
       "listen": "{{title}} - {{artist}}"
     },
     "nowPlayingTime": "{{elapsed}} / {{duration}}",
+    "compare": {
+      "handle": "Posuvník porovnání designů",
+      "value": "Pixel {{pixel}} %, původní {{original}} %"
+    },
     "payment": {
       "balance": "Aktuální kredit:",
       "add": "Přidat za {{price}}",

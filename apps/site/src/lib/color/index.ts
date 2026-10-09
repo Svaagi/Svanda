@@ -1,2 +1,2 @@
 export type { Rgb } from './color';
-export { mixRgb, parseHexColor, toHexColor } from './color';
+export { mixRgb, parseHexColor, toHexAlphaColor, toHexColor } from './color';

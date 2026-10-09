@@ -167,6 +167,10 @@
       "listen": "{{title}} - {{artist}}"
     },
     "nowPlayingTime": "{{elapsed}} / {{duration}}",
+    "compare": {
+      "handle": "Design comparison slider",
+      "value": "Pixel {{pixel}}%, original {{original}}%"
+    },
     "payment": {
       "balance": "Current balance:",
       "add": "Add for {{price}}",

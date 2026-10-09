@@ -19,6 +19,9 @@ const SCENE_TEST_TIMEOUT_MS = 60_000;
 const SCENE_FRAME_TIMEOUT_MS = 20_000;
 const PAGING_TEST_TIMEOUT_MS = 120_000;
 const PROJECTED = 'projected-screen';
+const PIXEL_LAVA = 'display-compare-pixel-lava';
+const GLASS_LAVA = 'display-compare-glass-lava';
+const SPLIT_HANDLE = 'display-compare-handle';
 const KEYBOARD_SKIP_REASON = 'keyboard paging is a desktop path';
 
 function trackSceneChunk(page: Page) {
@@ -77,6 +80,18 @@ test('keeps the projected display hidden and inert while no 3D display is drawn'
   await expect(projected.getByTestId('pixel-jukebox-ui')).toHaveAttribute(
     'data-section',
     'sing',
+  );
+  await expect(projected.getByTestId('glass-jukebox-ui')).toHaveAttribute(
+    'data-section',
+    'sing',
+  );
+  await expect(projected.getByTestId(PIXEL_LAVA)).toHaveAttribute(
+    'data-paused',
+    'true',
+  );
+  await expect(projected.getByTestId(GLASS_LAVA)).toHaveAttribute(
+    'data-paused',
+    'true',
   );
 });
 
@@ -209,6 +224,20 @@ test.describe('with WebGL', () => {
     await expect(projected).toHaveAttribute('data-mode', 'sing');
     await expect(projected).not.toHaveAttribute('inert');
     await expect.poll(centreX, frameWait).toBeGreaterThan(viewportWidth / 2);
+    await expect(page.getByTestId(PIXEL_LAVA)).toHaveAttribute(
+      'data-paused',
+      'false',
+    );
+    await expect(page.getByTestId(GLASS_LAVA)).toHaveAttribute(
+      'data-paused',
+      'false',
+    );
+
+    // The compare split moves with the arrow keys; Down still pages from its handle.
+    const handle = page.getByTestId(SPLIT_HANDLE);
+    await handle.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(handle).toHaveAttribute('aria-valuenow', '55');
 
     // Jukebox: mirrored into the left half. The position comes first: the interactive flag
     // still holds the karaoke value until the model has spun over.
@@ -221,8 +250,12 @@ test.describe('with WebGL', () => {
       frameWait,
     );
 
-    // Custom: gone again.
+    // Custom: gone again, and the lamps stop.
     await page.keyboard.press('ArrowDown');
     await expect(projected).toHaveAttribute('data-paused', 'true', frameWait);
+    await expect(page.getByTestId(PIXEL_LAVA)).toHaveAttribute(
+      'data-paused',
+      'true',
+    );
   });
 });

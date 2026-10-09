@@ -57,7 +57,6 @@ export const MODEL_DEPTH_PAD = 1.06;
 // Choreography, one value per stage page (hero, karaoke, jukebox, custom, venues). Positions
 // are world units at the origin plane, yaw in radians.
 export const PAGE_YAW: readonly number[] = [-0.45, -0.45, 0.45, 0, 0];
-export const FULL_TURN_RAD = Math.PI * 2;
 // Full turns while `vp` crosses from page k to k + 1: hero to karaoke and jukebox to custom.
 export const PAGE_SPIN_TURNS: readonly number[] = [1, 0, 1, 0];
 export const PAGE_SCALE_LANDSCAPE: readonly number[] = [

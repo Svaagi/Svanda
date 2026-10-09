@@ -1,0 +1,1 @@
+export { DisplayCompare } from './DisplayCompare';

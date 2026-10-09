@@ -1,4 +1,6 @@
 export const HALF = 0.5;
+const PI_PER_FULL_TURN = 2;
+export const FULL_TURN_RAD = Math.PI * PI_PER_FULL_TURN;
 
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));

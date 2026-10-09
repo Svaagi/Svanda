@@ -29,6 +29,10 @@ export const APP_ICONS = {
     viewBox: '0 0 7 7',
     path: 'M3 0h1v3h3v1H4v3H3V4H0V3h3z',
   },
+  split: {
+    viewBox: '0 0 10 6',
+    path: 'M2 0h1v1H2v1H1v2h1v1h1v1H2V5H1V4H0V2h1V1h1zM7 0h1v1h1v1h1v2H9v1H8v1H7V5h1V4h1V2H8V1H7z',
+  },
 } as const satisfies Record<string, AppIconShape>;
 
 export type AppIconName = keyof typeof APP_ICONS;

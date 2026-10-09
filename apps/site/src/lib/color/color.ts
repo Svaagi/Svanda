@@ -33,3 +33,16 @@ export function toHexColor({ r, g, b }: Rgb): string {
     value.toString(HEX_RADIX).padStart(CHANNEL_HEX_DIGITS, '0');
   return HEX_PREFIX + channel(r) + channel(g) + channel(b);
 }
+
+const ALPHA_CHANNEL_MAX = 255;
+
+// `#rrggbbaa` for canvas gradients that need a colour at a given 0..1 alpha.
+export function toHexAlphaColor(rgb: Rgb, alpha: number): string {
+  const alphaByte = Math.round(
+    Math.min(1, Math.max(0, alpha)) * ALPHA_CHANNEL_MAX,
+  );
+  return (
+    toHexColor(rgb) +
+    alphaByte.toString(HEX_RADIX).padStart(CHANNEL_HEX_DIGITS, '0')
+  );
+}

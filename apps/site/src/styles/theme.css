@@ -137,6 +137,33 @@
   --color-jukebox-ui-glass-listen-acc: #ff85c8;
   --color-jukebox-ui-glass-listen-now: #e068b2;
   --color-jukebox-ui-glass-vip: #ffd36e;
+  /* Lava lamp blobs behind each design and section */
+  --color-jukebox-ui-pixel-sing-blob-1: var(--palette-cyan);
+  --color-jukebox-ui-pixel-sing-blob-2: var(--palette-aqua);
+  --color-jukebox-ui-pixel-sing-blob-3: #2bc4dc;
+  --color-jukebox-ui-pixel-listen-blob-1: var(--palette-magenta);
+  --color-jukebox-ui-pixel-listen-blob-2: var(--palette-violet);
+  --color-jukebox-ui-pixel-listen-blob-3: #c04fe8;
+  --color-jukebox-ui-glass-sing-blob-1: #d4b307;
+  --color-jukebox-ui-glass-sing-blob-2: #d47b19;
+  --color-jukebox-ui-glass-sing-blob-3: #c36400;
+  --color-jukebox-ui-glass-listen-blob-1: #af54fe;
+  --color-jukebox-ui-glass-listen-blob-2: #b200e4;
+  --color-jukebox-ui-glass-listen-blob-3: #d466a0;
+  /* Pixel design overlay: scanlines and a 4 px checker */
+  --color-jukebox-ui-scanline: color-mix(
+    in srgb,
+    var(--palette-black) 14%,
+    transparent
+  );
+  --color-jukebox-ui-checker: color-mix(
+    in srgb,
+    var(--palette-black) 16%,
+    transparent
+  );
+  /* Compare handle on the projected display */
+  --color-jukebox-ui-handle: var(--palette-white);
+  --color-jukebox-ui-handle-ink: var(--palette-ink);
   --color-jukebox-ui-ink: var(--palette-ink);
   --color-jukebox-ui-shadow: var(--palette-black);
   --color-jukebox-ui-light: var(--palette-white);

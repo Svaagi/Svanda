@@ -12,7 +12,7 @@ import {
 import { HeroBackground, HeroOverlay } from 'features/hero';
 import { IntroCanvas } from 'features/intro';
 import { JukeboxStage, ProjectedScreen } from 'features/jukebox3d';
-import { PixelJukeboxUi } from 'features/jukeboxUi';
+import { DisplayCompare } from 'features/jukeboxUi';
 import { ProductPanel, usePageAccent } from 'features/products';
 import { Footer, Header, SkipLink } from 'features/shell';
 import { PageLayer, StageShell } from 'features/stage';
@@ -64,7 +64,9 @@ export function HomePage() {
             fadeRate={VENUES_LAYER_FADE_RATE}
           />
           <ProjectedScreen>
-            {({ mode }) => <PixelJukeboxUi section={mode} />}
+            {({ mode, isPaused }) => (
+              <DisplayCompare section={mode} isPaused={isPaused} />
+            )}
           </ProjectedScreen>
           <IntroCanvas />
         </StageShell>

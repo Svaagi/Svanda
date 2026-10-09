@@ -1,6 +1,6 @@
-import { FULL_TURN_RAD, PAGE_SPIN_TURNS, PAGE_YAW } from 'constants/jukebox3d';
+import { PAGE_SPIN_TURNS, PAGE_YAW } from 'constants/jukebox3d';
 import { LAST_STAGE_PAGE } from 'constants/stage';
-import { clamp, easeInOut, lerp } from 'lib/math';
+import { clamp, easeInOut, FULL_TURN_RAD, lerp } from 'lib/math';
 
 import type { StageLayout } from './stageLayout';
 

@@ -71,6 +71,9 @@ describe('HomePage', () => {
       screen.getByTestId('product-panel-jukebox'),
     );
     expect(screen.getByTestId('projected-screen')).toContainElement(
+      screen.getByTestId('display-compare'),
+    );
+    expect(screen.getByTestId('display-compare')).toContainElement(
       screen.getByTestId('pixel-jukebox-ui'),
     );
     expect(screen.getByTestId('contact-section')).toHaveAttribute(
