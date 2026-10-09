@@ -286,5 +286,30 @@
   "legal": {
     "homeLink": "SVANDA, úvodní stránka",
     "effective": "Platné od {{date}}"
+  },
+  "seo": {
+    "pageTitle": "{{page}} | SVANDA",
+    "home": {
+      "title": "SVANDA: karaoke jukebox postavený od nuly",
+      "description": "Karaoke jukebox SVANDA pro bary a kluby: vlastní skříň, vlastní appka a karaoke verze každé skladby. Fronta písní na celý večer, bez předplatného."
+    },
+    "legal": {
+      "imprint": "Právní informace o provozovateli webu svanda.fun a karaoke jukeboxu SVANDA: identifikační údaje, sídlo a kontakt.",
+      "privacy": "Jak SVANDA zpracovává osobní údaje z kontaktního formuláře a analytiky webu svanda.fun a jaká máte práva.",
+      "cookies": "Jaké cookies web svanda.fun používá, k čemu slouží a jak svůj souhlas kdykoli změníte."
+    },
+    "notFound": "Tato stránka na webu svanda.fun neexistuje.",
+    "ogImageAlt": "Pixelové logo SVANDA s nápisem Karaoke jukebox",
+    "organization": "SVANDA staví karaoke jukeboxy pro bary, kluby a kavárny.",
+    "product": {
+      "name": "SVANDA karaoke jukebox",
+      "description": "Karaoke jukebox s vlastní skříní, vlastní aplikací a karaoke verzí každé skladby v knihovně."
+    },
+    "noscript": "Pro interaktivní jukebox zapněte JavaScript."
+  },
+  "notFound": {
+    "title": "Stránka nenalezena",
+    "body": "Tahle skladba v knihovně není. Odkaz je možná zastaralý nebo je v něm překlep.",
+    "home": "Zpět na úvod"
   }
 }

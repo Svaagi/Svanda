@@ -4,13 +4,31 @@ import 'styles/global.css';
 
 import { DEFAULT_CURSOR_MODE } from 'constants/cursor';
 import { INTRO_INIT_SCRIPT_SRC } from 'constants/intro';
+import {
+  APPLE_TOUCH_ICON_PATH,
+  FAVICON_PATH,
+  MANIFEST_PATH,
+} from 'constants/seo';
 import { THEME_INIT_SCRIPT_SRC } from 'constants/theme';
 import { useAnalytics } from 'features/analytics';
 import { useConsentManager } from 'features/consent';
 import { LocaleProvider, useLocale, useRememberedLocaleRedirect } from 'i18n';
 import type { ReactNode } from 'react';
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+import {
+  Links,
+  type LinksFunction,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from 'react-router';
 import { ToastProvider } from 'ui';
+
+export const links: LinksFunction = () => [
+  { rel: 'icon', href: FAVICON_PATH, type: 'image/svg+xml' },
+  { rel: 'apple-touch-icon', href: APPLE_TOUCH_ICON_PATH },
+  { rel: 'manifest', href: MANIFEST_PATH },
+];
 
 type LayoutProps = {
   children: ReactNode;

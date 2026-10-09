@@ -20,6 +20,8 @@
   --palette-ink: #050507;
   --palette-white: #ffffff;
   --palette-black: #000000;
+  /* Brand mark background of the icons and Open Graph images (scripts/generateBrandAssets.mjs) */
+  --palette-brand-ink: #0d0e10;
 
   /* Dark theme colours */
   color-scheme: dark;

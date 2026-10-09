@@ -13,7 +13,8 @@
     "i18n:check": "node scripts/checkI18n.mjs",
     "model:convert": "node scripts/convertModel.mjs",
     "model:poster": "node scripts/renderPoster.mjs",
-    "venues:placeholders": "node scripts/generateVenuePlaceholders.mjs"
+    "venues:placeholders": "node scripts/generateVenuePlaceholders.mjs",
+    "brand:assets": "node scripts/generateBrandAssets.mjs"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "5.3.0",

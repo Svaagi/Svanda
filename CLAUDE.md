@@ -96,6 +96,7 @@ siblings in one feature. Shared schemas: `import { contactRequestSchema } from '
 | i18n check | `pnpm i18n:check` (catalog parity against `cs`) |
 | Tracked `.env` guard | `pnpm env:check` |
 | Convert 3D model | `pnpm --filter site model:convert` |
+| Regenerate icons, manifest, OG images | `pnpm --filter site brand:assets` |
 | Repaint venue placeholder photos | `pnpm --filter site venues:placeholders` |
 | Re-render 3D poster (after `pnpm build`) | `pnpm --filter site model:poster` |
 

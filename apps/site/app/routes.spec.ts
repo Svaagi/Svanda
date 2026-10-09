@@ -26,4 +26,14 @@ describe('routes', () => {
 
     expect(homeIds).toEqual(LOCALES.map((locale) => `home-${locale}`));
   });
+
+  it('renders the not-found page for any other path', () => {
+    expect(routes.at(-1)).toEqual(
+      expect.objectContaining({
+        id: 'not-found',
+        path: '*',
+        file: 'routes/notFound.tsx',
+      }),
+    );
+  });
 });

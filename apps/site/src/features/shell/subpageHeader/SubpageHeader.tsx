@@ -1,30 +1,31 @@
 import type { Locale } from 'constants/locales';
 import { NAV_LOGO_CELL_PX } from 'constants/nav';
-import { LanguageSwitch, ThemeToggle } from 'features/shell';
 import { getLocalePath, useLocale } from 'i18n';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { PixelLogo } from 'ui';
 import { childTestId } from 'utils';
 
-import styles from './legalHeader.module.css';
+import { ThemeToggle } from '../header';
+import { LanguageSwitch } from '../languageSwitch';
+import styles from './subpageHeader.module.css';
 
-export type LegalHeaderProps = {
+export type SubpageHeaderProps = {
   paths: Readonly<Record<Locale, string>>;
   testId?: string;
 };
 
-// The home header pages the scroll stage; a legal page only needs a way home, the language
+// The home header pages the scroll stage; a subpage only needs a way home, the language
 // switch and the theme toggle.
-export function LegalHeader({
+export function SubpageHeader({
   paths,
-  testId = 'legal-header',
-}: LegalHeaderProps) {
+  testId = 'subpage-header',
+}: SubpageHeaderProps) {
   const { t } = useTranslation();
   const locale = useLocale();
 
   return (
-    <header className={styles.legalHeader} data-testid={testId}>
+    <header className={styles.subpageHeader} data-testid={testId}>
       <Link
         to={getLocalePath(locale)}
         className={styles.home}

@@ -24,6 +24,7 @@ import { useLocale } from 'i18n';
 import { useTranslation } from 'react-i18next';
 import { VisuallyHidden } from 'ui';
 
+import { HomeNoscript } from './homeNoscript';
 import styles from './homePage.module.css';
 
 export function HomePage() {
@@ -42,6 +43,7 @@ export function HomePage() {
         data-testid="home-page"
         data-locale={locale}
       >
+        <HomeNoscript />
         <StageShell>
           <HeroBackground />
           <JukeboxStage />

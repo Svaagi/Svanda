@@ -286,5 +286,30 @@
   "legal": {
     "homeLink": "SVANDA home page",
     "effective": "Effective from {{date}}"
+  },
+  "seo": {
+    "pageTitle": "{{page}} | SVANDA",
+    "home": {
+      "title": "SVANDA: the karaoke jukebox built from scratch",
+      "description": "The SVANDA karaoke jukebox for bars and clubs: our own cabinet, our own app and a karaoke version of every song. A song queue for the whole night, no subscription."
+    },
+    "legal": {
+      "imprint": "Legal information about the operator of svanda.fun and the SVANDA karaoke jukebox: identification details, registered seat and contact.",
+      "privacy": "How SVANDA processes personal data from the svanda.fun contact form and analytics, and what rights you have.",
+      "cookies": "Which cookies svanda.fun uses, what they are for and how to change your consent at any time."
+    },
+    "notFound": "This page does not exist on svanda.fun.",
+    "ogImageAlt": "SVANDA pixel logo with the words Karaoke jukebox",
+    "organization": "SVANDA builds karaoke jukeboxes for bars, clubs and cafés.",
+    "product": {
+      "name": "SVANDA karaoke jukebox",
+      "description": "A karaoke jukebox with its own cabinet, its own app and a karaoke version of every song in the library."
+    },
+    "noscript": "Turn on JavaScript for the interactive jukebox."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "That song is not in the library. The link may be outdated or contain a typo.",
+    "home": "Back to the home page"
   }
 }

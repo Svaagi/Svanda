@@ -2,17 +2,15 @@ import { LEGAL_PATHS } from 'constants/legal';
 import { LEGAL_EFFECTIVE_DATE } from 'constants/legalIdentity';
 import { MAIN_CONTENT_ID } from 'constants/nav';
 import { openCookieSettings } from 'features/consent';
-import { Footer, SkipLink } from 'features/shell';
+import { Footer, SkipLink, SubpageHeader } from 'features/shell';
 import { useLocale } from 'i18n';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
-import { childTestId, formatIsoDate } from 'utils';
+import { childTestId, formatIsoDate, requireLegalPageId } from 'utils';
 
 import { getLegalBlocks } from './legalContent';
-import { LegalHeader } from './legalHeader';
 import styles from './legalPage.module.css';
-import { requireLegalPageId } from './legalPath';
 import { MarkdownBlocks } from './markdown';
 
 export type LegalPageProps = {
@@ -32,7 +30,7 @@ export function LegalPage({ testId = 'legal-page' }: LegalPageProps) {
   return (
     <>
       <SkipLink />
-      <LegalHeader paths={LEGAL_PATHS[pageId]} />
+      <SubpageHeader paths={LEGAL_PATHS[pageId]} testId="legal-header" />
       <main
         id={MAIN_CONTENT_ID}
         tabIndex={-1}
