@@ -15,6 +15,7 @@ describe('stageStore', () => {
     expect(state.isReady).toBe(true);
     expect(state.introPhase).toBe('done');
     expect(state.screenQuad).toBeNull();
+    expect(state.navLogoSlot).toBeNull();
   });
 
   it('updates each field through its setter', () => {
@@ -39,6 +40,7 @@ describe('stageStore', () => {
       isMobile: true,
       isPortrait: true,
     });
+    getState().setNavLogoSlot({ x: 97.5, y: 19.5, cellPx: 4 });
 
     expect(getState()).toMatchObject({
       vp: 1.5,
@@ -49,6 +51,7 @@ describe('stageStore', () => {
       grid: { cell: 12, originX: 3, originY: 4 },
       screenQuad: quad,
       viewport: { width: 800, height: 900, isMobile: true, isPortrait: true },
+      navLogoSlot: { x: 97.5, y: 19.5, cellPx: 4 },
     });
   });
 });

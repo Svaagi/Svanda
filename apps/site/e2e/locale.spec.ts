@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, type Page, test } from './fixtures';
 
 const SUBTITLES = {
   cs: 'Vlastní skříň, vlastní appka, vlastní karaoke verze skladeb.',

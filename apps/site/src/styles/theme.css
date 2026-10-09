@@ -13,6 +13,10 @@
   --palette-magenta-2: #ff7fe4;
   --palette-magenta-light: #b8158f;
   --palette-magenta-light-2: #8f0f6f;
+  --palette-lime: #b6ff4d;
+  --palette-cyan: #3ee6ff;
+  --palette-violet: #7a5cff;
+  --palette-aqua: #5ff5e0;
   --palette-ink: #050507;
   --palette-white: #ffffff;
   --palette-black: #000000;
@@ -49,12 +53,21 @@
   --color-overlay: rgb(5 5 8 / 0.94);
 
   /* Wordmark letter colours */
-  --color-letter-1: #b6ff4d;
-  --color-letter-2: #3ee6ff;
+  --color-letter-1: var(--palette-lime);
+  --color-letter-2: var(--palette-cyan);
   --color-letter-3: var(--palette-orange);
   --color-letter-4: var(--palette-magenta);
-  --color-letter-5: #7a5cff;
-  --color-letter-6: #5ff5e0;
+  --color-letter-5: var(--palette-violet);
+  --color-letter-6: var(--palette-aqua);
+
+  /* Intro noise palette (the same in both themes) */
+  --color-intro-noise-1: var(--palette-aqua);
+  --color-intro-noise-2: var(--palette-magenta);
+  --color-intro-noise-3: var(--palette-orange);
+  --color-intro-noise-4: var(--palette-lime);
+  --color-intro-noise-5: var(--palette-violet);
+  --color-intro-noise-6: var(--palette-cyan);
+  --color-intro-noise-7: #ff2d6b;
 
   /* Typography */
   --font-pixel: 'Silkscreen', monospace;
@@ -143,6 +156,8 @@
   --ease-pixel: steps(2, end);
   /* Share of the `--sv-menu` reveal over which one nav item fades in */
   --nav-reveal-span: 0.35;
+  /* If the app never takes over a pending intro (script failed), the page shows after this */
+  --intro-failsafe-delay: 10s;
 
   /* Stacking */
   --z-base: 0;

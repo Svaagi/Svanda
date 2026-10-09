@@ -1,11 +1,21 @@
 import { screen } from '@testing-library/react';
+import { INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE } from 'constants/intro';
 import { STAGE_PAGE_IDS } from 'constants/stage';
 import { renderAtPath } from 'utils/testing';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { HomePage } from './HomePage';
 
 describe('HomePage', () => {
+  // jsdom has no canvas; the intro itself is covered by IntroCanvas.spec.
+  beforeEach(() => {
+    window.sessionStorage.setItem(INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE);
+  });
+
+  afterEach(() => {
+    window.sessionStorage.clear();
+  });
+
   it('renders the copy of the locale in the URL', () => {
     renderAtPath(<HomePage />, '/en');
 
@@ -39,6 +49,7 @@ describe('HomePage', () => {
     STAGE_PAGE_IDS.forEach((pageId) => {
       expect(screen.getByTestId(`page-layer-${pageId}`)).toBeInTheDocument();
     });
+    expect(screen.getByTestId('intro')).toBeInTheDocument();
     expect(screen.getByTestId('contact-section')).toHaveAttribute(
       'id',
       'contact',

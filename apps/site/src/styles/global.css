@@ -6,19 +6,23 @@
 
 /* `--sv-vp` is the stage page position, published by the stage at runtime. Snapping is only
    "proximity" so the contact section below the stage still scrolls freely.
-   The header reveal (`--sv-nav` slide, `--sv-menu` items, `--sv-logo` bar and logo) defaults
-   to its final state, so the header shows without the intro and without JavaScript; the
-   intro sets them to 0 while it plays. */
+   The intro reveal (`--sv-nav` header slide, `--sv-menu` items, `--sv-logo` bar and logo,
+   `--sv-hero` hero overlay) defaults to its final state, so the page shows without the intro
+   and without JavaScript; the intro drives them from 0 while it plays.
+   The stable scrollbar gutter keeps the layout (and the nav logo the intro swarm lands on)
+   still when the intro's scroll lock ends. */
 :root {
   --sv-vp: 0;
   --sv-nav: 1;
   --sv-menu: 1;
   --sv-logo: 1;
+  --sv-hero: 1;
 }
 
 html {
   background: var(--color-bg);
   scroll-snap-type: y proximity;
+  scrollbar-gutter: stable;
 }
 
 body {

@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 import type {
   IntroPhase,
+  NavLogoSlot,
   ScreenQuad,
   StageGrid,
   StagePointer,
@@ -20,6 +21,7 @@ type StageValues = {
   grid: StageGrid;
   screenQuad: ScreenQuad | null;
   viewport: StageViewport;
+  navLogoSlot: NavLogoSlot | null;
 };
 
 type StageActions = {
@@ -31,6 +33,7 @@ type StageActions = {
   setGrid: (grid: StageGrid) => void;
   setScreenQuad: (screenQuad: ScreenQuad | null) => void;
   setViewport: (viewport: StageViewport) => void;
+  setNavLogoSlot: (navLogoSlot: NavLogoSlot | null) => void;
 };
 
 export type StageState = StageValues & StageActions;
@@ -47,6 +50,7 @@ export function createInitialStageValues(): StageValues {
     grid: { cell: 0, originX: 0, originY: 0 },
     screenQuad: null,
     viewport: { width: 0, height: 0, isMobile: false, isPortrait: false },
+    navLogoSlot: null,
   };
 }
 
@@ -60,4 +64,5 @@ export const useStageStore = create<StageState>()((set) => ({
   setGrid: (grid) => set({ grid }),
   setScreenQuad: (screenQuad) => set({ screenQuad }),
   setViewport: (viewport) => set({ viewport }),
+  setNavLogoSlot: (navLogoSlot) => set({ navLogoSlot }),
 }));

@@ -9,6 +9,7 @@ import {
   VENUES_LAYER_FADE_RATE,
   VENUES_PAGE,
 } from 'constants/stage';
+import { IntroCanvas } from 'features/intro';
 import { Footer, Header, SkipLink } from 'features/shell';
 import { PageLayer, StageShell } from 'features/stage';
 import { useLocale } from 'i18n';
@@ -46,6 +47,7 @@ export function HomePage() {
             pageIndex={VENUES_PAGE}
             fadeRate={VENUES_LAYER_FADE_RATE}
           />
+          <IntroCanvas />
         </StageShell>
         <section
           id={CONTACT_SECTION_ID}

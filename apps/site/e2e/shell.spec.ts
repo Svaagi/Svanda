@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, type Page, test } from './fixtures';
 
 const DESKTOP_ONLY = 'the inline nav items are a desktop layout';
 const MOBILE_ONLY = 'the menu button is a mobile layout';

@@ -319,6 +319,9 @@ Every helper, hook, and non-trivial component ships with a test in the same PR.
   `VenueCard.tsx`.
 - Query by `data-testid`, not visible text (copy changes per locale).
 - Mock `fetch` with `vi.stubGlobal`. Fake timers for timing logic. No MSW.
+- e2e specs import `test` and `expect` from `e2e/fixtures.ts`, which marks the intro as already
+  seen so every page is interactive at once; `test.use({ hasSeenIntro: false })` opts back in.
+  Intro timing runs on `page.clock`.
 - WebGL and canvas aren't tested by pixels in unit tests: test the pure math (glyph layout,
   scroll-stage mapping, colour serialisation) and that scenes mount and dispose without error.
 

@@ -21,12 +21,14 @@ export const CHEVRON_CELL_PX = 14;
 export const PIXEL_CURRENT_COLOR = 'currentColor';
 export const CURRENT_COLOR_PALETTE = [PIXEL_CURRENT_COLOR] as const;
 
-// Per-letter wordmark colours; the tokens swap their values with the theme.
-export const LETTER_COLORS = [
-  'var(--color-letter-1)',
-  'var(--color-letter-2)',
-  'var(--color-letter-3)',
-  'var(--color-letter-4)',
-  'var(--color-letter-5)',
-  'var(--color-letter-6)',
+// Per-letter wordmark colour tokens; they swap their values with the theme.
+export const LETTER_COLOR_VARS = [
+  '--color-letter-1',
+  '--color-letter-2',
+  '--color-letter-3',
+  '--color-letter-4',
+  '--color-letter-5',
+  '--color-letter-6',
 ] as const;
+
+export const LETTER_COLORS = LETTER_COLOR_VARS.map((name) => `var(${name})`);

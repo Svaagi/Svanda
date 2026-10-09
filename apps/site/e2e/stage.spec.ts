@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, type Page, test } from './fixtures';
 
 const KEYBOARD_SKIP_REASON = 'keyboard paging is a desktop path';
 

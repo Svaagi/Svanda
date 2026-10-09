@@ -1,4 +1,4 @@
-// The intro timeline drives this; until it runs the stage starts in its final state.
+// The intro timeline drives this; without an intro the stage starts in its final state.
 export type IntroPhase = 'pixels' | 'swarm' | 'reveal' | 'done';
 
 // Pointer position over the stage, normalised to -1..1 on both axes (y up).
@@ -32,4 +32,12 @@ export type StageViewport = {
   height: number;
   isMobile: boolean;
   isPortrait: boolean;
+};
+
+// Where the header logo rests (top left in client px, header fully slid in) and its cell size:
+// the intro swarm lands exactly there.
+export type NavLogoSlot = {
+  x: number;
+  y: number;
+  cellPx: number;
 };
