@@ -186,6 +186,7 @@
     "tag": "VENUES & EVENTS",
     "title": "Where Svanda already plays",
     "photo": "PHOTO {{index}}/{{count}} · {{venue}}",
+    "place": "{{city}} · {{date}}",
     "previous": "Previous venue",
     "next": "Next venue",
     "lightbox": {

@@ -14,6 +14,7 @@ describe('stageStore', () => {
     expect(state.page).toBe(0);
     expect(state.isReady).toBe(true);
     expect(state.introPhase).toBe('done');
+    expect(state.introReveal).toBeNull();
     expect(state.screenQuad).toBeNull();
     expect(state.floorShadow).toBeNull();
     expect(state.navLogoSlot).toBeNull();

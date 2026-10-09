@@ -56,6 +56,37 @@
   --color-product-karaoke: var(--palette-orange);
   --color-product-jukebox: var(--palette-magenta);
 
+  /* Venues: each venue's own colour and photo placeholder tint (the same in both themes).
+     scripts/generateVenuePlaceholders.mjs reads these to paint the placeholder photos. The
+     frame is a dark photo surface in both themes. */
+  --color-venue-1: #ffe11a;
+  --color-venue-2: #d63cff;
+  --color-venue-3: #7a4dff;
+  --color-venue-4: #e0179e;
+  --color-venue-5: #ff6a1a;
+  --color-venue-6: #00a99a;
+  --color-venue-tint-1: #2a3440;
+  --color-venue-tint-2: #402a3a;
+  --color-venue-tint-3: #2e3a2a;
+  --color-venue-tint-4: #3a332a;
+  --color-venue-tint-5: #2a2f40;
+  --color-venue-tint-6: #3a2a2f;
+  --color-venue-frame: #07070a;
+  --color-venue-frame-shadow: rgb(0 0 0 / 0.55);
+  --color-venue-label: var(--palette-white);
+  --color-venue-label-muted: rgb(255 255 255 / 0.7);
+  --color-venue-control: var(--palette-white);
+  --color-venue-dot-off: rgb(255 255 255 / 0.32);
+  --venue-scrim:
+    linear-gradient(
+      90deg,
+      rgb(5 5 8 / 0.88) 0%,
+      rgb(5 5 8 / 0.55) 38%,
+      rgb(5 5 8 / 0.05) 70%,
+      rgb(5 5 8 / 0.45) 100%
+    ),
+    linear-gradient(0deg, rgb(5 5 8 / 0.7), transparent 30%);
+
   /* Wordmark letter colours */
   --color-letter-1: var(--palette-lime);
   --color-letter-2: var(--palette-cyan);
@@ -295,12 +326,39 @@
   /* The jukebox app UI is drawn in units of 1/540 of its width (`--u`) */
   --jukebox-ui-columns: 540;
   --jukebox-ui-aspect-ratio: 540 / 960;
+  /* Venues page: pixel heading, photo frame and tabs. Until the background grid is measured
+     the frame keeps its aspect ratio at this width (landscape: what fits above the tabs),
+     and its controls use the fallback cell. */
+  --venues-padding-top: calc(var(--nav-height) + 2vh);
+  --venues-padding-bottom: clamp(16px, 3vh, 40px);
+  --venues-inset-x: clamp(20px, 6vw, 90px);
+  --venues-gap: clamp(12px, 2vh, 20px);
+  --venues-frame-gap: clamp(14px, 2.4vh, 26px);
+  --venues-frame-width: min(
+    100%,
+    calc((100svh - var(--nav-height) - 2vh - 260px) * 16 / 9),
+    1750px
+  );
+  --venues-frame-shadow: 0 30px 80px var(--color-venue-frame-shadow);
+  --venue-cell-fallback: 14px;
+  --venue-label-x: 20cqw;
+  --venue-label-y: 20%;
+  --venue-label-gap: 0.4cqw;
+  --venue-label-font-size: max(11px, 1.15cqw);
+  --venue-tab-bar-height: 4px;
+  --venue-tab-gap-y: 10px;
+  --venue-tab-gap-x: 4px;
+  --venue-tab-number-size: 12px;
+  --venue-tab-name-size: 11px;
+  --venue-tab-padding-end: 14px;
+  --venue-tab-label-gap: 10px;
 
   /* Borders */
   --border-width-thin: 1px;
   --border-width-pixel: 2px;
   --border-width-thick: 3px;
   --opacity-disabled: 0.5;
+  --opacity-hover: 0.6;
 
   /* Radius: the pixel look is square; round only for pills and dots */
   --radius-none: 0;
@@ -323,6 +381,9 @@
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-pixel: steps(2, end);
+  --duration-venue-track: 700ms;
+  --ease-venue-track: cubic-bezier(0.7, 0, 0.25, 1);
+  --duration-venue-photo: 500ms;
   /* Share of the `--sv-menu` reveal over which one nav item fades in */
   --nav-reveal-span: 0.35;
   /* If the app never takes over a pending intro (script failed), the page shows after this */

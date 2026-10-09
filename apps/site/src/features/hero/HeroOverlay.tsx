@@ -1,5 +1,10 @@
+import { INTRO_HERO_REVEAL_VARS } from 'constants/intro';
 import { KARAOKE_PAGE, STAGE_PAGE_IDS } from 'constants/stage';
-import { useGoToPage, usePageLinkClick } from 'features/stage';
+import {
+  useGoToPage,
+  useIntroRevealVars,
+  usePageLinkClick,
+} from 'features/stage';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'ui';
@@ -20,6 +25,7 @@ export function HeroOverlay({ testId = 'hero-overlay' }: HeroOverlayProps) {
   const handleCtaClick = usePageLinkClick(KARAOKE_PAGE, goToPage);
   const overlayRef = useRef<HTMLDivElement>(null);
   usePublishHeroTextTop(overlayRef);
+  useIntroRevealVars(overlayRef, INTRO_HERO_REVEAL_VARS);
 
   return (
     <div ref={overlayRef} className={styles.heroOverlay} data-testid={testId}>

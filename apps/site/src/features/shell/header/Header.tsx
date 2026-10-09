@@ -1,3 +1,4 @@
+import { INTRO_HEADER_REVEAL_VARS } from 'constants/intro';
 import {
   NAV_ITEMS_LEFT,
   NAV_ITEMS_RIGHT,
@@ -5,8 +6,8 @@ import {
 } from 'constants/nav';
 import { LanguageSwitch } from 'features/shell/languageSwitch';
 import { MobileMenu } from 'features/shell/mobileMenu';
-import { useGoToPage, useStageStore } from 'features/stage';
-import { useCallback, useState } from 'react';
+import { useGoToPage, useIntroRevealVars, useStageStore } from 'features/stage';
+import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'ui';
 import { childTestId } from 'utils';
@@ -24,12 +25,14 @@ export type HeaderProps = {
 };
 
 // Slides in with `--sv-nav`, staggers its items with `--sv-menu` and fades the logo and bar
-// with `--sv-logo`; all three are CSS variables the intro writes on <html>.
+// with `--sv-logo`: CSS variables the intro drives (the logo on <html>, the ramps here).
 export function Header({ testId = 'header' }: HeaderProps) {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const activePage = useStageStore((state) => state.page);
   const goToPage = useGoToPage();
+  const headerRef = useRef<HTMLElement>(null);
+  useIntroRevealVars(headerRef, INTRO_HEADER_REVEAL_VARS);
 
   const handleNavigate = useCallback(
     (page: number) => {
@@ -40,7 +43,7 @@ export function Header({ testId = 'header' }: HeaderProps) {
   );
 
   return (
-    <header className={styles.header} data-testid={testId}>
+    <header ref={headerRef} className={styles.header} data-testid={testId}>
       <nav className={styles.nav} aria-label={t('nav.label')}>
         <div className={`${styles.side} ${styles.left}`}>
           <div className={styles.reveal} style={OUTER_REVEAL_STYLE}>

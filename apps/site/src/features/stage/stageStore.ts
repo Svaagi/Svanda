@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import type {
   FloorShadow,
   IntroPhase,
+  IntroReveal,
   ModelAnchors,
   NavLogoSlot,
   ScreenQuad,
@@ -17,6 +18,7 @@ type StageValues = {
   // Discrete page from the scroll position, 0..5 where 5 is the contact section.
   page: number;
   introPhase: IntroPhase;
+  introReveal: IntroReveal | null;
   // Paging input is blocked until the intro hands over.
   isReady: boolean;
   pointer: StagePointer;
@@ -33,6 +35,7 @@ type StageActions = {
   setVp: (vp: number) => void;
   setPage: (page: number) => void;
   setIntroPhase: (introPhase: IntroPhase) => void;
+  setIntroReveal: (introReveal: IntroReveal | null) => void;
   setIsReady: (isReady: boolean) => void;
   setPointer: (pointer: StagePointer) => void;
   setGrid: (grid: StageGrid) => void;
@@ -52,6 +55,7 @@ export function createInitialStageValues(): StageValues {
     vp: 0,
     page: 0,
     introPhase: 'done',
+    introReveal: null,
     isReady: true,
     pointer: { x: 0, y: 0, isActive: false },
     grid: { cell: 0, originX: 0, originY: 0 },
@@ -68,6 +72,7 @@ export const useStageStore = create<StageState>()((set) => ({
   setVp: (vp) => set({ vp }),
   setPage: (page) => set({ page }),
   setIntroPhase: (introPhase) => set({ introPhase }),
+  setIntroReveal: (introReveal) => set({ introReveal }),
   setIsReady: (isReady) => set({ isReady }),
   setPointer: (pointer) => set({ pointer }),
   setGrid: (grid) => set({ grid }),

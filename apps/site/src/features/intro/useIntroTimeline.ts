@@ -2,25 +2,36 @@ import {
   INTRO_MAX_FRAME_MS,
   INTRO_PLAYING,
   INTRO_READY_S,
+  INTRO_REVEAL_VARS,
 } from 'constants/intro';
 import { REDUCED_MOTION_QUERY } from 'constants/motion';
 import { MS_PER_S } from 'constants/time';
-import { useStageStore } from 'features/stage';
+import { type IntroReveal, useStageStore } from 'features/stage';
 import { type RefObject, useEffect } from 'react';
 import { getMediaQueryList } from 'utils';
 
 import { hasSeenIntro, markIntroSeen, resolveIntroMode } from './introMode';
 import { createRevealVarWriter, setIntroAttribute } from './introRoot';
 import { createIntroScene } from './introScene';
-import { introPhaseAt, introVarsAt } from './introTimeline';
+import {
+  introPhaseAt,
+  type IntroRevealVars,
+  introVarsAt,
+} from './introTimeline';
 
 // The final state: paging unlocked, header and hero shown, cover gone.
 function endIntro(root: HTMLElement) {
   setIntroAttribute(root, null);
-  const { setIntroPhase, setIsReady } = useStageStore.getState();
+  const { setIntroPhase, setIntroReveal, setIsReady } =
+    useStageStore.getState();
+  setIntroReveal(null);
   setIntroPhase('done');
   setIsReady(true);
 }
+
+const isSameReveal = (current: IntroReveal | null, next: IntroRevealVars) =>
+  current !== null &&
+  INTRO_REVEAL_VARS.every((name) => current[name] === next[name]);
 
 function shouldPlayIntro() {
   return (
@@ -64,10 +75,14 @@ export function useIntroTimeline(
     let isFinished = false;
 
     const renderFrame = (t: number) => {
-      const { navLogoSlot, introPhase, setIntroPhase } =
+      const { navLogoSlot, introPhase, introReveal, setIntroPhase } =
         useStageStore.getState();
       scene.draw(t, navLogoSlot);
-      revealVars.write(introVarsAt(t));
+      const vars = introVarsAt(t);
+      revealVars.write(vars);
+      if (!isSameReveal(introReveal, vars)) {
+        useStageStore.getState().setIntroReveal(vars);
+      }
       const phase = introPhaseAt(t);
       if (phase !== introPhase) setIntroPhase(phase);
     };

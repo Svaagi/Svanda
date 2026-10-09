@@ -72,12 +72,14 @@ describe('IntroCanvas', () => {
 
     expect(root).toHaveAttribute(INTRO_ATTRIBUTE, INTRO_PLAYING);
     expect(stage()).toMatchObject({ isReady: false, introPhase: 'pixels' });
-    expect(rootVar('--sv-nav')).toBe('0.000');
+    // The ramps go to the elements that read them, through the store; not to <html>.
+    expect(stage().introReveal?.['--sv-nav']).toBe('0.000');
+    expect(rootVar('--sv-nav')).toBe('');
     expect(context?.fillRect).toHaveBeenCalled();
 
     advance(4000);
     expect(stage().introPhase).toBe('swarm');
-    expect(rootVar('--sv-nav')).toBe('0.400');
+    expect(stage().introReveal?.['--sv-nav']).toBe('0.400');
     expect(rootVar('--sv-logo')).toBe('0');
     expect(
       window.sessionStorage.getItem(INTRO_SEEN_STORAGE_KEY),
@@ -89,7 +91,11 @@ describe('IntroCanvas', () => {
 
     advance(1600);
     expect(root).not.toHaveAttribute(INTRO_ATTRIBUTE);
-    expect(stage()).toMatchObject({ isReady: true, introPhase: 'done' });
+    expect(stage()).toMatchObject({
+      isReady: true,
+      introPhase: 'done',
+      introReveal: null,
+    });
     INTRO_REVEAL_VARS.forEach((name) => expect(rootVar(name)).toBe(''));
   });
 
@@ -176,7 +182,8 @@ describe('IntroCanvas', () => {
 
     expect(root).not.toHaveAttribute(INTRO_ATTRIBUTE);
     expect(stage()).toMatchObject({ isReady: true, introPhase: 'done' });
-    expect(rootVar('--sv-menu')).toBe('');
+    expect(rootVar('--sv-logo')).toBe('');
+    expect(stage().introReveal).toBeNull();
   });
 
   it('renders a decorative canvas', () => {

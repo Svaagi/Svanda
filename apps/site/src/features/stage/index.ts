@@ -7,6 +7,7 @@ export { useStageStore } from './stageStore';
 export type {
   FloorShadow,
   IntroPhase,
+  IntroReveal,
   ModelAnchors,
   ModelSlot,
   NavLogoSlot,
@@ -14,3 +15,4 @@ export type {
   ScreenQuad,
   StagePointer,
 } from './stageTypes';
+export { useIntroRevealVars } from './useIntroRevealVars';

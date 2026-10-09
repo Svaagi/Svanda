@@ -1,0 +1,42 @@
+/* Fills the stage viewport, so its top left is the stage origin the grid snapping measures
+   from. */
+.venuesSection {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: var(--venues-gap);
+  padding: var(--venues-padding-top) var(--venues-inset-x)
+    var(--venues-padding-bottom);
+  overflow: hidden;
+}
+
+.heading {
+  flex: none;
+}
+
+.headingCells {
+  display: block;
+}
+
+.headingCells[data-snapped='true'] {
+  translate: var(--venue-heading-shift-x) var(--venue-heading-shift-y);
+}
+
+/* The size container for the frame's label (container units). */
+.frameHost {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--venues-frame-gap);
+  width: var(--venues-frame-width);
+  container-type: inline-size;
+}
+
+@media (orientation: portrait) {
+  .frameHost {
+    width: 100%;
+  }
+}

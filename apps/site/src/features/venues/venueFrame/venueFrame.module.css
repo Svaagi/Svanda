@@ -1,0 +1,179 @@
+/* Until the background grid is measured the frame keeps its aspect ratio; once snapped it
+   takes whole grid cells (`--venue-frame-w` / `-h`) and moves onto the grid lines. */
+.frame {
+  --venue-cell: var(--venue-cell-fallback);
+
+  position: relative;
+  flex: none;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-venue-frame);
+  box-shadow: var(--venues-frame-shadow);
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+
+.frame[data-dragging='true'] {
+  cursor: grabbing;
+}
+
+.frame[data-snapped='true'] {
+  width: var(--venue-frame-w);
+  height: var(--venue-frame-h);
+  aspect-ratio: auto;
+  translate: var(--venue-shift-x) var(--venue-shift-y);
+}
+
+.frame:focus-visible {
+  outline-offset: var(--focus-ring-offset);
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transform: translateY(calc(var(--venue-index) * -100%));
+  transition: transform var(--duration-venue-track) var(--ease-venue-track);
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--venue-tint),
+    var(--color-venue-frame)
+  );
+}
+
+.strip {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: translateX(
+    calc(var(--venue-photo-index) * -100% + var(--venue-drag-x))
+  );
+  transition: transform var(--duration-venue-photo) var(--ease-in-out);
+}
+
+.strip[data-dragging='true'] {
+  transition: none;
+}
+
+.photo {
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--venue-scrim);
+  pointer-events: none;
+}
+
+/* Container units: the frame host is the size container. */
+.label {
+  position: absolute;
+  top: var(--venue-label-y);
+  left: var(--venue-label-x);
+  display: flex;
+  flex-direction: column;
+  gap: var(--venue-label-gap);
+  font-size: var(--venue-label-font-size);
+  line-height: var(--line-height-snug);
+  pointer-events: none;
+}
+
+.note {
+  color: var(--color-venue-label);
+  font-weight: var(--font-weight-semibold);
+}
+
+.place {
+  color: var(--color-venue-label-muted);
+}
+
+/* One cell squares a cell apart, top right on the grid. */
+.dots {
+  position: absolute;
+  top: calc(var(--venue-cell) * 2);
+  right: var(--venue-cell);
+  display: flex;
+  gap: var(--venue-cell);
+}
+
+.dot {
+  display: block;
+  width: var(--venue-cell);
+  height: var(--venue-cell);
+  padding: var(--border-width-thin);
+  border: 0;
+  background: var(--color-venue-dot-off);
+  background-clip: content-box;
+  cursor: pointer;
+}
+
+.dot[aria-current='true'] {
+  background-color: var(--color-venue-control);
+}
+
+/* Five by three cells, centred on the top and bottom edges, with a larger hit area. */
+.chevron {
+  position: absolute;
+  z-index: var(--z-raised);
+  left: var(--venue-chevron-left, calc(50% - var(--venue-cell) * 2.5));
+  width: calc(var(--venue-cell) * 5);
+  height: calc(var(--venue-cell) * 3);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-venue-control);
+  cursor: pointer;
+}
+
+.chevron::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(var(--venue-cell) * -3);
+}
+
+.chevron[data-direction='up'] {
+  top: 0;
+}
+
+.chevron[data-direction='up']::before {
+  bottom: calc(var(--venue-cell) * -2);
+}
+
+.chevron[data-direction='down'] {
+  bottom: 0;
+}
+
+.chevron[data-direction='down']::before {
+  top: calc(var(--venue-cell) * -2);
+}
+
+.chevron:hover {
+  opacity: var(--opacity-hover);
+}
+
+@media (orientation: portrait) {
+  .frame {
+    aspect-ratio: 4 / 5;
+  }
+}

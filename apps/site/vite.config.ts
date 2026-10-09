@@ -1,11 +1,12 @@
 import { reactRouter } from '@react-router/dev/vite';
 import { defineConfig } from 'vite';
+import { imagetools } from 'vite-imagetools';
 
 const DEV_PORT = 5174;
 const CONTACT_API_DEV_URL = 'http://localhost:8787';
 
 export default defineConfig({
-  plugins: [reactRouter()],
+  plugins: [imagetools(), reactRouter()],
   resolve: {
     tsconfigPaths: true,
   },

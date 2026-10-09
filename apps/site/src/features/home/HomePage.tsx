@@ -18,6 +18,7 @@ import { DisplayCompare } from 'features/jukeboxUi';
 import { ProductPanel, usePageAccent } from 'features/products';
 import { Footer, Header, SkipLink } from 'features/shell';
 import { PageLayer, StageShell } from 'features/stage';
+import { VenuesSection } from 'features/venues';
 import { useLocale } from 'i18n';
 import { useTranslation } from 'react-i18next';
 import { VisuallyHidden } from 'ui';
@@ -63,10 +64,9 @@ export function HomePage() {
           <PageLayer pageIndex={CUSTOM_PAGE}>
             <ConfiguratorSection />
           </PageLayer>
-          <PageLayer
-            pageIndex={VENUES_PAGE}
-            fadeRate={VENUES_LAYER_FADE_RATE}
-          />
+          <PageLayer pageIndex={VENUES_PAGE} fadeRate={VENUES_LAYER_FADE_RATE}>
+            <VenuesSection />
+          </PageLayer>
           <ProjectedScreen>
             {({ mode, isPaused }) => (
               <DisplayCompare section={mode} isPaused={isPaused} />

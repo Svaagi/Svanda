@@ -89,13 +89,19 @@ export const INTRO_NOISE_COLOR_VARS = [
 export const INTRO_BACKGROUND_VAR = '--color-bg';
 export const INTRO_FLASH_VAR = '--color-fg';
 
-// The reveal variables the intro drives on <html>; global.css holds their final values.
+// The reveal variables the intro drives; global.css holds their final values on <html>.
 export const INTRO_REVEAL_VARS = [
   '--sv-nav',
   '--sv-menu',
   '--sv-logo',
   '--sv-hero',
 ] as const;
+// Written on <html> itself: the logo flips once, and theme tokens on :root read it. The
+// others ramp every frame, so only the elements that read them get them (a variable change
+// on <html> restyles the whole page, which costs WebKit a frame each time).
+export const INTRO_ROOT_REVEAL_VARS = ['--sv-logo'] as const;
+export const INTRO_HEADER_REVEAL_VARS = ['--sv-nav', '--sv-menu'] as const;
+export const INTRO_HERO_REVEAL_VARS = ['--sv-hero'] as const;
 // The timeline advances by at most this per frame: a hidden tab or a long stall resumes the
 // intro where it stopped instead of jumping to the end.
 export const INTRO_MAX_FRAME_MS = 100;

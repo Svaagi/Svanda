@@ -12,7 +12,8 @@
     "test:e2e": "playwright test",
     "i18n:check": "node scripts/checkI18n.mjs",
     "model:convert": "node scripts/convertModel.mjs",
-    "model:poster": "node scripts/renderPoster.mjs"
+    "model:poster": "node scripts/renderPoster.mjs",
+    "venues:placeholders": "node scripts/generateVenuePlaceholders.mjs"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "5.3.0",
@@ -55,9 +56,11 @@
     "@types/three": "0.186.0",
     "jsdom": "30.1.2",
     "meshoptimizer": "1.3.0",
+    "sharp": "0.34.5",
     "sirv-cli": "3.0.1",
     "typescript": "6.0.3",
     "vite": "8.3.4",
+    "vite-imagetools": "9.0.3",
     "vitest": "5.0.3"
   }
 }

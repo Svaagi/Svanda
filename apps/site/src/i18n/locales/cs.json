@@ -186,6 +186,7 @@
     "tag": "POBOČKY & AKCE",
     "title": "Kde už Svanda hraje",
     "photo": "FOTO {{index}}/{{count}} · {{venue}}",
+    "place": "{{city}} · {{date}}",
     "previous": "Předchozí pobočka",
     "next": "Další pobočka",
     "lightbox": {

@@ -45,6 +45,10 @@ export type ModelAnchors = {
 // the top left. Published by the 3D scene, null while no model stands on the stage.
 export type ScreenQuad = Quad;
 
+// The intro's reveal variables for the current frame (`--sv-nav` and so on, as CSS values),
+// null while no intro plays. Elements that read them copy them onto themselves.
+export type IntroReveal = Readonly<Record<string, string>>;
+
 export type StageViewport = {
   width: number;
   height: number;
