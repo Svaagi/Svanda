@@ -1,9 +1,5 @@
-import {
-  GLASS_UI_DEFAULTS,
-  type GlassUiConfig,
-  PIXEL_UI_DEFAULTS,
-  type PixelUiConfig,
-} from 'constants/jukeboxUi';
+import type { GlassUiConfig, PixelUiConfig } from '@svanda/shared';
+import { GLASS_UI_DEFAULTS, PIXEL_UI_DEFAULTS } from 'constants/jukeboxUi';
 import { describe, expect, it } from 'vitest';
 
 import { glassCssVars, pixelCssVars } from './appCssVars';

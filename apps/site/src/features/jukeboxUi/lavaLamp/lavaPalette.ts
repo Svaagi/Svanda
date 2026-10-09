@@ -1,4 +1,4 @@
-import type { LavaLampConfig } from 'constants/jukeboxUi';
+import type { LavaLampConfig } from '@svanda/shared';
 import {
   LAVA_EDGE_DARKEN_RATIO,
   LAVA_GRADIENT_STOPS,

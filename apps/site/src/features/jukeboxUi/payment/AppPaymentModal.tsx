@@ -1,4 +1,4 @@
-import type { JukeboxUiDesign } from 'constants/jukeboxUi';
+import type { JukeboxUiDesign } from '@svanda/shared';
 import { useTranslation } from 'react-i18next';
 import { childTestId, classNames } from 'utils';
 

@@ -9,8 +9,11 @@
     "rootDirs": [".", "./.react-router/types"],
     // `src` acts as the baseUrl. Import constants by file (`constants/locales`): the bare
     // name `constants` resolves to the Node built-in module typed by @types/node.
+    // `@svanda/shared` resolves to its source, so the site needs no build of the package
+    // before typecheck, tests or dev.
     "paths": {
-      "*": ["./src/*"]
+      "*": ["./src/*"],
+      "@svanda/shared": ["../../packages/shared/src/index.ts"]
     },
     "noEmit": true
   },

@@ -1,8 +1,5 @@
-import {
-  type JukeboxSection,
-  PIXEL_UI_DEFAULTS,
-  type PixelUiConfig,
-} from 'constants/jukeboxUi';
+import type { JukeboxSection, PixelUiConfig } from '@svanda/shared';
+import { PIXEL_UI_DEFAULTS } from 'constants/jukeboxUi';
 import { type ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { childTestId } from 'utils';

@@ -1,4 +1,4 @@
-import type { JukeboxSection } from 'constants/jukeboxUi';
+import type { JukeboxSection } from '@svanda/shared';
 import { useStageStore } from 'features/stage';
 import { type ReactNode, useRef } from 'react';
 

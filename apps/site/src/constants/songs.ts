@@ -1,4 +1,4 @@
-import type { JukeboxSection } from './jukeboxUi';
+import type { JukeboxSection } from '@svanda/shared';
 
 // Sample library shown in the jukebox app previews. Titles and artists are names and stay as
 // they are; how a row reads (the karaoke suffix, the separator) comes from the catalogs.

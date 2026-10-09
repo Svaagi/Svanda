@@ -5,6 +5,7 @@ export { isPlainLeftClick } from './plainClick';
 export {
   readSessionStorage,
   readStorage,
+  removeStorage,
   writeSessionStorage,
   writeStorage,
 } from './storage';

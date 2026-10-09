@@ -1,8 +1,8 @@
+import type { JukeboxSection } from '@svanda/shared';
 import {
   JUKEBOX_UI_CREDIT_CZK,
   JUKEBOX_UI_SONG_PRICE_CZK,
   JUKEBOX_UI_VIP_PRICE_CZK,
-  type JukeboxSection,
 } from 'constants/jukeboxUi';
 import type { Locale } from 'constants/locales';
 import {

@@ -1,11 +1,13 @@
+import type {
+  GlassUiConfig,
+  JukeboxSection,
+  PixelUiConfig,
+} from '@svanda/shared';
 import {
   DISPLAY_SPLIT_MAX_PERCENT,
   DISPLAY_SPLIT_MIN_PERCENT,
   GLASS_UI_DEFAULTS,
-  type GlassUiConfig,
-  type JukeboxSection,
   PIXEL_UI_DEFAULTS,
-  type PixelUiConfig,
 } from 'constants/jukeboxUi';
 import { type CSSProperties, useRef } from 'react';
 import { useTranslation } from 'react-i18next';

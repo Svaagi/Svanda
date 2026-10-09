@@ -1,8 +1,7 @@
+import type { GlassUiConfig, PixelUiConfig } from '@svanda/shared';
 import {
   DISPLAY_SPLIT_MAX_PERCENT,
   DISPLAY_SPLIT_MIN_PERCENT,
-  type GlassUiConfig,
-  type PixelUiConfig,
 } from 'constants/jukeboxUi';
 import { type RefObject, useMemo, useRef } from 'react';
 

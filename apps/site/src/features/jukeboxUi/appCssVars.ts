@@ -1,4 +1,4 @@
-import type { GlassUiConfig, PixelUiConfig } from 'constants/jukeboxUi';
+import type { GlassUiConfig, PixelUiConfig } from '@svanda/shared';
 import type { CSSProperties } from 'react';
 
 // Custom properties the app UI stylesheets read. Shades derived from a colour (highlights,

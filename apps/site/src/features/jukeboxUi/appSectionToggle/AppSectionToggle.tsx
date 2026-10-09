@@ -1,4 +1,4 @@
-import { JUKEBOX_SECTIONS, type JukeboxSection } from 'constants/jukeboxUi';
+import { JUKEBOX_SECTIONS, type JukeboxSection } from '@svanda/shared';
 import { useTranslation } from 'react-i18next';
 import { childTestId } from 'utils';
 

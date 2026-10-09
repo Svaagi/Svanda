@@ -1,3 +1,4 @@
+import type { JukeboxSection } from '@svanda/shared';
 import {
   PROJECTED_FADE_VP,
   PROJECTED_INTERACTIVE_VISIBILITY,
@@ -8,7 +9,6 @@ import {
   PROJECTED_VISIBLE_FROM_VP,
   PROJECTED_VISIBLE_TO_VP,
 } from 'constants/jukebox3d';
-import type { JukeboxSection } from 'constants/jukeboxUi';
 import type { ScreenQuad } from 'features/stage';
 import { boxToQuadHomography, homographyToMatrix3d } from 'lib/homography';
 import { clamp, roundTo } from 'lib/math';

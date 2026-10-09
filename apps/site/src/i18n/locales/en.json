@@ -153,6 +153,7 @@
       "reset": "Default colours restored for {{target}}.",
       "imported": "Settings loaded.",
       "invalidJson": "This is not valid JSON from the “Copy JSON” button.",
+      "invalidConfig": "The JSON holds an invalid or unknown setting, nothing was changed.",
       "attached": "The configuration will be sent with your request."
     }
   },

@@ -1,4 +1,4 @@
-import type { JukeboxSection } from 'constants/jukeboxUi';
+import type { JukeboxSection } from '@svanda/shared';
 import { useLocale } from 'i18n';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,11 +1,10 @@
-import {
-  type GlassUiConfig,
-  JUKEBOX_UI_HEIGHT_PX,
-  JUKEBOX_UI_WIDTH_PX,
-  type JukeboxUiDesign,
-  type LavaLampConfig,
-  type PixelUiConfig,
-} from 'constants/jukeboxUi';
+import type {
+  GlassUiConfig,
+  JukeboxUiDesign,
+  LavaLampConfig,
+  PixelUiConfig,
+} from '@svanda/shared';
+import { JUKEBOX_UI_HEIGHT_PX, JUKEBOX_UI_WIDTH_PX } from 'constants/jukeboxUi';
 import {
   LAVA_GLASS_COLUMNS,
   LAVA_GLASS_FPS,

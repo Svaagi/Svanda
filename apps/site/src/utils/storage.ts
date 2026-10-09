@@ -19,10 +19,21 @@ function writeArea(area: StorageArea, key: string, value: string): void {
   }
 }
 
+function removeFromArea(area: StorageArea, key: string): void {
+  try {
+    window[area].removeItem(key);
+  } catch {
+    // Nothing was stored where storage is unavailable.
+  }
+}
+
 export const readStorage = (key: string) => readArea('localStorage', key);
 
 export const writeStorage = (key: string, value: string) =>
   writeArea('localStorage', key, value);
+
+export const removeStorage = (key: string) =>
+  removeFromArea('localStorage', key);
 
 export const readSessionStorage = (key: string) =>
   readArea('sessionStorage', key);

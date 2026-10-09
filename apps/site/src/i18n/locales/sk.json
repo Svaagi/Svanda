@@ -156,6 +156,7 @@
       "reset": "Obnovené predvolené farby pre {{target}}.",
       "imported": "Nastavenie načítané.",
       "invalidJson": "Toto nie je platný JSON z tlačidla „Kopírovať JSON“.",
+      "invalidConfig": "JSON obsahuje neplatné alebo neznáme nastavenie, nič sa nezmenilo.",
       "attached": "Konfigurácia sa pošle so žiadosťou."
     }
   },

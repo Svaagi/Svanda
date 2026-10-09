@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   readSessionStorage,
   readStorage,
+  removeStorage,
   writeSessionStorage,
   writeStorage,
 } from './storage';
@@ -61,5 +62,27 @@ describe.each(AREAS)('$name', ({ read, write, storage }) => {
     });
 
     expect(() => write(KEY, 'value')).not.toThrow();
+  });
+});
+
+describe('removeStorage', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    window.localStorage.clear();
+  });
+
+  it('removes a stored value', () => {
+    writeStorage(KEY, 'value');
+    removeStorage(KEY);
+
+    expect(readStorage(KEY)).toBeNull();
+  });
+
+  it('swallows a throwing remove', () => {
+    vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+
+    expect(() => removeStorage(KEY)).not.toThrow();
   });
 });

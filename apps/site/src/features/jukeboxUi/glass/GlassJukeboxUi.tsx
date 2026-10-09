@@ -1,8 +1,5 @@
-import {
-  GLASS_UI_DEFAULTS,
-  type GlassUiConfig,
-  type JukeboxSection,
-} from 'constants/jukeboxUi';
+import type { GlassUiConfig, JukeboxSection } from '@svanda/shared';
+import { GLASS_UI_DEFAULTS } from 'constants/jukeboxUi';
 import { type ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { childTestId, classNames } from 'utils';

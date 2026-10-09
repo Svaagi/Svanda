@@ -153,6 +153,7 @@
       "reset": "Obnoveny výchozí barvy pro {{target}}.",
       "imported": "Nastavení načteno.",
       "invalidJson": "Tohle není platný JSON z tlačítka „Kopírovat JSON“.",
+      "invalidConfig": "JSON obsahuje neplatné nebo neznámé nastavení, nic se nezměnilo.",
       "attached": "Konfigurace se pošle s žádostí."
     }
   },
