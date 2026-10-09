@@ -80,6 +80,20 @@
   --hero-torch-alpha: 0.22;
   --hero-shadow-alpha: 0.2;
 
+  /* 3D jukebox: a physical object, lit the same in both themes. Read as linear values. */
+  --color-jukebox-shell: #030304;
+  --color-jukebox-glass: #030305;
+  --color-jukebox-softbox-bg: #0a0a0d;
+  --color-jukebox-softbox: var(--palette-white);
+  --color-jukebox-softbox-left: #e8f4ff;
+  --color-jukebox-softbox-right: #fff0f8;
+  --color-jukebox-sky: var(--palette-white);
+  --color-jukebox-ground: #101018;
+  --color-jukebox-key: var(--palette-white);
+  --color-jukebox-rim-left: #d8ffe0;
+  --color-jukebox-rim-right: #ffd0f0;
+  --color-jukebox-fill: var(--palette-cyan);
+
   /* Typography */
   --font-pixel: 'Silkscreen', monospace;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;

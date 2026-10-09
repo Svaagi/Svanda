@@ -95,7 +95,8 @@ siblings in one feature. Shared schemas: `import { contactRequestSchema } from '
 | Preview | `pnpm preview` (static server for the built site on port **4173**) |
 | i18n check | `pnpm i18n:check` (catalog parity against `cs`) |
 | Tracked `.env` guard | `pnpm env:check` |
-| Convert 3D model | `pnpm --filter site model:convert` (added by W3-1) |
+| Convert 3D model | `pnpm --filter site model:convert` |
+| Re-render 3D poster (after `pnpm build`) | `pnpm --filter site model:poster` |
 
 Import gotcha: the bare specifier `constants` resolves to the Node built-in module in
 TypeScript, so import site constants by file (`import { LOCALES } from 'constants/locales'`).

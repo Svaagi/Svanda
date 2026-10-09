@@ -46,7 +46,7 @@ export function createFrameLoop(onFrame: (nowMs: number) => void): FrameLoop {
 // Pauses the loop in a background tab and while the element is scrolled out of view.
 // Browsers without IntersectionObserver count the element as always on screen.
 export function bindFrameLoopVisibility(
-  loop: FrameLoop,
+  loop: Pick<FrameLoop, 'setIsTabVisible' | 'setIsOnScreen'>,
   element: Element,
 ): () => void {
   const handleVisibilityChange = () =>

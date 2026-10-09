@@ -106,6 +106,14 @@ export default tseslint.config(
     },
   },
   {
+    // R3F elements take three.js props (args, attach, position, intensity, object), which
+    // this DOM rule does not know; TypeScript checks them against the three.js types.
+    files: ['apps/site/src/features/jukebox3d/scene/**/*.tsx'],
+    rules: {
+      'react/no-unknown-property': 'off',
+    },
+  },
+  {
     files: ['apps/contact-api/**/*.ts', 'packages/shared/**/*.ts'],
     languageOptions: {
       globals: { ...globals.node },

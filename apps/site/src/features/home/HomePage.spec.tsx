@@ -7,7 +7,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HomePage } from './HomePage';
 
 describe('HomePage', () => {
-  // jsdom has no canvas; the intro and the hero background have their own specs.
+  // jsdom has no canvas; the intro, the hero background and the 3D jukebox have their own
+  // specs.
   beforeEach(() => {
     window.sessionStorage.setItem(INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE);
     vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
@@ -59,6 +60,7 @@ describe('HomePage', () => {
     });
     expect(screen.getByTestId('intro')).toBeInTheDocument();
     expect(screen.getByTestId('hero-background')).toBeInTheDocument();
+    expect(screen.getByTestId('jukebox-stage')).toBeInTheDocument();
     expect(screen.getByTestId('page-layer-top')).toContainElement(
       screen.getByTestId('hero-overlay'),
     );

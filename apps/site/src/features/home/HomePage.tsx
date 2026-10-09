@@ -11,6 +11,7 @@ import {
 } from 'constants/stage';
 import { HeroBackground, HeroOverlay } from 'features/hero';
 import { IntroCanvas } from 'features/intro';
+import { JukeboxStage } from 'features/jukebox3d';
 import { Footer, Header, SkipLink } from 'features/shell';
 import { PageLayer, StageShell } from 'features/stage';
 import { useLocale } from 'i18n';
@@ -36,6 +37,7 @@ export function HomePage() {
       >
         <StageShell>
           <HeroBackground />
+          <JukeboxStage />
           <PageLayer pageIndex={HERO_PAGE}>
             {/* The design shows no hero heading: the page h1 is for crawlers and readers. */}
             <h1 data-testid="home-page-title">

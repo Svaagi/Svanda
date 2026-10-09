@@ -322,6 +322,8 @@ Every helper, hook, and non-trivial component ships with a test in the same PR.
 - e2e specs import `test` and `expect` from `e2e/fixtures.ts`, which marks the intro as already
   seen so every page is interactive at once; `test.use({ hasSeenIntro: false })` opts back in.
   Intro timing runs on `page.clock`.
+  The fixture also turns WebGL off, so the jukebox shows its poster; `test.use({ hasWebGL: true
+  })` opts back in (headless WebGL is software rendered and slow).
 - WebGL and canvas aren't tested by pixels in unit tests: test the pure math (glyph layout,
   scroll-stage mapping, colour serialisation) and that scenes mount and dispose without error.
 
