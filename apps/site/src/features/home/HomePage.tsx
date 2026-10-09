@@ -11,7 +11,7 @@ import {
 } from 'constants/stage';
 import { HeroBackground, HeroOverlay } from 'features/hero';
 import { IntroCanvas } from 'features/intro';
-import { JukeboxStage } from 'features/jukebox3d';
+import { JukeboxStage, ProjectedScreen } from 'features/jukebox3d';
 import { Footer, Header, SkipLink } from 'features/shell';
 import { PageLayer, StageShell } from 'features/stage';
 import { useLocale } from 'i18n';
@@ -56,6 +56,7 @@ export function HomePage() {
             pageIndex={VENUES_PAGE}
             fadeRate={VENUES_LAYER_FADE_RATE}
           />
+          <ProjectedScreen />
           <IntroCanvas />
         </StageShell>
         <section

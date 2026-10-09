@@ -18,7 +18,7 @@ import {
   stagePointerToPx,
 } from 'features/stage';
 import { convexHull, isPointInPolygon, polygonBounds } from 'lib/geometry';
-import { clamp } from 'lib/math';
+import { clamp, HALF } from 'lib/math';
 import { BITMAP, bitmapWidth, fillInsetCell, layoutBitmap } from 'lib/pixel';
 import { hash3 } from 'lib/random';
 
@@ -41,7 +41,6 @@ type HeroCanvas = {
 
 const MARK_MODULES = layoutBitmap(BITMAP);
 const MARK_COLS = bitmapWidth(BITMAP);
-const HALF = 0.5;
 
 function fillCell({ context, layout }: HeroCanvas, col: number, row: number) {
   const { cellPx } = layout;

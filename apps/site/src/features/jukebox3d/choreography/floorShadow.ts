@@ -7,15 +7,12 @@ import {
 } from 'constants/jukebox3d';
 import type { FloorShadow } from 'features/stage';
 import { convexHull, type Point } from 'lib/geometry';
-import { clamp, easeOutBack } from 'lib/math';
+import { clamp, easeOutBack, roundTo } from 'lib/math';
 import type { Vector3Like } from 'three';
 
 export type ProjectToStage = (point: Vector3Like) => Point;
 
-const DECIMAL_BASE = 10;
-const roundingFactor = DECIMAL_BASE ** SHADOW_DECIMALS;
-const round = (value: number) =>
-  Math.round(value * roundingFactor) / roundingFactor;
+const round = (value: number) => roundTo(value, SHADOW_DECIMALS);
 
 // The four corners of the cabinet base, in model space.
 export function footprintCorners(): Vector3Like[] {

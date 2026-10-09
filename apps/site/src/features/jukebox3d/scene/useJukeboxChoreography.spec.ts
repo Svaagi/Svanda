@@ -62,6 +62,7 @@ describe('useJukeboxChoreography', () => {
       introPhase: 'done',
       pointer: { x: 0, y: 0, isActive: false },
       floorShadow: null,
+      screenQuad: null,
     });
   });
 
@@ -69,7 +70,7 @@ describe('useJukeboxChoreography', () => {
     vi.useRealTimers();
   });
 
-  it('poses the model and publishes its floor shadow', () => {
+  it('poses the model and publishes its floor shadow and display quad', () => {
     const { pivot, runFrame } = renderChoreography();
 
     runFrame();
@@ -77,9 +78,10 @@ describe('useJukeboxChoreography', () => {
     expect(pivot.visible).toBe(true);
     expect(pivot.scale.x).toBeCloseTo(1.3);
     expect(useStageStore.getState().floorShadow?.alpha).toBe(1);
+    expect(useStageStore.getState().screenQuad).not.toBeNull();
   });
 
-  it('keeps one idle timer for the sway and clears it and the shadow on unmount', () => {
+  it('keeps one idle timer for the sway and clears it, the shadow and the quad on unmount', () => {
     const { runFrame, unmount } = renderChoreography();
 
     runFrame();
@@ -89,6 +91,7 @@ describe('useJukeboxChoreography', () => {
     unmount();
     expect(vi.getTimerCount()).toBe(0);
     expect(useStageStore.getState().floorShadow).toBeNull();
+    expect(useStageStore.getState().screenQuad).toBeNull();
   });
 
   it('lights the model from the cursor over the hero only', () => {

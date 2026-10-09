@@ -1,3 +1,5 @@
+import type { Point, Quad } from 'lib/geometry';
+
 // The intro timeline drives this; without an intro the stage starts in its final state.
 export type IntroPhase = 'pixels' | 'swarm' | 'reveal' | 'done';
 
@@ -15,10 +17,7 @@ export type StageGrid = {
   originY: number;
 };
 
-export type ScreenPoint = {
-  x: number;
-  y: number;
-};
+export type ScreenPoint = Point;
 
 // The jukebox base footprint on the floor, plus its copy pushed away from the light, in
 // stage px. The hero background fills the cells inside its convex hull as a pixel shadow.
@@ -42,13 +41,9 @@ export type ModelAnchors = {
   jukebox: ModelSlot | null;
 };
 
-// The jukebox display corners in client px, clockwise from the top left.
-export type ScreenQuad = {
-  topLeft: ScreenPoint;
-  topRight: ScreenPoint;
-  bottomRight: ScreenPoint;
-  bottomLeft: ScreenPoint;
-};
+// The jukebox display corners in stage px (the stage viewport is the origin), clockwise from
+// the top left. Published by the 3D scene, null while no model stands on the stage.
+export type ScreenQuad = Quad;
 
 export type StageViewport = {
   width: number;

@@ -3,6 +3,14 @@ export type Point = {
   y: number;
 };
 
+// A quadrilateral, corners clockwise from the top left (y down).
+export type Quad = {
+  topLeft: Point;
+  topRight: Point;
+  bottomRight: Point;
+  bottomLeft: Point;
+};
+
 export type Bounds = {
   minX: number;
   minY: number;

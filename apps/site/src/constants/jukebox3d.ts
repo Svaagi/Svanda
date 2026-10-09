@@ -37,6 +37,20 @@ export const MODEL_DISPLAY_RECT = {
   minY: -120.5,
   maxY: 226.3,
 } as const;
+// The chin panel under the display, in the same model space.
+export const MODEL_CHIN_RECT = {
+  minX: -34.6,
+  maxX: 34.2,
+  minY: -203.7,
+  maxY: -133.7,
+} as const;
+// Both panels lie on the glass at this depth; the screen planes float a little in front so
+// they do not z-fight with it, helped by a polygon offset.
+export const MODEL_SCREEN_Z = 44.9;
+export const SCREEN_PLANE_LIFT = 1;
+export const SCREEN_FACE_Z = MODEL_SCREEN_Z + SCREEN_PLANE_LIFT;
+export const SCREEN_POLYGON_OFFSET = -4;
+
 // The display face sits nearer the camera than z = 0, so it projects a little larger.
 export const MODEL_DEPTH_PAD = 1.06;
 
@@ -298,3 +312,70 @@ export const SOFTBOX_PANELS: readonly SoftboxPanelSpec[] = [
   },
 ];
 export const SOFTBOX_RESOLUTION = 256;
+
+// Screen textures: canvas sizes in px, the display stretched onto its plane.
+export const SCREEN_TEXTURE_WIDTH_PX = 380;
+export const SCREEN_TEXTURE_HEIGHT_PX = 657;
+export const CHIN_TEXTURE_WIDTH_PX = 200;
+export const CHIN_TEXTURE_HEIGHT_PX = 204;
+
+// The hero display shows the wordmark's "S" in big pixels; every cell re-rolls its colour
+// about this often per second, each on its own phase, and the S fades out by this `vp`.
+export const SCREEN_LOGO_CELL_PX = 30;
+export const SCREEN_LOGO_CELL_INSET_PX = 2;
+export const SCREEN_LOGO_STEPS_PER_S = 1.25;
+export const SCREEN_LOGO_PHASE_STEPS = 4;
+export const SCREEN_LOGO_PHASE_SALT = 3;
+export const SCREEN_LOGO_FADE_VP = 0.6;
+
+// The chin VU meter: a row of bars lit up to a level that wanders on two sine waves.
+export const VU_BAR_COUNT = 10;
+export const VU_BAR_LEFT_PX = 22;
+export const VU_BAR_PITCH_PX = 16;
+export const VU_BAR_TOP_PX = 91;
+export const VU_BAR_WIDTH_PX = 11;
+export const VU_BAR_HEIGHT_PX = 22;
+export const VU_LEVEL_BASE = 5.5;
+export const VU_LEVEL_WAVES: readonly { amplitude: number; rate: number }[] = [
+  { amplitude: 2.5, rate: 0.9 },
+  { amplitude: 1.2, rate: 1.7 },
+];
+
+// Screen colour tokens: the display is a physical panel, the same in both themes.
+export const SCREEN_BACKGROUND_VAR = '--color-jukebox-screen';
+export const VU_BAR_OFF_VAR = '--color-jukebox-vu-off';
+export const SCREEN_LOGO_COLOR_VARS = [
+  '--color-jukebox-screen-pixel-1',
+  '--color-jukebox-screen-pixel-2',
+  '--color-jukebox-screen-pixel-3',
+  '--color-jukebox-screen-pixel-4',
+  '--color-jukebox-screen-pixel-5',
+  '--color-jukebox-screen-pixel-6',
+] as const;
+export const VU_BAR_COLOR_VARS = [
+  '--color-jukebox-vu-1',
+  '--color-jukebox-vu-2',
+  '--color-jukebox-vu-3',
+  '--color-jukebox-vu-4',
+  '--color-jukebox-vu-5',
+  '--color-jukebox-vu-6',
+  '--color-jukebox-vu-7',
+] as const;
+
+// The display corners are published in stage px rounded to this many decimals, and only
+// when they change.
+export const SCREEN_QUAD_DECIMALS = 1;
+
+// The projected display: a 540x960 DOM box warped onto the 3D display on the product pages.
+export const PROJECTED_SCREEN_WIDTH_PX = 540;
+export const PROJECTED_SCREEN_HEIGHT_PX = 960;
+// Visible between these `vp` values, fading in and out over this much `vp` at either end.
+// Visibility is rounded so the page values land on exactly 0 and 1.
+export const PROJECTED_VISIBLE_FROM_VP = 0.8;
+export const PROJECTED_VISIBLE_TO_VP = 2.2;
+export const PROJECTED_FADE_VP = 0.2;
+export const PROJECTED_VISIBILITY_DECIMALS = 4;
+// Below this visibility the display takes no pointer or keyboard input.
+export const PROJECTED_INTERACTIVE_VISIBILITY = 0.9;
+// The karaoke page shows the sing screen, the jukebox page the listen screen.
+export const PROJECTED_LISTEN_FROM_VP = 1.5;

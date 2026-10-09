@@ -23,6 +23,7 @@ import {
   publishFloorShadow,
 } from './floorShadowPublisher';
 import { createFrameScheduler } from './frameScheduler';
+import { publishScreenQuad } from './screenQuadPublisher';
 
 export type CursorLightRefs = Record<
   keyof typeof CURSOR_LIGHTS,
@@ -58,8 +59,8 @@ function applyCursorLights(
 }
 
 // Drives the model through the pages from the stage store: the intro rise, page poses and
-// spins, idle sway and cursor tilt, the cursor lights and the floor shadow. With the demand
-// frameloop it asks for the next frame itself only while something moves.
+// spins, idle sway and cursor tilt, the cursor lights, the floor shadow and the display quad.
+// With the demand frameloop it asks for the next frame itself only while something moves.
 export function useJukeboxChoreography(
   pivotRef: RefObject<Group | null>,
   lightRefs: CursorLightRefs,
@@ -85,7 +86,14 @@ export function useJukeboxChoreography(
 
   useEffect(() => scheduler.cancel, [scheduler]);
 
-  useEffect(() => () => useStageStore.getState().setFloorShadow(null), []);
+  useEffect(
+    () => () => {
+      const { setFloorShadow, setScreenQuad } = useStageStore.getState();
+      setFloorShadow(null);
+      setScreenQuad(null);
+    },
+    [],
+  );
 
   // Switching reduced motion on lands a running rise at once; either way the scene redraws.
   useEffect(() => {
@@ -115,6 +123,7 @@ export function useJukeboxChoreography(
     // have moved the camera since the last frame.
     camera.updateMatrixWorld();
     publishFloorShadow(pivot, project, frame.riseProgress);
+    publishScreenQuad(pivot, project);
     scheduler.request(frame.frameRequest);
   });
 }

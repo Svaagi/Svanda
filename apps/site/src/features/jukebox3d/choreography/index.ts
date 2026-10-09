@@ -14,4 +14,13 @@ export {
 } from './floorShadow';
 export type { ModelPose } from './modelMotion';
 export { heroPresence } from './modelMotion';
+export type { QuadCorners } from './screenQuad';
+export {
+  copyScreenQuad,
+  createScreenQuad,
+  displayCorners,
+  isSameScreenQuad,
+  projectScreenQuadInto,
+  QUAD_CORNERS,
+} from './screenQuad';
 export { createStageLayout } from './stageLayout';

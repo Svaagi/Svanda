@@ -5,8 +5,12 @@ const PREVIEW_PORT = 4173;
 const PREVIEW_URL = `http://localhost:${PREVIEW_PORT}`;
 // WebKit under heavy parallel load can stall a client-side locale switch past the assertion
 // timeout (reproduced on the base commit with 8 parallel WebKit workers, never serially), so
-// the WebKit project runs on fewer workers than Chromium.
+// the WebKit project runs on fewer workers than Chromium. It binds in CI; locally the lower
+// global cap below applies.
 const WEBKIT_WORKERS = 4;
+// Locally the default (half the cores) starves the preview server and WebKit, so unrelated
+// specs time out at random (on the base commit too).
+const LOCAL_WORKERS = 2;
 
 export default defineConfig({
   testDir: './e2e',
@@ -14,6 +18,7 @@ export default defineConfig({
   // An HTML report is uploaded as a CI artifact when a run fails.
   reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'list',
   retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? undefined : LOCAL_WORKERS,
   use: {
     baseURL: PREVIEW_URL,
     trace: 'on-first-retry',

@@ -12,7 +12,7 @@ import {
   SWARM_TRAIL_STEP,
 } from 'constants/intro';
 import { LOGO_CELL_INSET_PX } from 'constants/pixel';
-import { clamp, easeInOut, lerp } from 'lib/math';
+import { clamp, easeInOut, HALF, lerp } from 'lib/math';
 
 import { type IntroCell, LOGO_COLS } from './introLayout';
 
@@ -32,7 +32,6 @@ export type SwarmSprite = Point & {
   insetPx: number;
 };
 
-const HALF = 0.5;
 // Bernstein weight of the control point: 2 (1 - q) q.
 const CONTROL_WEIGHT = 2;
 

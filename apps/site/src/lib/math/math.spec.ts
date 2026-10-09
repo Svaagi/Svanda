@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { clamp, easeInOut, easeOut, easeOutBack, lerp } from './math';
+import { clamp, easeInOut, easeOut, easeOutBack, lerp, roundTo } from './math';
 
 describe('clamp', () => {
   it('keeps a value inside the range', () => {
@@ -47,5 +47,13 @@ describe('easeOutBack', () => {
 
   it('overshoots the end before settling', () => {
     expect(easeOutBack(0.8, 1.2)).toBeGreaterThan(1);
+  });
+});
+
+describe('roundTo', () => {
+  it('rounds to the given number of decimals', () => {
+    expect(roundTo(1.26, 1)).toBe(1.3);
+    expect(roundTo(-3.14159, 2)).toBe(-3.14);
+    expect(roundTo(7.5, 0)).toBe(8);
   });
 });

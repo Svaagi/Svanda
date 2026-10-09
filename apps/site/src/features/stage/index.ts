@@ -10,5 +10,7 @@ export type {
   ModelAnchors,
   ModelSlot,
   NavLogoSlot,
+  ScreenPoint,
+  ScreenQuad,
   StagePointer,
 } from './stageTypes';

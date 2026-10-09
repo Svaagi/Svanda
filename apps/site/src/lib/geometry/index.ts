@@ -1,2 +1,2 @@
-export type { Bounds, Point } from './geometry';
+export type { Bounds, Point, Quad } from './geometry';
 export { convexHull, isPointInPolygon, polygonBounds } from './geometry';

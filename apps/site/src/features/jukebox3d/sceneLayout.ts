@@ -4,6 +4,7 @@ import {
   CAMERA_FOV_DEG,
   CAMERA_MIN_DISTANCE,
 } from 'constants/jukebox3d';
+import { HALF } from 'lib/math';
 
 export type SceneSize = {
   width: number;
@@ -11,7 +12,6 @@ export type SceneSize = {
 };
 
 const DEGREES_PER_HALF_TURN = 180;
-const HALF = 0.5;
 const HALF_FOV_TAN = Math.tan(
   (CAMERA_FOV_DEG * HALF * Math.PI) / DEGREES_PER_HALF_TURN,
 );

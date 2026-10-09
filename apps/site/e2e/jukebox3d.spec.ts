@@ -15,6 +15,8 @@ const SETTLED_STATE_PATTERN = /^(ready|unavailable)$/;
 // Software WebGL compiles the physical material shaders slowly.
 const SCENE_READY_TIMEOUT_MS = 30_000;
 const SCENE_TEST_TIMEOUT_MS = 60_000;
+const PROJECTED = 'projected-screen';
+const KEYBOARD_SKIP_REASON = 'keyboard paging is a desktop path';
 
 function trackSceneChunk(page: Page) {
   const requests: string[] = [];
@@ -49,6 +51,26 @@ test('keeps the poster and never loads the 3D chunk without WebGL', async ({
   await expect(page.getByTestId('jukebox-stage-poster')).toBeVisible();
   await expect(page.getByTestId('jukebox-stage-canvas')).toHaveCount(0);
   expect(sceneChunkRequests).toEqual([]);
+});
+
+test('keeps the projected display hidden and inert while no 3D display is drawn', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, KEYBOARD_SKIP_REASON);
+  await page.goto('/en');
+  const projected = page.getByTestId(PROJECTED);
+  await expect(projected).toHaveAttribute('data-paused', 'true');
+
+  await page.keyboard.press('PageDown');
+  await expect(page.getByTestId('page-layer-karaoke')).toHaveAttribute(
+    'data-active',
+    'true',
+  );
+
+  await expect(projected).toHaveAttribute('data-mode', 'sing');
+  await expect(projected).toHaveAttribute('data-paused', 'true');
+  await expect(projected).toHaveAttribute('inert');
 });
 
 test.describe('with WebGL', () => {
@@ -144,5 +166,45 @@ test.describe('with WebGL', () => {
       timeout: SCENE_READY_TIMEOUT_MS,
     });
     await expect.poll(readCounts).toEqual({ live: 1, created: 2 });
+  });
+
+  test('lays the projected display over the 3D display on the product pages', async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, KEYBOARD_SKIP_REASON);
+    test.setTimeout(SCENE_TEST_TIMEOUT_MS);
+    await page.goto('/en');
+    const stage = page.locator(STAGE);
+    await expect(stage).toHaveAttribute('data-state', SETTLED_STATE_PATTERN, {
+      timeout: SCENE_READY_TIMEOUT_MS,
+    });
+    test.skip(
+      (await stage.getAttribute('data-state')) !== 'ready',
+      'no WebGL in this browser: the hidden path is covered above',
+    );
+    const projected = page.getByTestId(PROJECTED);
+    const viewportWidth = page.viewportSize()?.width ?? 0;
+    const centreX = async () => {
+      const box = await projected.boundingBox();
+      return box ? box.x + box.width / 2 : Number.NaN;
+    };
+
+    // Karaoke: the model stands in the right half, the screen on its display.
+    await page.keyboard.press('PageDown');
+    await expect(projected).toHaveAttribute('data-interactive', 'true');
+    await expect(projected).toHaveAttribute('data-mode', 'sing');
+    await expect(projected).not.toHaveAttribute('inert');
+    await expect.poll(centreX).toBeGreaterThan(viewportWidth / 2);
+
+    // Jukebox: mirrored into the left half.
+    await page.keyboard.press('ArrowDown');
+    await expect(projected).toHaveAttribute('data-mode', 'listen');
+    await expect(projected).toHaveAttribute('data-interactive', 'true');
+    await expect.poll(centreX).toBeLessThan(viewportWidth / 2);
+
+    // Custom: gone again.
+    await page.keyboard.press('ArrowDown');
+    await expect(projected).toHaveAttribute('data-paused', 'true');
   });
 });

@@ -1,4 +1,5 @@
 import { useStageStore } from 'features/stage';
+import { HALF } from 'lib/math';
 import { type Camera, type Object3D, Vector3 } from 'three';
 
 import {
@@ -10,7 +11,6 @@ import {
 } from '../choreography';
 import type { SceneSize } from '../sceneLayout';
 
-const HALF = 0.5;
 const MODEL_FOOTPRINT = footprintCorners();
 // Scratch vectors reused every frame.
 const worldCorners = MODEL_FOOTPRINT.map(() => new Vector3());

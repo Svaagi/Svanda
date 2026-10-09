@@ -1,5 +1,14 @@
+export const HALF = 0.5;
+
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
+}
+
+const DECIMAL_BASE = 10;
+
+export function roundTo(value: number, decimals: number): number {
+  const factor = DECIMAL_BASE ** decimals;
+  return Math.round(value * factor) / factor;
 }
 
 export function lerp(from: number, to: number, progress: number): number {

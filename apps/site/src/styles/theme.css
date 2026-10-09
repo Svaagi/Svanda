@@ -94,6 +94,22 @@
   --color-jukebox-rim-right: #ffd0f0;
   --color-jukebox-fill: var(--palette-cyan);
   --color-jukebox-cursor: var(--palette-white);
+  /* Jukebox display and chin panel, drawn into canvas textures */
+  --color-jukebox-screen: #08080b;
+  --color-jukebox-vu-off: #1a1a22;
+  --color-jukebox-screen-pixel-1: var(--palette-lime);
+  --color-jukebox-screen-pixel-2: var(--palette-cyan);
+  --color-jukebox-screen-pixel-3: var(--palette-orange);
+  --color-jukebox-screen-pixel-4: var(--palette-magenta);
+  --color-jukebox-screen-pixel-5: var(--palette-violet);
+  --color-jukebox-screen-pixel-6: var(--palette-aqua);
+  --color-jukebox-vu-1: var(--palette-aqua);
+  --color-jukebox-vu-2: var(--palette-magenta);
+  --color-jukebox-vu-3: var(--palette-orange);
+  --color-jukebox-vu-4: var(--palette-lime);
+  --color-jukebox-vu-5: var(--palette-violet);
+  --color-jukebox-vu-6: var(--palette-cyan);
+  --color-jukebox-vu-7: #ff2d6b;
 
   /* Typography */
   --font-pixel: 'Silkscreen', monospace;
@@ -159,6 +175,9 @@
   --hero-overlay-bottom: clamp(40px, 8vh, 72px);
   --hero-overlay-max-width: 560px;
   --hero-overlay-fade-rate: 2.5;
+  /* The projected jukebox display box, warped onto the 3D screen */
+  --projected-screen-width: 540px;
+  --projected-screen-height: 960px;
 
   /* Borders */
   --border-width-thin: 1px;

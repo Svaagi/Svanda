@@ -28,6 +28,7 @@ import {
   VENUES_PAGE,
 } from 'constants/stage';
 import type { ModelAnchors, ModelSlot } from 'features/stage';
+import { HALF } from 'lib/math';
 
 import {
   isPortraitSize,
@@ -50,7 +51,6 @@ type ViewFrame = {
   visibleWidth: number;
 };
 
-const HALF = 0.5;
 const MODEL_HEIGHT = MODEL_BOUNDS.maxY - MODEL_BOUNDS.minY;
 const MODEL_CENTRE_Y = (MODEL_BOUNDS.maxY + MODEL_BOUNDS.minY) * HALF;
 const DISPLAY_HEIGHT = MODEL_DISPLAY_RECT.maxY - MODEL_DISPLAY_RECT.minY;
