@@ -40,6 +40,8 @@
   --color-accent-2: var(--palette-orange-2);
   --color-on-accent: var(--palette-ink);
   --color-focus: var(--color-accent);
+  --color-danger: #ff6b6b;
+  --color-overlay: rgb(5 5 8 / 0.94);
 
   /* Wordmark letter colours */
   --color-letter-1: #b6ff4d;
@@ -68,6 +70,8 @@
   --line-height-tight: 1.05;
   --line-height-base: 1.5;
   --letter-spacing-tight: -0.035em;
+  --letter-spacing-wide: 0.04em;
+  --font-size-control: 14px;
 
   /* Space */
   --space-0-5: 2px;
@@ -85,6 +89,26 @@
   --segment-padding-y: 6px;
   --segment-padding-x: 9px;
   --touch-target-min: 44px;
+  --control-height: 46px;
+  --control-padding-x: 14px;
+  --button-height: 42px;
+  --icon-button-size: 32px;
+  --switch-width: 52px;
+  --switch-height: 28px;
+  --switch-thumb-size: 16px;
+  --switch-thumb-inset: 3px;
+  --switch-thumb-travel: calc(
+    var(--switch-width) - 2 * var(--border-width-thick) - 2 *
+      var(--switch-thumb-inset) - var(--switch-thumb-size)
+  );
+  --dialog-max-width: 560px;
+  --toast-max-width: 420px;
+
+  /* Borders */
+  --border-width-thin: 1px;
+  --border-width-pixel: 2px;
+  --border-width-thick: 3px;
+  --opacity-disabled: 0.5;
 
   /* Radius: the pixel look is square; round only for pills and dots */
   --radius-none: 0;
@@ -139,6 +163,8 @@
   --color-menu-bg: rgb(245 245 242 / 0.97);
   --color-nav-rgb: 245 245 242;
   --color-border-rgb: 226 226 222;
+  --color-danger: #b3261e;
+  --color-overlay: rgb(20 20 26 / 0.6);
 
   --color-accent: var(--palette-orange-light);
   --color-accent-2: var(--palette-orange-light-2);

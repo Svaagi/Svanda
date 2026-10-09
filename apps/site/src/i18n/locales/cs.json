@@ -1,5 +1,9 @@
 {
   "brand": { "name": "SVANDA" },
+  "ui": {
+    "close": "Zavřít",
+    "toast": { "label": "Oznámení", "region": "Oznámení ({hotkey})" }
+  },
   "nav": {
     "karaoke": "Karaoke",
     "jukebox": "Jukebox",

@@ -1,5 +1,6 @@
 import { groupCellsByColor, type PixelLayout } from 'lib/pixel';
 import { type CSSProperties, useMemo } from 'react';
+import { VisuallyHidden } from 'ui/visuallyHidden';
 
 import styles from './pixelGrid.module.css';
 
@@ -49,7 +50,7 @@ export function PixelGrid({
           </g>
         ))}
       </svg>
-      {label && <span className={styles.visuallyHidden}>{label}</span>}
+      {label && <VisuallyHidden>{label}</VisuallyHidden>}
     </span>
   );
 }

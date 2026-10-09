@@ -1,0 +1,54 @@
+.switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+}
+
+.track {
+  position: relative;
+  flex: none;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  padding: 0;
+  border: var(--border-width-thick) solid var(--color-border-2);
+  background: var(--color-bg);
+  cursor: pointer;
+}
+
+.track[data-state='checked'] {
+  border-color: var(--color-accent);
+}
+
+.track:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.thumb {
+  position: absolute;
+  top: var(--switch-thumb-inset);
+  left: var(--switch-thumb-inset);
+  width: var(--switch-thumb-size);
+  height: var(--switch-thumb-size);
+  background: var(--color-muted);
+  transition: transform var(--duration-fast) var(--ease-pixel);
+}
+
+.thumb[data-state='checked'] {
+  transform: translateX(var(--switch-thumb-travel));
+  background: var(--color-accent);
+}
+
+/* The track stays visually small; an invisible halo grows the touch target to 44px. */
+@media (pointer: coarse) {
+  .track::before {
+    content: '';
+    position: absolute;
+    inset: calc((var(--switch-height) - var(--touch-target-min)) / 2) 0;
+  }
+}

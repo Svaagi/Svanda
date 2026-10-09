@@ -3,6 +3,10 @@
     "note": "Slovak copy was machine translated from Czech and is pending review by a native speaker."
   },
   "brand": { "name": "SVANDA" },
+  "ui": {
+    "close": "Zavrieť",
+    "toast": { "label": "Oznámenie", "region": "Oznámenia ({hotkey})" }
+  },
   "nav": {
     "karaoke": "Karaoke",
     "jukebox": "Jukebox",

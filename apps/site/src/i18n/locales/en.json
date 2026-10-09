@@ -1,5 +1,9 @@
 {
   "brand": { "name": "SVANDA" },
+  "ui": {
+    "close": "Close",
+    "toast": { "label": "Notification", "region": "Notifications ({hotkey})" }
+  },
   "nav": {
     "karaoke": "Karaoke",
     "jukebox": "Jukebox",

@@ -1,0 +1,37 @@
+.segmentedControl {
+  display: inline-flex;
+  border: var(--border-width-thin) solid var(--color-border-2);
+}
+
+.option {
+  display: inline-flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--segment-padding-y) var(--segment-padding-x);
+  border: 0;
+  background: transparent;
+  color: var(--color-muted);
+  font-family: var(--font-pixel);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-none);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.option:hover {
+  color: var(--color-fg);
+}
+
+.option[data-state='on'] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+@media (pointer: coarse) {
+  .option {
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+  }
+}
