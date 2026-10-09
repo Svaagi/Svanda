@@ -109,6 +109,32 @@ jobs:
           path: apps/site/.lighthouseci
           retention-days: 14
 
+  infra:
+    name: Infra config (compose, Caddy, scripts)
+    runs-on: ubuntu-24.04
+    env:
+      # Same Caddy as the Manager box, so the snippet is validated by the version that runs it.
+      CADDY_IMAGE: caddy:2-alpine@sha256:5f5c8640aae01df9654968d946d8f1a56c497f1dd5c5cda4cf95ab7c14d58648
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Placeholders for every key in .env.example, so the check also catches a variable the
+      # compose file requires but the example does not list.
+      - name: docker compose config
+        run: |
+          sed -E 's/=$/=ci-placeholder/' infra/.env.example > "$RUNNER_TEMP/ci.env"
+          printf 'CONTACT_API_TAG=ci\n' > "$RUNNER_TEMP/release.env"
+          docker compose -f infra/docker-compose.web.yml \
+            --env-file "$RUNNER_TEMP/ci.env" --env-file "$RUNNER_TEMP/release.env" config --quiet
+      - name: caddy validate
+        run: |
+          docker run --rm -v "$PWD/infra/caddy:/etc/caddy/sites:ro" "$CADDY_IMAGE" \
+            caddy validate --adapter caddyfile --config /etc/caddy/sites/svanda-web.caddy
+      # The image the deploy pushes; built here (not pushed) so a broken Dockerfile fails CI.
+      - name: docker build contact API
+        run: docker build -f apps/contact-api/Dockerfile -t svanda-web-contact-api:ci .
+      - run: sh infra/scripts/check-security-headers.sh
+      - run: shellcheck -x -P SCRIPTDIR infra/scripts/*.sh infra/scripts/lib/*.sh
+
   gitleaks:
     name: Secret scan (gitleaks)
     runs-on: ubuntu-24.04
