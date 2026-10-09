@@ -10,6 +10,23 @@ import styles from './dialog.module.css';
 import { getContentMotion, getOverlayMotion } from './dialogMotion';
 import { useReturnFocus } from './useReturnFocus';
 
+// `sheet` fills the viewport below the site header instead of floating centred.
+type DialogVariant = 'centered' | 'sheet';
+
+const VARIANT_CLASS_NAMES: Record<
+  DialogVariant,
+  { overlay: string | undefined; content: string }
+> = {
+  centered: {
+    overlay: styles.overlay,
+    content: `${styles.content} ${styles.centered}`,
+  },
+  sheet: {
+    overlay: `${styles.overlay} ${styles.sheetOverlay}`,
+    content: `${styles.content} ${styles.sheet}`,
+  },
+};
+
 export interface DialogProps {
   open: boolean;
   onOpenChange: (isOpen: boolean) => void;
@@ -17,6 +34,7 @@ export interface DialogProps {
   description?: string;
   children?: ReactNode;
   closeLabel?: string;
+  variant?: DialogVariant;
   testId?: string;
 }
 
@@ -29,6 +47,7 @@ export function Dialog({
   description,
   children,
   closeLabel,
+  variant = 'centered',
   testId = 'dialog',
 }: DialogProps) {
   const { t } = useTranslation();
@@ -42,7 +61,7 @@ export function Dialog({
           <RadixDialog.Portal forceMount>
             <RadixDialog.Overlay asChild forceMount>
               <motion.div
-                className={styles.overlay}
+                className={VARIANT_CLASS_NAMES[variant].overlay}
                 data-testid={childTestId(testId, 'overlay')}
                 {...getOverlayMotion(isReducedMotion)}
               />
@@ -57,7 +76,7 @@ export function Dialog({
               {...(!description && { 'aria-describedby': undefined })}
             >
               <motion.div
-                className={styles.content}
+                className={VARIANT_CLASS_NAMES[variant].content}
                 data-testid={testId}
                 {...getContentMotion(isReducedMotion)}
               >

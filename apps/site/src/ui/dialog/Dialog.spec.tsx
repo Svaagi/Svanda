@@ -1,16 +1,21 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { renderAtPath } from 'utils/testing';
 import { describe, expect, it } from 'vitest';
 
-import { Dialog } from './Dialog';
+import { Dialog, type DialogProps } from './Dialog';
 
 interface DialogHarnessProps {
   description?: string;
   closeLabel?: string;
+  variant?: DialogProps['variant'];
 }
 
-function DialogHarness({ description, closeLabel }: DialogHarnessProps) {
+function DialogHarness({
+  description,
+  closeLabel,
+  variant,
+}: DialogHarnessProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -28,6 +33,7 @@ function DialogHarness({ description, closeLabel }: DialogHarnessProps) {
         title="Colours"
         description={description}
         closeLabel={closeLabel}
+        variant={variant}
       >
         <input aria-label="Accent" data-testid="dialog-field" />
       </Dialog>
@@ -116,5 +122,18 @@ describe('Dialog', () => {
     expect(screen.getByTestId('open-dialog').closest('[aria-hidden]')).not.toBe(
       null,
     );
+  });
+
+  it('styles the sheet variant apart from the centred dialog', () => {
+    renderAtPath(<DialogHarness />, '/en');
+    openDialog();
+    const centredClass = screen.getByTestId('dialog').className;
+    cleanup();
+
+    renderAtPath(<DialogHarness variant="sheet" />, '/en');
+    openDialog();
+
+    expect(screen.getByRole('dialog')).toHaveAccessibleName('Colours');
+    expect(screen.getByTestId('dialog').className).not.toBe(centredClass);
   });
 });

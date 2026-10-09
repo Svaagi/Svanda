@@ -3,7 +3,8 @@ import type { ComponentPropsWithRef } from 'react';
 
 import styles from './button.module.css';
 
-type ButtonVariant = 'outline' | 'fill' | 'ghost';
+// `pixel` is a compact bordered label in the pixel font, sized like the language switch.
+type ButtonVariant = 'outline' | 'fill' | 'ghost' | 'pixel';
 
 export interface ButtonProps extends Omit<
   ComponentPropsWithRef<'button'>,

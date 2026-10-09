@@ -33,6 +33,11 @@
   --color-menu-bg: rgb(5 5 7 / 0.96);
   --color-nav-rgb: 11 11 14;
   --color-border-rgb: 28 28 34;
+  /* The header bar fades in with the intro's `--sv-logo`; the channels above swap per theme */
+  --color-nav-bg: rgb(
+    var(--color-nav-rgb) / calc(var(--nav-bg-alpha) * var(--sv-logo))
+  );
+  --color-nav-border: rgb(var(--color-border-rgb) / var(--sv-logo));
   --color-shadow: var(--palette-black);
 
   /* Accent: orange by default */
@@ -86,6 +91,11 @@
   --space-12: 48px;
   --space-16: 64px;
   --nav-height: 64px;
+  --nav-edge-padding: clamp(12px, 3vw, 40px);
+  --nav-logo-padding: clamp(28px, 5vw, 72px);
+  --nav-item-gap: clamp(14px, 2vw, 40px);
+  --nav-bg-alpha: 0.92;
+  --pixel-button-padding-x: 10px;
   --segment-padding-y: 6px;
   --segment-padding-x: 9px;
   --touch-target-min: 44px;
@@ -102,6 +112,7 @@
       var(--switch-thumb-inset) - var(--switch-thumb-size)
   );
   --dialog-max-width: 560px;
+  --dialog-sheet-top: var(--nav-height);
   --toast-max-width: 420px;
 
   /* Borders */
@@ -130,6 +141,8 @@
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-pixel: steps(2, end);
+  /* Share of the `--sv-menu` reveal over which one nav item fades in */
+  --nav-reveal-span: 0.35;
 
   /* Stacking */
   --z-base: 0;

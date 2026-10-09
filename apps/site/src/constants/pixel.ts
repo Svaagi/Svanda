@@ -14,6 +14,7 @@ export const CQ_CELL_FILL_RATIO = 0.84;
 export const CQ_DECIMALS_SCALE = 1000;
 
 export const LOGO_CELL_PX = 5;
+export const LOGO_CELL_MOBILE_PX = 4;
 export const ICON_CELL_PX = 3;
 export const CHEVRON_CELL_PX = 14;
 

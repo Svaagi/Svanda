@@ -16,7 +16,20 @@ describe('HomePage', () => {
     expect(screen.getByTestId('home-page-title')).toHaveTextContent(
       'Built from scratch.',
     );
-    expect(screen.getByTestId('language-switch')).toBeInTheDocument();
+    expect(screen.getByTestId('header-language-switch')).toBeInTheDocument();
+  });
+
+  it('wraps the page in a skip link, header, main landmark and footer', () => {
+    renderAtPath(<HomePage />, '/en');
+    const main = screen.getByRole('main');
+
+    expect(screen.getByTestId('skip-link')).toHaveAttribute(
+      'href',
+      `#${main.id}`,
+    );
+    expect(main).toHaveAttribute('tabindex', '-1');
+    expect(screen.getByTestId('header')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 
   it('puts five page layers on the stage and the contact section after it', () => {

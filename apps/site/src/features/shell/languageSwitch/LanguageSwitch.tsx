@@ -3,11 +3,17 @@ import { getLocalePath, rememberLocale, useLocale } from 'i18n';
 import type { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
-import { isPlainLeftClick } from 'utils';
+import { childTestId, isPlainLeftClick } from 'utils';
 
 import styles from './languageSwitch.module.css';
 
-export function LanguageSwitch() {
+export type LanguageSwitchProps = {
+  testId?: string;
+};
+
+export function LanguageSwitch({
+  testId = 'language-switch',
+}: LanguageSwitchProps) {
   const { t } = useTranslation();
   const activeLocale = useLocale();
   const navigate = useNavigate();
@@ -34,7 +40,7 @@ export function LanguageSwitch() {
     <nav
       className={styles.languageSwitch}
       aria-label={t('language.label')}
-      data-testid="language-switch"
+      data-testid={testId}
     >
       {LOCALES.map((locale) => (
         <Link
@@ -46,7 +52,7 @@ export function LanguageSwitch() {
           title={t(`language.${locale}.name`)}
           aria-current={locale === activeLocale ? 'page' : undefined}
           onClick={(event) => handleSelect(event, locale)}
-          data-testid={`language-switch-${locale}`}
+          data-testid={childTestId(testId, locale)}
         >
           {t(`language.${locale}.short`)}
         </Link>

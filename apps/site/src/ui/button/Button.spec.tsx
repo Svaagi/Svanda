@@ -52,13 +52,21 @@ describe('Button', () => {
         <Button testId="ghost" variant="ghost">
           C
         </Button>
+        <Button testId="pixel" variant="pixel">
+          D
+        </Button>
       </>,
     );
     const classOf = (testId: string) => screen.getByTestId(testId).className;
 
     expect(
-      new Set([classOf('outline'), classOf('fill'), classOf('ghost')]),
-    ).toHaveLength(3);
+      new Set([
+        classOf('outline'),
+        classOf('fill'),
+        classOf('ghost'),
+        classOf('pixel'),
+      ]),
+    ).toHaveLength(4);
   });
 
   it('skins its child instead of rendering a button with asChild', () => {

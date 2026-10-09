@@ -5,20 +5,35 @@
   background: var(--color-overlay);
 }
 
+.sheetOverlay {
+  top: var(--dialog-sheet-top);
+}
+
 .content {
   position: fixed;
-  inset: 0;
   z-index: var(--z-dialog);
+  overflow-y: auto;
+  color: var(--color-fg);
+}
+
+.centered {
+  inset: 0;
   width: min(calc(100% - 2 * var(--space-4)), var(--dialog-max-width));
   height: fit-content;
   max-height: calc(100svh - 2 * var(--space-4));
   margin: auto;
   padding: var(--space-6);
-  overflow-y: auto;
   border: var(--border-width-pixel) solid var(--color-border-2);
   background: var(--color-bg);
-  color: var(--color-fg);
   box-shadow: var(--shadow-pixel-lg);
+}
+
+.sheet {
+  inset: var(--dialog-sheet-top) 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  background: var(--color-menu-bg);
 }
 
 .header {

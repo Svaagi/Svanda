@@ -18,6 +18,8 @@
     "menuLabel": "Menu",
     "home": "SVANDA",
     "themeToLight": "Svetlý režim",
+    "label": "Hlavná navigácia",
+    "skipToContent": "Preskočiť na obsah",
     "themeToDark": "Tmavý režim"
   },
   "language": {
@@ -196,6 +198,10 @@
   "footer": {
     "copyright": "© {{year}} SVANDA · Karaoke jukebox",
     "instagram": "Instagram",
-    "youtube": "YouTube"
+    "youtube": "YouTube",
+    "imprint": "Právne informácie",
+    "privacy": "Ochrana osobných údajov",
+    "cookies": "Zásady cookies",
+    "cookieSettings": "Nastavenia cookies"
   }
 }
