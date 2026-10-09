@@ -12,23 +12,23 @@ and leaves `pnpm typecheck && pnpm lint && pnpm test` green.
 ## Jira keys
 
 Single source for the project key and the epic keys that `svanda-auto-implement` chain mode
-walks. Fill in when the issues are created.
+walks. Tickets are SW-16 (W0-1) to SW-44 (W11-1) in document order.
 
 | Item | Key |
 | --- | --- |
-| Project | `TBD` |
-| E0 Foundation | `TBD` |
-| E1 Brand & UI primitives | `TBD` |
-| E2 App shell & hero stage | `TBD` |
-| E3 3D jukebox | `TBD` |
-| E4 Product sections & jukebox UI | `TBD` |
-| E5 Configurator | `TBD` |
-| E6 Venues | `TBD` |
-| E7 Contact | `TBD` |
-| E8 Legal & consent | `TBD` |
-| E9 Analytics & metrics | `TBD` |
-| E10 SEO, quality, infra | `TBD` |
-| E11 Launch (manual, **not** in the chain) | `TBD` |
+| Project | `SW` |
+| E0 Foundation | `SW-4` |
+| E1 Brand & UI primitives | `SW-5` |
+| E2 App shell & hero stage | `SW-6` |
+| E3 3D jukebox | `SW-7` |
+| E4 Product sections & jukebox UI | `SW-8` |
+| E5 Configurator | `SW-9` |
+| E6 Venues | `SW-10` |
+| E7 Contact | `SW-11` |
+| E8 Legal & consent | `SW-12` |
+| E9 Analytics & metrics | `SW-13` |
+| E10 SEO, quality, infra | `SW-14` |
+| E11 Launch (manual, **not** in the chain) | `SW-15` |
 
 Auto-implement epics: E0 to E10.
 
