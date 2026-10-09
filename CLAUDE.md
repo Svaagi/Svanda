@@ -16,8 +16,11 @@ jukebox or to the Manager API.
 
 ## Status
 
-Greenfield. Repo wiped on 2026-10-09 (older history is an unrelated landing page). Nothing is
-scaffolded until ticket **W0-1**; the commands and layout below are the target it creates.
+Scaffolded (W0-1): the pnpm workspace, a placeholder home route per locale (prerendered to
+`build/client/index.html`, `en/index.html`, `sk/index.html`), the contact API with `GET /health`,
+an empty `@svanda/shared`, and lint, typecheck, unit and e2e tooling. Feature folders in the
+layout below are the target; they arrive with their tickets. Repo wiped on 2026-10-09 (older
+history is an unrelated landing page).
 
 ## Stack
 
@@ -74,21 +77,25 @@ docs/                    prompt-plan.md, design-reference.md
 Site imports use the `src` baseUrl (`import { Button } from 'ui'`); relative only between
 siblings in one feature. Shared schemas: `import { contactRequestSchema } from '@svanda/shared'`.
 
-## Commands (target, from W0-1)
+## Commands
 
 | Task | Command |
 | --- | --- |
-| Install | `pnpm install` |
+| Install | `pnpm install` (then `pnpm --filter site exec playwright install chromium` once for e2e) |
 | Site dev server | `pnpm dev` (port **5174**, proxies `/api` to the contact API) |
-| Contact API dev | `pnpm --filter contact-api dev` (port **8787**) |
-| Typecheck | `pnpm typecheck` |
-| Lint | `pnpm lint` |
-| Unit tests | `pnpm test` |
-| e2e | `pnpm test:e2e` |
-| i18n check | `pnpm i18n:check` |
-| Build | `pnpm build` |
-| Preview | `pnpm preview` |
-| Convert 3D model | `pnpm --filter site model:convert` |
+| Contact API dev | `pnpm --filter contact-api dev` (port **8787**, `GET /health`) |
+| Typecheck | `pnpm typecheck` (site runs `react-router typegen` first; `tsconfig.json` + `tsconfig.spec.json` per package) |
+| Lint | `pnpm lint` (one root `eslint.config.js`) |
+| Format | `pnpm format` (check only: `pnpm format:check`) |
+| Unit tests | `pnpm test` (Vitest: jsdom for site, node for API and shared) |
+| e2e | `pnpm test:e2e` (Playwright, Chromium; builds the site and serves it with `pnpm preview`) |
+| Build | `pnpm build` (shared + API with `tsc`, site prerendered to `apps/site/build/client`) |
+| Preview | `pnpm preview` (static server for the built site on port **4173**) |
+| i18n check | `pnpm i18n:check` (added by W0-3) |
+| Convert 3D model | `pnpm --filter site model:convert` (added by W3-1) |
+
+Import gotcha: the bare specifier `constants` resolves to the Node built-in module in
+TypeScript, so import site constants by file (`import { LOCALES } from 'constants/locales'`).
 
 ## Workflow
 

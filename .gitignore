@@ -17,3 +17,7 @@ test-results
 !.vscode/extensions.json
 .idea
 .DS_Store
+
+# build output
+build
+.react-router
