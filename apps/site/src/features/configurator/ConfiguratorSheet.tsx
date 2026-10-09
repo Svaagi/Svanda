@@ -1,3 +1,4 @@
+import { track } from 'lib/analytics';
 import { type ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Dialog } from 'ui';
@@ -20,13 +21,17 @@ export function ConfiguratorSheet({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
+  const handleOpenClick = () => {
+    setIsOpen(true);
+    track('configurator_open', { layout: 'sheet' });
+  };
 
   return (
     <>
       <div className={styles.sheetButton}>
         <Button
           variant="fill"
-          onClick={() => setIsOpen(true)}
+          onClick={handleOpenClick}
           testId={childTestId(testId, 'open')}
         >
           {t('configurator.sheet.open')}

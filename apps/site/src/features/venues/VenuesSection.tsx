@@ -4,6 +4,7 @@ import {
   VENUE_HEADING_FALLBACK_MAX_COLS,
   VENUES,
 } from 'constants/venues';
+import { track } from 'lib/analytics';
 import {
   type CSSProperties,
   useCallback,
@@ -19,6 +20,7 @@ import { childTestId } from 'utils';
 import type { HeadingSnap } from './gridSnap';
 import { useVenueCarousel } from './useVenueCarousel';
 import { useVenueGridSnap } from './useVenueGridSnap';
+import { useVenueViewTracking } from './useVenueViewTracking';
 import { VenueFrame } from './venueFrame';
 import { VenueLightbox } from './venueLightbox';
 import styles from './venuesSection.module.css';
@@ -66,7 +68,11 @@ export function VenuesSection({
   });
   const activeVenue = VENUES[venueIndex] ?? VENUES[0];
   const headingColors = useMemo(() => [activeVenue.color], [activeVenue.color]);
-  const handleOpenPhoto = useCallback(() => setIsLightboxOpen(true), []);
+  useVenueViewTracking(activeVenue.id);
+  const handleOpenPhoto = useCallback(() => {
+    setIsLightboxOpen(true);
+    track('lightbox_open', { venue: activeVenue.id });
+  }, [activeVenue.id]);
 
   return (
     <section

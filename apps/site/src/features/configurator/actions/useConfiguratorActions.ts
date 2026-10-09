@@ -1,5 +1,6 @@
 import { CONTACT_PAGE } from 'constants/stage';
 import { useGoToPage } from 'features/stage';
+import { track } from 'lib/analytics';
 import { useTranslation } from 'react-i18next';
 import { useToast } from 'ui';
 
@@ -40,6 +41,7 @@ export function useConfiguratorActions({
     const willAttach = !getState().isAttached;
     getState().setAttached(willAttach);
     if (!willAttach) return;
+    track('configurator_attach', { source: 'configurator' });
     showToast(t('configurator.toasts.attached'));
     onAttach?.();
     goToPage(CONTACT_PAGE);
@@ -51,14 +53,18 @@ export function useConfiguratorActions({
   };
 
   // The copy outcome is announced by its toast; nothing awaits it.
-  const handleCopyJsonClick = () =>
+  const handleCopyJsonClick = () => {
+    track('configurator_export', { format: 'json' });
     void copy(getState().exportJson(), t('configurator.toasts.copiedJson'));
+  };
 
-  const handleCopyCssClick = () =>
+  const handleCopyCssClick = () => {
+    track('configurator_export', { format: 'css' });
     void copy(
       getState().exportCss(cssLabels),
       t('configurator.toasts.copiedCss', { design: designName }),
     );
+  };
 
   return {
     importPanel,

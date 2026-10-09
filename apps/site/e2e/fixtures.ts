@@ -8,6 +8,7 @@ import {
 import { INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE } from 'constants/intro';
 
 import { mockContactChallenge } from './contactApiMock';
+import { mockUmami } from './umamiMock';
 
 const DAY_MS = 86_400_000;
 
@@ -97,6 +98,8 @@ export const test = base.extend<StageFixtures>({
     if (hasConsent) await presetConsent(context);
     // The contact form fetches its challenge on every page; the preview has no API to answer.
     await mockContactChallenge(context);
+    // The build loads the tracker; no spec may reach the real Umami.
+    await mockUmami(context);
     await provideContext(context);
   },
 });

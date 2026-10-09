@@ -1,3 +1,8 @@
+import type { ContactErrorCode } from '@svanda/shared';
+
+// `network_error` is the site's own: the request never got an answer.
+export type ContactSubmitErrorCode = ContactErrorCode | 'contact.network_error';
+
 const SAME_ORIGIN_API_URL = '/api';
 const TRAILING_SLASHES = /\/+$/;
 

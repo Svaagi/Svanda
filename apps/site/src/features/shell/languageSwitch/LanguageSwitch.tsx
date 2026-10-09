@@ -1,5 +1,6 @@
 import { type Locale, LOCALES } from 'constants/locales';
 import { getLocalePath, rememberLocale, useLocale } from 'i18n';
+import { track } from 'lib/analytics';
 import type { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
@@ -34,6 +35,7 @@ export function LanguageSwitch({
 
     event.preventDefault();
     if (locale === activeLocale) return;
+    track('language_change', { from: activeLocale, to: locale });
     // The hash is read at click time, not rendered into the href: prerendered links cannot
     // know it, and the current section may have changed since the last render.
     // Navigation errors surface through the router; nothing here awaits the result.

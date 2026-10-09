@@ -13,4 +13,5 @@ export {
   type ConfigValue,
   useConfiguratorStore,
 } from './configuratorStore';
+export { useConfiguratorChangeTracking } from './useConfiguratorChangeTracking';
 export { useConfiguratorHydration } from './useConfiguratorHydration';

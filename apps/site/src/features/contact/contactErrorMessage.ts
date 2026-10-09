@@ -1,9 +1,7 @@
+import type { ContactSubmitErrorCode } from 'constants/contact';
 import { S_PER_MIN } from 'constants/time';
 
-import type {
-  ContactSubmitError,
-  ContactSubmitErrorCode,
-} from './contactSubmit';
+import type { ContactSubmitError } from './contactSubmit';
 
 const ERROR_MESSAGE_KEYS = {
   'contact.invalid': 'contact.status.invalid',

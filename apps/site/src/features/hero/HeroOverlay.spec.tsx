@@ -1,9 +1,15 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { useStageStore } from 'features/stage';
+import { track } from 'lib/analytics';
 import { createMatchMediaMock, renderAtPath } from 'utils/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { HeroOverlay } from './HeroOverlay';
+
+vi.mock('lib/analytics', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('lib/analytics')>()),
+  track: vi.fn(),
+}));
 
 const PAGE_HEIGHT = 800;
 const scrollTo = vi.fn();
@@ -24,6 +30,7 @@ describe('HeroOverlay', () => {
 
   afterEach(() => {
     scrollTo.mockReset();
+    vi.mocked(track).mockClear();
     vi.unstubAllGlobals();
   });
 
@@ -49,6 +56,9 @@ describe('HeroOverlay', () => {
     expect(scrollTo).toHaveBeenCalledWith({
       top: PAGE_HEIGHT,
       behavior: 'smooth',
+    });
+    expect(track).toHaveBeenCalledExactlyOnceWith('cta_click', {
+      target: 'hero',
     });
   });
 

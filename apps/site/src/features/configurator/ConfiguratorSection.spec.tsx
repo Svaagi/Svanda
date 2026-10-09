@@ -3,6 +3,7 @@ import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { CONFIGURATOR_SHEET_QUERY } from 'constants/configurator';
 import { CONTACT_PAGE } from 'constants/stage';
 import { type ScreenQuad, useStageStore } from 'features/stage';
+import { track } from 'lib/analytics';
 import { ToastProvider } from 'ui';
 import {
   createMatchMediaMock,
@@ -17,6 +18,11 @@ import {
   useConfiguratorStore,
 } from './model/configuratorStore';
 import { ConfiguratorScreen } from './screen';
+
+vi.mock('lib/analytics', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('lib/analytics')>()),
+  track: vi.fn(),
+}));
 
 const { getState } = useConfiguratorStore;
 const PANELS = 'configurator-panels';
@@ -52,6 +58,7 @@ const groupTrigger = (column: string, group: string) =>
 describe('ConfiguratorSection', () => {
   beforeEach(() => {
     window.localStorage.clear();
+    vi.mocked(track).mockClear();
     useConfiguratorStore.setState(createInitialConfiguratorValues());
     useStageStore.setState({
       screenQuad: null,
@@ -236,6 +243,9 @@ describe('ConfiguratorSection', () => {
       expect(getState().isAttached).toBe(false);
       expect(attach).toHaveTextContent('Add configuration to e-mail');
       expect(window.scrollTo).toHaveBeenCalledTimes(1);
+      expect(track).toHaveBeenCalledExactlyOnceWith('configurator_attach', {
+        source: 'configurator',
+      });
     });
 
     it('resets the design and section being edited', () => {
@@ -275,6 +285,10 @@ describe('ConfiguratorSection', () => {
       fireEvent.click(byTestId(`${ACTIONS}-copy-css`));
       await waitFor(() => expect(writeText).toHaveBeenCalledTimes(2));
       expect(writeText.mock.lastCall?.[0]).toContain('/* Pixel · Karaoke */');
+      expect(vi.mocked(track).mock.calls).toEqual([
+        ['configurator_export', { format: 'json' }],
+        ['configurator_export', { format: 'css' }],
+      ]);
     });
 
     it('falls back to the import field, selected, when the clipboard is refused', async () => {
@@ -338,6 +352,9 @@ describe('ConfiguratorSection', () => {
 
       expect(screen.queryByTestId(`${PANELS}-start`)).not.toBeInTheDocument();
       fireEvent.click(byTestId('configurator-sheet-open'));
+      expect(track).toHaveBeenCalledExactlyOnceWith('configurator_open', {
+        layout: 'sheet',
+      });
 
       const sheet = screen.getByRole('dialog', { name: 'Colours' });
       expect(sheet).toContainElement(byTestId(`${PANELS}-start`));

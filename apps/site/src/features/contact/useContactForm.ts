@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useConfiguratorStore } from 'features/configurator';
 import { useLocale } from 'i18n';
+import { track } from 'lib/analytics';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -35,6 +36,12 @@ export function useContactForm() {
     resolver,
   });
 
+  // Only the error code is reported: nothing the visitor typed leaves through analytics.
+  const fail = (error: ContactSubmitError) => {
+    setStatus({ state: 'error', error });
+    track('contact_submit_error', { code: error.code });
+  };
+
   const submitValid = async ({ message, ...fields }: ContactFormData) => {
     setStatus({ state: 'submitting' });
 
@@ -42,10 +49,7 @@ export function useContactForm() {
     try {
       altcha = await takePayload();
     } catch (error) {
-      setStatus({
-        state: 'error',
-        error: altchaSubmitError(toAltchaFailure(error)),
-      });
+      fail(altchaSubmitError(toAltchaFailure(error)));
       return;
     }
 
@@ -56,11 +60,12 @@ export function useContactForm() {
       config: useConfiguratorStore.getState().toAttachment() ?? undefined,
       altcha,
     });
-    setStatus(
-      result.isSent
-        ? { state: 'sent' }
-        : { state: 'error', error: result.error },
-    );
+    if (!result.isSent) {
+      fail(result.error);
+      return;
+    }
+    setStatus({ state: 'sent' });
+    track('contact_submit_success');
   };
 
   return {

@@ -4,13 +4,13 @@ import {
   type ContactRequest,
   isRecord,
 } from '@svanda/shared';
-import { CONTACT_ENDPOINT } from 'constants/contact';
+import {
+  CONTACT_ENDPOINT,
+  type ContactSubmitErrorCode,
+} from 'constants/contact';
 
 import type { AltchaFailure } from './altcha';
 import { readRetryAfterSeconds } from './retryAfter';
-
-// `network_error` is the site's own: the request never got an answer.
-export type ContactSubmitErrorCode = ContactErrorCode | 'contact.network_error';
 
 export type ContactSubmitError = {
   code: ContactSubmitErrorCode;

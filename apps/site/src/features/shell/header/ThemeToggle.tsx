@@ -1,4 +1,5 @@
 import { useTheme } from 'hooks';
+import { track } from 'lib/analytics';
 import { useTranslation } from 'react-i18next';
 import { IconButton, PixelIcon } from 'ui';
 import { childTestId } from 'utils';
@@ -13,11 +14,16 @@ export function ThemeToggle({ testId = 'theme-toggle' }: ThemeToggleProps) {
   const isDark = theme === 'dark';
   const label = isDark ? t('nav.themeToLight') : t('nav.themeToDark');
 
+  const handleClick = () => {
+    toggleTheme();
+    track('theme_change', { theme: isDark ? 'light' : 'dark' });
+  };
+
   return (
     <IconButton
       label={label}
       title={label}
-      onClick={toggleTheme}
+      onClick={handleClick}
       testId={testId}
     >
       <PixelIcon

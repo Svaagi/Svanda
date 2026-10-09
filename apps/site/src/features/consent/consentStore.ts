@@ -16,3 +16,15 @@ export const useConsentStore = create<ConsentState>()((set) => ({
 export function isConsented(category: ConsentCategory): boolean {
   return useConsentStore.getState().acceptedCategories.includes(category);
 }
+
+// Calls `listener` with the accepted categories now and after every change.
+export function subscribeConsent(
+  listener: (categories: readonly ConsentCategory[]) => void,
+): () => void {
+  listener(useConsentStore.getState().acceptedCategories);
+
+  return useConsentStore.subscribe(({ acceptedCategories }, previous) => {
+    if (acceptedCategories !== previous.acceptedCategories)
+      listener(acceptedCategories);
+  });
+}

@@ -7,10 +7,16 @@ import {
 } from '@testing-library/react';
 import { VENUES } from 'constants/venues';
 import { useStageStore } from 'features/stage';
+import { track } from 'lib/analytics';
 import { renderAtPath } from 'utils/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { VenuesSection } from './VenuesSection';
+
+vi.mock('lib/analytics', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('lib/analytics')>()),
+  track: vi.fn(),
+}));
 
 const frame = () => screen.getByTestId('venue-frame');
 const activeStrip = (venueId: string) =>
@@ -20,6 +26,7 @@ const tab = (venueId: string) => screen.getByTestId(`venue-tabs-${venueId}`);
 describe('VenuesSection', () => {
   afterEach(() => {
     useStageStore.setState({ grid: { cell: 0, originX: 0, originY: 0 } });
+    vi.mocked(track).mockClear();
   });
 
   it('labels the section with the pixel heading and wires the tabs to the frame', () => {
@@ -116,6 +123,11 @@ describe('VenuesSection', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Next venue' }));
     fireEvent.click(screen.getByRole('button', { name: 'Next venue' }));
     expect(tab('arcadeBar')).toHaveAttribute('aria-selected', 'true');
+    expect(vi.mocked(track).mock.calls).toEqual([
+      ['venue_view', { venue: 'pivniceUMostu' }],
+      ['venue_view', { venue: 'lemon' }],
+      ['venue_view', { venue: 'arcadeBar' }],
+    ]);
 
     const dot = screen.getByRole('button', {
       name: 'PHOTO 4/5 · Arcade Bar',
@@ -211,6 +223,9 @@ describe('VenuesSection lightbox', () => {
       name: 'PHOTO 2/5 · Lemon',
     });
     expect(dialog).toBe(lightbox());
+    expect(track).toHaveBeenCalledExactlyOnceWith('lightbox_open', {
+      venue: 'lemon',
+    });
     expect(screen.getByTestId('venue-lightbox-image')).toHaveAttribute(
       'alt',
       'PHOTO 2/5 · Lemon',

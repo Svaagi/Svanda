@@ -1,9 +1,15 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { LOCALE_STORAGE_KEY } from 'constants/locales';
+import { track } from 'lib/analytics';
 import { getCurrentLocation, renderAtPath } from 'utils/testing';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { LanguageSwitch } from './LanguageSwitch';
+
+vi.mock('lib/analytics', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('lib/analytics')>()),
+  track: vi.fn(),
+}));
 
 const option = (locale: string) =>
   screen.getByTestId(`language-switch-${locale}`);
@@ -12,6 +18,7 @@ describe('LanguageSwitch', () => {
   afterEach(() => {
     window.localStorage.clear();
     window.location.hash = '';
+    vi.mocked(track).mockClear();
   });
 
   it('links every locale to its home path and marks the active one', () => {
@@ -51,6 +58,10 @@ describe('LanguageSwitch', () => {
     expect(getCurrentLocation()).toHaveTextContent('/sk#venues');
     expect(option('sk')).toHaveAttribute('aria-current', 'page');
     expect(window.localStorage.getItem(LOCALE_STORAGE_KEY)).toBe('sk');
+    expect(track).toHaveBeenCalledExactlyOnceWith('language_change', {
+      from: 'cs',
+      to: 'sk',
+    });
   });
 
   it('remembers choosing the active locale without navigating', () => {
@@ -60,6 +71,7 @@ describe('LanguageSwitch', () => {
 
     expect(getCurrentLocation()).toHaveTextContent(/^\/$/);
     expect(window.localStorage.getItem(LOCALE_STORAGE_KEY)).toBe('cs');
+    expect(track).not.toHaveBeenCalled();
   });
 
   it('leaves a modified click to the browser', () => {

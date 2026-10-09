@@ -10,7 +10,11 @@ import { VisuallyHidden } from 'ui';
 import styles from './configuratorSection.module.css';
 import { ConfiguratorSheet } from './ConfiguratorSheet';
 import { ConfiguratorSwitches } from './ConfiguratorSwitches';
-import { CONFIG_GROUPS, useConfiguratorHydration } from './model';
+import {
+  CONFIG_GROUPS,
+  useConfiguratorChangeTracking,
+  useConfiguratorHydration,
+} from './model';
 import { ConfiguratorPanels } from './panels';
 import { FlatConfiguratorScreen } from './screen';
 
@@ -34,6 +38,7 @@ export function ConfiguratorSection({
   const isSheetLayout = useMediaQuery(CONFIGURATOR_SHEET_QUERY);
   const [openGroups, setOpenGroups] = useState<string[]>(INITIAL_OPEN_GROUPS);
   useConfiguratorHydration();
+  useConfiguratorChangeTracking();
   const panelProps = { openGroups, onOpenGroupsChange: setOpenGroups };
 
   return (

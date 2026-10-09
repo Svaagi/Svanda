@@ -4,6 +4,7 @@ import { CONTACT_ENDPOINT } from 'constants/contact';
 import { LEGAL_LINKS } from 'constants/legal';
 import { useConfiguratorStore } from 'features/configurator';
 import { catalogs } from 'i18n/catalogs';
+import { track } from 'lib/analytics';
 import { renderAtPath } from 'utils/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -11,6 +12,10 @@ import { useAltcha } from './altcha';
 import { AltchaError } from './altcha/altchaError';
 import { ContactForm } from './ContactForm';
 
+vi.mock('lib/analytics', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('lib/analytics')>()),
+  track: vi.fn(),
+}));
 vi.mock('./altcha', async (importOriginal) => ({
   ...(await importOriginal<typeof import('./altcha')>()),
   useAltcha: vi.fn(),
@@ -111,6 +116,7 @@ describe('ContactForm', () => {
       altcha: ALTCHA_PAYLOAD,
     });
     await waitFor(() => expect(byTestId(`${FORM}-sent`)).toHaveFocus());
+    expect(track).toHaveBeenCalledExactlyOnceWith('contact_submit_success');
     expect(byTestId(`${FORM}-sent`)).toHaveTextContent(
       catalogs.en.contact.sent,
     );
@@ -143,6 +149,10 @@ describe('ContactForm', () => {
 
     expect(status()).toHaveAttribute('data-state', 'error');
     expect(status()).toHaveTextContent(catalogs.sk.contact.status.sendFailed);
+    // The error code only: nothing typed into the form.
+    expect(track).toHaveBeenCalledExactlyOnceWith('contact_submit_error', {
+      code: 'contact.send_failed',
+    });
     expect(input('venue')).toHaveValue('Bar U Lipy, Brno');
     expect(input('message')).toHaveValue('Ahoj');
     expect(byTestId(`${FORM}-submit`)).toBeEnabled();
@@ -180,6 +190,7 @@ describe('ContactForm', () => {
 
       expect(status()).toHaveTextContent(message);
       expect(fetchMock).not.toHaveBeenCalled();
+      expect(track).toHaveBeenCalledOnce();
     },
   );
 

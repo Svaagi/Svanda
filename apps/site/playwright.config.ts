@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+import { E2E_UMAMI_WEBSITE_ID, UMAMI_SCRIPT_URL } from './e2e/umamiMock';
+
 // Matches the `preview` script, which serves the prerendered build like the production host.
 const PREVIEW_PORT = 4173;
 const PREVIEW_URL = `http://localhost:${PREVIEW_PORT}`;
@@ -33,6 +35,11 @@ export default defineConfig({
   ],
   webServer: {
     command: 'pnpm run build && pnpm run preview',
+    // A production build with a tracker, as deployed; the fixtures stub its script.
+    env: {
+      VITE_UMAMI_WEBSITE_ID: E2E_UMAMI_WEBSITE_ID,
+      VITE_UMAMI_SRC: UMAMI_SCRIPT_URL,
+    },
     url: PREVIEW_URL,
     reuseExistingServer: !process.env.CI,
   },

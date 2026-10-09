@@ -1,4 +1,5 @@
 import { useConfiguratorStore } from 'features/configurator';
+import { track } from 'lib/analytics';
 import { useEffect, useId, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'ui';
@@ -31,6 +32,7 @@ export function ConfigAttachment({
   const toggle = (nextIsAttached: boolean) => {
     hasToggledRef.current = true;
     setAttached(nextIsAttached);
+    if (nextIsAttached) track('configurator_attach', { source: 'contact' });
   };
 
   if (!isAttached) {

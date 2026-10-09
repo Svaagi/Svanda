@@ -8,10 +8,16 @@ import {
 import { CONTACT_PAGE, JUKEBOX_PAGE, VENUES_PAGE } from 'constants/stage';
 import { THEME_ATTRIBUTE } from 'constants/theme';
 import { useStageStore } from 'features/stage';
+import { track } from 'lib/analytics';
 import { createMatchMediaMock, renderAtPath } from 'utils/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { Header } from './Header';
+
+vi.mock('lib/analytics', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('lib/analytics')>()),
+  track: vi.fn(),
+}));
 
 const PAGE_HEIGHT = 800;
 const PAGE_WIDTH = 1280;
@@ -141,6 +147,9 @@ describe('Header', () => {
 
     expect(document.documentElement).toHaveAttribute(THEME_ATTRIBUTE, 'light');
     expect(toggle).toHaveAccessibleName('Dark mode');
+    expect(track).toHaveBeenCalledExactlyOnceWith('theme_change', {
+      theme: 'light',
+    });
   });
 
   describe('mobile menu', () => {

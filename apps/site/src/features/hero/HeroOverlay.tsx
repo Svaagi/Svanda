@@ -5,7 +5,8 @@ import {
   useIntroRevealVars,
   usePageLinkClick,
 } from 'features/stage';
-import { useRef } from 'react';
+import { track } from 'lib/analytics';
+import { type MouseEvent, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'ui';
 import { childTestId } from 'utils';
@@ -22,10 +23,15 @@ export type HeroOverlayProps = {
 export function HeroOverlay({ testId = 'hero-overlay' }: HeroOverlayProps) {
   const { t } = useTranslation();
   const goToPage = useGoToPage();
-  const handleCtaClick = usePageLinkClick(KARAOKE_PAGE, goToPage);
+  const handlePageLinkClick = usePageLinkClick(KARAOKE_PAGE, goToPage);
   const overlayRef = useRef<HTMLDivElement>(null);
   usePublishHeroTextTop(overlayRef);
   useIntroRevealVars(overlayRef, INTRO_HERO_REVEAL_VARS);
+
+  const handleCtaClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    track('cta_click', { target: 'hero' });
+    handlePageLinkClick(event);
+  };
 
   return (
     <div ref={overlayRef} className={styles.heroOverlay} data-testid={testId}>
