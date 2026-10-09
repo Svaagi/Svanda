@@ -17,6 +17,11 @@ describe('stageStore', () => {
     expect(state.screenQuad).toBeNull();
     expect(state.floorShadow).toBeNull();
     expect(state.navLogoSlot).toBeNull();
+    expect(state.modelAnchors).toEqual({
+      heroTextTop: null,
+      karaoke: null,
+      jukebox: null,
+    });
   });
 
   it('updates each field through its setter', () => {
@@ -55,6 +60,19 @@ describe('stageStore', () => {
       floorShadow: { points: [{ x: 0, y: 0 }], alpha: 0.5 },
       viewport: { width: 800, height: 900, isMobile: true, isPortrait: true },
       navLogoSlot: { x: 97.5, y: 19.5, cellPx: 4 },
+    });
+  });
+
+  it('merges model anchors so each page layer publishes only its own', () => {
+    const { getState } = useStageStore;
+
+    getState().setModelAnchors({ heroTextTop: 700 });
+    getState().setModelAnchors({ karaoke: { top: 200, bottom: 600 } });
+
+    expect(getState().modelAnchors).toEqual({
+      heroTextTop: 700,
+      karaoke: { top: 200, bottom: 600 },
+      jukebox: null,
     });
   });
 });

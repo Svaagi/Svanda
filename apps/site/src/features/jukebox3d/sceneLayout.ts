@@ -3,19 +3,11 @@ import {
   CAMERA_FIT_WIDTH_PORTRAIT,
   CAMERA_FOV_DEG,
   CAMERA_MIN_DISTANCE,
-  HERO_OFFSET_Y_PX,
-  HERO_SCALE_LANDSCAPE,
-  HERO_SCALE_PORTRAIT,
 } from 'constants/jukebox3d';
 
 export type SceneSize = {
   width: number;
   height: number;
-};
-
-export type HeroPose = {
-  y: number;
-  scale: number;
 };
 
 const DEGREES_PER_HALF_TURN = 180;
@@ -24,13 +16,13 @@ const HALF_FOV_TAN = Math.tan(
   (CAMERA_FOV_DEG * HALF * Math.PI) / DEGREES_PER_HALF_TURN,
 );
 
-const isPortrait = ({ width, height }: SceneSize) => height > width;
+export const isPortraitSize = ({ width, height }: SceneSize) => height > width;
 
 // The camera stays at its minimum distance until the stage gets too narrow to show the fit
 // width, then backs off so that width still fits.
 export function cameraDistance(size: SceneSize): number {
   if (size.width <= 0 || size.height <= 0) return CAMERA_MIN_DISTANCE;
-  const fitWidth = isPortrait(size)
+  const fitWidth = isPortraitSize(size)
     ? CAMERA_FIT_WIDTH_PORTRAIT
     : CAMERA_FIT_WIDTH_LANDSCAPE;
   const aspect = size.width / size.height;
@@ -41,13 +33,4 @@ export function cameraDistance(size: SceneSize): number {
 export function worldUnitsPerPx(size: SceneSize): number {
   if (size.height <= 0) return 0;
   return (cameraDistance(size) * HALF_FOV_TAN) / (size.height * HALF);
-}
-
-// The model is centred on its origin, so the hero centres it a fixed px distance below the
-// stage centre (the header takes the top).
-export function heroPose(size: SceneSize): HeroPose {
-  return {
-    y: -HERO_OFFSET_Y_PX * worldUnitsPerPx(size),
-    scale: isPortrait(size) ? HERO_SCALE_PORTRAIT : HERO_SCALE_LANDSCAPE,
-  };
 }

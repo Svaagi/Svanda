@@ -1,10 +1,12 @@
 import { KARAOKE_PAGE, STAGE_PAGE_IDS } from 'constants/stage';
 import { useGoToPage, usePageLinkClick } from 'features/stage';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'ui';
 import { childTestId } from 'utils';
 
 import styles from './heroOverlay.module.css';
+import { usePublishHeroTextTop } from './usePublishHeroTextTop';
 
 export type HeroOverlayProps = {
   testId?: string;
@@ -16,9 +18,11 @@ export function HeroOverlay({ testId = 'hero-overlay' }: HeroOverlayProps) {
   const { t } = useTranslation();
   const goToPage = useGoToPage();
   const handleCtaClick = usePageLinkClick(KARAOKE_PAGE, goToPage);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  usePublishHeroTextTop(overlayRef);
 
   return (
-    <div className={styles.heroOverlay} data-testid={testId}>
+    <div ref={overlayRef} className={styles.heroOverlay} data-testid={testId}>
       <p className={styles.tag} data-testid={childTestId(testId, 'tag')}>
         {t('hero.tag')}
       </p>

@@ -1,11 +1,7 @@
-import {
-  CAMERA_MIN_DISTANCE,
-  HERO_SCALE_LANDSCAPE,
-  HERO_SCALE_PORTRAIT,
-} from 'constants/jukebox3d';
+import { CAMERA_MIN_DISTANCE } from 'constants/jukebox3d';
 import { describe, expect, it } from 'vitest';
 
-import { cameraDistance, heroPose, worldUnitsPerPx } from './sceneLayout';
+import { cameraDistance, isPortraitSize, worldUnitsPerPx } from './sceneLayout';
 
 const HALF_FOV_TAN = Math.tan((14 * Math.PI) / 180);
 
@@ -48,19 +44,10 @@ describe('worldUnitsPerPx', () => {
   });
 });
 
-describe('heroPose', () => {
-  it('centres the model 32 px below the stage centre', () => {
-    const size = { width: 1620, height: 900 };
-
-    expect(heroPose(size).y).toBeCloseTo(-32 * worldUnitsPerPx(size));
-  });
-
-  it('uses the landscape and portrait hero scales', () => {
-    expect(heroPose({ width: 1440, height: 900 }).scale).toBe(
-      HERO_SCALE_LANDSCAPE,
-    );
-    expect(heroPose({ width: 390, height: 844 }).scale).toBe(
-      HERO_SCALE_PORTRAIT,
-    );
+describe('isPortraitSize', () => {
+  it('is portrait only when taller than wide', () => {
+    expect(isPortraitSize({ width: 390, height: 844 })).toBe(true);
+    expect(isPortraitSize({ width: 1440, height: 900 })).toBe(false);
+    expect(isPortraitSize({ width: 800, height: 800 })).toBe(false);
   });
 });

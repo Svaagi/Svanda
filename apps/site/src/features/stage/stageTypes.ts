@@ -28,6 +28,20 @@ export type FloorShadow = {
   alpha: number;
 };
 
+// A free vertical band in stage px (top < bottom) the 3D model centres in on portrait pages.
+export type ModelSlot = {
+  top: number;
+  bottom: number;
+};
+
+// Page copy measured by the page layers, so the 3D model can fit around it in portrait:
+// the hero text top and the gap between each product page's heading and body, in stage px.
+export type ModelAnchors = {
+  heroTextTop: number | null;
+  karaoke: ModelSlot | null;
+  jukebox: ModelSlot | null;
+};
+
 // The jukebox display corners in client px, clockwise from the top left.
 export type ScreenQuad = {
   topLeft: ScreenPoint;

@@ -1,1 +1,1 @@
-export { clamp, easeInOut, lerp } from './math';
+export { clamp, easeInOut, easeOut, easeOutBack, lerp } from './math';

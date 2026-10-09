@@ -14,3 +14,16 @@ export function easeInOut(progress: number): number {
     : 1 - (-2 * progress + 2) ** 2 / 2;
 }
 /* eslint-enable @typescript-eslint/no-magic-numbers */
+
+/* eslint-disable @typescript-eslint/no-magic-numbers -- textbook easing formulas */
+// Cubic ease out: fast start, gentle landing.
+export function easeOut(progress: number): number {
+  return 1 - (1 - progress) ** 3;
+}
+
+// Ease out that overshoots the end by an amount set by `overshoot`, then settles back.
+export function easeOutBack(progress: number, overshoot: number): number {
+  const cubic = overshoot + 1;
+  return 1 + cubic * (progress - 1) ** 3 + overshoot * (progress - 1) ** 2;
+}
+/* eslint-enable @typescript-eslint/no-magic-numbers */

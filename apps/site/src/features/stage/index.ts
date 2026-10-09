@@ -7,6 +7,8 @@ export { useStageStore } from './stageStore';
 export type {
   FloorShadow,
   IntroPhase,
+  ModelAnchors,
+  ModelSlot,
   NavLogoSlot,
   StagePointer,
 } from './stageTypes';

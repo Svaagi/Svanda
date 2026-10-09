@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { clamp, easeInOut, lerp } from './math';
+import { clamp, easeInOut, easeOut, easeOutBack, lerp } from './math';
 
 describe('clamp', () => {
   it('keeps a value inside the range', () => {
@@ -28,5 +28,24 @@ describe('easeInOut', () => {
   it('is slow at the ends and symmetric', () => {
     expect(easeInOut(0.25)).toBeCloseTo(0.125);
     expect(easeInOut(0.75)).toBeCloseTo(0.875);
+  });
+});
+
+describe('easeOut', () => {
+  it('runs from 0 to 1 and is past the middle early', () => {
+    expect(easeOut(0)).toBe(0);
+    expect(easeOut(1)).toBe(1);
+    expect(easeOut(0.5)).toBeCloseTo(0.875);
+  });
+});
+
+describe('easeOutBack', () => {
+  it('starts at 0 and ends at 1', () => {
+    expect(easeOutBack(0, 1.2)).toBeCloseTo(0);
+    expect(easeOutBack(1, 1.2)).toBe(1);
+  });
+
+  it('overshoots the end before settling', () => {
+    expect(easeOutBack(0.8, 1.2)).toBeGreaterThan(1);
   });
 });

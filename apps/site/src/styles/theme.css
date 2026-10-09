@@ -93,6 +93,7 @@
   --color-jukebox-rim-left: #d8ffe0;
   --color-jukebox-rim-right: #ffd0f0;
   --color-jukebox-fill: var(--palette-cyan);
+  --color-jukebox-cursor: var(--palette-white);
 
   /* Typography */
   --font-pixel: 'Silkscreen', monospace;

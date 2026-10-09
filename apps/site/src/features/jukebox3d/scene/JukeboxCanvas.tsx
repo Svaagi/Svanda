@@ -15,6 +15,7 @@ import { CameraRig } from './CameraRig';
 import { JukeboxLighting } from './JukeboxLighting';
 import { JukeboxModel } from './JukeboxModel';
 import { readJukeboxPalette } from './jukeboxPalette';
+import { JukeboxRig } from './JukeboxRig';
 import styles from './scene.module.css';
 import { SceneInvalidation } from './SceneInvalidation';
 import { useIsSceneVisible } from './useIsSceneVisible';
@@ -69,7 +70,9 @@ export function JukeboxCanvas({
         <SceneInvalidation isVisible={isVisible} />
         <JukeboxLighting palette={palette} />
         <Suspense fallback={null}>
-          <JukeboxModel palette={palette} onReady={onReady} />
+          <JukeboxRig palette={palette}>
+            <JukeboxModel palette={palette} onReady={onReady} />
+          </JukeboxRig>
         </Suspense>
       </Canvas>
     </div>
