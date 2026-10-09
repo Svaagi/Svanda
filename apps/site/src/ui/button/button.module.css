@@ -70,6 +70,25 @@
   border-color: var(--color-fg);
 }
 
+.dashed {
+  justify-content: flex-start;
+  width: 100%;
+  min-height: var(--control-height);
+  padding: 0 var(--control-padding-x);
+  border-width: var(--border-width-thin);
+  border-style: dashed;
+  border-color: var(--color-border-2);
+  color: var(--color-muted);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.dashed:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 @media (pointer: coarse) {
   .button {
     min-height: var(--touch-target-min);

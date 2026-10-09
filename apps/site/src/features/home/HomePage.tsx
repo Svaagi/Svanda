@@ -1,7 +1,6 @@
 import { PROJECTED_CUSTOM_VP_RANGE } from 'constants/jukebox3d';
 import { MAIN_CONTENT_ID } from 'constants/nav';
 import {
-  CONTACT_SECTION_ID,
   CUSTOM_PAGE,
   HERO_PAGE,
   JUKEBOX_PAGE,
@@ -11,6 +10,7 @@ import {
   VENUES_PAGE,
 } from 'constants/stage';
 import { ConfiguratorScreen, ConfiguratorSection } from 'features/configurator';
+import { ContactSection } from 'features/contact';
 import { HeroBackground, HeroOverlay } from 'features/hero';
 import { IntroCanvas } from 'features/intro';
 import { JukeboxStage, ProjectedScreen } from 'features/jukebox3d';
@@ -80,12 +80,7 @@ export function HomePage() {
           </ProjectedScreen>
           <IntroCanvas />
         </StageShell>
-        <section
-          id={CONTACT_SECTION_ID}
-          className={styles.contact}
-          aria-label={t('nav.contact')}
-          data-testid="contact-section"
-        />
+        <ContactSection />
       </main>
       <Footer />
     </>

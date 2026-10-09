@@ -215,12 +215,32 @@
       "venue": "Venue & city",
       "email": "E-mail",
       "message": "Message",
-      "submit": "SEND"
+      "submit": "SEND",
+      "optional": "Optional",
+      "submitting": "SENDING...",
+      "privacy": "We use your details only to reply to your message. See our <privacyLink>privacy policy</privacyLink>.",
+      "honeypot": "Leave this field empty"
     },
     "config": {
       "add": "+ Add configuration to e-mail",
       "attached": "Jukebox colour configuration attached",
       "remove": "Remove"
+    },
+    "errors": {
+      "required": "Please fill in this field.",
+      "email": "Enter a valid e-mail address.",
+      "tooLong": "At most {{max}} characters.",
+      "invalid": "Please check this field."
+    },
+    "status": {
+      "sending": "Sending your message...",
+      "invalid": "Some details are not right. Check the form and try again.",
+      "rateLimited": "You have sent too many messages. Please try again later.",
+      "rateLimitedFor": "You have sent too many messages. Try again in {{minutes}} min.",
+      "captchaFailed": "The spam check failed. Please try again.",
+      "sendFailed": "Your message could not be sent. Please try again, or write to business@svanda.fun.",
+      "internalError": "Something went wrong. Please try again.",
+      "networkError": "Could not reach the server. Check your connection and try again."
     }
   },
   "footer": {

@@ -4,7 +4,8 @@ import type { ComponentPropsWithRef } from 'react';
 import styles from './button.module.css';
 
 // `pixel` is a compact bordered label in the pixel font, sized like the language switch.
-type ButtonVariant = 'outline' | 'fill' | 'ghost' | 'pixel';
+// `dashed` is a full-width, left-aligned placeholder action inside a form.
+type ButtonVariant = 'outline' | 'fill' | 'ghost' | 'pixel' | 'dashed';
 
 export interface ButtonProps extends Omit<
   ComponentPropsWithRef<'button'>,

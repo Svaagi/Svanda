@@ -215,12 +215,32 @@
       "venue": "Podnik a město",
       "email": "E-mail",
       "message": "Zpráva",
-      "submit": "ODESLAT"
+      "submit": "ODESLAT",
+      "optional": "Nepovinné",
+      "submitting": "ODESÍLÁME...",
+      "privacy": "Údaje použijeme jen k odpovědi na vaši zprávu. Více v <privacyLink>zásadách ochrany osobních údajů</privacyLink>.",
+      "honeypot": "Toto pole nechte prázdné"
     },
     "config": {
       "add": "+ Přidat konfiguraci k mailu",
       "attached": "Konfigurace barev jukeboxu je přiložena",
       "remove": "Odebrat"
+    },
+    "errors": {
+      "required": "Vyplňte prosím toto pole.",
+      "email": "Zadejte platný e-mail.",
+      "tooLong": "Nejvýše {{max}} znaků.",
+      "invalid": "Zkontrolujte prosím toto pole."
+    },
+    "status": {
+      "sending": "Odesíláme zprávu...",
+      "invalid": "Některé údaje nejsou v pořádku. Zkontrolujte formulář a zkuste to znovu.",
+      "rateLimited": "Odeslali jste příliš mnoho zpráv. Zkuste to prosím později.",
+      "rateLimitedFor": "Odeslali jste příliš mnoho zpráv. Zkuste to znovu za {{minutes}} min.",
+      "captchaFailed": "Ochrana proti spamu selhala. Zkuste to prosím znovu.",
+      "sendFailed": "Zprávu se nepodařilo odeslat. Zkuste to prosím znovu, nebo napište na business@svanda.fun.",
+      "internalError": "Něco se pokazilo. Zkuste to prosím znovu.",
+      "networkError": "Nepodařilo se spojit se serverem. Zkontrolujte připojení a zkuste to znovu."
     }
   },
   "footer": {

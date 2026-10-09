@@ -15,6 +15,10 @@ export const CONTACT_LIMITS = {
   altcha: 4096,
 } as const;
 
+// A person needs a few seconds to fill the form; a quicker submit is a script. The API measures
+// it from when it issued the ALTCHA challenge, and the site waits it out before submitting.
+export const CONTACT_MIN_FILL_TIME_MS = 3000;
+
 // Name and venue end up in mail headers (the subject), so they never carry control characters.
 const NO_CONTROL_CHARS_PATTERN = /^[^\p{Cc}]*$/u;
 

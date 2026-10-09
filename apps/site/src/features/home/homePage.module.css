@@ -1,8 +1,3 @@
 .main:focus {
   outline: none;
 }
-
-.contact {
-  min-height: 100svh;
-  scroll-snap-align: start;
-}

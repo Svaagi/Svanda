@@ -1,6 +1,8 @@
 import { type BrowserContext, test as base } from '@playwright/test';
 import { INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE } from 'constants/intro';
 
+import { mockContactChallenge } from './contactApiMock';
+
 type StageFixtures = {
   // Whether the session has already seen the intro. Specs default to yes, so every page is
   // interactive at once; intro.spec.ts opts out to watch the intro itself.
@@ -41,6 +43,8 @@ export const test = base.extend<StageFixtures>({
   context: async ({ context, hasSeenIntro, hasWebGL }, provideContext) => {
     if (hasSeenIntro) await skipIntro(context);
     if (!hasWebGL) await disableWebGL(context);
+    // The contact form fetches its challenge on every page; the preview has no API to answer.
+    await mockContactChallenge(context);
     await provideContext(context);
   },
 });

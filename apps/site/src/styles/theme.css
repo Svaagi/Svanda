@@ -365,6 +365,22 @@
   --venue-tab-padding-end: 14px;
   --venue-tab-label-gap: 10px;
 
+  /* Contact */
+  --contact-padding-top: calc(var(--nav-height) + 8vh);
+  --contact-padding-bottom: var(--space-8);
+  --contact-inset-x: clamp(24px, 7vw, 90px);
+  --contact-columns-gap: clamp(28px, 5vw, 80px);
+  --contact-column-min: 340px;
+  --contact-field-min: 200px;
+  --contact-intro-max-width: 480px;
+  --contact-intro-gap: 14px;
+  --contact-form-gap: 14px;
+  --contact-title-size: clamp(30px, 3.4vw, 42px);
+  --contact-body-size: 17px;
+  --contact-sent-size: 20px;
+  --contact-sent-padding: 28px;
+  --contact-marker-size: 10px;
+
   /* Borders */
   --border-width-thin: 1px;
   --border-width-pixel: 2px;

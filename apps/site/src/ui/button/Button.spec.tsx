@@ -55,6 +55,9 @@ describe('Button', () => {
         <Button testId="pixel" variant="pixel">
           D
         </Button>
+        <Button testId="dashed" variant="dashed">
+          E
+        </Button>
       </>,
     );
     const classOf = (testId: string) => screen.getByTestId(testId).className;
@@ -65,8 +68,9 @@ describe('Button', () => {
         classOf('fill'),
         classOf('ghost'),
         classOf('pixel'),
+        classOf('dashed'),
       ]),
-    ).toHaveLength(4);
+    ).toHaveLength(5);
   });
 
   it('skins its child instead of rendering a button with asChild', () => {

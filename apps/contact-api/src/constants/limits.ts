@@ -1,10 +1,11 @@
+import { CONTACT_MIN_FILL_TIME_MS } from '@svanda/shared';
+
 export const DEFAULT_PORT = 8787;
 
 export const BODY_LIMIT_BYTES = 32 * 1024;
 
-// A person needs a few seconds to fill the form; a quicker submit is a script. Measured on
-// the server from when the ALTCHA challenge was issued.
-export const MIN_FILL_TIME_MS = 3000;
+// Measured on the server from when the ALTCHA challenge was issued.
+export const MIN_FILL_TIME_MS = CONTACT_MIN_FILL_TIME_MS;
 
 // Per client (IPv4 address or IPv6 /64): a burst of 5 submits, then one more every
 // 12 minutes (5 per hour).

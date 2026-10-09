@@ -1,0 +1,10 @@
+.privacy {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-base);
+}
+
+.link {
+  color: var(--color-fg);
+}
