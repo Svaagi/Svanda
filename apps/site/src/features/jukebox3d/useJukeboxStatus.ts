@@ -1,4 +1,6 @@
+import { JUKEBOX_SCENE_IDLE_TIMEOUT_MS } from 'constants/jukebox3d';
 import { useCallback, useEffect, useState } from 'react';
+import { afterLoadIdle } from 'utils';
 
 import { isWebGLAvailable } from './webglSupport';
 
@@ -10,10 +12,15 @@ export type JukeboxStatus = 'poster' | 'loading' | 'ready' | 'unavailable';
 export function useJukeboxStatus() {
   const [status, setStatus] = useState<JukeboxStatus>('poster');
 
-  // After mount, so the 3D chunk starts loading only after the first paint.
-  useEffect(() => {
-    setStatus(isWebGLAvailable(document) ? 'loading' : 'unavailable');
-  }, []);
+  // Once the page has loaded and gone idle: the WebGL probe, the 3D chunk and the model then
+  // stay clear of the first paint, the LCP image and hydration.
+  useEffect(
+    () =>
+      afterLoadIdle(() => {
+        setStatus(isWebGLAvailable(document) ? 'loading' : 'unavailable');
+      }, JUKEBOX_SCENE_IDLE_TIMEOUT_MS),
+    [],
+  );
 
   const handleReady = useCallback(() => setStatus('ready'), []);
   const handleError = useCallback(() => setStatus('unavailable'), []);

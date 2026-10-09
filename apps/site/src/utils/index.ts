@@ -1,3 +1,4 @@
+export { afterLoadIdle } from './afterLoadIdle';
 export { classNames } from './classNames';
 export { readCssVar, resolveCssValue } from './cssVar';
 export { debounce } from './debounce';

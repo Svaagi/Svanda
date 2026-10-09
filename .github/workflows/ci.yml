@@ -43,9 +43,11 @@ jobs:
       - run: pnpm test
       - run: pnpm i18n:check
       - run: pnpm build
+      - name: Initial JS budget
+        run: pnpm --filter @svanda/site bundle:check
 
   e2e:
-    name: e2e (Chromium + WebKit mobile)
+    name: e2e and axe (Chromium + WebKit mobile)
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -76,6 +78,35 @@ jobs:
         with:
           name: playwright-report
           path: apps/site/playwright-report
+          retention-days: 14
+
+  lighthouse:
+    name: Lighthouse budgets (mobile)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      # A fixed Chrome, so a runner image update cannot move the lab numbers.
+      - id: chrome
+        uses: browser-actions/setup-chrome@48ad923757ca74d66703209fe939badbdf80f2f4 # v2.2.0
+        with:
+          chrome-version: 155.0.8059.39
+      # Lighthouse CI (exact devDependency) against the precompressed build; budgets are in
+      # apps/site/lighthouserc.cjs.
+      - run: pnpm --filter @svanda/site lighthouse
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: lighthouse-reports
+          path: apps/site/.lighthouseci
           retention-days: 14
 
   gitleaks:

@@ -21,3 +21,4 @@ test-results
 # build output
 build
 .react-router
+.lighthouseci

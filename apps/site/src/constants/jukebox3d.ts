@@ -4,6 +4,8 @@ export const JUKEBOX_MODEL_URL = '/models/jukebox.glb';
 export const JUKEBOX_POSTER_URL = '/models/jukebox-poster.webp';
 export const JUKEBOX_POSTER_WIDTH_PX = 1620;
 export const JUKEBOX_POSTER_HEIGHT_PX = 900;
+// The scene starts loading when the page is idle after load, or this long after load at most.
+export const JUKEBOX_SCENE_IDLE_TIMEOUT_MS = 2000;
 
 // Mesh names from the OBJ objects: every `Display*` mesh is glass, the rest is the shell.
 export const DISPLAY_MESH_PREFIX = 'Display';

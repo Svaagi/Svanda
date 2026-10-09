@@ -281,6 +281,8 @@
   --segment-padding-y: 6px;
   --segment-padding-x: 9px;
   --touch-target-min: 44px;
+  /* WCAG 2.2 target size (minimum) for small controls that sit next to each other */
+  --target-size-min: 24px;
   --control-height: 46px;
   --control-padding-x: 14px;
   --input-code-width: 92px;

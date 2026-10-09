@@ -1,14 +1,20 @@
+/* The track and the viewport share one grid cell: the anchors alone set the track height (one
+   page each), while the viewport stays stuck to the top for the whole track. */
 .stageShell {
   position: relative;
+  display: grid;
 }
 
-/* The negative margin lets the anchors alone set the track height (one page each), while the
-   viewport stays stuck to the top for the whole track. */
+.track,
+.viewport {
+  grid-area: 1 / 1;
+}
+
 .viewport {
   position: sticky;
   top: 0;
+  align-self: start;
   height: 100svh;
-  margin-bottom: -100svh;
   overflow: hidden;
   background: var(--color-bg);
 }

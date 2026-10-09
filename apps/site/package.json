@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "node scripts/checkLegalTodos.mjs && react-router build",
+    "build": "node scripts/checkLegalTodos.mjs && react-router build && node scripts/precompress.mjs",
     "preview": "sirv build/client --port 4173 --quiet",
     "typecheck": "react-router typegen && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.spec.json --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "i18n:check": "node scripts/checkI18n.mjs",
+    "bundle:check": "node scripts/checkBundleBudget.mjs",
+    "lighthouse": "lhci autorun --config=./lighthouserc.cjs",
     "model:convert": "node scripts/convertModel.mjs",
     "model:poster": "node scripts/renderPoster.mjs",
     "venues:placeholders": "node scripts/generateVenuePlaceholders.mjs",
@@ -49,9 +51,11 @@
     "zustand": "5.0.15"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@gltf-transform/core": "4.5.1",
     "@gltf-transform/extensions": "4.5.1",
     "@gltf-transform/functions": "4.5.1",
+    "@lhci/cli": "0.15.1",
     "@playwright/test": "1.64.0",
     "@react-router/dev": "7.18.4",
     "@testing-library/dom": "10.4.2",

@@ -17,6 +17,9 @@
   pointer-events: auto;
 }
 
+/* A layer out of sight is skipped by layout and paint too, and its lazy images (the venue
+   photos) wait until it comes into view instead of loading with the first page. */
 .pageLayer[data-visible='false'] {
   visibility: hidden;
+  content-visibility: hidden;
 }

@@ -74,6 +74,19 @@ describe('StageShell', () => {
     });
   });
 
+  it('puts the anchors before the viewport, so a deep link Tabs into its page', () => {
+    renderStage();
+    const viewport = screen.getByTestId('stage-shell-viewport');
+
+    STAGE_PAGE_IDS.forEach((pageId) => {
+      expect(
+        screen
+          .getByTestId(`stage-shell-anchor-${pageId}`)
+          .compareDocumentPosition(viewport),
+      ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    });
+  });
+
   it('measures the viewport into the store', () => {
     renderStage();
 

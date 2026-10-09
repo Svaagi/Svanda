@@ -1,6 +1,6 @@
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { useReducedMotion } from 'hooks';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, LazyMotion, m } from 'motion/react';
 import type { KeyboardEventHandler, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'ui/button';
@@ -9,6 +9,9 @@ import { childTestId } from 'utils';
 import styles from './dialog.module.css';
 import { getContentMotion, getOverlayMotion } from './dialogMotion';
 import { useReturnFocus } from './useReturnFocus';
+
+const loadMotionFeatures = () =>
+  import('./dialogMotionFeatures').then(({ domAnimation }) => domAnimation);
 
 // `sheet` fills the viewport below the site header instead of floating centred;
 // `bottomSheet` slides up over the lower part of the page, which stays visible above it;
@@ -51,7 +54,8 @@ export interface DialogProps {
 }
 
 // Radix owns the focus trap, Escape, outside click and focus restore; motion only animates
-// the presence, which is why the parts are force-mounted inside AnimatePresence.
+// the presence, which is why the parts are force-mounted inside AnimatePresence. LazyMotion
+// with the slim `m` components keeps the animation features in their own chunk.
 export function Dialog({
   open,
   onOpenChange,
@@ -69,61 +73,63 @@ export function Dialog({
 
   return (
     <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
-      <AnimatePresence>
-        {open && (
-          <RadixDialog.Portal forceMount>
-            <RadixDialog.Overlay asChild forceMount>
-              <motion.div
-                className={VARIANT_CLASS_NAMES[variant].overlay}
-                data-testid={childTestId(testId, 'overlay')}
-                {...getOverlayMotion(isReducedMotion)}
-              />
-            </RadixDialog.Overlay>
-            <RadixDialog.Content
-              asChild
-              forceMount
-              onOpenAutoFocus={handleOpenAutoFocus}
-              onCloseAutoFocus={handleCloseAutoFocus}
-              onKeyDown={onContentKeyDown}
-              // Radix points aria-describedby at its Description part; without one it would
-              // reference a missing element and warn, so the attribute is dropped.
-              {...(!description && { 'aria-describedby': undefined })}
-            >
-              <motion.div
-                className={VARIANT_CLASS_NAMES[variant].content}
-                data-testid={testId}
-                {...getContentMotion(
-                  isReducedMotion,
-                  variant === 'bottomSheet',
-                )}
+      <LazyMotion features={loadMotionFeatures} strict>
+        <AnimatePresence>
+          {open && (
+            <RadixDialog.Portal forceMount>
+              <RadixDialog.Overlay asChild forceMount>
+                <m.div
+                  className={VARIANT_CLASS_NAMES[variant].overlay}
+                  data-testid={childTestId(testId, 'overlay')}
+                  {...getOverlayMotion(isReducedMotion)}
+                />
+              </RadixDialog.Overlay>
+              <RadixDialog.Content
+                asChild
+                forceMount
+                onOpenAutoFocus={handleOpenAutoFocus}
+                onCloseAutoFocus={handleCloseAutoFocus}
+                onKeyDown={onContentKeyDown}
+                // Radix points aria-describedby at its Description part; without one it would
+                // reference a missing element and warn, so the attribute is dropped.
+                {...(!description && { 'aria-describedby': undefined })}
               >
-                <div className={styles.header}>
-                  <RadixDialog.Title
-                    className={styles.title}
-                    data-testid={childTestId(testId, 'title')}
-                  >
-                    {title}
-                  </RadixDialog.Title>
-                  <RadixDialog.Close asChild>
-                    <Button
-                      variant="ghost"
-                      testId={childTestId(testId, 'close')}
+                <m.div
+                  className={VARIANT_CLASS_NAMES[variant].content}
+                  data-testid={testId}
+                  {...getContentMotion(
+                    isReducedMotion,
+                    variant === 'bottomSheet',
+                  )}
+                >
+                  <div className={styles.header}>
+                    <RadixDialog.Title
+                      className={styles.title}
+                      data-testid={childTestId(testId, 'title')}
                     >
-                      {closeLabel ?? t('ui.close')}
-                    </Button>
-                  </RadixDialog.Close>
-                </div>
-                {description && (
-                  <RadixDialog.Description className={styles.description}>
-                    {description}
-                  </RadixDialog.Description>
-                )}
-                {children}
-              </motion.div>
-            </RadixDialog.Content>
-          </RadixDialog.Portal>
-        )}
-      </AnimatePresence>
+                      {title}
+                    </RadixDialog.Title>
+                    <RadixDialog.Close asChild>
+                      <Button
+                        variant="ghost"
+                        testId={childTestId(testId, 'close')}
+                      >
+                        {closeLabel ?? t('ui.close')}
+                      </Button>
+                    </RadixDialog.Close>
+                  </div>
+                  {description && (
+                    <RadixDialog.Description className={styles.description}>
+                      {description}
+                    </RadixDialog.Description>
+                  )}
+                  {children}
+                </m.div>
+              </RadixDialog.Content>
+            </RadixDialog.Portal>
+          )}
+        </AnimatePresence>
+      </LazyMotion>
     </RadixDialog.Root>
   );
 }

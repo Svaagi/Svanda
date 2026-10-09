@@ -95,6 +95,8 @@ siblings in one feature. Shared schemas: `import { contactRequestSchema } from '
 | Preview | `pnpm preview` (static server for the built site on port **4173**) |
 | i18n check | `pnpm i18n:check` (catalog parity against `cs`) |
 | Tracked `.env` guard | `pnpm env:check` |
+| Initial JS budget (after build) | `pnpm --filter @svanda/site bundle:check` |
+| Lighthouse budgets (after build) | `pnpm --filter @svanda/site lighthouse` |
 | Convert 3D model | `pnpm --filter site model:convert` |
 | Regenerate icons, manifest, OG images | `pnpm --filter site brand:assets` |
 | Repaint venue placeholder photos | `pnpm --filter site venues:placeholders` |

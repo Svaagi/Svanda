@@ -2,7 +2,7 @@ import { VENUES_PAGE } from 'constants/stage';
 import { useStageStore } from 'features/stage';
 import { useReducedMotion, useTheme } from 'hooks';
 import { bindFrameLoopVisibility, createFrameLoop } from 'lib/frameLoop';
-import { type RefObject, useEffect } from 'react';
+import { type RefObject, useEffect, useState } from 'react';
 
 import { createVenueBandScene } from './venueBandScene';
 
@@ -13,14 +13,22 @@ type VenueBandOptions = {
 
 // The venue bands' one rAF loop. It runs only while the venues page is the current page, the
 // frame is on screen and the tab is visible, and starts over (with the new token colours)
-// when the theme or the grid cell changes.
+// when the theme or the grid cell changes. The scene is first set up when the venues layer
+// comes into view, not on page load: its colour and size reads force a style and layout pass
+// that would only add to the load's blocking time.
 export function useVenueBand({ frameRef, cell }: VenueBandOptions) {
   const { theme } = useTheme();
   const isReducedMotion = useReducedMotion();
+  const isNearVenues = useStageStore(
+    (state) =>
+      state.page === VENUES_PAGE || Math.abs(state.vp - VENUES_PAGE) < 1,
+  );
+  const [hasNearedVenues, setHasNearedVenues] = useState(isNearVenues);
+  if (isNearVenues && !hasNearedVenues) setHasNearedVenues(true);
 
   useEffect(() => {
     const frame = frameRef.current;
-    if (!frame) return undefined;
+    if (!frame || !hasNearedVenues) return undefined;
     const scene = createVenueBandScene({ frame, cell, isReducedMotion });
     const resizeObserver =
       typeof ResizeObserver === 'undefined'
@@ -60,5 +68,5 @@ export function useVenueBand({ frameRef, cell }: VenueBandOptions) {
       loop.stop();
     };
     // `theme` is not read inside: a change re-reads the token colours in the new scene.
-  }, [frameRef, cell, theme, isReducedMotion]);
+  }, [frameRef, cell, theme, isReducedMotion, hasNearedVenues]);
 }

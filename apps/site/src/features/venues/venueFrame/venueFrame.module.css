@@ -132,20 +132,26 @@
   color: var(--color-venue-label-muted);
 }
 
-/* One cell squares a cell apart, top right on the grid. */
+/* One cell squares a cell apart, top right on the grid. Each button reaches halfway into the
+   gaps around its square, and at least the minimum target size, so the hit areas touch; on
+   small cells that spreads the squares a little wider than the grid. */
 .dots {
+  --venue-dot-inset: max(
+    var(--venue-cell) / 2,
+    (var(--target-size-min) - var(--venue-cell)) / 2
+  );
+
   position: absolute;
-  top: calc(var(--venue-cell) * 2);
-  right: var(--venue-cell);
+  top: calc(var(--venue-cell) * 2 - var(--venue-dot-inset));
+  right: calc(var(--venue-cell) - var(--venue-dot-inset));
   display: flex;
-  gap: var(--venue-cell);
 }
 
 .dot {
   display: block;
-  width: var(--venue-cell);
-  height: var(--venue-cell);
-  padding: var(--border-width-thin);
+  width: calc(var(--venue-cell) + var(--venue-dot-inset) * 2);
+  height: calc(var(--venue-cell) + var(--venue-dot-inset) * 2);
+  padding: calc(var(--venue-dot-inset) + var(--border-width-thin));
   border: 0;
   background: var(--color-venue-dot-off);
   background-clip: content-box;

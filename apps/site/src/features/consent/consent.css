@@ -80,3 +80,10 @@
   outline: var(--focus-ring-width) solid var(--color-focus);
   outline-offset: var(--focus-ring-offset);
 }
+
+/* The category switches are drawn 23px tall; their inputs reach the minimum target size. */
+#cc-main .section__toggle-wrapper .section__toggle {
+  top: 50%;
+  height: var(--target-size-min);
+  transform: translateY(-50%);
+}

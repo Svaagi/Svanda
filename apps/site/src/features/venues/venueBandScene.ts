@@ -42,8 +42,10 @@ type VenueBandScene = {
   resize: (width: number, height: number) => void;
 };
 
-function readVenueBandPalette(element: Element): VenueBandPalette {
-  const read = (name: string) => readCssVar(element, name);
+// The band tokens and venue colours are global, so they are read from the root: reading
+// them from inside the frame (a size container) would force a layout first.
+function readVenueBandPalette(root: Element): VenueBandPalette {
+  const read = (name: string) => readCssVar(root, name);
   return {
     text: read(VENUE_BAND_COLOR_VARS.text),
     textMuted: read(VENUE_BAND_COLOR_VARS.textMuted),
@@ -95,7 +97,8 @@ export function createVenueBandScene({
   cell,
   isReducedMotion,
 }: VenueBandSceneOptions): VenueBandScene {
-  const palette = readVenueBandPalette(frame);
+  const root = frame.ownerDocument.documentElement;
+  const palette = readVenueBandPalette(root);
   const canvases = new WeakMap<HTMLCanvasElement, BandCanvas>();
   let lastDrawMs = Number.NEGATIVE_INFINITY;
   let frameWidth = frame.clientWidth;
@@ -111,7 +114,7 @@ export function createVenueBandScene({
       layout: null,
       layoutKey: '',
       labelKey: '',
-      color: resolveCssValue(canvas, canvas.dataset.color ?? ''),
+      color: resolveCssValue(root, canvas.dataset.color ?? ''),
       drawnKey: '',
     };
     canvases.set(canvas, band);

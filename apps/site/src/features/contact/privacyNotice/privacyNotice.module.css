@@ -5,6 +5,8 @@
   line-height: var(--line-height-base);
 }
 
+/* Underlined: colour alone does not set it apart from the surrounding text enough. */
 .link {
   color: var(--color-fg);
+  text-decoration: underline;
 }
