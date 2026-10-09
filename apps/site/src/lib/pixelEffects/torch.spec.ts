@@ -1,7 +1,7 @@
 import { hash3 } from 'lib/random';
 import { describe, expect, it } from 'vitest';
 
-import { isTorchCellLit, torchLevel } from './heroTorch';
+import { isTorchCellLit, torchLevel } from './torch';
 
 describe('torchLevel', () => {
   it('is full at the pointer and off at the radius', () => {

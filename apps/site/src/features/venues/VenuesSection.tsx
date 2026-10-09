@@ -4,7 +4,14 @@ import {
   VENUE_HEADING_FALLBACK_MAX_COLS,
   VENUES,
 } from 'constants/venues';
-import { type CSSProperties, useId, useMemo, useRef } from 'react';
+import {
+  type CSSProperties,
+  useCallback,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { PixelText } from 'ui';
 import { childTestId } from 'utils';
@@ -13,6 +20,7 @@ import type { HeadingSnap } from './gridSnap';
 import { useVenueCarousel } from './useVenueCarousel';
 import { useVenueGridSnap } from './useVenueGridSnap';
 import { VenueFrame } from './venueFrame';
+import { VenueLightbox } from './venueLightbox';
 import styles from './venuesSection.module.css';
 import { venueTabId, VenueTabs } from './venueTabs';
 
@@ -29,7 +37,7 @@ const headingShiftStyle = (heading: HeadingSnap | null) =>
     : {}) as CSSProperties;
 
 // The venues page: a pixel heading in the active venue's colour, the photo frame and the
-// venue tabs, all snapped onto the background grid.
+// venue tabs, all snapped onto the background grid, and the photo lightbox.
 export function VenuesSection({
   testId = 'venues-section',
 }: VenuesSectionProps) {
@@ -41,6 +49,7 @@ export function VenuesSection({
   const headingRef = useRef<HTMLHeadingElement>(null);
   const frameHostRef = useRef<HTMLDivElement>(null);
   const tabsRef = useRef<HTMLDivElement>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const {
     venueIndex,
     photoIndex,
@@ -57,6 +66,7 @@ export function VenuesSection({
   });
   const activeVenue = VENUES[venueIndex] ?? VENUES[0];
   const headingColors = useMemo(() => [activeVenue.color], [activeVenue.color]);
+  const handleOpenPhoto = useCallback(() => setIsLightboxOpen(true), []);
 
   return (
     <section
@@ -103,6 +113,7 @@ export function VenuesSection({
           onStepVenue={stepVenue}
           onStepPhoto={stepPhoto}
           onSelectPhoto={selectPhoto}
+          onOpenPhoto={handleOpenPhoto}
           snap={snap.frame}
         />
         <VenueTabs
@@ -115,6 +126,13 @@ export function VenuesSection({
           labelledBy={headingId}
         />
       </div>
+      <VenueLightbox
+        venue={activeVenue}
+        photoIndex={photoIndex}
+        isOpen={isLightboxOpen}
+        onOpenChange={setIsLightboxOpen}
+        onStepPhoto={stepPhoto}
+      />
     </section>
   );
 }

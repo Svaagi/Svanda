@@ -1,7 +1,7 @@
 import { hash3 } from 'lib/random';
 import { describe, expect, it } from 'vitest';
 
-import { twinkleAlpha } from './heroTwinkle';
+import { twinkleAlpha } from './twinkle';
 
 const SAMPLE_COLS = 60;
 const SAMPLE_ROWS = 40;
@@ -55,5 +55,21 @@ describe('twinkleAlpha', () => {
 
   it('is deterministic', () => {
     expect(twinkleAlpha(3, 7, 12.34)).toBe(twinkleAlpha(3, 7, 12.34));
+  });
+});
+
+describe('twinkleAlpha decay exponent', () => {
+  it('decays linearly with an exponent of one', () => {
+    if (!blinkingCell) throw new Error('no blinking cell in the sample');
+    const { col, row } = blinkingCell;
+    const samples = Array.from({ length: 800 }, (_, i) => i * STEP_S);
+    const peakT = samples.reduce((best, t) =>
+      twinkleAlpha(col, row, t, 1) > twinkleAlpha(col, row, best, 1) ? t : best,
+    );
+    const linear = twinkleAlpha(col, row, peakT + 0.51, 1);
+    const quadratic = twinkleAlpha(col, row, peakT + 0.51);
+
+    expect(linear).toBeCloseTo(0.5, 1);
+    expect(quadratic).toBeCloseTo(linear ** 2, 5);
   });
 });

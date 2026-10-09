@@ -1,4 +1,4 @@
-import type { Venue } from 'constants/venues';
+import { type Venue, VENUE_PHOTO_SIZES } from 'constants/venues';
 import { useLocale } from 'i18n';
 import { type CSSProperties, memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,33 +6,44 @@ import { childTestId } from 'utils';
 
 import type { SwipeDrag } from '../useVenueSwipe';
 import { formatVenueDate } from '../venueDate';
+import { VenuePhotoImage } from '../venuePhoto';
 import styles from './venueFrame.module.css';
-import { VenuePhotoImage } from './VenuePhotoImage';
 
 export type VenueSlideProps = {
   venue: Venue;
   isActive: boolean;
   photoIndex: number;
   drag: SwipeDrag;
+  // The name as the band shows it (scrambling while the venue is being switched to).
+  bandText: string;
   onSelectPhoto: (photoIndex: number) => void;
+  onOpenPhoto: () => void;
   testId: string;
 };
 
-// One venue: its photo strip, the note and place over it, and a dot per photo.
+// One venue: its photo strip, the band with the venue name, the note and place over it, and a
+// dot per photo. The whole photo is a button that opens it in the lightbox.
 export const VenueSlide = memo(function VenueSlide({
   venue,
   isActive,
   photoIndex,
   drag,
+  bandText,
   onSelectPhoto,
+  onOpenPhoto,
   testId,
 }: VenueSlideProps) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const { id, name, city, date, tint, photos } = venue;
+  const { id, name, city, date, color, tint, photos } = venue;
   const photoLabel = (index: number) =>
     t('venues.photo', { index: index + 1, count: photos.length, venue: name });
   const slideStyle = { '--venue-tint': tint } as CSSProperties;
+  const openLabel = t('venues.lightbox.open', {
+    index: photoIndex + 1,
+    count: photos.length,
+    venue: name,
+  });
   const stripStyle = {
     '--venue-photo-index': photoIndex,
     '--venue-drag-x': `${drag.offsetPx}px`,
@@ -56,6 +67,9 @@ export const VenueSlide = memo(function VenueSlide({
         {photos.map((photo, index) => (
           <div key={photo.img.src} className={styles.photo}>
             <VenuePhotoImage
+              sizes={VENUE_PHOTO_SIZES}
+              loading="lazy"
+              className={styles.image}
               photo={photo}
               alt={photoLabel(index)}
               testId={childTestId(testId, `photo-${index + 1}`)}
@@ -64,6 +78,21 @@ export const VenueSlide = memo(function VenueSlide({
         ))}
       </div>
       <div className={styles.scrim} />
+      <canvas
+        className={styles.band}
+        data-venue-band=""
+        data-text={bandText}
+        data-color={color}
+        aria-hidden="true"
+        data-testid={childTestId(testId, 'band')}
+      />
+      <button
+        type="button"
+        className={styles.open}
+        aria-label={openLabel}
+        onClick={onOpenPhoto}
+        data-testid={childTestId(testId, 'open')}
+      />
       <p className={styles.label}>
         <span className={styles.note}>{t(`venues.notes.${id}`)}</span>
         <span

@@ -77,6 +77,17 @@
   --color-venue-label-muted: rgb(255 255 255 / 0.7);
   --color-venue-control: var(--palette-white);
   --color-venue-dot-off: rgb(255 255 255 / 0.32);
+  /* The band canvas over the photos: the name, the twinkle sparks and the torch */
+  --color-venue-band-text: var(--palette-white);
+  --color-venue-band-text-muted: #9a9aa2;
+  --color-venue-band-spark-light: var(--palette-white);
+  --color-venue-band-spark-dark: var(--palette-black);
+  --color-venue-band-torch: var(--palette-white);
+  --color-venue-band-torch-on-text: var(--palette-black);
+  /* The photo lightbox stays dark in both themes */
+  --color-lightbox-bg: rgb(5 5 8 / 0.94);
+  --color-lightbox-fg: var(--palette-white);
+  --color-lightbox-muted: rgb(255 255 255 / 0.7);
   --venue-scrim:
     linear-gradient(
       90deg,
@@ -343,6 +354,7 @@
   --venue-cell-fallback: 14px;
   --venue-label-x: 20cqw;
   --venue-label-y: 20%;
+  --venue-label-opacity: 1;
   --venue-label-gap: 0.4cqw;
   --venue-label-font-size: max(11px, 1.15cqw);
   --venue-tab-bar-height: 4px;

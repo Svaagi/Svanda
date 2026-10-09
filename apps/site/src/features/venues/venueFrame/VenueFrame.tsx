@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { childTestId } from 'utils';
 
 import type { FrameSnap } from '../gridSnap';
+import { useVenueBand } from '../useVenueBand';
+import { useVenueScramble } from '../useVenueScramble';
 import { IDLE_DRAG, useVenueSwipe } from '../useVenueSwipe';
 import { frameKeyAction } from '../venueKeys';
 import { VenueChevronButton } from './VenueChevronButton';
@@ -25,6 +27,7 @@ export type VenueFrameProps = {
   onStepVenue: (step: number) => void;
   onStepPhoto: (step: number) => void;
   onSelectPhoto: (photoIndex: number) => void;
+  onOpenPhoto: () => void;
   snap: FrameSnap | null;
   testId?: string;
 };
@@ -41,8 +44,9 @@ const snapStyle = (snap: FrameSnap | null) =>
       }
     : {}) as CSSProperties;
 
-// The venue photo frame: a vertical track of venues, each a horizontal strip of photos.
-// Chevrons and up/down keys change the venue; dots, swipes and left/right keys the photo.
+// The venue photo frame: a vertical track of venues, each a horizontal strip of photos under
+// a band with the venue name. Chevrons and up/down keys change the venue (its name scrambles
+// in); dots, swipes and left/right keys the photo; a tap or Enter on the photo opens it.
 export function VenueFrame({
   id,
   labelledBy,
@@ -52,12 +56,17 @@ export function VenueFrame({
   onStepVenue,
   onStepPhoto,
   onSelectPhoto,
+  onOpenPhoto,
   snap,
   testId = 'venue-frame',
 }: VenueFrameProps) {
   const { t } = useTranslation();
   const frameRef = useRef<HTMLDivElement>(null);
-  const { bindSwipe, drag } = useVenueSwipe({
+  const cellPx = snap?.cell ?? VENUE_CELL_FALLBACK_PX;
+  const activeName = venues[venueIndex]?.name ?? '';
+  const bandText = useVenueScramble(activeName);
+  useVenueBand({ frameRef, cell: cellPx });
+  const { bindSwipe, drag, isDragClick } = useVenueSwipe({
     frameRef,
     photoIndex,
     photoCount: venues[venueIndex]?.photos.length ?? 0,
@@ -77,7 +86,9 @@ export function VenueFrame({
   );
   const handlePrevious = useCallback(() => onStepVenue(-1), [onStepVenue]);
   const handleNext = useCallback(() => onStepVenue(1), [onStepVenue]);
-  const cellPx = snap?.cell ?? VENUE_CELL_FALLBACK_PX;
+  const handleOpenPhoto = useCallback(() => {
+    if (!isDragClick()) onOpenPhoto();
+  }, [isDragClick, onOpenPhoto]);
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- the focusable tabpanel takes the arrow keys for its photos and venues (ARIA carousel pattern)
@@ -110,7 +121,9 @@ export function VenueFrame({
               isActive={isActive}
               photoIndex={isActive ? photoIndex : 0}
               drag={isActive ? drag : IDLE_DRAG}
+              bandText={isActive ? bandText : venue.name}
               onSelectPhoto={onSelectPhoto}
+              onOpenPhoto={handleOpenPhoto}
               testId={childTestId(testId, `slide-${venue.id}`)}
             />
           );

@@ -1,6 +1,19 @@
-export { BITMAP, CHEVRON_DOWN, CHEVRON_UP, MOON, SUN } from './bitmaps';
+export {
+  BITMAP,
+  CHEVRON_DOWN,
+  CHEVRON_LEFT,
+  CHEVRON_RIGHT,
+  CHEVRON_UP,
+  MOON,
+  SUN,
+} from './bitmaps';
 export { type Bitmap, FILLED_PIXEL } from './glyphs';
-export { bitmapWidth, layoutBitmap } from './gridLayout';
+export {
+  bitmapWidth,
+  layoutBitmap,
+  layoutText,
+  measureText,
+} from './gridLayout';
 export { fillInsetCell } from './insetCell';
 export { pixelBitmap } from './pixelBitmap';
 export type { PixelLayout } from './pixelCells';

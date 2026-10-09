@@ -5,13 +5,13 @@ import {
   MARK_FADE_RATE,
   MARK_GRADIENT_STEPS,
   MARK_LIT_STEPS,
-  TORCH_RADIUS_PX,
   TWINKLE_ALPHA,
   TWINKLE_MIN_ALPHA,
   TWINKLE_SHADE_SALT,
   TWINKLE_SHADE_STEPS,
 } from 'constants/hero';
 import { CELL_INSET_PX } from 'constants/pixel';
+import { TORCH_RADIUS_PX } from 'constants/pixelEffects';
 import {
   type FloorShadow,
   type StagePointer,
@@ -20,12 +20,11 @@ import {
 import { convexHull, isPointInPolygon, polygonBounds } from 'lib/geometry';
 import { clamp, HALF } from 'lib/math';
 import { BITMAP, bitmapWidth, fillInsetCell, layoutBitmap } from 'lib/pixel';
+import { isTorchCellLit, torchLevel, twinkleAlpha } from 'lib/pixelEffects';
 import { hash3 } from 'lib/random';
 
 import type { HeroLayout } from './heroLayout';
 import { type HeroPalette, shadeIndex } from './heroPalette';
-import { isTorchCellLit, torchLevel } from './heroTorch';
-import { twinkleAlpha } from './heroTwinkle';
 
 export type HeroFrameInput = {
   vp: number;

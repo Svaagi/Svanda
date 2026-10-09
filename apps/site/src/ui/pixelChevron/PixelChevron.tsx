@@ -3,11 +3,22 @@ import {
   CHEVRON_CELL_PX,
   CURRENT_COLOR_PALETTE,
 } from 'constants/pixel';
-import { CHEVRON_DOWN, CHEVRON_UP, pixelBitmap } from 'lib/pixel';
+import {
+  CHEVRON_DOWN,
+  CHEVRON_LEFT,
+  CHEVRON_RIGHT,
+  CHEVRON_UP,
+  pixelBitmap,
+} from 'lib/pixel';
 import { useMemo } from 'react';
 import { PixelGrid } from 'ui/pixelGrid';
 
-const CHEVRON_BITMAPS = { up: CHEVRON_UP, down: CHEVRON_DOWN } as const;
+const CHEVRON_BITMAPS = {
+  up: CHEVRON_UP,
+  down: CHEVRON_DOWN,
+  left: CHEVRON_LEFT,
+  right: CHEVRON_RIGHT,
+} as const;
 
 type PixelChevronDirection = keyof typeof CHEVRON_BITMAPS;
 

@@ -13,11 +13,14 @@
   transition: border-color var(--duration-fast) var(--ease-standard);
 }
 
-.iconButton:hover:not(:disabled) {
+.iconButton:hover:not(:disabled, [aria-disabled='true']) {
   border-color: var(--color-accent);
 }
 
-.iconButton:disabled {
+/* `aria-disabled` keeps a control focusable at the end of its range, so focus never drops
+   out of a dialog when it stops applying. */
+.iconButton:disabled,
+.iconButton[aria-disabled='true'] {
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }

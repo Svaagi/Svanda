@@ -191,7 +191,10 @@
     "next": "Další pobočka",
     "lightbox": {
       "label": "Foto",
-      "close": "Zavřít"
+      "close": "Zavřít",
+      "open": "Zobrazit foto {{index}}/{{count}} · {{venue}}",
+      "previous": "Předchozí foto",
+      "next": "Další foto"
     },
     "notes": {
       "lemon": "Karaoke pátek",

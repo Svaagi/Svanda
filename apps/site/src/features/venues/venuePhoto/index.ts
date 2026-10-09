@@ -1,0 +1,1 @@
+export { VenuePhotoImage } from './VenuePhotoImage';

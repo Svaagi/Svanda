@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { renderAtPath } from 'utils/testing';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Dialog, type DialogProps } from './Dialog';
 
@@ -9,12 +9,14 @@ interface DialogHarnessProps {
   description?: string;
   closeLabel?: string;
   variant?: DialogProps['variant'];
+  onContentKeyDown?: DialogProps['onContentKeyDown'];
 }
 
 function DialogHarness({
   description,
   closeLabel,
   variant,
+  onContentKeyDown,
 }: DialogHarnessProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,6 +36,7 @@ function DialogHarness({
         description={description}
         closeLabel={closeLabel}
         variant={variant}
+        onContentKeyDown={onContentKeyDown}
       >
         <input aria-label="Accent" data-testid="dialog-field" />
       </Dialog>
@@ -148,5 +151,32 @@ describe('Dialog', () => {
 
     expect(screen.getByRole('dialog')).toHaveAccessibleName('Colours');
     expect(screen.getByTestId('dialog').className).not.toBe(sheetClass);
+  });
+
+  it('styles the fullscreen viewer apart from the centred dialog, with a title test id', () => {
+    renderAtPath(<DialogHarness />, '/en');
+    openDialog();
+    const centredClass = screen.getByTestId('dialog').className;
+    cleanup();
+
+    renderAtPath(<DialogHarness variant="fullscreen" />, '/en');
+    openDialog();
+
+    expect(screen.getByTestId('dialog').className).not.toBe(centredClass);
+    expect(screen.getByTestId('dialog-title')).toHaveTextContent('Colours');
+  });
+
+  it('hands keys pressed inside to onContentKeyDown', () => {
+    const handleKeyDown = vi.fn();
+    renderAtPath(<DialogHarness onContentKeyDown={handleKeyDown} />, '/en');
+    openDialog();
+
+    fireEvent.keyDown(screen.getByTestId('dialog-field'), {
+      key: 'ArrowRight',
+    });
+
+    expect(handleKeyDown).toHaveBeenCalledWith(
+      expect.objectContaining({ key: 'ArrowRight' }),
+    );
   });
 });

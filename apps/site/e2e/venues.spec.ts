@@ -6,6 +6,8 @@ const tab = (page: Page, venueId: string) =>
 const strip = (page: Page, venueId: string) =>
   page.getByTestId(`venue-frame-slide-${venueId}-strip`);
 
+const lightbox = (page: Page) => page.getByTestId('venue-lightbox');
+
 const openVenues = async (page: Page, path = '/en#venues') => {
   await page.goto(path);
   await expect(page.getByTestId('page-layer-venues')).toHaveAttribute(
@@ -115,6 +117,8 @@ test.describe('venues page', () => {
     await page.mouse.move(box.x + box.width * 0.2, y, { steps: 8 });
     await page.mouse.up();
     await expect(strip(page, 'lemon')).toHaveAttribute('data-photo-index', '3');
+    // The click that ends a drag does not open the photo.
+    await expect(lightbox(page)).toBeHidden();
   });
 
   test('photos load lazily with explicit dimensions and a localized date', async ({
@@ -135,6 +139,74 @@ test.describe('venues page', () => {
       .toBeGreaterThan(0);
     await expect(page.getByTestId('venue-frame-slide-lemon-place')).toHaveText(
       'Brno · 20. 9. 2026',
+    );
+  });
+
+  test('switching venue scrambles the name into the band', async ({ page }) => {
+    await openVenues(page);
+    const band = page.getByTestId('venue-frame-slide-arcadeBar-band');
+
+    await page.getByTestId('venue-frame-next').click();
+    await expect(band).toHaveAttribute('data-text', 'Arcade Bar');
+    // The band loop has sized the canvas for the device pixel ratio and drawn into it.
+    await expect
+      .poll(() =>
+        band.evaluate(
+          (canvas: HTMLCanvasElement) =>
+            canvas.width ===
+            Math.round(
+              canvas.clientWidth * Math.min(window.devicePixelRatio, 2),
+            ),
+        ),
+      )
+      .toBe(true);
+  });
+
+  test('the lightbox opens on a tap and works by keyboard', async ({
+    page,
+  }) => {
+    await openVenues(page);
+
+    const box = await frame(page).boundingBox();
+    expect(box).not.toBeNull();
+    if (!box) return;
+    await page.mouse.click(box.x + box.width * 0.6, box.y + box.height / 2);
+    await expect(lightbox(page)).toBeVisible();
+    await expect(page.getByTestId('venue-lightbox-title')).toHaveText(
+      'PHOTO 1/5 · Lemon',
+    );
+    await page.keyboard.press('Escape');
+    await expect(lightbox(page)).toBeHidden();
+
+    const trigger = page.getByTestId('venue-frame-slide-lemon-open');
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect(lightbox(page)).toBeVisible();
+    await expect(page.getByTestId('venue-lightbox-close')).toBeFocused();
+    await expect(page.getByTestId('venue-lightbox-image')).toHaveAttribute(
+      'alt',
+      'PHOTO 1/5 · Lemon',
+    );
+
+    await page.keyboard.press('ArrowRight');
+    await expect(page.getByTestId('venue-lightbox-title')).toHaveText(
+      'PHOTO 2/5 · Lemon',
+    );
+    await page.getByTestId('venue-lightbox-next').click();
+    await expect(page.getByTestId('venue-lightbox-title')).toHaveText(
+      'PHOTO 3/5 · Lemon',
+    );
+    // Tab stays inside the dialog.
+    for (let i = 0; i < 4; i++) await page.keyboard.press('Tab');
+    await expect(lightbox(page).locator(':focus')).toHaveCount(1);
+
+    await page.keyboard.press('Escape');
+    await expect(lightbox(page)).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await expect(strip(page, 'lemon')).toHaveAttribute('data-photo-index', '2');
+    await expect(page.getByTestId('page-layer-venues')).toHaveAttribute(
+      'data-active',
+      'true',
     );
   });
 });

@@ -4,7 +4,7 @@ import {
   TORCH_FALLOFF_EXPONENT,
   TORCH_LEVELS,
   TORCH_RADIUS_PX,
-} from 'constants/hero';
+} from 'constants/pixelEffects';
 import { hash3 } from 'lib/random';
 
 // Torch brightness at a distance from the pointer, quantised to TORCH_LEVELS steps:

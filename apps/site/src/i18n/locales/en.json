@@ -191,7 +191,10 @@
     "next": "Next venue",
     "lightbox": {
       "label": "Photo",
-      "close": "Close"
+      "close": "Close",
+      "open": "Open photo {{index}}/{{count}} · {{venue}}",
+      "previous": "Previous photo",
+      "next": "Next photo"
     },
     "notes": {
       "lemon": "Karaoke Friday",

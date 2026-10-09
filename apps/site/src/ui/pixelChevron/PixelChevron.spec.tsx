@@ -30,4 +30,30 @@ describe('PixelChevron', () => {
     expect(tipTop('up')).toBe('1');
     expect(tipTop('down')).toBe('21');
   });
+
+  it.each(['left', 'right'] as const)(
+    'turns the %s chevron sideways, three cells wide and five tall',
+    (direction) => {
+      render(<PixelChevron direction={direction} cellSize={10} />);
+      const root = screen.getByTestId('pixel-chevron');
+      const svg = root.querySelector('svg');
+
+      expect(root.querySelectorAll('rect')).toHaveLength(5);
+      expect(svg).toHaveAttribute('width', '30');
+      expect(svg).toHaveAttribute('height', '50');
+    },
+  );
+
+  it('points the tip left or right', () => {
+    render(<PixelChevron direction="left" cellSize={10} testId="left" />);
+    render(<PixelChevron direction="right" cellSize={10} testId="right" />);
+    const tipLeft = (testId: string) =>
+      screen
+        .getByTestId(testId)
+        .querySelector('rect[y="21"]')
+        ?.getAttribute('x');
+
+    expect(tipLeft('left')).toBe('1');
+    expect(tipLeft('right')).toBe('21');
+  });
 });

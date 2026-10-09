@@ -1,6 +1,6 @@
 import { useDrag } from '@use-gesture/react';
 import { VENUE_SWIPE_START_PX } from 'constants/venues';
-import { type RefObject, useState } from 'react';
+import { type RefObject, useCallback, useRef, useState } from 'react';
 
 import { rubberBand, swipeStep } from './venueSwipe';
 
@@ -21,7 +21,7 @@ export const IDLE_DRAG: SwipeDrag = { isDragging: false, offsetPx: 0 };
 
 // Horizontal drags on the frame pull the photo strip along and turn the photo on release.
 // Vertical drags stay with the page (`touch-action: pan-y` on the frame) and taps are left for
-// the controls under them.
+// the controls under them; `isDragClick` tells them apart from the click a drag ends with.
 export function useVenueSwipe({
   frameRef,
   photoIndex,
@@ -29,6 +29,7 @@ export function useVenueSwipe({
   onStep,
 }: SwipeOptions) {
   const [drag, setDrag] = useState<SwipeDrag>(IDLE_DRAG);
+  const hasJustDraggedRef = useRef(false);
 
   const bindSwipe = useDrag(
     ({ active, movement: [dragPx], tap }) => {
@@ -41,6 +42,11 @@ export function useVenueSwipe({
         return;
       }
       setDrag(IDLE_DRAG);
+      // The click the browser fires after this release (same task) ends a drag, not a tap.
+      hasJustDraggedRef.current = true;
+      setTimeout(() => {
+        hasJustDraggedRef.current = false;
+      });
       const step = swipeStep(dragPx, frameRef.current?.offsetWidth ?? 0);
       if (step !== 0) onStep(step);
     },
@@ -53,5 +59,8 @@ export function useVenueSwipe({
     },
   );
 
-  return { bindSwipe, drag };
+  // True for the click that ends a drag, which must not open anything.
+  const isDragClick = useCallback(() => hasJustDraggedRef.current, []);
+
+  return { bindSwipe, drag, isDragClick };
 }

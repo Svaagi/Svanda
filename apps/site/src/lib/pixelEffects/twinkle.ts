@@ -8,12 +8,17 @@ import {
   TWINKLE_PERIOD_SPREAD_S,
   TWINKLE_PHASE_SALT,
   TWINKLE_SHARE_SALT,
-} from 'constants/hero';
+} from 'constants/pixelEffects';
 import { hash3 } from 'lib/random';
 
-// Variant A: a third of the cells blink on their own 2.5 to 7.5 s period, with a quick
-// attack and a quadratic decay. 0..1, the same for a cell at the same time on every visit.
-export function twinkleAlpha(col: number, row: number, t: number): number {
+// A third of the cells blink on their own 2.5 to 7.5 s period, with a quick attack and a
+// decay (quadratic by default). 0..1, the same for a cell at the same time on every visit.
+export function twinkleAlpha(
+  col: number,
+  row: number,
+  t: number,
+  decayExponent = TWINKLE_DECAY_EXPONENT,
+): number {
   if (hash3(col, row, TWINKLE_SHARE_SALT) > TWINKLE_CELL_SHARE) return 0;
   const periodS =
     TWINKLE_PERIOD_MIN_S +
@@ -23,5 +28,5 @@ export function twinkleAlpha(col: number, row: number, t: number): number {
   if (phaseS < TWINKLE_ATTACK_S) return phaseS / TWINKLE_ATTACK_S;
   const decayS = phaseS - TWINKLE_ATTACK_S;
   if (decayS >= TWINKLE_DECAY_S) return 0;
-  return (1 - decayS / TWINKLE_DECAY_S) ** TWINKLE_DECAY_EXPONENT;
+  return (1 - decayS / TWINKLE_DECAY_S) ** decayExponent;
 }

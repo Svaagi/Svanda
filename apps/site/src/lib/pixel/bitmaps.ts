@@ -17,3 +17,8 @@ export const MOON: Bitmap = ['..###', '.##..', '.#...', '.##..', '..###'];
 export const CHEVRON_UP: Bitmap = ['..#..', '.#.#.', '#...#'];
 
 export const CHEVRON_DOWN: Bitmap = ['#...#', '.#.#.', '..#..'];
+
+// The same chevrons turned sideways (lightbox arrows), 3 x 5.
+export const CHEVRON_LEFT: Bitmap = ['..#', '.#.', '#..', '.#.', '..#'];
+
+export const CHEVRON_RIGHT: Bitmap = ['#..', '.#.', '..#', '.#.', '#..'];

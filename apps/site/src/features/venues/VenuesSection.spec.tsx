@@ -1,8 +1,14 @@
-import { act, fireEvent, screen, within } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { VENUES } from 'constants/venues';
 import { useStageStore } from 'features/stage';
 import { renderAtPath } from 'utils/testing';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { VenuesSection } from './VenuesSection';
 
@@ -160,5 +166,105 @@ describe('VenuesSection', () => {
     expect(headingPixels.querySelector('svg')?.getAttribute('height')).not.toBe(
       fallbackHeight,
     );
+  });
+
+  it('replays the name scramble in the band when the venue changes', () => {
+    vi.useFakeTimers();
+    try {
+      renderAtPath(<VenuesSection />, '/en');
+      const band = screen.getByTestId('venue-frame-slide-arcadeBar-band');
+      expect(band).toHaveAttribute('data-text', 'Arcade Bar');
+      expect(band).toHaveAttribute('aria-hidden', 'true');
+
+      fireEvent.click(tab('arcadeBar'));
+      expect(band.dataset.text).not.toBe('Arcade Bar');
+      expect(band.dataset.text).toHaveLength('Arcade Bar'.length);
+
+      // Two letters per 70 ms step resolve the ten characters in five steps.
+      for (let step = 0; step < 5; step++) {
+        act(() => {
+          vi.advanceTimersByTime(70);
+        });
+      }
+      expect(band).toHaveAttribute('data-text', 'Arcade Bar');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+});
+
+describe('VenuesSection lightbox', () => {
+  const lightbox = () => screen.queryByTestId('venue-lightbox');
+  const openButton = (venueId: string) =>
+    screen.getByTestId(`venue-frame-slide-${venueId}-open`);
+
+  it('opens the current photo with its counter and alt text', async () => {
+    renderAtPath(<VenuesSection />, '/en');
+    fireEvent.click(screen.getByTestId('venue-frame-slide-lemon-dot-2'));
+    const trigger = openButton('lemon');
+    expect(trigger).toHaveAccessibleName('Open photo 2/5 · Lemon');
+
+    trigger.focus();
+    fireEvent.click(trigger);
+
+    const dialog = await screen.findByRole('dialog', {
+      name: 'PHOTO 2/5 · Lemon',
+    });
+    expect(dialog).toBe(lightbox());
+    expect(screen.getByTestId('venue-lightbox-image')).toHaveAttribute(
+      'alt',
+      'PHOTO 2/5 · Lemon',
+    );
+    expect(screen.getByTestId('venue-lightbox-image')).toHaveAttribute(
+      'loading',
+      'eager',
+    );
+  });
+
+  it('steps through the photos with the arrows and keys, stopping at the ends', async () => {
+    renderAtPath(<VenuesSection />, '/en');
+    fireEvent.click(openButton('lemon'));
+    await screen.findByTestId('venue-lightbox');
+    const title = () => screen.getByTestId('venue-lightbox-title');
+    const previous = screen.getByTestId('venue-lightbox-previous');
+
+    expect(previous).toHaveAttribute('aria-disabled', 'true');
+    fireEvent.click(previous);
+    expect(title()).toHaveTextContent('PHOTO 1/5 · Lemon');
+
+    fireEvent.click(screen.getByTestId('venue-lightbox-next'));
+    expect(title()).toHaveTextContent('PHOTO 2/5 · Lemon');
+    expect(fireEvent.keyDown(title(), { key: 'ArrowRight' })).toBe(false);
+    expect(title()).toHaveTextContent('PHOTO 3/5 · Lemon');
+    fireEvent.keyDown(title(), { key: 'ArrowLeft' });
+    expect(title()).toHaveTextContent('PHOTO 2/5 · Lemon');
+    // The frame behind follows, so closing shows the photo last viewed.
+    expect(activeStrip('lemon')).toHaveAttribute('data-photo-index', '1');
+
+    for (let i = 0; i < 5; i++) {
+      fireEvent.keyDown(title(), { key: 'ArrowRight' });
+    }
+    expect(title()).toHaveTextContent('PHOTO 5/5 · Lemon');
+    expect(screen.getByTestId('venue-lightbox-next')).toHaveAttribute(
+      'aria-disabled',
+      'true',
+    );
+  });
+
+  it('closes on Escape and returns focus to the photo', async () => {
+    renderAtPath(<VenuesSection />, '/en');
+    const trigger = openButton('lemon');
+    trigger.focus();
+    fireEvent.click(trigger);
+    await waitFor(() =>
+      expect(screen.getByTestId('venue-lightbox-close')).toHaveFocus(),
+    );
+
+    fireEvent.keyDown(screen.getByTestId('venue-lightbox'), {
+      key: 'Escape',
+    });
+
+    await waitFor(() => expect(lightbox()).not.toBeInTheDocument());
+    expect(trigger).toHaveFocus();
   });
 });
