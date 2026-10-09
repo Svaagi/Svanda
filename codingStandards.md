@@ -238,7 +238,10 @@ The hero stage and configurator are the riskiest code for performance and batter
   English key (`contact.form.email`, `venues.title`). No hard-coded literals in components,
   including `aria-label`, `alt`, `title` and `<meta>` content.
 - **Locales: `cs` (default), `en`, `sk`.** A key must exist in all three catalogs with a real
-  translation; CI fails on a missing, empty or orphaned key.
+  translation; CI fails on a missing, empty or orphaned key (`pnpm i18n:check`). `cs` is the
+  reference catalog: "orphaned" means a key in `en` or `sk` that `cs` lacks. Keys not yet used by
+  code are allowed, since the catalogs hold all design copy ahead of the sections that render it.
+  Translator notes live under a top-level `_meta` key, which the check and i18next ignore.
 - **The locale comes from the URL** (`/` cs, `/en`, `/sk`, and localized legal slugs), so each
   locale prerenders to its own HTML. An explicit choice in the switcher is remembered and
   applied on a later visit to `/`; the browser language is never used to redirect a crawler.

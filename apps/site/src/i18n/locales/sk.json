@@ -1,0 +1,196 @@
+{
+  "_meta": {
+    "note": "Slovak copy was machine translated from Czech and is pending review by a native speaker."
+  },
+  "nav": {
+    "karaoke": "Karaoke",
+    "jukebox": "Jukebox",
+    "custom": "Custom",
+    "venues": "Pobočky",
+    "contact": "Kontakt",
+    "menu": "MENU",
+    "close": "ZAVRIEŤ",
+    "menuLabel": "Menu",
+    "home": "SVANDA",
+    "themeToLight": "Svetlý režim",
+    "themeToDark": "Tmavý režim"
+  },
+  "language": {
+    "label": "Jazyk",
+    "cs": { "short": "CS", "name": "Čeština" },
+    "en": { "short": "EN", "name": "English" },
+    "sk": { "short": "SK", "name": "Slovenčina" }
+  },
+  "hero": {
+    "tag": "KARAOKE JUKEBOX",
+    "title": "Postavený od nuly.",
+    "subtitle": "Vlastná skriňa, vlastná appka, vlastné karaoke verzie skladieb.",
+    "cta": "PRESKÚMAŤ SVANDU"
+  },
+  "karaoke": {
+    "tag": "KARAOKE",
+    "title": "Spievaj, ako to znie v rádiu.",
+    "body": "Každá skladba v knižnici má vlastnú karaoke verziu: vokály preč, hudba v plnej kvalite. Text piesne beží na televízore alebo monitore pripojenom k jukeboxu, takže ho vidí celá sála.",
+    "cta": "PREZRIEŤ KNIŽNICU"
+  },
+  "jukebox": {
+    "tag": "JUKEBOX",
+    "title": "Vyber skladbu a hraj!",
+    "body": "Front skladieb na celý večer, ovládaný z displeja. Vlastná skriňa, vlastná appka, žiadne predplatné.",
+    "cta": "AKO TO FUNGUJE"
+  },
+  "custom": {
+    "tag": "CUSTOM JUKEBOX",
+    "body": "Skriňu aj appku skladáme na mieru podniku.",
+    "configuratorLabel": "Konfigurátor farieb jukeboxu",
+    "displayLabel": "Displej jukeboxu: pixel a pôvodný dizajn"
+  },
+  "configurator": {
+    "sheet": {
+      "title": "Farby",
+      "open": "Upraviť farby",
+      "done": "Hotovo",
+      "close": "Zavrieť"
+    },
+    "panels": {
+      "backgroundAndEffects": "Nastavenie farieb: pozadie a efekty",
+      "buttonsAndList": "Nastavenie farieb: tlačidlá a zoznam"
+    },
+    "editing": "Upravujete",
+    "editingTarget": "{{design}} · {{section}}",
+    "section": {
+      "label": "Sekcia",
+      "sing": "Karaoke",
+      "listen": "Normal"
+    },
+    "design": {
+      "label": "Upravujem dizajn",
+      "pixel": "Pixel",
+      "glass": "Pôvodný",
+      "pixelName": "Pixelový dizajn",
+      "glassName": "Pôvodný dizajn",
+      "pixelBadge": "PIXEL",
+      "glassBadge": "PÔVODNÝ",
+      "glassCaption": "sklo · lávová lampa"
+    },
+    "showPayment": "Ukázať okno platby",
+    "actions": {
+      "attach": "Pridať konfiguráciu k mailu",
+      "attached": "Pridané k mailu · odobrať",
+      "reset": "Predvolené farby",
+      "copyJson": "Kopírovať JSON",
+      "copyCss": "Kopírovať CSS premenné",
+      "importToggle": "Vložiť uložené nastavenie",
+      "importLabel": "JSON nastavenia (vložte a potvrďte)",
+      "importApply": "Použiť nastavenie"
+    },
+    "groups": {
+      "background": "Pozadie",
+      "effects": "Efekty",
+      "buttons": "Tlačidlá a akcent",
+      "songList": "Zoznam skladieb"
+    },
+    "controls": {
+      "base": { "label": "Farba pozadia" },
+      "blob1": { "label": "Bublina 1" },
+      "blob2": { "label": "Bublina 2" },
+      "blob3": { "label": "Bublina 3" },
+      "blobAlpha": { "label": "Sila bublín" },
+      "animate": { "label": "Pohyb lávovej lampy" },
+      "speed": { "label": "Rýchlosť pohybu" },
+      "pixel": {
+        "label": "Veľkosť pixelu",
+        "hint": "Jeden blok pozadia v dizajnových pixeloch"
+      },
+      "glitch": {
+        "label": "Glitch trhanie",
+        "hint": "Občasné posunutie riadkov pozadia"
+      },
+      "scan": { "label": "Raster a riadkovanie" },
+      "acc": {
+        "label": "Akcent",
+        "hint": "Tlačidlá, prepínač, kredit, logo S"
+      },
+      "accInk": { "label": "Text na akcente" },
+      "btnLine": { "label": "Rámček tlačidiel" },
+      "vip": { "label": "VIP" },
+      "panelA": { "label": "Nepriehľadnosť rámčeka" },
+      "rowA": { "label": "Nepriehľadnosť riadkov" },
+      "rowLine": { "label": "Okraj riadkov" },
+      "txt": { "label": "Text" },
+      "now": {
+        "label": "Práve hrá",
+        "hint": "Rámček a ikona aktuálnej skladby"
+      },
+      "modalA": {
+        "label": "Nepriehľadnosť okien",
+        "hint": "Platba, front, dobitie"
+      },
+      "blur": { "label": "Rozmazanie", "hint": "Mäkkosť lávovej lampy" },
+      "glassAcc": {
+        "label": "Aktívny režim",
+        "hint": "Farba textu aktívneho prepínača"
+      },
+      "glassA": {
+        "label": "Sklo tlačidiel",
+        "hint": "Nepriehľadnosť sklenených prvkov"
+      },
+      "glassPanelA": { "label": "Sklo panelov" },
+      "glassRowA": { "label": "Sklo riadkov" },
+      "hexLabel": "{{label}} (hex)",
+      "swatchLabel": "{{label}} {{colour}}"
+    },
+    "toasts": {
+      "invalidHex": "Zadajte farbu v tvare #RRGGBB.",
+      "copyFallback": "Text je označený v poli nižšie, skopírujte ho Ctrl+C.",
+      "copiedJson": "Celé nastavenie skopírované ako JSON.",
+      "copiedCss": "CSS premenné ({{design}}, obe sekcie) skopírované.",
+      "reset": "Obnovené predvolené farby pre {{target}}.",
+      "imported": "Nastavenie načítané.",
+      "invalidJson": "Toto nie je platný JSON z tlačidla „Kopírovať JSON“.",
+      "attached": "Konfigurácia sa pošle so žiadosťou."
+    }
+  },
+  "venues": {
+    "tag": "POBOČKY & AKCIE",
+    "title": "Kde už Svanda hrá",
+    "photo": "FOTO {{index}}/{{count}} · {{venue}}",
+    "previous": "Predchádzajúca pobočka",
+    "next": "Ďalšia pobočka",
+    "lightbox": {
+      "label": "Foto",
+      "close": "Zavrieť"
+    },
+    "notes": {
+      "lemon": "Karaoke piatok",
+      "arcadeBar": "Svanda night",
+      "kavarnaPodLampou": "Otvorené mikrofóny",
+      "musicBarAndel": "Krst jukeboxu",
+      "galerieZlin": "Festival Foto & Zvuk",
+      "pivniceUMostu": "Oktoberfest special"
+    }
+  },
+  "contact": {
+    "tag": "KONTAKT",
+    "title": "Chcete Svandu u seba?",
+    "body": "Napíšte nám, kde a kedy. Ozveme sa do dvoch dní.",
+    "sent": "Vďaka, ozveme sa.",
+    "form": {
+      "name": "Meno",
+      "venue": "Podnik a mesto",
+      "email": "E-mail",
+      "message": "Správa",
+      "submit": "ODOSLAŤ"
+    },
+    "config": {
+      "add": "+ Pridať konfiguráciu k mailu",
+      "attached": "Konfigurácia farieb jukeboxu je priložená",
+      "remove": "Odobrať"
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} SVANDA · Karaoke jukebox",
+    "instagram": "Instagram",
+    "youtube": "YouTube"
+  }
+}

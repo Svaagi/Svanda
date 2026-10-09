@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 const LOCALE_PAGES = [
   { path: '/', locale: 'cs' },
   { path: '/en', locale: 'en' },
+  { path: '/sk', locale: 'sk' },
 ];
 
 for (const { path, locale } of LOCALE_PAGES) {

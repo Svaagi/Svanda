@@ -1,0 +1,193 @@
+{
+  "nav": {
+    "karaoke": "Karaoke",
+    "jukebox": "Jukebox",
+    "custom": "Custom",
+    "venues": "Venues",
+    "contact": "Contact",
+    "menu": "MENU",
+    "close": "CLOSE",
+    "menuLabel": "Menu",
+    "home": "SVANDA",
+    "themeToLight": "Light mode",
+    "themeToDark": "Dark mode"
+  },
+  "language": {
+    "label": "Language",
+    "cs": { "short": "CS", "name": "Čeština" },
+    "en": { "short": "EN", "name": "English" },
+    "sk": { "short": "SK", "name": "Slovenčina" }
+  },
+  "hero": {
+    "tag": "KARAOKE JUKEBOX",
+    "title": "Built from scratch.",
+    "subtitle": "Our own cabinet, our own app, our own karaoke versions of every song.",
+    "cta": "EXPLORE SVANDA"
+  },
+  "karaoke": {
+    "tag": "KARAOKE",
+    "title": "Sing it the way it sounds on the radio.",
+    "body": "Every song in the library has its own karaoke version: vocals out, music in full quality. Lyrics run on a TV or monitor connected to the jukebox, so the whole room can follow along.",
+    "cta": "BROWSE THE LIBRARY"
+  },
+  "jukebox": {
+    "tag": "JUKEBOX",
+    "title": "Pick a song and play!",
+    "body": "A song queue for the whole night, controlled from the display. Our own cabinet, our own app, no subscription.",
+    "cta": "HOW IT WORKS"
+  },
+  "custom": {
+    "tag": "CUSTOM JUKEBOX",
+    "body": "The cabinet and the app are built to fit the venue.",
+    "configuratorLabel": "Jukebox colour configurator",
+    "displayLabel": "Jukebox display: pixel and original design"
+  },
+  "configurator": {
+    "sheet": {
+      "title": "Colours",
+      "open": "Edit colours",
+      "done": "Done",
+      "close": "Close"
+    },
+    "panels": {
+      "backgroundAndEffects": "Colour settings: background and effects",
+      "buttonsAndList": "Colour settings: buttons and list"
+    },
+    "editing": "Editing",
+    "editingTarget": "{{design}} · {{section}}",
+    "section": {
+      "label": "Section",
+      "sing": "Karaoke",
+      "listen": "Normal"
+    },
+    "design": {
+      "label": "Editing design",
+      "pixel": "Pixel",
+      "glass": "Original",
+      "pixelName": "Pixel design",
+      "glassName": "Original design",
+      "pixelBadge": "PIXEL",
+      "glassBadge": "ORIGINAL",
+      "glassCaption": "glass · lava lamp"
+    },
+    "showPayment": "Show payment window",
+    "actions": {
+      "attach": "Add configuration to e-mail",
+      "attached": "Added to e-mail · remove",
+      "reset": "Reset colours",
+      "copyJson": "Copy JSON",
+      "copyCss": "Copy CSS variables",
+      "importToggle": "Paste saved settings",
+      "importLabel": "Settings JSON (paste and apply)",
+      "importApply": "Apply settings"
+    },
+    "groups": {
+      "background": "Background",
+      "effects": "Effects",
+      "buttons": "Buttons and accent",
+      "songList": "Song list"
+    },
+    "controls": {
+      "base": { "label": "Background colour" },
+      "blob1": { "label": "Blob 1" },
+      "blob2": { "label": "Blob 2" },
+      "blob3": { "label": "Blob 3" },
+      "blobAlpha": { "label": "Blob strength" },
+      "animate": { "label": "Lava lamp motion" },
+      "speed": { "label": "Motion speed" },
+      "pixel": {
+        "label": "Pixel size",
+        "hint": "One background block in design pixels"
+      },
+      "glitch": {
+        "label": "Glitch tearing",
+        "hint": "Occasional background row shifts"
+      },
+      "scan": { "label": "Scanlines and grid" },
+      "acc": {
+        "label": "Accent",
+        "hint": "Buttons, switch, credit, S logo"
+      },
+      "accInk": { "label": "Text on accent" },
+      "btnLine": { "label": "Button border" },
+      "vip": { "label": "VIP" },
+      "panelA": { "label": "Frame opacity" },
+      "rowA": { "label": "Row opacity" },
+      "rowLine": { "label": "Row border" },
+      "txt": { "label": "Text" },
+      "now": {
+        "label": "Now playing",
+        "hint": "Frame and icon of the current song"
+      },
+      "modalA": {
+        "label": "Window opacity",
+        "hint": "Payment, queue, top-up"
+      },
+      "blur": { "label": "Blur", "hint": "Lava lamp softness" },
+      "glassAcc": {
+        "label": "Active mode",
+        "hint": "Text colour of the active switch"
+      },
+      "glassA": {
+        "label": "Button glass",
+        "hint": "Opacity of glass elements"
+      },
+      "glassPanelA": { "label": "Panel glass" },
+      "glassRowA": { "label": "Row glass" },
+      "hexLabel": "{{label}} (hex)",
+      "swatchLabel": "{{label}} {{colour}}"
+    },
+    "toasts": {
+      "invalidHex": "Enter a colour as #RRGGBB.",
+      "copyFallback": "The text is selected in the field below, copy it with Ctrl+C.",
+      "copiedJson": "All settings copied as JSON.",
+      "copiedCss": "CSS variables ({{design}}, both sections) copied.",
+      "reset": "Default colours restored for {{target}}.",
+      "imported": "Settings loaded.",
+      "invalidJson": "This is not valid JSON from the “Copy JSON” button.",
+      "attached": "The configuration will be sent with your request."
+    }
+  },
+  "venues": {
+    "tag": "VENUES & EVENTS",
+    "title": "Where Svanda already plays",
+    "photo": "PHOTO {{index}}/{{count}} · {{venue}}",
+    "previous": "Previous venue",
+    "next": "Next venue",
+    "lightbox": {
+      "label": "Photo",
+      "close": "Close"
+    },
+    "notes": {
+      "lemon": "Karaoke Friday",
+      "arcadeBar": "Svanda night",
+      "kavarnaPodLampou": "Open mics",
+      "musicBarAndel": "Jukebox launch",
+      "galerieZlin": "Photo & Sound Festival",
+      "pivniceUMostu": "Oktoberfest special"
+    }
+  },
+  "contact": {
+    "tag": "CONTACT",
+    "title": "Want Svanda at your place?",
+    "body": "Tell us where and when. We reply within two days.",
+    "sent": "Thanks, we'll be in touch.",
+    "form": {
+      "name": "Name",
+      "venue": "Venue & city",
+      "email": "E-mail",
+      "message": "Message",
+      "submit": "SEND"
+    },
+    "config": {
+      "add": "+ Add configuration to e-mail",
+      "attached": "Jukebox colour configuration attached",
+      "remove": "Remove"
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} SVANDA · Karaoke jukebox",
+    "instagram": "Instagram",
+    "youtube": "YouTube"
+  }
+}

@@ -91,7 +91,7 @@ siblings in one feature. Shared schemas: `import { contactRequestSchema } from '
 | e2e | `pnpm test:e2e` (Playwright, Chromium; builds the site and serves it with `pnpm preview`) |
 | Build | `pnpm build` (shared + API with `tsc`, site prerendered to `apps/site/build/client`) |
 | Preview | `pnpm preview` (static server for the built site on port **4173**) |
-| i18n check | `pnpm i18n:check` (added by W0-3) |
+| i18n check | `pnpm i18n:check` (catalog parity against `cs`) |
 | Convert 3D model | `pnpm --filter site model:convert` (added by W3-1) |
 
 Import gotcha: the bare specifier `constants` resolves to the Node built-in module in

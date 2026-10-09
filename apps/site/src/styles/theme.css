@@ -64,6 +64,7 @@
   --font-size-body: clamp(17px, 1.3vw, 24px);
   --font-size-xl: 32px;
   --font-size-display: clamp(40px, 4.4vw, 84px);
+  --line-height-none: 1;
   --line-height-tight: 1.05;
   --line-height-base: 1.5;
   --letter-spacing-tight: -0.035em;
@@ -81,6 +82,9 @@
   --space-12: 48px;
   --space-16: 64px;
   --nav-height: 64px;
+  --segment-padding-y: 6px;
+  --segment-padding-x: 9px;
+  --touch-target-min: 44px;
 
   /* Radius: the pixel look is square; round only for pills and dots */
   --radius-none: 0;
