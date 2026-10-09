@@ -1,0 +1,23 @@
+.legalHeader {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  min-height: var(--nav-height);
+  padding: var(--space-2) var(--nav-edge-padding);
+  border-bottom: var(--border-width-thin) solid var(--color-nav-border);
+  background: var(--color-nav-bg);
+}
+
+.home {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target-min);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}

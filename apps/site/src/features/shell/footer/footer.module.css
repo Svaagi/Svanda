@@ -1,3 +1,5 @@
+/* Its own snap point: otherwise the page's proximity snapping pulls the scroll back to the
+   start of the contact section above, and the footer never comes into view. */
 .footer {
   display: flex;
   flex-wrap: wrap;
@@ -8,6 +10,7 @@
   border-top: var(--border-width-thin) solid var(--color-border);
   color: var(--color-dim);
   font-size: var(--font-size-sm);
+  scroll-snap-align: end;
 }
 
 .links {

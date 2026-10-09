@@ -381,6 +381,14 @@
   --contact-sent-padding: 28px;
   --contact-marker-size: 10px;
 
+  /* Legal pages: a readable text column */
+  --legal-max-width: 72ch;
+  --legal-padding-y: clamp(32px, 6vh, 64px);
+  --legal-inset-x: clamp(16px, 7vw, 90px);
+  --legal-title-size: clamp(28px, 3.4vw, 40px);
+  --legal-heading-size: clamp(20px, 2vw, 24px);
+  --legal-subheading-size: 18px;
+
   /* Borders */
   --border-width-thin: 1px;
   --border-width-pixel: 2px;

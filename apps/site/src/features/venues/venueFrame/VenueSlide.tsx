@@ -2,10 +2,9 @@ import { type Venue, VENUE_PHOTO_SIZES } from 'constants/venues';
 import { useLocale } from 'i18n';
 import { type CSSProperties, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { childTestId } from 'utils';
+import { childTestId, formatIsoDate } from 'utils';
 
 import type { SwipeDrag } from '../useVenueSwipe';
-import { formatVenueDate } from '../venueDate';
 import { VenuePhotoImage } from '../venuePhoto';
 import styles from './venueFrame.module.css';
 
@@ -99,7 +98,7 @@ export const VenueSlide = memo(function VenueSlide({
           className={styles.place}
           data-testid={childTestId(testId, 'place')}
         >
-          {t('venues.place', { city, date: formatVenueDate(date, locale) })}
+          {t('venues.place', { city, date: formatIsoDate(date, locale) })}
         </span>
       </p>
       <div className={styles.dots}>

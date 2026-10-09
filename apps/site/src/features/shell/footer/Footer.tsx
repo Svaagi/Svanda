@@ -2,6 +2,7 @@ import { COPYRIGHT_YEAR, LEGAL_LINKS } from 'constants/legal';
 import { SOCIAL_LINKS } from 'constants/social';
 import { useLocale } from 'i18n';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import { Button } from 'ui';
 import { childTestId } from 'utils';
 
@@ -41,13 +42,13 @@ export function Footer({
         ))}
         {LEGAL_LINKS.map(({ id, paths }) => (
           <li key={id}>
-            <a
-              href={paths[locale]}
+            <Link
+              to={paths[locale]}
               className={styles.link}
               data-testid={childTestId(testId, id)}
             >
               {t(`footer.${id}`)}
-            </a>
+            </Link>
           </li>
         ))}
         {onOpenCookieSettings && (

@@ -1,3 +1,4 @@
 export { Footer } from './footer';
-export { Header } from './header';
+export { Header, ThemeToggle } from './header';
+export { LanguageSwitch } from './languageSwitch';
 export { SkipLink } from './skipLink';

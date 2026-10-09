@@ -173,13 +173,10 @@ test.describe('with WebGL', () => {
     );
     await expect.poll(readCounts).toEqual({ live: 1, created: 1 });
 
-    // No route but home exists yet (legal pages come later), and switching locale keeps the
-    // page mounted. A client-side navigation to an unknown path renders the not-found
-    // boundary instead, which unmounts the stage; going back mounts a fresh one.
-    await page.evaluate(() => {
-      window.history.pushState(null, '', '/missing-page');
-      window.dispatchEvent(new PopStateEvent('popstate'));
-    });
+    // The footer opens a legal page in the app (switching locale would keep the stage
+    // mounted), which unmounts the stage; going back mounts a fresh one.
+    await page.getByTestId('footer-imprint').click();
+    await expect(page.getByTestId('legal-page')).toBeVisible();
     await expect(stage).toHaveCount(0);
     await expect.poll(readCounts).toEqual({ live: 0, created: 1 });
 

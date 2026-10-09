@@ -254,5 +254,9 @@
     "privacy": "Ochrana osobných údajov",
     "cookies": "Zásady cookies",
     "cookieSettings": "Nastavenia cookies"
+  },
+  "legal": {
+    "homeLink": "SVANDA, úvodná stránka",
+    "effective": "Platné od {{date}}"
   }
 }

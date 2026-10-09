@@ -8,10 +8,17 @@ import { childTestId, isPlainLeftClick } from 'utils';
 import styles from './languageSwitch.module.css';
 
 export type LanguageSwitchProps = {
+  // The same page in every locale; defaults to the home pages.
+  paths?: Readonly<Record<Locale, string>>;
   testId?: string;
 };
 
+const HOME_PATHS = Object.fromEntries(
+  LOCALES.map((locale) => [locale, getLocalePath(locale)]),
+) as Record<Locale, string>;
+
 export function LanguageSwitch({
+  paths = HOME_PATHS,
   testId = 'language-switch',
 }: LanguageSwitchProps) {
   const { t } = useTranslation();
@@ -31,7 +38,7 @@ export function LanguageSwitch({
     // know it, and the current section may have changed since the last render.
     // Navigation errors surface through the router; nothing here awaits the result.
     void navigate({
-      pathname: getLocalePath(locale),
+      pathname: paths[locale],
       hash: window.location.hash,
     });
   };
@@ -45,7 +52,7 @@ export function LanguageSwitch({
       {LOCALES.map((locale) => (
         <Link
           key={locale}
-          to={getLocalePath(locale)}
+          to={paths[locale]}
           className={styles.option}
           lang={locale}
           hrefLang={locale}

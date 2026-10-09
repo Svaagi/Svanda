@@ -7,7 +7,7 @@ export type LegalLink = {
   paths: Record<Locale, string>;
 };
 
-// The legal pages arrive later; until then these links lead nowhere.
+// Each legal page has a localized slug per locale; app/routes.ts prerenders every one.
 export const LEGAL_LINKS: readonly LegalLink[] = [
   {
     id: 'imprint',
@@ -36,3 +36,7 @@ export const LEGAL_LINKS: readonly LegalLink[] = [
 ];
 
 export const COPYRIGHT_YEAR = 2026;
+
+export const LEGAL_PATHS = Object.fromEntries(
+  LEGAL_LINKS.map(({ id, paths }) => [id, paths]),
+) as Record<LegalLinkId, Record<Locale, string>>;

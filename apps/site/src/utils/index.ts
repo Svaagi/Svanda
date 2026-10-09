@@ -1,5 +1,6 @@
 export { classNames } from './classNames';
 export { readCssVar, resolveCssValue } from './cssVar';
+export { formatIsoDate } from './isoDate';
 export { getMediaQueryList } from './mediaQuery';
 export { isPlainLeftClick } from './plainClick';
 export {

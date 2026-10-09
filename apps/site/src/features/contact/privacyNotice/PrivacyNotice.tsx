@@ -1,7 +1,8 @@
-import { LEGAL_LINKS } from 'constants/legal';
+import { LEGAL_PATHS } from 'constants/legal';
 import { useLocale } from 'i18n';
 import type { ReactNode } from 'react';
 import { Trans } from 'react-i18next';
+import { Link } from 'react-router';
 
 import styles from './privacyNotice.module.css';
 
@@ -13,15 +14,13 @@ export type PrivacyNoticeProps = {
   testId: string;
 };
 
-const privacyPaths = LEGAL_LINKS.find(({ id }) => id === 'privacy')?.paths;
-
 function PrivacyLink({ children }: PrivacyLinkProps) {
   const locale = useLocale();
 
   return (
-    <a href={privacyPaths?.[locale]} className={styles.link}>
+    <Link to={LEGAL_PATHS.privacy[locale]} className={styles.link}>
       {children}
-    </a>
+    </Link>
   );
 }
 

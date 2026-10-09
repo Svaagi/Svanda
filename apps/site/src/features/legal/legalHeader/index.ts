@@ -1,0 +1,1 @@
+export { LegalHeader } from './LegalHeader';

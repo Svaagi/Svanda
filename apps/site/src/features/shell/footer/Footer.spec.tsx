@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { LEGAL_LINKS } from 'constants/legal';
 import { SOCIAL_LINKS } from 'constants/social';
-import { renderAtPath } from 'utils/testing';
+import { getCurrentLocation, renderAtPath } from 'utils/testing';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Footer } from './Footer';
@@ -67,6 +67,14 @@ describe('Footer', () => {
       });
     },
   );
+
+  it('opens a legal page in the app without a full page load', () => {
+    renderAtPath(<Footer />, '/en');
+
+    fireEvent.click(screen.getByTestId('footer-privacy'));
+
+    expect(getCurrentLocation()).toHaveTextContent(/^\/en\/privacy$/);
+  });
 
   it('leaves out the cookie settings button until it is wired', () => {
     renderAtPath(<Footer />, '/en');

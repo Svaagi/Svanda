@@ -29,6 +29,19 @@ describe('LanguageSwitch', () => {
     expect(option('sk')).toHaveAttribute('lang', 'sk');
   });
 
+  it('links the same page in every locale when given its paths', () => {
+    const paths = { cs: '/stranka', en: '/en/page', sk: '/sk/stranka' };
+    renderAtPath(<LanguageSwitch paths={paths} />, '/en/page');
+
+    expect(option('cs')).toHaveAttribute('href', '/stranka');
+    expect(option('sk')).toHaveAttribute('href', '/sk/stranka');
+    expect(option('en')).toHaveAttribute('aria-current', 'page');
+
+    fireEvent.click(option('sk'));
+
+    expect(getCurrentLocation()).toHaveTextContent(/^\/sk\/stranka$/);
+  });
+
   it('switches locale, keeps the section hash and remembers the choice', () => {
     window.location.hash = '#venues';
     renderAtPath(<LanguageSwitch />, '/');

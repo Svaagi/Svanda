@@ -1,0 +1,20 @@
+.main {
+  padding: var(--legal-padding-y) var(--legal-inset-x);
+}
+
+.main:focus {
+  outline: none;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: var(--legal-max-width);
+  margin: 0 auto;
+}
+
+.effective {
+  color: var(--color-dim);
+  font-size: var(--font-size-sm);
+}

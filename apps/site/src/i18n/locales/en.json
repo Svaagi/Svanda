@@ -251,5 +251,9 @@
     "privacy": "Privacy policy",
     "cookies": "Cookie policy",
     "cookieSettings": "Cookie settings"
+  },
+  "legal": {
+    "homeLink": "SVANDA home page",
+    "effective": "Effective from {{date}}"
   }
 }
