@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;color:#14141a}
+a{color:#237a25;text-decoration:none}a:hover{color:#1c6320}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4" orientation="landscape">
+
+<section class="page" data-screen-label="01 Titul" style="background:#050507;color:#fff;box-sizing:border-box;padding:16mm 18mm;display:flex;flex-direction:column;justify-content:space-between">
+  <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:11pt;color:#a9a9b3"><span>SVANDA</span><span>LOGO MANUÁL</span></div>
+  <div style="position:relative;width:72%;aspect-ratio:36/5;align-self:center">
+    <sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12mm">
+    <div style="display:flex;flex-direction:column;gap:3mm">
+      <div style="font-family:'Silkscreen',monospace;font-size:26pt;line-height:1">Logo manuál</div>
+      <div style="font-size:12pt;color:#a9a9b3">Pravidla pro používání loga Svanda</div>
+    </div>
+    <div style="font-family:'Silkscreen',monospace;font-size:11pt;color:#a9a9b3">VERZE 1.0 · 2026</div>
+  </div>
+</section>
+
+<section class="page" data-screen-label="02 Logo" style="background:#f5f5f2;box-sizing:border-box;padding:16mm 18mm;display:flex;flex-direction:column;gap:9mm">
+  <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:10pt;color:#5a5a66"><span>01 LOGO</span><span>02</span></div>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12mm;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:4mm">
+      <h1 style="margin:0;font-family:'Silkscreen',monospace;font-weight:400;font-size:26pt;line-height:1.05">Konstrukce</h1>
+      <p style="margin:0;font-size:12pt;line-height:1.6;color:#3a3a44">Logo je pixelový nápis SVANDA postavený na mřížce 36 × 5 modulů. Jeden modul je základní jednotka, od které se odvozuje ochranná zóna i minimální velikost.</p>
+      <p style="margin:0;font-size:12pt;line-height:1.6;color:#3a3a44">Každé písmeno má vlastní barvu. Moduly jsou čtvercové a mezi nimi je vždy stejná mezera.</p>
+      <p style="margin:0;font-size:12pt;line-height:1.6;color:#3a3a44">Logo se nepřekresluje ani nesází písmem. Vždy se používají dodané soubory.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8mm;justify-content:center">
+      <div style="background:#050507;padding:9mm 7mm">
+        <div style="position:relative;width:100%;aspect-ratio:36/5">
+          <sc-for list="{{ logoGrid }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }};box-shadow:inset 0 0 0 0.5px #2a2a30"></div></div></sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:7mm;align-items:center">
+        <div style="background:#050507;padding:6mm;width:22mm;box-sizing:content-box">
+          <div style="position:relative;width:100%;aspect-ratio:4/5">
+            <sc-for list="{{ symbol }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:25%;height:20%;padding:2%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2mm">
+          <div style="font-family:'Silkscreen',monospace;font-size:13pt">Symbol</div>
+          <p style="margin:0;font-size:11pt;line-height:1.55;color:#3a3a44">Samostatné písmeno S. Používá se tam, kde se celé logo nevejde: ikona aplikace, favicon, úvodní obrazovka jukeboxu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-screen-label="03 Ochranná zóna" style="background:#f5f5f2;box-sizing:border-box;padding:16mm 18mm;display:flex;flex-direction:column;gap:9mm">
+  <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:10pt;color:#5a5a66"><span>02 OCHRANNÁ ZÓNA A VELIKOST</span><span>03</span></div>
+  <div style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:12mm;flex:1;min-height:0;align-content:center">
+    <div style="display:flex;flex-direction:column;gap:5mm">
+      <h1 style="margin:0;font-family:'Silkscreen',monospace;font-weight:400;font-size:26pt;line-height:1.05">Ochranná zóna</h1>
+      <p style="margin:0;font-size:12pt;line-height:1.6;color:#3a3a44">Kolem loga zůstává volný prostor o šířce 3 modulů ze všech stran. Do této zóny nezasahuje text, jiné logo ani okraj formátu.</p>
+      <div style="background:#050507;padding:6mm;margin-top:2mm">
+        <div style="position:relative;outline:1px dashed #ff4fd8;outline-offset:-1px;padding:8.33% 7.1%">
+          <div style="position:absolute;left:0;top:0;width:7.1%;height:100%;background:rgba(255,79,216,0.14)"></div>
+          <div style="position:absolute;right:0;top:0;width:7.1%;height:100%;background:rgba(255,79,216,0.14)"></div>
+          <div style="position:absolute;left:7.1%;right:7.1%;top:0;height:33%;background:rgba(255,79,216,0.14)"></div>
+          <div style="position:absolute;left:7.1%;right:7.1%;bottom:0;height:33%;background:rgba(255,79,216,0.14)"></div>
+          <div style="position:relative;width:100%;aspect-ratio:36/5">
+            <sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:'Silkscreen',monospace;font-size:10pt;color:#5a5a66">Zóna = 3 moduly</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5mm">
+      <h1 style="margin:0;font-family:'Silkscreen',monospace;font-weight:400;font-size:26pt;line-height:1.05">Minimum</h1>
+      <p style="margin:0;font-size:12pt;line-height:1.6;color:#3a3a44">Při menších rozměrech splývají moduly. Pod minimem se používá symbol S.</p>
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:3mm 6mm;align-items:center;margin-top:2mm">
+        <div style="background:#050507;padding:3mm"><div style="position:relative;width:25mm;aspect-ratio:36/5">
+          <sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for>
+        </div></div>
+        <div style="display:flex;flex-direction:column;gap:1mm"><div style="font-family:'Silkscreen',monospace;font-size:12pt">Tisk: 25 mm</div><div style="font-size:10.5pt;color:#5a5a66">šířka loga</div></div>
+        <div style="background:#050507;padding:3mm"><div style="position:relative;width:108px;aspect-ratio:36/5">
+          <sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for>
+        </div></div>
+        <div style="display:flex;flex-direction:column;gap:1mm"><div style="font-family:'Silkscreen',monospace;font-size:12pt">Obrazovka: 108 px</div><div style="font-size:10.5pt;color:#5a5a66">3 px na modul</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-screen-label="04 Varianty" style="background:#f5f5f2;box-sizing:border-box;padding:16mm 18mm;display:flex;flex-direction:column;gap:9mm">
+  <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:10pt;color:#5a5a66"><span>03 VARIANTY</span><span>04</span></div>
+  <h1 style="margin:0;font-family:'Silkscreen',monospace;font-weight:400;font-size:26pt;line-height:1.05">Barevné varianty</h1>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6mm;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:4mm">
+      <div style="flex:1;background:#050507;display:flex;align-items:center;justify-content:center;padding:0 9mm">
+        <div style="position:relative;width:100%;aspect-ratio:36/5"><sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for></div>
+      </div>
+      <div style="font-family:'Silkscreen',monospace;font-size:12pt">Primární</div>
+      <p style="margin:0;font-size:11pt;line-height:1.55;color:#3a3a44">Barevné logo na černém podkladu. Výchozí volba všude, kde to jde.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4mm">
+      <div style="flex:1;background:#050507;display:flex;align-items:center;justify-content:center;padding:0 9mm">
+        <div style="position:relative;width:100%;aspect-ratio:36/5"><sc-for list="{{ logoWhite }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for></div>
+      </div>
+      <div style="font-family:'Silkscreen',monospace;font-size:12pt">Negativ</div>
+      <p style="margin:0;font-size:11pt;line-height:1.55;color:#3a3a44">Bílé logo na tmavém podkladu nebo fotografii, kde by barvy splývaly.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4mm">
+      <div style="flex:1;background:#ffffff;box-shadow:inset 0 0 0 1px #e2e2de;display:flex;align-items:center;justify-content:center;padding:0 9mm">
+        <div style="position:relative;width:100%;aspect-ratio:36/5"><sc-for list="{{ logoBlack }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for></div>
+      </div>
+      <div style="font-family:'Silkscreen',monospace;font-size:12pt">Pozitiv</div>
+      <p style="margin:0;font-size:11pt;line-height:1.55;color:#3a3a44">Černé logo na světlém podkladu a pro jednobarevný tisk.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-screen-label="05 Barvy" style="background:#f5f5f2;box-sizing:border-box;padding:16mm 18mm;display:flex;flex-direction:column;gap:9mm">
+  <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:10pt;color:#5a5a66"><span>04 BARVY</span><span>05</span></div>
+  <h1 style="margin:0;font-family:'Silkscreen',monospace;font-weight:400;font-size:26pt;line-height:1.05">Barvy</h1>
+  <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4mm;flex:1;min-height:0">
+    <sc-for list="{{ colors }}" as="c" hint-placeholder-count="6">
+      <div style="display:flex;flex-direction:column;gap:3mm">
+        <div style="flex:1;background:{{ c.hex }};display:flex;align-items:flex-end;padding:4mm;box-sizing:border-box;font-family:'Silkscreen',monospace;font-size:22pt;color:#050507">{{ c.letter }}</div>
+        <div style="font-family:'Silkscreen',monospace;font-size:11pt">{{ c.hex }}</div>
+        <div style="font-size:10pt;color:#5a5a66">RGB {{ c.rgb }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4mm">
+    <div style="background:#050507;color:#fff;padding:5mm;display:flex;justify-content:space-between;align-items:center"><span style="font-family:'Silkscreen',monospace;font-size:12pt">Černá #050507</span><span style="font-size:10pt;color:#a9a9b3">RGB 5 5 7 · podklad</span></div>
+    <div style="background:#ffffff;box-shadow:inset 0 0 0 1px #e2e2de;padding:5mm;display:flex;justify-content:space-between;align-items:center"><span style="font-family:'Silkscreen',monospace;font-size:12pt">Bílá #FFFFFF</span><span style="font-size:10pt;color:#5a5a66">RGB 255 255 255 · text</span></div>
+  </div>
+</section>
+
+<section class="page" data-screen-label="06 Písmo" style="background:#f5f5f2;box-sizing:border-box;padding:16mm 18mm;display:flex;flex-direction:column;gap:9mm">
+  <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:10pt;color:#5a5a66"><span>05 PÍSMO</span><span>06</span></div>
+  <h1 style="margin:0;font-family:'Silkscreen',monospace;font-weight:400;font-size:26pt;line-height:1.05">Písmo</h1>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12mm;flex:1;min-height:0;align-content:center">
+    <div style="display:flex;flex-direction:column;gap:4mm;border-top:1px solid #cfcfca;padding-top:5mm">
+      <div style="font-size:10pt;color:#5a5a66">Nadpisy, navigace, tlačítka</div>
+      <div style="font-family:'Silkscreen',monospace;font-size:34pt;line-height:1.05">Silkscreen</div>
+      <div style="font-family:'Silkscreen',monospace;font-size:15pt;line-height:1.4;color:#3a3a44;overflow-wrap:anywhere">AÁBCČDĎEÉĚFGHIÍJKLMNŇOÓPQRŘSŠTŤUÚŮVWXYÝZŽ<br>0123456789 &amp; % # @</div>
+      <p style="margin:0;font-size:11pt;line-height:1.55;color:#3a3a44">Pixelový font, který navazuje na logo. Jen krátké texty a velká písmena.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4mm;border-top:1px solid #cfcfca;padding-top:5mm">
+      <div style="font-size:10pt;color:#5a5a66">Běžný text</div>
+      <div style="font-size:34pt;line-height:1.05;font-weight:600">Systémové písmo</div>
+      <div style="font-size:15pt;line-height:1.4;color:#3a3a44;overflow-wrap:anywhere">AÁBCČDĎEÉĚFGHIÍJKLMNŇOÓPQRŘSŠTŤUÚŮVWXYÝZŽ<br>aábcčdďeéěfghiíjklmnňoópqrřsštťuúůvwxyýzž</div>
+      <p style="margin:0;font-size:11pt;line-height:1.55;color:#3a3a44">Odstavce, popisky a formuláře. Na webu system-ui, v tisku Segoe UI nebo Helvetica.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page" data-screen-label="07 Nesprávné použití" style="background:#f5f5f2;box-sizing:border-box;padding:16mm 18mm;display:flex;flex-direction:column;gap:9mm">
+  <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:10pt;color:#5a5a66"><span>06 NESPRÁVNÉ POUŽITÍ</span><span>07</span></div>
+  <h1 style="margin:0;font-family:'Silkscreen',monospace;font-weight:400;font-size:26pt;line-height:1.05">Nesprávné použití</h1>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:6mm;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:3mm;min-height:0">
+      <div style="flex:1;background:#050507;display:flex;align-items:center;justify-content:center;padding:0 12mm;overflow:hidden"><div style="position:relative;width:100%;aspect-ratio:36/5;transform:scale(1.15,0.6)"><sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for></div></div>
+      <div style="font-size:11pt;color:#c9174c">× Nedeformovat</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3mm;min-height:0">
+      <div style="flex:1;background:#050507;display:flex;align-items:center;justify-content:center;padding:0 12mm;overflow:hidden"><div style="position:relative;width:100%;aspect-ratio:36/5;transform:rotate(-12deg)"><sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for></div></div>
+      <div style="font-size:11pt;color:#c9174c">× Neotáčet</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3mm;min-height:0">
+      <div style="flex:1;background:#050507;display:flex;align-items:center;justify-content:center;padding:0 12mm;overflow:hidden"><div style="position:relative;width:100%;aspect-ratio:36/5"><sc-for list="{{ logoWrong }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for></div></div>
+      <div style="font-size:11pt;color:#c9174c">× Neměnit barvy písmen</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3mm;min-height:0">
+      <div style="flex:1;background:#ffffff;box-shadow:inset 0 0 0 1px #e2e2de;display:flex;align-items:center;justify-content:center;padding:0 12mm;overflow:hidden"><div style="position:relative;width:100%;aspect-ratio:36/5"><sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }}"></div></div></sc-for></div></div>
+      <div style="font-size:11pt;color:#c9174c">× Barevné logo nedávat na světlý podklad</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3mm;min-height:0">
+      <div style="flex:1;background:#050507;display:flex;align-items:center;justify-content:center;padding:0 12mm;overflow:hidden"><div style="position:relative;width:100%;aspect-ratio:36/5"><sc-for list="{{ logoColor }}" as="k" hint-placeholder-count="0"><div style="position:absolute;left:{{ k.l }};top:{{ k.t }};width:2.7778%;height:20%;padding:0.25%;box-sizing:border-box"><div style="width:100%;height:100%;background:{{ k.c }};border-radius:50%"></div></div></sc-for></div></div>
+      <div style="font-size:11pt;color:#c9174c">× Neměnit tvar modulů</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3mm;min-height:0">
+      <div style="flex:1;background:#050507;display:flex;align-items:center;justify-content:center;padding:0 12mm;overflow:hidden"><div style="font-family:'Silkscreen',monospace;font-size:24pt;color:#b6ff4d;letter-spacing:.08em">SVANDA</div></div>
+      <div style="font-size:11pt;color:#c9174c">× Nenahrazovat logo písmem</div>
+    </div>
+  </div>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const BITMAP = [
+  ".###..#...#...##...#...#..###....##.",
+  "#.....#...#..#..#..##..#..#..#..#..#",
+  ".##....#.#...####..#.#.#..#..#..####",
+  "...#...#.#...#..#..#..##..#..#..#..#",
+  "###.....#....#..#..#...#..###...#..#"];
+const LETTER_COLORS = ["#b6ff4d", "#3ee6ff", "#ff9a3c", "#ff4fd8", "#7a5cff", "#5ff5e0"];
+const LETTERS = ["S", "V", "A", "N", "D", "A"];
+const W = 36;
+const letterOfCol = []; { let li = -1, prev = true; for (let x = 0; x < W; x++) { const e = BITMAP.every(r => r[x] === '.'); if (!e && prev) li++; letterOfCol.push(e ? -1 : li); prev = e; } }
+const cells = (fn, all) => { const out = []; for (let y = 0; y < 5; y++) for (let x = 0; x < W; x++) { const on = BITMAP[y][x] === '#'; if (!on && !all) continue; out.push({ l: (x / W * 100) + '%', t: (y * 20) + '%', c: on ? fn(x, y) : 'transparent' }); } return out; };
+const sym = () => { const out = []; for (let y = 0; y < 5; y++) for (let x = 0; x < 4; x++) if (BITMAP[y][x] === '#') out.push({ l: (x * 25) + '%', t: (y * 20) + '%', c: LETTER_COLORS[0] }); return out; };
+const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)).join(' ');
+const WRONG = ["#ff2d6b", "#ffc83c", "#4d7cff"];
+class Component extends DCLogic {
+  renderVals() {
+    const col = x => LETTER_COLORS[letterOfCol[x]];
+    return {
+      logoColor: cells(col),
+      logoGrid: cells(col, true),
+      logoWhite: cells(() => '#ffffff'),
+      logoBlack: cells(() => '#050507'),
+      logoWrong: cells((x, y) => WRONG[(x + y) % 3]),
+      symbol: sym(),
+      colors: LETTER_COLORS.map((hex, i) => ({ hex: hex.toUpperCase(), rgb: rgb(hex), letter: LETTERS[i] }))
+    };
+  }
+}
+</script>
+</body>
+</html>

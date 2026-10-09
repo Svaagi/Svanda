@@ -1,0 +1,28 @@
+{
+  "enabledMcpjsonServers": ["atlassian-svanda"],
+  "permissions": {
+    "deny": [
+      "mcp__atlassian",
+      "Bash(git push --force:*)",
+      "Bash(git push --force-with-lease:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git rebase:*)"
+    ],
+    "allow": [
+      "mcp__atlassian-svanda",
+      "Bash(git status)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git fetch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(pnpm install)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm test)"
+    ]
+  }
+}
