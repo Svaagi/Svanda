@@ -1,0 +1,20 @@
+.stageShell {
+  position: relative;
+}
+
+/* The negative margin lets the anchors alone set the track height (one page each), while the
+   viewport stays stuck to the top for the whole track. */
+.viewport {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  margin-bottom: -100svh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.anchor {
+  height: 100svh;
+  scroll-snap-align: start;
+  pointer-events: none;
+}

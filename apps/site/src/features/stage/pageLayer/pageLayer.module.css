@@ -1,0 +1,22 @@
+.pageLayer {
+  --layer-distance: max(
+    var(--sv-vp) - var(--layer-index),
+    var(--layer-index) - var(--sv-vp)
+  );
+
+  position: absolute;
+  inset: 0;
+  opacity: clamp(0, 1 - var(--layer-distance) * var(--layer-fade-rate), 1);
+  transform: translateX(
+    calc((var(--sv-vp) - var(--layer-index)) * var(--layer-parallax))
+  );
+  pointer-events: none;
+}
+
+.pageLayer[data-active='true'] {
+  pointer-events: auto;
+}
+
+.pageLayer[data-visible='false'] {
+  visibility: hidden;
+}
