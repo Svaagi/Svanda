@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  canWheelScrollInside,
   isNativeContactScroll,
   pageScrollTop,
   resolveScrollPage,
@@ -55,5 +56,33 @@ describe('isNativeContactScroll', () => {
   it('pages up from the top of contact but scrolls natively further down', () => {
     expect(isNativeContactScroll(4000, PAGE_HEIGHT, -1)).toBe(false);
     expect(isNativeContactScroll(4100, PAGE_HEIGHT, -1)).toBe(true);
+  });
+});
+
+describe('canWheelScrollInside', () => {
+  function scrollBox(scrollTop: number) {
+    const box = document.createElement('div');
+    box.setAttribute('data-wheel-scroll', '');
+    const child = document.createElement('button');
+    box.append(child);
+    Object.defineProperties(box, {
+      scrollTop: { value: scrollTop },
+      clientHeight: { value: 300 },
+      scrollHeight: { value: 900 },
+    });
+    return child;
+  }
+
+  it('scrolls a marked box until it reaches its end in the wheel direction', () => {
+    expect(canWheelScrollInside(scrollBox(0), 40)).toBe(true);
+    expect(canWheelScrollInside(scrollBox(0), -40)).toBe(false);
+    expect(canWheelScrollInside(scrollBox(300), -40)).toBe(true);
+    expect(canWheelScrollInside(scrollBox(600), 40)).toBe(false);
+    expect(canWheelScrollInside(scrollBox(300), 0)).toBe(false);
+  });
+
+  it('leaves the wheel to the page outside a marked box', () => {
+    expect(canWheelScrollInside(document.createElement('div'), 40)).toBe(false);
+    expect(canWheelScrollInside(null, 40)).toBe(false);
   });
 });

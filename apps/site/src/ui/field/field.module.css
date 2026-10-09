@@ -34,6 +34,15 @@
   cursor: not-allowed;
 }
 
+.code {
+  width: var(--input-code-width);
+  min-height: var(--input-code-height);
+  padding: 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+}
+
 .textarea {
   padding-block: var(--space-3);
   resize: vertical;

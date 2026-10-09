@@ -10,8 +10,9 @@ import styles from './dialog.module.css';
 import { getContentMotion, getOverlayMotion } from './dialogMotion';
 import { useReturnFocus } from './useReturnFocus';
 
-// `sheet` fills the viewport below the site header instead of floating centred.
-type DialogVariant = 'centered' | 'sheet';
+// `sheet` fills the viewport below the site header instead of floating centred;
+// `bottomSheet` slides up over the lower part of the page, which stays visible above it.
+type DialogVariant = 'centered' | 'sheet' | 'bottomSheet';
 
 const VARIANT_CLASS_NAMES: Record<
   DialogVariant,
@@ -24,6 +25,10 @@ const VARIANT_CLASS_NAMES: Record<
   sheet: {
     overlay: `${styles.overlay} ${styles.sheetOverlay}`,
     content: `${styles.content} ${styles.sheet}`,
+  },
+  bottomSheet: {
+    overlay: `${styles.overlay} ${styles.bottomSheetOverlay}`,
+    content: `${styles.content} ${styles.bottomSheet}`,
   },
 };
 
@@ -78,7 +83,10 @@ export function Dialog({
               <motion.div
                 className={VARIANT_CLASS_NAMES[variant].content}
                 data-testid={testId}
-                {...getContentMotion(isReducedMotion)}
+                {...getContentMotion(
+                  isReducedMotion,
+                  variant === 'bottomSheet',
+                )}
               >
                 <div className={styles.header}>
                   <RadixDialog.Title className={styles.title}>

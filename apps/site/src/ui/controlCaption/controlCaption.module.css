@@ -1,0 +1,14 @@
+.caption {
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+}
+
+.hint {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-snug);
+}

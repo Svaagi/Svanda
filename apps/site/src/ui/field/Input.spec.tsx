@@ -25,4 +25,17 @@ describe('Input', () => {
     expect(input).toBeRequired();
     expect(handleChange).toHaveBeenCalledOnce();
   });
+
+  it('styles the code variant apart from a text field', () => {
+    render(
+      <>
+        <Input aria-label="Name" testId="text" />
+        <Input aria-label="Colour" variant="code" testId="code" />
+      </>,
+    );
+
+    expect(screen.getByTestId('code').className).not.toBe(
+      screen.getByTestId('text').className,
+    );
+  });
 });

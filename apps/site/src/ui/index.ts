@@ -1,4 +1,6 @@
+export { Accordion, type AccordionItem } from './accordion';
 export { Button } from './button';
+export { ControlCaption } from './controlCaption';
 export { Dialog } from './dialog';
 export { Field, Input, Textarea } from './field';
 export { IconButton } from './iconButton';
@@ -7,6 +9,7 @@ export { PixelIcon } from './pixelIcon';
 export { PixelLogo } from './pixelLogo';
 export { PixelText } from './pixelText';
 export { SegmentedControl } from './segmentedControl';
+export { Slider } from './slider';
 export { Switch } from './switch';
 export { ToastProvider, useToast } from './toast';
 export { VisuallyHidden } from './visuallyHidden';

@@ -20,6 +20,11 @@
   transition: color var(--duration-fast) var(--ease-standard);
 }
 
+.segmentedControl[data-size='compact'] .option {
+  padding-inline: var(--space-2);
+  font-size: var(--font-size-xs);
+}
+
 .option:hover {
   color: var(--color-fg);
 }

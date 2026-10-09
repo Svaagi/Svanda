@@ -1,0 +1,1 @@
+export { ControlCaption } from './ControlCaption';

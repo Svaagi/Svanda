@@ -365,13 +365,24 @@ export const VU_BAR_COLOR_VARS = [
 // when they change.
 export const SCREEN_QUAD_DECIMALS = 1;
 
-// The projected display: a 540x960 DOM box warped onto the 3D display on the product pages.
+// The projected display: a 540x960 DOM box warped onto the 3D display on the product pages
+// and, with the configurator's live screen, on the custom page.
 export const PROJECTED_SCREEN_WIDTH_PX = 540;
 export const PROJECTED_SCREEN_HEIGHT_PX = 960;
-// Visible between these `vp` values, fading in and out over this much `vp` at either end.
-// Visibility is rounded so the page values land on exactly 0 and 1.
-export const PROJECTED_VISIBLE_FROM_VP = 0.8;
-export const PROJECTED_VISIBLE_TO_VP = 2.2;
+// A projected display is visible between these `vp` values, fading in and out over
+// PROJECTED_FADE_VP at either end. Visibility is rounded so page values land on exactly 0 and 1.
+export type ProjectedVpRange = {
+  fromVp: number;
+  toVp: number;
+};
+export const PROJECTED_PRODUCTS_VP_RANGE: ProjectedVpRange = {
+  fromVp: 0.8,
+  toVp: 2.2,
+};
+export const PROJECTED_CUSTOM_VP_RANGE: ProjectedVpRange = {
+  fromVp: 2.8,
+  toVp: 3.2,
+};
 export const PROJECTED_FADE_VP = 0.2;
 export const PROJECTED_VISIBILITY_DECIMALS = 4;
 // Below this visibility the display takes no pointer or keyboard input.

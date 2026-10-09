@@ -8,8 +8,12 @@ export interface SegmentedControlOption<Value extends string> {
   label: string;
 }
 
+// `compact` uses a smaller pixel font, for a pair of controls on a narrow screen.
+type SegmentedControlSize = 'default' | 'compact';
+
 export interface SegmentedControlProps<Value extends string> {
   label: string;
+  size?: SegmentedControlSize;
   options: readonly SegmentedControlOption<Value>[];
   value: Value;
   onValueChange: (value: Value) => void;
@@ -18,6 +22,7 @@ export interface SegmentedControlProps<Value extends string> {
 
 export function SegmentedControl<Value extends string>({
   label,
+  size = 'default',
   options,
   value,
   onValueChange,
@@ -35,6 +40,7 @@ export function SegmentedControl<Value extends string>({
       type="single"
       className={styles.segmentedControl}
       aria-label={label}
+      data-size={size}
       value={value}
       onValueChange={handleValueChange}
       data-testid={testId}

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useStageStore } from '../stageStore';
-import { isInsideDialog } from './pagingHelpers';
+import { canWheelScrollInside, isInsideDialog } from './pagingHelpers';
 import { decideWheel, INITIAL_WHEEL_GATE } from './wheelGate';
 
 export function useWheelPaging(goToPage: (page: number) => void) {
@@ -12,6 +12,7 @@ export function useWheelPaging(goToPage: (page: number) => void) {
       // A trackpad pinch arrives as a ctrl wheel: that is zoom, not paging.
       if (event.ctrlKey || event.defaultPrevented) return;
       if (isInsideDialog(event.target)) return;
+      if (canWheelScrollInside(event.target, event.deltaY)) return;
       const { isReady, viewport } = useStageStore.getState();
       const result = decideWheel(
         {

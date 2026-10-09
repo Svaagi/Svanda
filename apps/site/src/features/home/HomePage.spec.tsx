@@ -1,10 +1,18 @@
 import { screen } from '@testing-library/react';
 import { INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE } from 'constants/intro';
 import { STAGE_PAGE_IDS } from 'constants/stage';
-import { renderAtPath } from 'utils/testing';
+import { ToastProvider } from 'ui';
+import { renderAtPath, stubResizeObserver } from 'utils/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { HomePage } from './HomePage';
+
+// The app root provides the toasts.
+const HomePageWithToasts = () => (
+  <ToastProvider>
+    <HomePage />
+  </ToastProvider>
+);
 
 describe('HomePage', () => {
   // jsdom has no canvas; the intro, the hero background and the 3D jukebox have their own
@@ -12,15 +20,17 @@ describe('HomePage', () => {
   beforeEach(() => {
     window.sessionStorage.setItem(INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE);
     vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    stubResizeObserver();
   });
 
   afterEach(() => {
     window.sessionStorage.clear();
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it('renders the copy of the locale in the URL', () => {
-    renderAtPath(<HomePage />, '/en');
+    renderAtPath(<HomePageWithToasts />, '/en');
 
     expect(screen.getByTestId('home-page')).toHaveAttribute(
       'data-locale',
@@ -39,7 +49,7 @@ describe('HomePage', () => {
   });
 
   it('wraps the page in a skip link, header, main landmark and footer', () => {
-    renderAtPath(<HomePage />, '/en');
+    renderAtPath(<HomePageWithToasts />, '/en');
     const main = screen.getByRole('main');
 
     expect(screen.getByTestId('skip-link')).toHaveAttribute(
@@ -52,7 +62,7 @@ describe('HomePage', () => {
   });
 
   it('puts five page layers on the stage and the contact section after it', () => {
-    renderAtPath(<HomePage />, '/');
+    renderAtPath(<HomePageWithToasts />, '/');
 
     expect(screen.getByTestId('stage-shell')).toBeInTheDocument();
     STAGE_PAGE_IDS.forEach((pageId) => {
@@ -76,6 +86,12 @@ describe('HomePage', () => {
     expect(screen.getByTestId('display-compare')).toContainElement(
       screen.getByTestId('pixel-jukebox-ui'),
     );
+    expect(screen.getByTestId('page-layer-custom')).toContainElement(
+      screen.getByTestId('configurator-section'),
+    );
+    expect(
+      screen.getByTestId('configurator-projected-screen'),
+    ).toContainElement(screen.getByTestId('configurator-screen'));
     expect(screen.getByTestId('contact-section')).toHaveAttribute(
       'id',
       'contact',

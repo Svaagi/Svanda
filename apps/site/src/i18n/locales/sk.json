@@ -57,8 +57,7 @@
     "sheet": {
       "title": "Farby",
       "open": "Upraviť farby",
-      "done": "Hotovo",
-      "close": "Zavrieť"
+      "done": "Hotovo"
     },
     "panels": {
       "backgroundAndEffects": "Nastavenie farieb: pozadie a efekty",
@@ -66,6 +65,11 @@
     },
     "editing": "Upravujete",
     "editingTarget": "{{design}} · {{section}}",
+    "formats": {
+      "percent": "{{value}} %",
+      "multiplier": "{{value}}×",
+      "px": "{{value}} px"
+    },
     "section": {
       "label": "Sekcia",
       "sing": "Karaoke",

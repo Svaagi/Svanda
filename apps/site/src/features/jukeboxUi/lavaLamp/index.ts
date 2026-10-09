@@ -1,4 +1,3 @@
 export { LavaLamp } from './LavaLamp';
-export { glassLavaSettings, pixelLavaSettings } from './lavaSettings';
-export type { LavaLampSlot } from './useLavaLamps';
+export { type DesignUiConfig, useDesignLamp } from './useDesignLamp';
 export { useLavaLamps } from './useLavaLamps';

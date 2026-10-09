@@ -1,3 +1,4 @@
+import { PROJECTED_CUSTOM_VP_RANGE } from 'constants/jukebox3d';
 import { MAIN_CONTENT_ID } from 'constants/nav';
 import {
   CONTACT_SECTION_ID,
@@ -9,6 +10,7 @@ import {
   VENUES_LAYER_FADE_RATE,
   VENUES_PAGE,
 } from 'constants/stage';
+import { ConfiguratorScreen, ConfiguratorSection } from 'features/configurator';
 import { HeroBackground, HeroOverlay } from 'features/hero';
 import { IntroCanvas } from 'features/intro';
 import { JukeboxStage, ProjectedScreen } from 'features/jukebox3d';
@@ -58,7 +60,9 @@ export function HomePage() {
           <PageLayer pageIndex={JUKEBOX_PAGE} parallaxPx={LAYER_PARALLAX_PX}>
             <ProductPanel productId="jukebox" />
           </PageLayer>
-          <PageLayer pageIndex={CUSTOM_PAGE} />
+          <PageLayer pageIndex={CUSTOM_PAGE}>
+            <ConfiguratorSection />
+          </PageLayer>
           <PageLayer
             pageIndex={VENUES_PAGE}
             fadeRate={VENUES_LAYER_FADE_RATE}
@@ -67,6 +71,12 @@ export function HomePage() {
             {({ mode, isPaused }) => (
               <DisplayCompare section={mode} isPaused={isPaused} />
             )}
+          </ProjectedScreen>
+          <ProjectedScreen
+            vpRange={PROJECTED_CUSTOM_VP_RANGE}
+            testId="configurator-projected-screen"
+          >
+            {({ isPaused }) => <ConfiguratorScreen isPaused={isPaused} />}
           </ProjectedScreen>
           <IntroCanvas />
         </StageShell>

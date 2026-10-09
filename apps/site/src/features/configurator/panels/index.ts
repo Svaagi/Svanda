@@ -1,0 +1,1 @@
+export { ConfiguratorPanels } from './ConfiguratorPanels';

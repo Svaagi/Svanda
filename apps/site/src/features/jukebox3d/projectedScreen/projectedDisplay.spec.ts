@@ -1,3 +1,4 @@
+import { PROJECTED_CUSTOM_VP_RANGE } from 'constants/jukebox3d';
 import type { ScreenQuad } from 'features/stage';
 import { describe, expect, it } from 'vitest';
 
@@ -71,6 +72,16 @@ describe('projectedVisibility', () => {
     expect(projectedVisibility(3, QUAD)).toBe(0);
   });
 
+  it('is shown only on the custom page with the custom range', () => {
+    expect(projectedVisibility(1.5, QUAD, PROJECTED_CUSTOM_VP_RANGE)).toBe(0);
+    expect(projectedVisibility(2.8, QUAD, PROJECTED_CUSTOM_VP_RANGE)).toBe(0);
+    expect(
+      projectedVisibility(2.9, QUAD, PROJECTED_CUSTOM_VP_RANGE),
+    ).toBeCloseTo(0.5);
+    expect(projectedVisibility(3, QUAD, PROJECTED_CUSTOM_VP_RANGE)).toBe(1);
+    expect(projectedVisibility(3.2, QUAD, PROJECTED_CUSTOM_VP_RANGE)).toBe(0);
+  });
+
   it('is hidden without a display or while the display faces away', () => {
     expect(projectedVisibility(1.5, null)).toBe(0);
     expect(projectedVisibility(1.5, BACK_QUAD)).toBe(0);
@@ -111,5 +122,8 @@ describe('projectedPlacement', () => {
     expect(projectedPlacement(0, QUAD)).toEqual(hidden);
     expect(projectedPlacement(1.5, null)).toEqual(hidden);
     expect(projectedPlacement(1.5, COLLAPSED_QUAD)).toEqual(hidden);
+    expect(projectedPlacement(1.5, QUAD, PROJECTED_CUSTOM_VP_RANGE)).toEqual(
+      hidden,
+    );
   });
 });

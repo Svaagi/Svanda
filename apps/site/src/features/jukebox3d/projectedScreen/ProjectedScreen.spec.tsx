@@ -1,4 +1,5 @@
 import { act, render, screen } from '@testing-library/react';
+import { PROJECTED_CUSTOM_VP_RANGE } from 'constants/jukebox3d';
 import { type ScreenQuad, useStageStore } from 'features/stage';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -50,6 +51,22 @@ describe('ProjectedScreen', () => {
       mode: 'sing',
       isPaused: false,
     });
+  });
+
+  it('shows on the custom page only when given the custom range', () => {
+    render(
+      <ProjectedScreen vpRange={PROJECTED_CUSTOM_VP_RANGE} testId="custom">
+        {() => null}
+      </ProjectedScreen>,
+    );
+    const projected = screen.getByTestId('custom');
+
+    act(() => useStageStore.setState({ vp: 1, screenQuad: QUAD }));
+    expect(projected).toHaveAttribute('data-paused', 'true');
+
+    act(() => useStageStore.setState({ vp: 3 }));
+    expect(projected).toHaveAttribute('data-interactive', 'true');
+    expect(projected.style.opacity).toBe('1');
   });
 
   it('follows the quad without re-rendering its content', () => {

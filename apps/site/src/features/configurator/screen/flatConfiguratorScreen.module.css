@@ -1,0 +1,29 @@
+.flatScreen {
+  position: relative;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+/* Desktop: the middle column, between the panels. */
+.flatScreen[data-layout='columns'] {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+/* Small screens: between the switches and the top of an open bottom sheet. */
+.flatScreen[data-layout='sheet'] {
+  position: absolute;
+  top: var(--configurator-flat-screen-top);
+  right: var(--space-3);
+  bottom: var(--dialog-bottom-sheet-max-height);
+  left: var(--space-3);
+}
+
+.screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--projected-screen-width);
+  height: var(--projected-screen-height);
+  transform: translate(-50%, -50%) scale(var(--flat-screen-scale));
+}

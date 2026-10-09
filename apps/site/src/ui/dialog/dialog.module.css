@@ -36,6 +36,31 @@
   background: var(--color-menu-bg);
 }
 
+.bottomSheetOverlay {
+  background: transparent;
+}
+
+/* The header (title and close button) sticks to the top while the body scrolls. */
+.bottomSheet {
+  inset: auto 0 0;
+  max-height: var(--dialog-bottom-sheet-max-height);
+  overscroll-behavior: contain;
+  border-top: var(--border-width-thick) solid var(--color-border-2);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-sheet);
+}
+
+.bottomSheet .header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-raised);
+  align-items: center;
+  margin-bottom: 0;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+  border-bottom: var(--border-width-thick) solid var(--color-border-2);
+  background: var(--color-bg);
+}
+
 .header {
   display: flex;
   align-items: flex-start;

@@ -1,0 +1,23 @@
+.configuratorActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-top: var(--border-width-thick) solid var(--color-border-2);
+}
+
+/* A grid of its own, so the button inside stretches across both columns. */
+.wide {
+  display: grid;
+  grid-column: 1 / -1;
+}
+
+.importPanel {
+  grid-column: 1 / -1;
+}
+
+.importPanel:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

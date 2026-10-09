@@ -21,6 +21,15 @@ describe('Switch', () => {
     expect(control()).toHaveAttribute('aria-checked', 'false');
   });
 
+  it('reads its hint as the description', () => {
+    render(<Switch label="Glitch" hint="Occasional row shifts" />);
+
+    expect(control()).toHaveAccessibleDescription('Occasional row shifts');
+    expect(screen.getByTestId('switch-hint')).toHaveTextContent(
+      'Occasional row shifts',
+    );
+  });
+
   it('toggles from a click and reports the new state', () => {
     const handleChange = vi.fn();
     render(<Switch label="Motion" onCheckedChange={handleChange} />);

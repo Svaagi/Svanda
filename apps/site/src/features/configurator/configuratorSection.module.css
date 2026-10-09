@@ -1,0 +1,47 @@
+/* Fills the custom page below the header. The model stands face-on in the middle with
+   room above its display, where the switches sit. */
+.configuratorSection {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.configuratorSection > h2 {
+  margin: 0;
+}
+
+.switches {
+  position: absolute;
+  top: calc(var(--nav-height) + var(--space-3));
+  left: 50%;
+  z-index: var(--z-raised);
+  display: flex;
+  gap: var(--space-2);
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+/* Desktop: the panels in the outer columns, the live screen between them. */
+.columns {
+  position: absolute;
+  inset: calc(var(--nav-height) + var(--space-4)) var(--configurator-inset-x)
+    var(--space-5);
+  display: grid;
+  grid-template-columns:
+    minmax(0, var(--configurator-panel-width)) minmax(0, 1fr)
+    minmax(0, var(--configurator-panel-width));
+  gap: var(--space-6);
+}
+
+.sheetButton {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  display: grid;
+  width: min(
+    calc(100% - 2 * var(--space-3)),
+    var(--configurator-sheet-button-width)
+  );
+  transform: translateX(-50%);
+  pointer-events: auto;
+}

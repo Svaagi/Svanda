@@ -136,4 +136,17 @@ describe('Dialog', () => {
     expect(screen.getByRole('dialog')).toHaveAccessibleName('Colours');
     expect(screen.getByTestId('dialog').className).not.toBe(centredClass);
   });
+
+  it('styles the bottom sheet apart from the full sheet', () => {
+    renderAtPath(<DialogHarness variant="sheet" />, '/en');
+    openDialog();
+    const sheetClass = screen.getByTestId('dialog').className;
+    cleanup();
+
+    renderAtPath(<DialogHarness variant="bottomSheet" />, '/en');
+    openDialog();
+
+    expect(screen.getByRole('dialog')).toHaveAccessibleName('Colours');
+    expect(screen.getByTestId('dialog').className).not.toBe(sheetClass);
+  });
 });

@@ -44,14 +44,13 @@ export function DisplayCompare({
   const rootRef = useRef<HTMLDivElement>(null);
   const surfaceRef = useRef<HTMLDivElement>(null);
   const { splitPercent, bindDrag, handleKeyDown } = useSplitCompare(surfaceRef);
-  const { pixelCanvasRef, glassCanvasRef, pixelLava, glassLava } =
-    useDisplayLamps({
-      rootRef,
-      pixelConfig,
-      glassConfig,
-      splitPercent,
-      isPaused,
-    });
+  const { pixelLamp, glassLamp } = useDisplayLamps({
+    rootRef,
+    pixelConfig,
+    glassConfig,
+    splitPercent,
+    isPaused,
+  });
   const pixelShare = Math.round(splitPercent);
 
   return (
@@ -68,8 +67,8 @@ export function DisplayCompare({
         config={pixelConfig}
         background={
           <LavaLamp
-            settings={pixelLava}
-            canvasRef={pixelCanvasRef}
+            settings={pixelLamp.settings}
+            canvasRef={pixelLamp.canvasRef}
             isPaused={isPaused}
             testId={childTestId(testId, 'pixel-lava')}
           />
@@ -81,8 +80,8 @@ export function DisplayCompare({
           config={glassConfig}
           background={
             <LavaLamp
-              settings={glassLava}
-              canvasRef={glassCanvasRef}
+              settings={glassLamp.settings}
+              canvasRef={glassLamp.canvasRef}
               isPaused={isPaused}
               testId={childTestId(testId, 'glass-lava')}
             />

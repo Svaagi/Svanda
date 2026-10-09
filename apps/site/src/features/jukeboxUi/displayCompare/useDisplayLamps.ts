@@ -3,14 +3,9 @@ import {
   DISPLAY_SPLIT_MAX_PERCENT,
   DISPLAY_SPLIT_MIN_PERCENT,
 } from 'constants/jukeboxUi';
-import { type RefObject, useMemo, useRef } from 'react';
+import { type RefObject, useMemo } from 'react';
 
-import {
-  glassLavaSettings,
-  type LavaLampSlot,
-  pixelLavaSettings,
-  useLavaLamps,
-} from '../lavaLamp';
+import { useDesignLamp, useLavaLamps } from '../lavaLamp';
 
 type DisplayLampsOptions = {
   rootRef: RefObject<HTMLElement | null>;
@@ -29,34 +24,16 @@ export function useDisplayLamps({
   splitPercent,
   isPaused,
 }: DisplayLampsOptions) {
-  const pixelCanvasRef = useRef<HTMLCanvasElement>(null);
-  const glassCanvasRef = useRef<HTMLCanvasElement>(null);
-  const isPixelHidden = splitPercent <= DISPLAY_SPLIT_MIN_PERCENT;
-  const isGlassHidden = splitPercent >= DISPLAY_SPLIT_MAX_PERCENT;
-  const pixelLava = useMemo(
-    () => pixelLavaSettings(pixelConfig),
-    [pixelConfig],
+  const pixelLamp = useDesignLamp(
+    { design: 'pixel', config: pixelConfig },
+    splitPercent <= DISPLAY_SPLIT_MIN_PERCENT,
   );
-  const glassLava = useMemo(
-    () => glassLavaSettings(glassConfig),
-    [glassConfig],
+  const glassLamp = useDesignLamp(
+    { design: 'glass', config: glassConfig },
+    splitPercent >= DISPLAY_SPLIT_MAX_PERCENT,
   );
-  const lamps = useMemo<LavaLampSlot[]>(
-    () => [
-      {
-        canvasRef: pixelCanvasRef,
-        settings: pixelLava,
-        isHidden: isPixelHidden,
-      },
-      {
-        canvasRef: glassCanvasRef,
-        settings: glassLava,
-        isHidden: isGlassHidden,
-      },
-    ],
-    [pixelLava, glassLava, isPixelHidden, isGlassHidden],
-  );
+  const lamps = useMemo(() => [pixelLamp, glassLamp], [pixelLamp, glassLamp]);
   useLavaLamps(rootRef, lamps, isPaused);
 
-  return { pixelCanvasRef, glassCanvasRef, pixelLava, glassLava };
+  return { pixelLamp, glassLamp };
 }

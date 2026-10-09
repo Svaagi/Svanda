@@ -8,6 +8,7 @@ import { THEME_INIT_SCRIPT_SRC } from 'constants/theme';
 import { LocaleProvider, useLocale, useRememberedLocaleRedirect } from 'i18n';
 import type { ReactNode } from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+import { ToastProvider } from 'ui';
 
 type LayoutProps = {
   children: ReactNode;
@@ -33,7 +34,9 @@ export function Layout({ children }: LayoutProps) {
         <Links />
       </head>
       <body>
-        <LocaleProvider>{children}</LocaleProvider>
+        <LocaleProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </LocaleProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

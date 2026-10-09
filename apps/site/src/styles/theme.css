@@ -43,6 +43,7 @@
   );
   --color-nav-border: rgb(var(--color-border-rgb) / var(--sv-logo));
   --color-shadow: var(--palette-black);
+  --color-sheet-shadow: rgb(0 0 0 / 0.6);
 
   /* Accent: orange by default */
   --color-accent: var(--palette-orange);
@@ -217,6 +218,7 @@
   /* Space */
   --space-0-5: 2px;
   --space-1: 4px;
+  --space-1-5: 6px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
@@ -237,6 +239,11 @@
   --touch-target-min: 44px;
   --control-height: 46px;
   --control-padding-x: 14px;
+  --input-code-width: 92px;
+  --input-code-height: 34px;
+  --color-picker-width: 40px;
+  --swatch-size: 26px;
+  --range-output-min-width: 44px;
   --button-height: 42px;
   --icon-button-size: 32px;
   --switch-width: 52px;
@@ -249,6 +256,10 @@
   );
   --dialog-max-width: 560px;
   --dialog-sheet-top: var(--nav-height);
+  --dialog-bottom-sheet-max-height: 58svh;
+  --slider-width: 130px;
+  --slider-track-height: 6px;
+  --slider-thumb-size: 18px;
   --toast-max-width: 420px;
   --hero-overlay-inset: clamp(24px, 6vw, 80px);
   --hero-overlay-bottom: clamp(40px, 8vh, 72px);
@@ -269,6 +280,15 @@
   --product-heading-rows: 5;
   --product-heading-cell: max(4px, min(100vw - 48px, 50vw) / 34 * 0.6);
   --product-heading-cell-portrait: max(6px, min(100vw - 48px, 85vw) / 34);
+  /* Custom page: configurator panels beside the live screen */
+  --configurator-panel-width: clamp(260px, 26vw, 340px);
+  --configurator-inset-x: clamp(16px, 3vw, 48px);
+  --configurator-sheet-button-width: 360px;
+  /* Small screens: the flat live screen starts below the section and design switches */
+  --configurator-flat-screen-top: calc(
+    var(--nav-height) + var(--space-3) + var(--touch-target-min) +
+      var(--space-4)
+  );
   /* The projected jukebox display box, warped onto the 3D screen */
   --projected-screen-width: 540px;
   --projected-screen-height: 960px;
@@ -290,6 +310,7 @@
   --shadow-pixel-sm: 3px 3px 0 var(--color-shadow);
   --shadow-pixel-md: 4px 4px 0 var(--color-shadow);
   --shadow-pixel-lg: 6px 6px 0 var(--color-shadow);
+  --shadow-sheet: 0 -12px 40px var(--color-sheet-shadow);
 
   /* Focus ring */
   --focus-ring-width: 2px;

@@ -81,4 +81,21 @@ describe('SegmentedControl', () => {
     // Radix moves roving focus on the next tick.
     await waitFor(() => expect(option('listen')).toHaveFocus());
   });
+
+  it('marks its size for the compact styling', () => {
+    render(
+      <SegmentedControl
+        label="Section"
+        size="compact"
+        options={OPTIONS}
+        value="sing"
+        onValueChange={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByTestId('segmented-control')).toHaveAttribute(
+      'data-size',
+      'compact',
+    );
+  });
 });

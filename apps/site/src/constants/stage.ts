@@ -27,6 +27,10 @@ export const VP_TWEEN_DURATION_MS = 1100;
 export const WHEEL_SILENCE_MS = 500;
 // ...and come at least this long after the previous turn.
 export const WHEEL_TURN_INTERVAL_MS = 1500;
+// A box that scrolls on its own (marked `data-wheel-scroll`) takes the wheel until it reaches
+// its end, within this many px; only then does the wheel turn the page.
+export const WHEEL_SCROLL_SELECTOR = '[data-wheel-scroll]';
+export const WHEEL_SCROLL_END_TOLERANCE_PX = 1;
 // Scrolled this far past the top of the contact section, upward wheel and keys stay native.
 export const CONTACT_NATIVE_SCROLL_TOLERANCE_PX = 2;
 

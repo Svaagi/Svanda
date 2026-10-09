@@ -1,11 +1,14 @@
 import * as RadixSwitch from '@radix-ui/react-switch';
 import { useId } from 'react';
+import { ControlCaption } from 'ui/controlCaption';
 import { childTestId } from 'utils';
 
 import styles from './switch.module.css';
 
 export interface SwitchProps {
   label: string;
+  // A short explanation under the label, read as the switch's description.
+  hint?: string;
   checked?: boolean;
   defaultChecked?: boolean;
   onCheckedChange?: (isChecked: boolean) => void;
@@ -15,6 +18,7 @@ export interface SwitchProps {
 
 export function Switch({
   label,
+  hint,
   checked,
   defaultChecked,
   onCheckedChange,
@@ -22,18 +26,20 @@ export function Switch({
   testId = 'switch',
 }: SwitchProps) {
   const controlId = useId();
+  const hintId = `${controlId}hint`;
 
   return (
     <div className={styles.switch} data-testid={testId}>
-      <label
+      <ControlCaption
+        label={label}
+        hint={hint}
+        hintId={hintId}
         htmlFor={controlId}
-        className={styles.label}
-        data-testid={childTestId(testId, 'label')}
-      >
-        {label}
-      </label>
+        testId={testId}
+      />
       <RadixSwitch.Root
         id={controlId}
+        aria-describedby={hint ? hintId : undefined}
         className={styles.track}
         checked={checked}
         defaultChecked={defaultChecked}
