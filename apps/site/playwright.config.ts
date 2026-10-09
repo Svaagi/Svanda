@@ -7,13 +7,17 @@ const PREVIEW_URL = `http://localhost:${PREVIEW_PORT}`;
 export default defineConfig({
   testDir: './e2e',
   forbidOnly: Boolean(process.env.CI),
+  // An HTML report is uploaded as a CI artifact when a run fails.
+  reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'list',
   retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? 'github' : 'list',
   use: {
     baseURL: PREVIEW_URL,
     trace: 'on-first-retry',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'webkit-mobile', use: { ...devices['iPhone 15'] } },
+  ],
   webServer: {
     command: 'pnpm run build && pnpm run preview',
     url: PREVIEW_URL,

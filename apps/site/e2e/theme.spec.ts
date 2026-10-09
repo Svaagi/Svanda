@@ -7,6 +7,9 @@ const LIGHT_BG = 'rgb(245, 245, 242)';
 const bodyBackground = (page: Page) =>
   page.evaluate(() => getComputedStyle(document.body).backgroundColor);
 
+const COARSE_POINTER_SKIP_REASON =
+  'mobile projects have a coarse pointer, so the pixel cursor is off';
+
 const bodyCursor = (page: Page) =>
   page.evaluate(() => getComputedStyle(document.body).cursor);
 
@@ -74,14 +77,16 @@ test.describe('reduced motion', () => {
 });
 
 test.describe('pixel cursor', () => {
-  test('is used on fine pointers', async ({ page }) => {
+  test('is used on fine pointers', async ({ page, isMobile }) => {
+    test.skip(isMobile, COARSE_POINTER_SKIP_REASON);
     await page.goto('/');
 
     await expect(page.locator('html')).toHaveAttribute('data-cursor', 'on');
     expect(await bodyCursor(page)).toContain('/cursors/cursor-arrow.png');
   });
 
-  test('switches to the magenta set', async ({ page }) => {
+  test('switches to the magenta set', async ({ page, isMobile }) => {
+    test.skip(isMobile, COARSE_POINTER_SKIP_REASON);
     await page.goto('/');
     await page.evaluate(() =>
       document.documentElement.setAttribute('data-cursor', 'magenta'),

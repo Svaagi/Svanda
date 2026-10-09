@@ -14,6 +14,7 @@ const TS_PROJECTS = [
   './apps/site/tsconfig.spec.json',
   './apps/contact-api/tsconfig.spec.json',
   './packages/shared/tsconfig.spec.json',
+  './scripts/tsconfig.json',
 ];
 
 export default tseslint.config(
