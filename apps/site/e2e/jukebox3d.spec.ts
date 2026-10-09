@@ -15,6 +15,9 @@ const SETTLED_STATE_PATTERN = /^(ready|unavailable)$/;
 // Software WebGL compiles the physical material shaders slowly.
 const SCENE_READY_TIMEOUT_MS = 30_000;
 const SCENE_TEST_TIMEOUT_MS = 60_000;
+// Each page turn needs fresh software-rendered frames before the display quad follows.
+const SCENE_FRAME_TIMEOUT_MS = 20_000;
+const PAGING_TEST_TIMEOUT_MS = 120_000;
 const PROJECTED = 'projected-screen';
 const KEYBOARD_SKIP_REASON = 'keyboard paging is a desktop path';
 
@@ -71,6 +74,10 @@ test('keeps the projected display hidden and inert while no 3D display is drawn'
   await expect(projected).toHaveAttribute('data-mode', 'sing');
   await expect(projected).toHaveAttribute('data-paused', 'true');
   await expect(projected).toHaveAttribute('inert');
+  await expect(projected.getByTestId('pixel-jukebox-ui')).toHaveAttribute(
+    'data-section',
+    'sing',
+  );
 });
 
 test.describe('with WebGL', () => {
@@ -173,7 +180,7 @@ test.describe('with WebGL', () => {
     isMobile,
   }) => {
     test.skip(isMobile, KEYBOARD_SKIP_REASON);
-    test.setTimeout(SCENE_TEST_TIMEOUT_MS);
+    test.setTimeout(PAGING_TEST_TIMEOUT_MS);
     await page.goto('/en');
     const stage = page.locator(STAGE);
     await expect(stage).toHaveAttribute('data-state', SETTLED_STATE_PATTERN, {
@@ -190,21 +197,32 @@ test.describe('with WebGL', () => {
       return box ? box.x + box.width / 2 : Number.NaN;
     };
 
+    const frameWait = { timeout: SCENE_FRAME_TIMEOUT_MS };
+
     // Karaoke: the model stands in the right half, the screen on its display.
     await page.keyboard.press('PageDown');
-    await expect(projected).toHaveAttribute('data-interactive', 'true');
+    await expect(projected).toHaveAttribute(
+      'data-interactive',
+      'true',
+      frameWait,
+    );
     await expect(projected).toHaveAttribute('data-mode', 'sing');
     await expect(projected).not.toHaveAttribute('inert');
-    await expect.poll(centreX).toBeGreaterThan(viewportWidth / 2);
+    await expect.poll(centreX, frameWait).toBeGreaterThan(viewportWidth / 2);
 
-    // Jukebox: mirrored into the left half.
+    // Jukebox: mirrored into the left half. The position comes first: the interactive flag
+    // still holds the karaoke value until the model has spun over.
     await page.keyboard.press('ArrowDown');
-    await expect(projected).toHaveAttribute('data-mode', 'listen');
-    await expect(projected).toHaveAttribute('data-interactive', 'true');
-    await expect.poll(centreX).toBeLessThan(viewportWidth / 2);
+    await expect(projected).toHaveAttribute('data-mode', 'listen', frameWait);
+    await expect.poll(centreX, frameWait).toBeLessThan(viewportWidth / 2);
+    await expect(projected).toHaveAttribute(
+      'data-interactive',
+      'true',
+      frameWait,
+    );
 
     // Custom: gone again.
     await page.keyboard.press('ArrowDown');
-    await expect(projected).toHaveAttribute('data-paused', 'true');
+    await expect(projected).toHaveAttribute('data-paused', 'true', frameWait);
   });
 });

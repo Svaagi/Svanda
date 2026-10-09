@@ -114,6 +114,49 @@
   --color-jukebox-vu-6: var(--palette-cyan);
   --color-jukebox-vu-7: #ff2d6b;
 
+  /* Jukebox app UI previews: the app's own palette, the same in both themes. Section
+     defaults the configurator starts from, then the fixed chrome around them. */
+  --color-jukebox-ui-text: var(--palette-white);
+  --color-jukebox-ui-pixel-sing-base: #05252d;
+  --color-jukebox-ui-pixel-sing-acc: #2fcaca;
+  --color-jukebox-ui-pixel-sing-btn-line: var(--palette-white);
+  --color-jukebox-ui-pixel-sing-now: var(--palette-cyan);
+  --color-jukebox-ui-pixel-listen-base: #12012a;
+  --color-jukebox-ui-pixel-listen-acc: var(--palette-lime);
+  --color-jukebox-ui-pixel-listen-btn-line: var(--palette-lime);
+  --color-jukebox-ui-pixel-listen-now: var(--palette-magenta);
+  --color-jukebox-ui-pixel-acc-ink: var(--palette-ink);
+  --color-jukebox-ui-pixel-vip: #ffd800;
+  --color-jukebox-ui-pixel-row-line: #34373e;
+  --color-jukebox-ui-glass-sing-base: #063d49;
+  --color-jukebox-ui-glass-sing-acc: #ffd700;
+  --color-jukebox-ui-glass-sing-now: #ffd809;
+  --color-jukebox-ui-glass-listen-base: var(
+    --color-jukebox-ui-pixel-listen-base
+  );
+  --color-jukebox-ui-glass-listen-acc: #ff85c8;
+  --color-jukebox-ui-glass-listen-now: #e068b2;
+  --color-jukebox-ui-glass-vip: #ffd36e;
+  --color-jukebox-ui-ink: var(--palette-ink);
+  --color-jukebox-ui-shadow: var(--palette-black);
+  --color-jukebox-ui-light: var(--palette-white);
+  --color-jukebox-ui-button-bg: #1a1c20;
+  --color-jukebox-ui-button-line: #9fa1a8;
+  --color-jukebox-ui-toggle-bg: #111315;
+  --color-jukebox-ui-toggle-line: #24262b;
+  --color-jukebox-ui-toggle-fg: #8d9098;
+  --color-jukebox-ui-input-bg: #101113;
+  --color-jukebox-ui-input-line: #3a3d44;
+  --color-jukebox-ui-input-fg: #8f9299;
+  --color-jukebox-ui-list-bg: #0c0d10;
+  --color-jukebox-ui-row-bg: #16181c;
+  --color-jukebox-ui-duration: #9a9ca3;
+  --color-jukebox-ui-now-bg: #111214;
+  --color-jukebox-ui-overlay: #050509;
+  --color-jukebox-ui-modal-bg: #18191d;
+  --color-jukebox-ui-modal-line: #b9bac0;
+  --color-jukebox-ui-modal-fg: #e6e6e8;
+
   /* Typography */
   --font-pixel: 'Silkscreen', monospace;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -136,6 +179,8 @@
   --line-height-base: 1.5;
   --line-height-display: 1.02;
   --line-height-relaxed: 1.45;
+  --line-height-snug: 1.3;
+  --line-height-loose: 1.6;
   --letter-spacing-tight: -0.035em;
   --letter-spacing-snug: -0.01em;
   --letter-spacing-wide: 0.04em;
@@ -200,6 +245,9 @@
   /* The projected jukebox display box, warped onto the 3D screen */
   --projected-screen-width: 540px;
   --projected-screen-height: 960px;
+  /* The jukebox app UI is drawn in units of 1/540 of its width (`--u`) */
+  --jukebox-ui-columns: 540;
+  --jukebox-ui-aspect-ratio: 540 / 960;
 
   /* Borders */
   --border-width-thin: 1px;

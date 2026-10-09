@@ -1,0 +1,300 @@
+/* Lengths are design pixels of the 540 px wide app screen (`--u`). The glass is the light
+   colour at a low alpha over the lava lamp. */
+.glassJukeboxUi {
+  --app-glass: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) calc(var(--app-glass-a) * 100%),
+    transparent
+  );
+  --app-glass-line: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) 32%,
+    transparent
+  );
+  --app-glass-shine: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) 42%,
+    transparent
+  );
+  --app-light-strong: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) 95%,
+    transparent
+  );
+  --app-light-dim: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) 55%,
+    transparent
+  );
+  --app-acc-glow: color-mix(in srgb, var(--app-acc) 40%, transparent);
+  --app-vip-tint: color-mix(in srgb, var(--app-vip) 25%, transparent);
+  --app-vip-line: color-mix(in srgb, var(--app-vip) 50%, transparent);
+  --app-now-glow: color-mix(in srgb, var(--app-now) 35%, transparent);
+
+  font-family: var(--font-mono);
+}
+
+.ui {
+  gap: calc(10 * var(--u));
+  padding: calc(8 * var(--u)) calc(11 * var(--u)) calc(6 * var(--u));
+}
+
+.glass {
+  background: var(--app-glass);
+  border: var(--border-width-thin) solid var(--app-glass-line);
+  box-shadow:
+    inset 0 calc(1.5 * var(--u)) 0 var(--app-glass-shine),
+    inset calc(1.5 * var(--u)) 0 0 var(--app-glass-line),
+    0 calc(2 * var(--u)) calc(16 * var(--u))
+      color-mix(in srgb, var(--color-jukebox-ui-shadow) 12%, transparent);
+}
+
+/* Credit pill with the top-up button */
+.balanceRow {
+  position: relative;
+  flex-shrink: 0;
+  height: calc(49 * var(--u));
+}
+
+.balance {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(16 * var(--u));
+  min-width: 40%;
+  height: 100%;
+  padding: 0 calc(11 * var(--u));
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-heavy);
+  font-size: calc(38 * var(--u));
+  color: var(--app-light-strong);
+}
+
+.currency {
+  font-size: calc(34 * var(--u));
+  text-transform: lowercase;
+}
+
+.plus {
+  display: grid;
+  place-items: center;
+  width: calc(35 * var(--u));
+  height: calc(35 * var(--u));
+  border-radius: var(--radius-full);
+}
+
+.plusIcon {
+  width: calc(14 * var(--u));
+  height: calc(14 * var(--u));
+}
+
+/* KARAOKE / NORMAL */
+.toggle {
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(11 * var(--u));
+}
+
+.toggleOption {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  height: calc(59 * var(--u));
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-heavy);
+  font-size: calc(27 * var(--u));
+  letter-spacing: calc(3.2 * var(--u));
+  color: color-mix(in srgb, var(--color-jukebox-ui-light) 75%, transparent);
+}
+
+.toggleOption[data-active='true'] {
+  background: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) 22%,
+    transparent
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) 45%,
+    transparent
+  );
+  color: var(--app-acc);
+  text-shadow:
+    0 0 calc(8 * var(--u)) var(--app-acc-glow),
+    0 var(--u) calc(2 * var(--u))
+      color-mix(in srgb, var(--color-jukebox-ui-shadow) 30%, transparent);
+}
+
+/* Search and queue */
+.search {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(11 * var(--u));
+}
+
+.input {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(46 * var(--u));
+  padding: 0 calc(16 * var(--u));
+  border-radius: var(--radius-full);
+  font-size: calc(17 * var(--u));
+  color: var(--app-light-dim);
+}
+
+.searchIcon {
+  width: calc(18 * var(--u));
+  height: calc(18 * var(--u));
+}
+
+.queue {
+  display: flex;
+  align-items: center;
+  height: calc(43 * var(--u));
+  padding: 0 calc(14 * var(--u));
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-bold);
+  font-size: calc(17 * var(--u));
+  letter-spacing: calc(1.4 * var(--u));
+  color: color-mix(in srgb, var(--color-jukebox-ui-light) 88%, transparent);
+}
+
+/* Thumbnails and songs */
+.main {
+  display: flex;
+  flex: 1 1 auto;
+  gap: calc(6 * var(--u));
+  min-height: 0;
+  overflow: hidden;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: calc(13 * var(--u));
+  height: max-content;
+  margin: 0;
+  padding: calc(16 * var(--u));
+  list-style: none;
+  border-radius: calc(22 * var(--u));
+  background: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) calc(var(--app-panel-a) * 100%),
+    transparent
+  );
+  border: var(--border-width-thin) solid
+    color-mix(in srgb, var(--color-jukebox-ui-light) 26%, transparent);
+  box-shadow: inset 0 var(--border-width-thin) 0
+    color-mix(in srgb, var(--color-jukebox-ui-light) 32%, transparent);
+}
+
+.songs {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.thumb {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: calc(84 * var(--u));
+  height: calc(84 * var(--u));
+  border-radius: calc(26 * var(--u));
+  background: var(--app-base);
+  border: var(--border-width-thin) solid var(--app-glass-line);
+  box-shadow:
+    0 calc(4 * var(--u)) calc(16 * var(--u))
+      color-mix(in srgb, var(--color-jukebox-ui-shadow) 45%, transparent),
+    inset 0 var(--border-width-thin) 0 var(--app-glass-shine);
+  font-weight: var(--font-weight-heavy);
+  font-size: calc(24 * var(--u));
+  color: var(--app-light-strong);
+}
+
+.row {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  height: calc(84 * var(--u));
+  padding: 0 calc(20 * var(--u));
+  border-radius: calc(26 * var(--u));
+  background: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) calc(var(--app-row-a) * 100%),
+    transparent
+  );
+  border: var(--border-width-thin) solid
+    color-mix(in srgb, var(--color-jukebox-ui-light) 28%, transparent);
+  box-shadow:
+    0 calc(2 * var(--u)) calc(12 * var(--u))
+      color-mix(in srgb, var(--color-jukebox-ui-shadow) 30%, transparent),
+    inset 0 var(--border-width-thin) 0
+      color-mix(in srgb, var(--color-jukebox-ui-light) 38%, transparent);
+}
+
+.songTitle {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  font-weight: var(--font-weight-semibold);
+  font-size: calc(15 * var(--u));
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--app-txt);
+}
+
+.duration {
+  flex-shrink: 0;
+  font-weight: var(--font-weight-bold);
+  font-size: calc(13 * var(--u));
+  color: var(--app-light-dim);
+}
+
+.vip {
+  flex-shrink: 0;
+  padding: calc(3 * var(--u)) calc(9 * var(--u));
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-heavy);
+  font-size: calc(11 * var(--u));
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--app-vip);
+  background: var(--app-vip-tint);
+  border: var(--border-width-thin) solid var(--app-vip-line);
+}
+
+/* Now playing */
+.nowPlaying {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(12 * var(--u));
+  min-height: calc(100 * var(--u));
+  margin: 0 calc(4 * var(--u)) calc(4 * var(--u));
+  padding: calc(8 * var(--u)) calc(16 * var(--u));
+  border-radius: calc(26 * var(--u));
+  background: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) 14%,
+    transparent
+  );
+  border: var(--border-width-thin) solid var(--app-now);
+  box-shadow:
+    0 calc(4 * var(--u)) calc(20 * var(--u))
+      color-mix(in srgb, var(--color-jukebox-ui-shadow) 40%, transparent),
+    inset 0 var(--border-width-thin) 0
+      color-mix(in srgb, var(--color-jukebox-ui-light) 45%, transparent),
+    0 0 0 var(--border-width-thin) var(--app-now-glow);
+
+  & .thumb {
+    width: calc(76 * var(--u));
+    height: calc(76 * var(--u));
+  }
+}

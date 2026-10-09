@@ -156,6 +156,23 @@
       "attached": "The configuration will be sent with your request."
     }
   },
+  "jukeboxUi": {
+    "label": "Jukebox screen preview",
+    "toggle": { "sing": "KARAOKE", "listen": "NORMAL" },
+    "search": "Search songs...",
+    "queue": "QUEUE",
+    "vip": "VIP",
+    "song": {
+      "sing": "{{title}} (Karaoke) - {{artist}}",
+      "listen": "{{title}} - {{artist}}"
+    },
+    "nowPlayingTime": "{{elapsed}} / {{duration}}",
+    "payment": {
+      "balance": "Current balance:",
+      "add": "Add for {{price}}",
+      "vip": "VIP for {{price}}"
+    }
+  },
   "venues": {
     "tag": "VENUES & EVENTS",
     "title": "Where Svanda already plays",

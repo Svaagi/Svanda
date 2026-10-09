@@ -70,6 +70,9 @@ describe('HomePage', () => {
     expect(screen.getByTestId('page-layer-jukebox')).toContainElement(
       screen.getByTestId('product-panel-jukebox'),
     );
+    expect(screen.getByTestId('projected-screen')).toContainElement(
+      screen.getByTestId('pixel-jukebox-ui'),
+    );
     expect(screen.getByTestId('contact-section')).toHaveAttribute(
       'id',
       'contact',

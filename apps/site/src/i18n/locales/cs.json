@@ -156,6 +156,23 @@
       "attached": "Konfigurace se pošle s žádostí."
     }
   },
+  "jukeboxUi": {
+    "label": "Ukázka obrazovky jukeboxu",
+    "toggle": { "sing": "KARAOKE", "listen": "NORMAL" },
+    "search": "Hledat skladby...",
+    "queue": "FRONTA",
+    "vip": "VIP",
+    "song": {
+      "sing": "{{title}} (Karaoke) - {{artist}}",
+      "listen": "{{title}} - {{artist}}"
+    },
+    "nowPlayingTime": "{{elapsed}} / {{duration}}",
+    "payment": {
+      "balance": "Aktuální kredit:",
+      "add": "Přidat za {{price}}",
+      "vip": "VIP za {{price}}"
+    }
+  },
   "venues": {
     "tag": "POBOČKY & AKCE",
     "title": "Kde už Svanda hraje",

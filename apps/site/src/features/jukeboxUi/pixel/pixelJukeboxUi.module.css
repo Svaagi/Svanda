@@ -1,0 +1,279 @@
+/* Lengths are design pixels of the 540 px wide app screen (`--u`). */
+.pixelJukeboxUi {
+  --app-acc-hi: color-mix(
+    in srgb,
+    var(--app-acc) 45%,
+    var(--color-jukebox-ui-light)
+  );
+  --app-acc-lo: color-mix(
+    in srgb,
+    var(--app-acc) 60%,
+    var(--color-jukebox-ui-shadow)
+  );
+  --app-acc-tint: color-mix(in srgb, var(--app-acc) 18%, transparent);
+  --app-vip-hi: color-mix(
+    in srgb,
+    var(--app-vip) 50%,
+    var(--color-jukebox-ui-light)
+  );
+  --app-vip-lo: color-mix(
+    in srgb,
+    var(--app-vip) 65%,
+    var(--color-jukebox-ui-shadow)
+  );
+  --app-bevel-light: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-light) 8%,
+    transparent
+  );
+  --app-bevel-dark: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-shadow) 45%,
+    transparent
+  );
+
+  font-family: var(--font-body);
+}
+
+.ui {
+  gap: calc(12 * var(--u));
+  padding: calc(12 * var(--u)) calc(12 * var(--u)) calc(14 * var(--u))
+    calc(10 * var(--u));
+}
+
+/* Header: S logo, credit box, queue button */
+.head {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(52 * var(--u));
+}
+
+.logo {
+  width: calc(38 * var(--u));
+  height: calc(48 * var(--u));
+  margin-left: calc(4 * var(--u));
+  color: var(--app-acc);
+}
+
+.credit {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(12 * var(--u));
+  width: calc(210 * var(--u));
+  height: calc(52 * var(--u));
+  transform: translateX(-50%);
+  background: var(--color-jukebox-ui-ink);
+  border: calc(3 * var(--u)) solid var(--app-acc);
+  box-shadow:
+    var(--app-shadow-md),
+    inset 0 0 0 calc(3 * var(--u)) var(--color-jukebox-ui-ink),
+    inset 0 0 0 calc(5 * var(--u)) var(--app-acc-tint);
+}
+
+.digits {
+  display: flex;
+  gap: calc(7.2 * var(--u));
+}
+
+.digit {
+  display: grid;
+  grid-template-columns: repeat(4, calc(5.4 * var(--u)));
+  grid-template-rows: repeat(5, calc(5.4 * var(--u)));
+  gap: calc(1.8 * var(--u));
+}
+
+.digitCell[data-lit='true'] {
+  background: var(--app-acc);
+}
+
+.currency {
+  font-family: var(--font-pixel);
+  font-size: calc(15 * var(--u));
+  color: var(--app-txt);
+}
+
+.iconButton {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: calc(52 * var(--u));
+  height: calc(52 * var(--u));
+  background: var(--color-jukebox-ui-button-bg);
+  border: calc(3 * var(--u)) solid var(--color-jukebox-ui-button-line);
+  box-shadow:
+    var(--app-shadow-md),
+    inset calc(3 * var(--u)) calc(3 * var(--u)) 0 var(--app-bevel-light),
+    inset calc(-3 * var(--u)) calc(-3 * var(--u)) 0 var(--app-bevel-dark);
+  color: var(--color-jukebox-ui-light);
+}
+
+.queueIcon {
+  width: calc(28 * var(--u));
+  height: calc(24 * var(--u));
+}
+
+.searchIcon {
+  width: calc(28 * var(--u));
+  height: calc(28 * var(--u));
+}
+
+/* KARAOKE / NORMAL */
+.toggle {
+  display: flex;
+  flex-shrink: 0;
+  height: calc(52 * var(--u));
+  background: var(--color-jukebox-ui-toggle-bg);
+  border: calc(3 * var(--u)) solid var(--color-jukebox-ui-toggle-line);
+  box-shadow: var(--app-shadow-md);
+}
+
+.toggleOption {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  padding-left: calc(7 * var(--u));
+  font-family: var(--font-pixel);
+  font-weight: var(--font-weight-bold);
+  font-size: calc(14 * var(--u));
+  letter-spacing: calc(7 * var(--u));
+  color: var(--color-jukebox-ui-toggle-fg);
+}
+
+.toggleOption[data-active='true'] {
+  background: var(--app-acc);
+  color: var(--app-acc-ink);
+  box-shadow:
+    inset calc(3 * var(--u)) calc(3 * var(--u)) 0 var(--app-acc-hi),
+    inset calc(-4 * var(--u)) calc(-4 * var(--u)) 0 var(--app-acc-lo);
+}
+
+/* Search */
+.search {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(10 * var(--u));
+  height: calc(62 * var(--u));
+}
+
+.input {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  height: 100%;
+  padding: 0 calc(18 * var(--u));
+  background: var(--color-jukebox-ui-input-bg);
+  border: calc(3 * var(--u)) solid var(--color-jukebox-ui-input-line);
+  box-shadow: var(--app-shadow-md);
+  font-size: calc(20 * var(--u));
+  color: var(--color-jukebox-ui-input-fg);
+}
+
+/* Song list */
+.list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: calc(12 * var(--u));
+  min-height: 0;
+  margin: 0;
+  padding: calc(16 * var(--u)) calc(14 * var(--u)) calc(16 * var(--u))
+    calc(16 * var(--u));
+  overflow: hidden;
+  list-style: none;
+  background: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-list-bg) calc(var(--app-panel-a) * 100%),
+    transparent
+  );
+  border: calc(3 * var(--u)) solid var(--color-jukebox-ui-toggle-line);
+}
+
+.row {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(10 * var(--u));
+  min-height: calc(86 * var(--u));
+  padding: 0 calc(20 * var(--u)) 0 calc(22 * var(--u));
+  background: color-mix(
+    in srgb,
+    var(--color-jukebox-ui-row-bg) calc(var(--app-row-a) * 100%),
+    transparent
+  );
+  border: calc(2 * var(--u)) solid var(--app-row-line);
+  box-shadow:
+    inset calc(2 * var(--u)) calc(2 * var(--u)) 0
+      color-mix(in srgb, var(--color-jukebox-ui-light) 7%, transparent),
+    inset calc(-2 * var(--u)) calc(-3 * var(--u)) 0
+      color-mix(in srgb, var(--color-jukebox-ui-shadow) 50%, transparent),
+    calc(3 * var(--u)) calc(3 * var(--u)) 0
+      color-mix(in srgb, var(--color-jukebox-ui-shadow) 55%, transparent);
+}
+
+.songTitle {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  font-size: calc(16 * var(--u));
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--app-txt);
+}
+
+.duration {
+  flex-shrink: 0;
+  font-family: var(--font-pixel);
+  font-size: calc(11 * var(--u));
+  color: var(--color-jukebox-ui-duration);
+}
+
+.vip {
+  flex-shrink: 0;
+  padding: calc(3 * var(--u)) calc(7 * var(--u)) calc(3 * var(--u))
+    calc(9 * var(--u));
+  font-family: var(--font-pixel);
+  font-weight: var(--font-weight-bold);
+  font-size: calc(11 * var(--u));
+  letter-spacing: calc(2 * var(--u));
+  background: var(--app-vip);
+  color: var(--color-jukebox-ui-ink);
+  box-shadow:
+    inset calc(2 * var(--u)) calc(2 * var(--u)) 0 var(--app-vip-hi),
+    inset calc(-2 * var(--u)) calc(-3 * var(--u)) 0 var(--app-vip-lo),
+    calc(2 * var(--u)) calc(2 * var(--u)) 0 var(--color-jukebox-ui-shadow);
+}
+
+/* Now playing */
+.nowPlaying {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(14 * var(--u));
+  min-height: calc(100 * var(--u));
+  padding: 0 calc(22 * var(--u));
+  background: var(--color-jukebox-ui-now-bg);
+  border: calc(3 * var(--u)) solid var(--app-now);
+  box-shadow: var(--app-shadow-md);
+
+  & .songTitle {
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+.noteIcon {
+  flex-shrink: 0;
+  width: calc(24 * var(--u));
+  height: calc(30 * var(--u));
+  color: var(--app-now);
+}

@@ -1,0 +1,30 @@
+/* Lengths inside resolve `--u` against this box (the query container), so the whole UI
+   scales with the width it is given. */
+.appScreen {
+  --u: calc(100cqw / var(--jukebox-ui-columns));
+  --app-shadow-md: calc(4 * var(--u)) calc(4 * var(--u)) 0
+    var(--color-jukebox-ui-shadow);
+
+  position: relative;
+  container-type: inline-size;
+  isolation: isolate;
+  width: 100%;
+  aspect-ratio: var(--jukebox-ui-aspect-ratio);
+  overflow: hidden;
+  background: var(--app-base);
+  color: var(--app-txt);
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-base);
+}
+
+.ui {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+}

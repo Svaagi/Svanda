@@ -8,15 +8,12 @@ import {
   PROJECTED_VISIBLE_FROM_VP,
   PROJECTED_VISIBLE_TO_VP,
 } from 'constants/jukebox3d';
+import type { JukeboxSection } from 'constants/jukeboxUi';
 import type { ScreenQuad } from 'features/stage';
 import { boxToQuadHomography, homographyToMatrix3d } from 'lib/homography';
 import { clamp, roundTo } from 'lib/math';
 
-// Which jukebox screen the display shows: singing on the karaoke page, listening on the
-// jukebox page.
-export type ProjectedMode = 'sing' | 'listen';
-
-export function projectedMode(vp: number): ProjectedMode {
+export function projectedMode(vp: number): JukeboxSection {
   return vp < PROJECTED_LISTEN_FROM_VP ? 'sing' : 'listen';
 }
 

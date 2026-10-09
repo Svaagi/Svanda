@@ -1,9 +1,9 @@
+import type { JukeboxSection } from 'constants/jukeboxUi';
 import { useStageStore } from 'features/stage';
 import { type ReactNode, useRef } from 'react';
 
 import {
   isProjectedInteractive,
-  type ProjectedMode,
   projectedMode,
   projectedVisibility,
 } from './projectedDisplay';
@@ -11,7 +11,7 @@ import styles from './projectedScreen.module.css';
 import { useProjectedPlacement } from './useProjectedPlacement';
 
 export type ProjectedScreenState = {
-  mode: ProjectedMode;
+  mode: JukeboxSection;
   // Hidden content should stop its own animation while this is set.
   isPaused: boolean;
 };
