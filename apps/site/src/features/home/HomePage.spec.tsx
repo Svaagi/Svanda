@@ -64,6 +64,12 @@ describe('HomePage', () => {
     expect(screen.getByTestId('page-layer-top')).toContainElement(
       screen.getByTestId('hero-overlay'),
     );
+    expect(screen.getByTestId('page-layer-karaoke')).toContainElement(
+      screen.getByTestId('product-panel-karaoke'),
+    );
+    expect(screen.getByTestId('page-layer-jukebox')).toContainElement(
+      screen.getByTestId('product-panel-jukebox'),
+    );
     expect(screen.getByTestId('contact-section')).toHaveAttribute(
       'id',
       'contact',

@@ -12,6 +12,7 @@ import {
 import { HeroBackground, HeroOverlay } from 'features/hero';
 import { IntroCanvas } from 'features/intro';
 import { JukeboxStage, ProjectedScreen } from 'features/jukebox3d';
+import { ProductPanel, usePageAccent } from 'features/products';
 import { Footer, Header, SkipLink } from 'features/shell';
 import { PageLayer, StageShell } from 'features/stage';
 import { useLocale } from 'i18n';
@@ -23,6 +24,7 @@ import styles from './homePage.module.css';
 export function HomePage() {
   const { t } = useTranslation();
   const locale = useLocale();
+  usePageAccent();
 
   return (
     <>
@@ -49,8 +51,12 @@ export function HomePage() {
             <HeroOverlay />
           </PageLayer>
           {/* Karaoke copy sits left and drifts in from the right; jukebox mirrors it. */}
-          <PageLayer pageIndex={KARAOKE_PAGE} parallaxPx={-LAYER_PARALLAX_PX} />
-          <PageLayer pageIndex={JUKEBOX_PAGE} parallaxPx={LAYER_PARALLAX_PX} />
+          <PageLayer pageIndex={KARAOKE_PAGE} parallaxPx={-LAYER_PARALLAX_PX}>
+            <ProductPanel productId="karaoke" />
+          </PageLayer>
+          <PageLayer pageIndex={JUKEBOX_PAGE} parallaxPx={LAYER_PARALLAX_PX}>
+            <ProductPanel productId="jukebox" />
+          </PageLayer>
           <PageLayer pageIndex={CUSTOM_PAGE} />
           <PageLayer
             pageIndex={VENUES_PAGE}

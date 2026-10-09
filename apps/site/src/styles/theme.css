@@ -51,6 +51,9 @@
   --color-focus: var(--color-accent);
   --color-danger: #ff6b6b;
   --color-overlay: rgb(5 5 8 / 0.94);
+  /* Product page headings keep their own colour whatever the accent */
+  --color-product-karaoke: var(--palette-orange);
+  --color-product-jukebox: var(--palette-magenta);
 
   /* Wordmark letter colours */
   --color-letter-1: var(--palette-lime);
@@ -127,10 +130,14 @@
   --font-size-body: clamp(17px, 1.3vw, 24px);
   --font-size-xl: 32px;
   --font-size-display: clamp(40px, 4.4vw, 84px);
+  --font-size-body-compact: clamp(15px, 1.1vw, 22px);
   --line-height-none: 1;
   --line-height-tight: 1.05;
   --line-height-base: 1.5;
+  --line-height-display: 1.02;
+  --line-height-relaxed: 1.45;
   --letter-spacing-tight: -0.035em;
+  --letter-spacing-snug: -0.01em;
   --letter-spacing-wide: 0.04em;
   --letter-spacing-wider: 0.06em;
   --font-size-control: 14px;
@@ -175,6 +182,21 @@
   --hero-overlay-bottom: clamp(40px, 8vh, 72px);
   --hero-overlay-max-width: 560px;
   --hero-overlay-fade-rate: 2.5;
+  /* Karaoke and jukebox page copy: beside the model in landscape, around it in portrait */
+  --product-inset-x: clamp(32px, 6vw, 120px);
+  --product-gap: clamp(20px, 3vh, 36px);
+  --product-title-max-width: 13ch;
+  --product-body-max-width: 30em;
+  --product-portrait-inset-x: clamp(24px, 7vw, 90px);
+  --product-portrait-top: calc(var(--nav-height) + clamp(24px, 7vh, 72px));
+  --product-portrait-bottom: clamp(20px, 5vh, 48px);
+  --product-portrait-gap: 22px;
+  --product-portrait-body-max-width: 640px;
+  /* Pixel heading cells: 1/34 of half the width (at 0.6) in landscape, of most of it in
+     portrait; productHeadingCellPx in JS rounds the same formula. */
+  --product-heading-rows: 5;
+  --product-heading-cell: max(4px, min(100vw - 48px, 50vw) / 34 * 0.6);
+  --product-heading-cell-portrait: max(6px, min(100vw - 48px, 85vw) / 34);
   /* The projected jukebox display box, warped onto the 3D screen */
   --projected-screen-width: 540px;
   --projected-screen-height: 960px;
@@ -244,6 +266,8 @@
   --color-border-rgb: 226 226 222;
   --color-danger: #b3261e;
   --color-overlay: rgb(20 20 26 / 0.6);
+  --color-product-karaoke: var(--palette-orange-light);
+  --color-product-jukebox: var(--palette-magenta-light);
 
   --color-accent: var(--palette-orange-light);
   --color-accent-2: var(--palette-orange-light-2);
