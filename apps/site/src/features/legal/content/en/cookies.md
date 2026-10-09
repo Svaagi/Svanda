@@ -1,4 +1,4 @@
-<!-- TODO legal review: draft written without a lawyer. The consent cookie name and lifetime must match the consent manager configuration before launch. -->
+<!-- TODO legal review: draft written without a lawyer. Have it reviewed before launch. -->
 
 # Cookie policy
 
@@ -18,8 +18,6 @@ Without these items the website does not work the way you set it up. We store th
 
 ## Analytics
 
-<!-- TODO consent manager: the cookie settings opt-out described below depends on the consent manager; remove this note once the footer link exists. -->
-
 We measure visits with our own Umami instance (stats.svanda.fun), which uses no cookies and stores nothing on your device. The measurement is based on our legitimate interest and you can switch it off at any time in the cookie settings; the cc_cookie cookie remembers your choice. More in the [Privacy policy](/en/privacy).
 
 ## Marketing
@@ -27,8 +25,6 @@ We measure visits with our own Umami instance (stats.svanda.fun), which uses no 
 We do not use marketing cookies at the moment. If we add any in the future, they will load only with your prior consent, they will be off by default, and we will update this page beforehand.
 
 ## Changing your choices
-
-<!-- TODO consent manager: the cookie settings opt-out described below depends on the consent manager; remove this note once the footer link exists. -->
 
 You can change your choices at any time through the Cookie settings link in the website footer. You can also delete or block cookies and local storage in your browser settings; the website may then forget, for example, the appearance you chose.
 

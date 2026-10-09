@@ -5,6 +5,7 @@ import 'styles/global.css';
 import { DEFAULT_CURSOR_MODE } from 'constants/cursor';
 import { INTRO_INIT_SCRIPT_SRC } from 'constants/intro';
 import { THEME_INIT_SCRIPT_SRC } from 'constants/theme';
+import { useConsentManager } from 'features/consent';
 import { LocaleProvider, useLocale, useRememberedLocaleRedirect } from 'i18n';
 import type { ReactNode } from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
@@ -46,6 +47,7 @@ export function Layout({ children }: LayoutProps) {
 
 export default function App() {
   useRememberedLocaleRedirect();
+  useConsentManager();
 
   return <Outlet />;
 }

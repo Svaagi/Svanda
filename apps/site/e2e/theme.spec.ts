@@ -1,7 +1,7 @@
 import { devices } from '@playwright/test';
 import { THEME_ATTRIBUTE, THEME_STORAGE_KEY } from 'constants/theme';
 
-import { expect, type Page, skipIntro, test } from './fixtures';
+import { expect, type Page, presetConsent, skipIntro, test } from './fixtures';
 
 const DARK_BG = 'rgb(5, 5, 7)';
 const LIGHT_BG = 'rgb(245, 245, 242)';
@@ -102,6 +102,7 @@ test.describe('pixel cursor', () => {
   test('is not used on coarse pointers', async ({ browser }) => {
     const context = await browser.newContext({ ...devices['Pixel 7'] });
     await skipIntro(context);
+    await presetConsent(context);
     const page = await context.newPage();
     await page.goto('/');
 

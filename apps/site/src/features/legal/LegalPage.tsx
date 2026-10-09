@@ -1,6 +1,7 @@
 import { LEGAL_PATHS } from 'constants/legal';
 import { LEGAL_EFFECTIVE_DATE } from 'constants/legalIdentity';
 import { MAIN_CONTENT_ID } from 'constants/nav';
+import { openCookieSettings } from 'features/consent';
 import { Footer, SkipLink } from 'features/shell';
 import { useLocale } from 'i18n';
 import { useMemo } from 'react';
@@ -55,7 +56,7 @@ export function LegalPage({ testId = 'legal-page' }: LegalPageProps) {
           </p>
         </article>
       </main>
-      <Footer />
+      <Footer onOpenCookieSettings={openCookieSettings} />
     </>
   );
 }

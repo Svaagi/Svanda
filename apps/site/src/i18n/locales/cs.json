@@ -252,6 +252,37 @@
     "cookies": "Zásady cookies",
     "cookieSettings": "Nastavení cookies"
   },
+  "consent": {
+    "banner": {
+      "title": "Cookies a měření návštěvnosti",
+      "description": "Používáme jen úložiště nutná pro chod webu a měření návštěvnosti bez cookies, které můžete vypnout. Marketing zůstává vypnutý, dokud ho nepovolíte.",
+      "settings": "Nastavení"
+    },
+    "acceptAll": "Přijmout vše",
+    "rejectAll": "Odmítnout vše",
+    "policyLink": "Zásady cookies",
+    "preferences": {
+      "title": "Nastavení cookies",
+      "description": "Vyberte, které kategorie smí web používat. Svou volbu můžete kdykoli změnit v Nastavení cookies v patičce webu.",
+      "save": "Uložit nastavení",
+      "close": "Zavřít",
+      "moreTitle": "Další informace"
+    },
+    "categories": {
+      "necessary": {
+        "title": "Nezbytné",
+        "description": "Pamatují si vaše nastavení, například vzhled, jazyk a tuto volbu. Bez nich web nefunguje, proto jsou vždy zapnuté."
+      },
+      "analytics": {
+        "title": "Analytické",
+        "description": "Měření návštěvnosti bez cookies vlastním nástrojem Umami. Do vašeho zařízení nic neukládá a pomáhá nám web zlepšovat."
+      },
+      "marketing": {
+        "title": "Marketingové",
+        "description": "Marketingové cookies zatím nepoužíváme. Pokud je přidáme, načtou se jen s vaším souhlasem."
+      }
+    }
+  },
   "legal": {
     "homeLink": "SVANDA, úvodní stránka",
     "effective": "Platné od {{date}}"

@@ -38,8 +38,6 @@ Písma, obrázky a skripty webu jsou uloženy na našem serveru, takže se při 
 
 Návštěvnost měříme nástrojem Umami, který provozujeme sami na vlastním serveru (stats.svanda.fun). Umami nepoužívá cookies, neukládá nic do vašeho zařízení a nevytváří profily návštěvníků. Zaznamenává zobrazené stránky, odkud jste přišli, typ zařízení a prohlížeče, zemi a výkon stránky. IP adresu neukládá; používá ji jen k určení země a k vytvoření anonymního identifikátoru návštěvy, který se pravidelně mění.
 
-<!-- TODO consent manager: the cookie settings opt-out described below depends on the consent manager; remove this note once the footer link exists. -->
-
 - **Účel:** zjistit, které části webu lidé používají, a web zlepšovat.
 - **Právní základ:** oprávněný zájem na měření a zlepšování webu (čl. 6 odst. 1 písm. f) GDPR).
 - **Doba uložení:** souhrnné statistiky nejdéle 2 roky.

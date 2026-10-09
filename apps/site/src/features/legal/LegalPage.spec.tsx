@@ -65,6 +65,7 @@ describe('LegalPage', () => {
       'href',
       '/sk/zasady-cookies',
     );
+    expect(screen.getByTestId('footer-cookie-settings')).toBeInTheDocument();
   });
 
   it('switches language to the same legal page', () => {

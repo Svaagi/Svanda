@@ -269,6 +269,9 @@ importers:
       three:
         specifier: 0.186.1
         version: 0.186.1
+      vanilla-cookieconsent:
+        specifier: 3.1.0
+        version: 3.1.0
       zod:
         specifier: 4.6.5
         version: 4.6.5
@@ -3799,6 +3802,9 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  vanilla-cookieconsent@3.1.0:
+    resolution: {integrity: sha512-/McNRtm/3IXzb9dhqMIcbquoU45SzbN2VB+To4jxEPqMmp7uVniP6BhGLjU8MC7ZCDsNQVOp27fhQTM/ruIXAA==}
 
   vite-imagetools@9.0.3:
     resolution: {integrity: sha512-FwjApRNZyN+RucPW9Z9kf0dyzyi3r3zlDfrTnzHXNaYpmT3pZ5w//d6QkApy1iypbDm+3fq+Gwfv+PYA4j4uYw==}
@@ -7384,6 +7390,8 @@ snapshots:
   valibot@1.5.0(typescript@6.0.3):
     optionalDependencies:
       typescript: 6.0.3
+
+  vanilla-cookieconsent@3.1.0: {}
 
   vite-imagetools@9.0.3(rollup@4.64.2):
     dependencies:

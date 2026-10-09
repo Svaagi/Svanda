@@ -252,6 +252,37 @@
     "cookies": "Cookie policy",
     "cookieSettings": "Cookie settings"
   },
+  "consent": {
+    "banner": {
+      "title": "Cookies and analytics",
+      "description": "We use only the storage the website needs to work, plus cookieless visitor analytics that you can switch off. Marketing stays off unless you allow it.",
+      "settings": "Settings"
+    },
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject all",
+    "policyLink": "Cookie policy",
+    "preferences": {
+      "title": "Cookie settings",
+      "description": "Choose which categories the website may use. You can change your choice at any time through Cookie settings in the website footer.",
+      "save": "Save settings",
+      "close": "Close",
+      "moreTitle": "More information"
+    },
+    "categories": {
+      "necessary": {
+        "title": "Necessary",
+        "description": "Remember your settings, such as the appearance, the language and this choice. The website cannot work without them, so they are always on."
+      },
+      "analytics": {
+        "title": "Analytics",
+        "description": "Cookieless visit measurement with our own Umami instance. It stores nothing on your device and helps us improve the website."
+      },
+      "marketing": {
+        "title": "Marketing",
+        "description": "We use no marketing cookies at the moment. If we add any, they will load only with your consent."
+      }
+    }
+  },
   "legal": {
     "homeLink": "SVANDA home page",
     "effective": "Effective from {{date}}"

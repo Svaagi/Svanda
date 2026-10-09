@@ -38,8 +38,6 @@ The fonts, images and scripts of the website are served from our own server, so 
 
 We measure visits with Umami, which we run ourselves on our own server (stats.svanda.fun). Umami uses no cookies, stores nothing on your device and builds no visitor profiles. It records the pages viewed, where you came from, your device and browser type, your country and page performance. It does not store your IP address; it uses it only to determine your country and to create an anonymous visit identifier that changes regularly.
 
-<!-- TODO consent manager: the cookie settings opt-out described below depends on the consent manager; remove this note once the footer link exists. -->
-
 - **Purpose:** to learn which parts of the website people use and to improve it.
 - **Legal basis:** our legitimate interest in measuring and improving the website (Art. 6(1)(f) GDPR).
 - **Retention:** aggregated statistics for no longer than 2 years.

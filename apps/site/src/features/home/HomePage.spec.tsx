@@ -59,6 +59,7 @@ describe('HomePage', () => {
     expect(main).toHaveAttribute('tabindex', '-1');
     expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('footer')).toBeInTheDocument();
+    expect(screen.getByTestId('footer-cookie-settings')).toBeInTheDocument();
   });
 
   it('puts five page layers on the stage and the contact section after it', () => {

@@ -1,4 +1,4 @@
-<!-- TODO legal review: draft written without a lawyer. The consent cookie name and lifetime must match the consent manager configuration before launch. -->
+<!-- TODO legal review: draft written without a lawyer. Have it reviewed before launch. -->
 
 # Zásady cookies
 
@@ -18,8 +18,6 @@ Bez týchto položiek web nefunguje tak, ako ste si zvolili. Ukladáme ich na z�
 
 ## Analytické
 
-<!-- TODO consent manager: the cookie settings opt-out described below depends on the consent manager; remove this note once the footer link exists. -->
-
 Návštevnosť meriame vlastným nástrojom Umami (stats.svanda.fun), ktorý nepoužíva cookies a do vášho zariadenia nič neukladá. Meranie prebieha na základe nášho oprávneného záujmu a v nastaveniach cookies ho môžete kedykoľvek vypnúť; vašu voľbu si zapamätá cookie cc_cookie. Viac v zásadách [Ochrana osobných údajov](/sk/ochrana-osobnych-udajov).
 
 ## Marketingové
@@ -27,8 +25,6 @@ Návštevnosť meriame vlastným nástrojom Umami (stats.svanda.fun), ktorý nep
 Marketingové cookies zatiaľ nepoužívame. Ak ich v budúcnosti pridáme, načítajú sa len s vaším predchádzajúcim súhlasom, predvolený stav bude vypnuté a túto stránku vopred aktualizujeme.
 
 ## Ako svoje voľby zmeniť
-
-<!-- TODO consent manager: the cookie settings opt-out described below depends on the consent manager; remove this note once the footer link exists. -->
 
 Voľby môžete kedykoľvek zmeniť cez odkaz Nastavenia cookies v pätičke webu. Cookies aj miestne úložisko môžete tiež vymazať alebo zablokovať v nastaveniach svojho prehliadača; web potom môže zabudnúť napríklad zvolený vzhľad.
 

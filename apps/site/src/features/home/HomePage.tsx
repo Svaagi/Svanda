@@ -10,6 +10,7 @@ import {
   VENUES_PAGE,
 } from 'constants/stage';
 import { ConfiguratorScreen, ConfiguratorSection } from 'features/configurator';
+import { openCookieSettings } from 'features/consent';
 import { ContactSection } from 'features/contact';
 import { HeroBackground, HeroOverlay } from 'features/hero';
 import { IntroCanvas } from 'features/intro';
@@ -82,7 +83,7 @@ export function HomePage() {
         </StageShell>
         <ContactSection />
       </main>
-      <Footer />
+      <Footer onOpenCookieSettings={openCookieSettings} />
     </>
   );
 }
