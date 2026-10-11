@@ -1,0 +1,45 @@
+.slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: var(--slider-width);
+  height: var(--slider-thumb-size);
+  touch-action: none;
+  user-select: none;
+}
+
+.track {
+  position: relative;
+  flex: 1 1 auto;
+  height: var(--slider-track-height);
+  background: var(--color-border-2);
+}
+
+.range {
+  position: absolute;
+  height: 100%;
+  background: var(--color-accent);
+}
+
+.thumb {
+  display: block;
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  border: var(--border-width-pixel) solid var(--color-bg);
+  background: var(--color-accent);
+  box-shadow: var(--shadow-pixel-sm);
+  cursor: grab;
+}
+
+/* The thumb stays visually small; an invisible halo grows the touch target to 44px. */
+@media (pointer: coarse) {
+  .thumb {
+    position: relative;
+  }
+
+  .thumb::before {
+    content: '';
+    position: absolute;
+    inset: calc((var(--slider-thumb-size) - var(--touch-target-min)) / 2);
+  }
+}

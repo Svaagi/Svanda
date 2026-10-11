@@ -1,0 +1,24 @@
+.heroOverlay {
+  position: absolute;
+  right: var(--hero-overlay-inset);
+  bottom: var(--hero-overlay-bottom);
+  left: var(--hero-overlay-inset);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: var(--hero-overlay-max-width);
+  margin: 0 auto;
+  text-align: center;
+  opacity: calc(
+    var(--sv-hero) *
+      clamp(0, 1 - var(--sv-vp) * var(--hero-overlay-fade-rate), 1)
+  );
+}
+
+.tag {
+  color: var(--color-accent);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wider);
+}

@@ -1,0 +1,146 @@
+name: Deploy
+
+# Production deploy to the SVANDA Manager box (infra/RUNBOOK.md). Runs only after the CI
+# workflow finished green for a push to main, on exactly the commit CI checked, and only while
+# that commit is still the tip of main; never for feature branches or pull requests. Required
+# secrets and variables: infra/RUNBOOK.md.
+#
+# Rollback: the box keeps the last five releases. When a deploy step fails, deploy.sh puts the
+# previous release back by itself; to roll back a release that deployed fine, run
+# `rollback.sh <sha>` on the box (RUNBOOK.md), or revert the commit on main.
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy to production
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-24.04
+    environment:
+      name: production
+      url: https://svanda.fun
+    permissions:
+      contents: read
+      packages: write
+    env:
+      RELEASE_SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+
+      # A CI run that finishes after a newer push must not deploy an older commit over it.
+      - name: Check that the commit is still the tip of main
+        id: tip
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          tip="$(git -c http.extraheader="AUTHORIZATION: basic ${auth}" \
+            ls-remote "https://github.com/${GITHUB_REPOSITORY}.git" refs/heads/main | cut -f1)"
+          if [ "$tip" = "$RELEASE_SHA" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Deploy skipped::${RELEASE_SHA} is no longer the tip of main (${tip}); the newer commit deploys after its own CI run."
+          fi
+
+      # Box paths come from the one place the box scripts read them.
+      - name: Read the box paths
+        if: steps.tip.outputs.current == 'true'
+        run: |
+          . infra/scripts/lib/release.sh
+          {
+            echo "WEB_ROOT=${WEB_ROOT}"
+            echo "RELEASE_DIR=${RELEASES_DIR}/${RELEASE_SHA}"
+          } >> "$GITHUB_ENV"
+
+      - if: steps.tip.outputs.current == 'true'
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - if: steps.tip.outputs.current == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - if: steps.tip.outputs.current == 'true'
+        run: pnpm install --frozen-lockfile
+      # Writes apps/site/build/client (with .br/.gz copies) and build/csp-script-hashes.txt.
+      - if: steps.tip.outputs.current == 'true'
+        run: pnpm build
+        env:
+          VITE_UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}
+
+      - name: Build and push the contact API image
+        if: steps.tip.outputs.current == 'true'
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          image="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/svanda-web-contact-api:${RELEASE_SHA}"
+          echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker build -f apps/contact-api/Dockerfile -t "$image" .
+          docker push "$image"
+          docker logout ghcr.io
+
+      # The host key is pinned from a secret: no trust on first use.
+      - name: Configure SSH
+        if: steps.tip.outputs.current == 'true'
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      # Uploads site and infra/ into a new release directory; nothing is live until deploy.sh
+      # switches to it.
+      - name: Upload the release
+        if: steps.tip.outputs.current == 'true'
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh_cmd="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes"
+          remote="${DEPLOY_USER}@${DEPLOY_HOST}"
+          # Unchanged files are hard links into the live release, so an upload stays small.
+          rsync -az --delete --mkpath -e "$ssh_cmd" \
+            --link-dest="${WEB_ROOT}/current/client" \
+            apps/site/build/client/ "${remote}:${RELEASE_DIR}/client/"
+          rsync -az -e "$ssh_cmd" apps/site/build/csp-script-hashes.txt "${remote}:${RELEASE_DIR}/"
+          # The secrets stay in /opt/svanda-web/infra/.env on the box, never in a release.
+          rsync -az --delete --mkpath -e "$ssh_cmd" --exclude=.env \
+            infra/ "${remote}:${RELEASE_DIR}/infra/"
+
+      - name: Activate the release
+        if: steps.tip.outputs.current == 'true'
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh -i "$HOME/.ssh/deploy_key" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" "sh ${RELEASE_DIR}/infra/scripts/deploy.sh ${RELEASE_SHA}"
+
+      # The same checks deploy.sh ran on the box, now through public DNS and TLS.
+      - name: Public health checks
+        if: steps.tip.outputs.current == 'true'
+        run: sh infra/scripts/check-live.sh public
+
+      - name: Remove the SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

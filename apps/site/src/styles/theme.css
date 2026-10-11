@@ -1,0 +1,493 @@
+/*
+ * Design tokens: the only file allowed to hold raw colour values.
+ * Dark is the default; `data-theme` and `data-accent` on <html> swap the values.
+ */
+
+:root {
+  /* Accent palette (dark-theme value, then the contrast-safe light-theme value) */
+  --palette-orange: #ff9a3c;
+  --palette-orange-2: #ffb46e;
+  --palette-orange-light: #b5520a;
+  --palette-orange-light-2: #8d3f06;
+  --palette-magenta: #ff4fd8;
+  --palette-magenta-2: #ff7fe4;
+  --palette-magenta-light: #b8158f;
+  --palette-magenta-light-2: #8f0f6f;
+  --palette-lime: #b6ff4d;
+  --palette-cyan: #3ee6ff;
+  --palette-violet: #7a5cff;
+  --palette-aqua: #5ff5e0;
+  --palette-ink: #050507;
+  --palette-white: #ffffff;
+  --palette-black: #000000;
+  /* Brand mark background of the icons and Open Graph images (scripts/generateBrandAssets.mjs) */
+  --palette-brand-ink: #0d0e10;
+
+  /* Dark theme colours */
+  color-scheme: dark;
+  --color-bg: var(--palette-ink);
+  --color-fg: var(--palette-white);
+  --color-muted: #a9a9b3;
+  --color-dim: #5a5a66;
+  --color-border: #1c1c22;
+  --color-border-2: #2a2a30;
+  --color-input: #0b0b0e;
+  --color-tile: #0d0e12;
+  --color-dot-off: #2c2c34;
+  --color-cap-fg: #e8e8ee;
+  --color-cap-bg: rgb(0 0 0 / 0.45);
+  --color-menu-bg: rgb(5 5 7 / 0.96);
+  --color-nav-rgb: 11 11 14;
+  --color-border-rgb: 28 28 34;
+  /* The header bar fades in with the intro's `--sv-logo`; the channels above swap per theme */
+  --color-nav-bg: rgb(
+    var(--color-nav-rgb) / calc(var(--nav-bg-alpha) * var(--sv-logo))
+  );
+  --color-nav-border: rgb(var(--color-border-rgb) / var(--sv-logo));
+  --color-shadow: var(--palette-black);
+  --color-sheet-shadow: rgb(0 0 0 / 0.6);
+
+  /* Accent: orange by default */
+  --color-accent: var(--palette-orange);
+  --color-accent-2: var(--palette-orange-2);
+  --color-on-accent: var(--palette-ink);
+  --color-focus: var(--color-accent);
+  --color-danger: #ff6b6b;
+  --color-overlay: rgb(5 5 8 / 0.94);
+  /* Product page headings keep their own colour whatever the accent */
+  --color-product-karaoke: var(--palette-orange);
+  --color-product-jukebox: var(--palette-magenta);
+
+  /* Venues: each venue's own colour and photo placeholder tint (the same in both themes).
+     scripts/generateVenuePlaceholders.mjs reads these to paint the placeholder photos. The
+     frame is a dark photo surface in both themes. */
+  --color-venue-1: #ffe11a;
+  --color-venue-2: #d63cff;
+  --color-venue-3: #7a4dff;
+  --color-venue-4: #e0179e;
+  --color-venue-5: #ff6a1a;
+  --color-venue-6: #00a99a;
+  --color-venue-tint-1: #2a3440;
+  --color-venue-tint-2: #402a3a;
+  --color-venue-tint-3: #2e3a2a;
+  --color-venue-tint-4: #3a332a;
+  --color-venue-tint-5: #2a2f40;
+  --color-venue-tint-6: #3a2a2f;
+  --color-venue-frame: #07070a;
+  --color-venue-frame-shadow: rgb(0 0 0 / 0.55);
+  --color-venue-label: var(--palette-white);
+  --color-venue-label-muted: rgb(255 255 255 / 0.7);
+  --color-venue-control: var(--palette-white);
+  --color-venue-dot-off: rgb(255 255 255 / 0.32);
+  /* The band canvas over the photos: the name, the twinkle sparks and the torch */
+  --color-venue-band-text: var(--palette-white);
+  --color-venue-band-text-muted: #9a9aa2;
+  --color-venue-band-spark-light: var(--palette-white);
+  --color-venue-band-spark-dark: var(--palette-black);
+  --color-venue-band-torch: var(--palette-white);
+  --color-venue-band-torch-on-text: var(--palette-black);
+  /* The photo lightbox stays dark in both themes */
+  --color-lightbox-bg: rgb(5 5 8 / 0.94);
+  --color-lightbox-fg: var(--palette-white);
+  --color-lightbox-muted: rgb(255 255 255 / 0.7);
+  --venue-scrim:
+    linear-gradient(
+      90deg,
+      rgb(5 5 8 / 0.88) 0%,
+      rgb(5 5 8 / 0.55) 38%,
+      rgb(5 5 8 / 0.05) 70%,
+      rgb(5 5 8 / 0.45) 100%
+    ),
+    linear-gradient(0deg, rgb(5 5 8 / 0.7), transparent 30%);
+
+  /* Wordmark letter colours */
+  --color-letter-1: var(--palette-lime);
+  --color-letter-2: var(--palette-cyan);
+  --color-letter-3: var(--palette-orange);
+  --color-letter-4: var(--palette-magenta);
+  --color-letter-5: var(--palette-violet);
+  --color-letter-6: var(--palette-aqua);
+
+  /* Intro noise palette (the same in both themes) */
+  --color-intro-noise-1: var(--palette-aqua);
+  --color-intro-noise-2: var(--palette-magenta);
+  --color-intro-noise-3: var(--palette-orange);
+  --color-intro-noise-4: var(--palette-lime);
+  --color-intro-noise-5: var(--palette-violet);
+  --color-intro-noise-6: var(--palette-cyan);
+  --color-intro-noise-7: #ff2d6b;
+
+  /* Hero background: twinkle cells and the ghost wordmark (gradient start to end, and the
+     shade a twinkle lights it to). The torch and floor shadow use --color-fg. */
+  --color-hero-cell-dim: #222225;
+  --color-hero-cell-bright: #48484b;
+  --color-hero-mark-start: #2c2c30;
+  --color-hero-mark-end: #3e3e42;
+  --color-hero-mark-lit-start: #727276;
+  --color-hero-mark-lit-end: #848488;
+  --hero-torch-alpha: 0.22;
+  --hero-shadow-alpha: 0.2;
+
+  /* 3D jukebox: a physical object, lit the same in both themes. Read as linear values. */
+  --color-jukebox-shell: #030304;
+  --color-jukebox-glass: #030305;
+  --color-jukebox-softbox-bg: #0a0a0d;
+  --color-jukebox-softbox: var(--palette-white);
+  --color-jukebox-softbox-left: #e8f4ff;
+  --color-jukebox-softbox-right: #fff0f8;
+  --color-jukebox-sky: var(--palette-white);
+  --color-jukebox-ground: #101018;
+  --color-jukebox-key: var(--palette-white);
+  --color-jukebox-rim-left: #d8ffe0;
+  --color-jukebox-rim-right: #ffd0f0;
+  --color-jukebox-fill: var(--palette-cyan);
+  --color-jukebox-cursor: var(--palette-white);
+  /* Jukebox display and chin panel, drawn into canvas textures */
+  --color-jukebox-screen: #08080b;
+  --color-jukebox-vu-off: #1a1a22;
+  --color-jukebox-screen-pixel-1: var(--palette-lime);
+  --color-jukebox-screen-pixel-2: var(--palette-cyan);
+  --color-jukebox-screen-pixel-3: var(--palette-orange);
+  --color-jukebox-screen-pixel-4: var(--palette-magenta);
+  --color-jukebox-screen-pixel-5: var(--palette-violet);
+  --color-jukebox-screen-pixel-6: var(--palette-aqua);
+  --color-jukebox-vu-1: var(--palette-aqua);
+  --color-jukebox-vu-2: var(--palette-magenta);
+  --color-jukebox-vu-3: var(--palette-orange);
+  --color-jukebox-vu-4: var(--palette-lime);
+  --color-jukebox-vu-5: var(--palette-violet);
+  --color-jukebox-vu-6: var(--palette-cyan);
+  --color-jukebox-vu-7: #ff2d6b;
+
+  /* Jukebox app UI previews: the app's own palette, the same in both themes. Section
+     defaults the configurator starts from, then the fixed chrome around them. */
+  --color-jukebox-ui-text: var(--palette-white);
+  --color-jukebox-ui-pixel-sing-base: #05252d;
+  --color-jukebox-ui-pixel-sing-acc: #2fcaca;
+  --color-jukebox-ui-pixel-sing-btn-line: var(--palette-white);
+  --color-jukebox-ui-pixel-sing-now: var(--palette-cyan);
+  --color-jukebox-ui-pixel-listen-base: #12012a;
+  --color-jukebox-ui-pixel-listen-acc: var(--palette-lime);
+  --color-jukebox-ui-pixel-listen-btn-line: var(--palette-lime);
+  --color-jukebox-ui-pixel-listen-now: var(--palette-magenta);
+  --color-jukebox-ui-pixel-acc-ink: var(--palette-ink);
+  --color-jukebox-ui-pixel-vip: #ffd800;
+  --color-jukebox-ui-pixel-row-line: #34373e;
+  --color-jukebox-ui-glass-sing-base: #063d49;
+  --color-jukebox-ui-glass-sing-acc: #ffd700;
+  --color-jukebox-ui-glass-sing-now: #ffd809;
+  --color-jukebox-ui-glass-listen-base: var(
+    --color-jukebox-ui-pixel-listen-base
+  );
+  --color-jukebox-ui-glass-listen-acc: #ff85c8;
+  --color-jukebox-ui-glass-listen-now: #e068b2;
+  --color-jukebox-ui-glass-vip: #ffd36e;
+  /* Lava lamp blobs behind each design and section */
+  --color-jukebox-ui-pixel-sing-blob-1: var(--palette-cyan);
+  --color-jukebox-ui-pixel-sing-blob-2: var(--palette-aqua);
+  --color-jukebox-ui-pixel-sing-blob-3: #2bc4dc;
+  --color-jukebox-ui-pixel-listen-blob-1: var(--palette-magenta);
+  --color-jukebox-ui-pixel-listen-blob-2: var(--palette-violet);
+  --color-jukebox-ui-pixel-listen-blob-3: #c04fe8;
+  --color-jukebox-ui-glass-sing-blob-1: #d4b307;
+  --color-jukebox-ui-glass-sing-blob-2: #d47b19;
+  --color-jukebox-ui-glass-sing-blob-3: #c36400;
+  --color-jukebox-ui-glass-listen-blob-1: #af54fe;
+  --color-jukebox-ui-glass-listen-blob-2: #b200e4;
+  --color-jukebox-ui-glass-listen-blob-3: #d466a0;
+  /* Pixel design overlay: scanlines and a 4 px checker */
+  --color-jukebox-ui-scanline: color-mix(
+    in srgb,
+    var(--palette-black) 14%,
+    transparent
+  );
+  --color-jukebox-ui-checker: color-mix(
+    in srgb,
+    var(--palette-black) 16%,
+    transparent
+  );
+  /* Compare handle on the projected display */
+  --color-jukebox-ui-handle: var(--palette-white);
+  --color-jukebox-ui-handle-ink: var(--palette-ink);
+  --color-jukebox-ui-ink: var(--palette-ink);
+  --color-jukebox-ui-shadow: var(--palette-black);
+  --color-jukebox-ui-light: var(--palette-white);
+  --color-jukebox-ui-button-bg: #1a1c20;
+  --color-jukebox-ui-button-line: #9fa1a8;
+  --color-jukebox-ui-toggle-bg: #111315;
+  --color-jukebox-ui-toggle-line: #24262b;
+  --color-jukebox-ui-toggle-fg: #8d9098;
+  --color-jukebox-ui-input-bg: #101113;
+  --color-jukebox-ui-input-line: #3a3d44;
+  --color-jukebox-ui-input-fg: #8f9299;
+  --color-jukebox-ui-list-bg: #0c0d10;
+  --color-jukebox-ui-row-bg: #16181c;
+  --color-jukebox-ui-duration: #9a9ca3;
+  --color-jukebox-ui-now-bg: #111214;
+  --color-jukebox-ui-overlay: #050509;
+  --color-jukebox-ui-modal-bg: #18191d;
+  --color-jukebox-ui-modal-line: #b9bac0;
+  --color-jukebox-ui-modal-fg: #e6e6e8;
+
+  /* Typography */
+  --font-pixel: 'Silkscreen', monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-heavy: 800;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 15px;
+  --font-size-base: 16px;
+  --font-size-body: clamp(17px, 1.3vw, 24px);
+  --font-size-xl: 32px;
+  --font-size-display: clamp(40px, 4.4vw, 84px);
+  --font-size-body-compact: clamp(15px, 1.1vw, 22px);
+  --line-height-none: 1;
+  --line-height-tight: 1.05;
+  --line-height-base: 1.5;
+  --line-height-display: 1.02;
+  --line-height-relaxed: 1.45;
+  --line-height-snug: 1.3;
+  --line-height-loose: 1.6;
+  --letter-spacing-tight: -0.035em;
+  --letter-spacing-snug: -0.01em;
+  --letter-spacing-wide: 0.04em;
+  --letter-spacing-wider: 0.06em;
+  --font-size-control: 14px;
+
+  /* Space */
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --nav-height: 64px;
+  --nav-edge-padding: clamp(12px, 3vw, 40px);
+  --nav-logo-padding: clamp(28px, 5vw, 72px);
+  --nav-item-gap: clamp(14px, 2vw, 40px);
+  --nav-bg-alpha: 0.92;
+  --pixel-button-padding-x: 10px;
+  --segment-padding-y: 6px;
+  --segment-padding-x: 9px;
+  --touch-target-min: 44px;
+  /* WCAG 2.2 target size (minimum) for small controls that sit next to each other */
+  --target-size-min: 24px;
+  --control-height: 46px;
+  --control-padding-x: 14px;
+  --input-code-width: 92px;
+  --input-code-height: 34px;
+  --color-picker-width: 40px;
+  --swatch-size: 26px;
+  --range-output-min-width: 44px;
+  --button-height: 42px;
+  --icon-button-size: 32px;
+  --switch-width: 52px;
+  --switch-height: 28px;
+  --switch-thumb-size: 16px;
+  --switch-thumb-inset: 3px;
+  --switch-thumb-travel: calc(
+    var(--switch-width) - 2 * var(--border-width-thick) - 2 *
+      var(--switch-thumb-inset) - var(--switch-thumb-size)
+  );
+  --dialog-max-width: 560px;
+  --dialog-sheet-top: var(--nav-height);
+  --dialog-bottom-sheet-max-height: 58svh;
+  --slider-width: 130px;
+  --slider-track-height: 6px;
+  --slider-thumb-size: 18px;
+  --toast-max-width: 420px;
+  --hero-overlay-inset: clamp(24px, 6vw, 80px);
+  --hero-overlay-bottom: clamp(40px, 8vh, 72px);
+  --hero-overlay-max-width: 560px;
+  --hero-overlay-fade-rate: 2.5;
+  /* Karaoke and jukebox page copy: beside the model in landscape, around it in portrait */
+  --product-inset-x: clamp(32px, 6vw, 120px);
+  --product-gap: clamp(20px, 3vh, 36px);
+  --product-title-max-width: 13ch;
+  --product-body-max-width: 30em;
+  --product-portrait-inset-x: clamp(24px, 7vw, 90px);
+  --product-portrait-top: calc(var(--nav-height) + clamp(24px, 7vh, 72px));
+  --product-portrait-bottom: clamp(20px, 5vh, 48px);
+  --product-portrait-gap: 22px;
+  --product-portrait-body-max-width: 640px;
+  /* Pixel heading cells: 1/34 of half the width (at 0.6) in landscape, of most of it in
+     portrait; productHeadingCellPx in JS rounds the same formula. */
+  --product-heading-rows: 5;
+  --product-heading-cell: max(4px, min(100vw - 48px, 50vw) / 34 * 0.6);
+  --product-heading-cell-portrait: max(6px, min(100vw - 48px, 85vw) / 34);
+  /* Custom page: configurator panels beside the live screen */
+  --configurator-panel-width: clamp(260px, 26vw, 340px);
+  --configurator-inset-x: clamp(16px, 3vw, 48px);
+  --configurator-sheet-button-width: 360px;
+  /* Small screens: the flat live screen starts below the section and design switches */
+  --configurator-flat-screen-top: calc(
+    var(--nav-height) + var(--space-3) + var(--touch-target-min) +
+      var(--space-4)
+  );
+  /* The projected jukebox display box, warped onto the 3D screen */
+  --projected-screen-width: 540px;
+  --projected-screen-height: 960px;
+  /* The jukebox app UI is drawn in units of 1/540 of its width (`--u`) */
+  --jukebox-ui-columns: 540;
+  --jukebox-ui-aspect-ratio: 540 / 960;
+  /* Venues page: pixel heading, photo frame and tabs. Until the background grid is measured
+     the frame keeps its aspect ratio at this width (landscape: what fits above the tabs),
+     and its controls use the fallback cell. */
+  --venues-padding-top: calc(var(--nav-height) + 2vh);
+  --venues-padding-bottom: clamp(16px, 3vh, 40px);
+  --venues-inset-x: clamp(20px, 6vw, 90px);
+  --venues-gap: clamp(12px, 2vh, 20px);
+  --venues-frame-gap: clamp(14px, 2.4vh, 26px);
+  --venues-frame-width: min(
+    100%,
+    calc((100svh - var(--nav-height) - 2vh - 260px) * 16 / 9),
+    1750px
+  );
+  --venues-frame-shadow: 0 30px 80px var(--color-venue-frame-shadow);
+  --venue-cell-fallback: 14px;
+  --venue-label-x: 20cqw;
+  --venue-label-y: 20%;
+  --venue-label-opacity: 1;
+  --venue-label-gap: 0.4cqw;
+  --venue-label-font-size: max(11px, 1.15cqw);
+  --venue-tab-bar-height: 4px;
+  --venue-tab-gap-y: 10px;
+  --venue-tab-gap-x: 4px;
+  --venue-tab-number-size: 12px;
+  --venue-tab-name-size: 11px;
+  --venue-tab-padding-end: 14px;
+  --venue-tab-label-gap: 10px;
+
+  /* Contact */
+  --contact-padding-top: calc(var(--nav-height) + 8vh);
+  --contact-padding-bottom: var(--space-8);
+  --contact-inset-x: clamp(24px, 7vw, 90px);
+  --contact-columns-gap: clamp(28px, 5vw, 80px);
+  --contact-column-min: 340px;
+  --contact-field-min: 200px;
+  --contact-intro-max-width: 480px;
+  --contact-intro-gap: 14px;
+  --contact-form-gap: 14px;
+  --contact-title-size: clamp(30px, 3.4vw, 42px);
+  --contact-body-size: 17px;
+  --contact-sent-size: 20px;
+  --contact-sent-padding: 28px;
+  --contact-marker-size: 10px;
+
+  /* Legal pages: a readable text column */
+  --legal-max-width: 72ch;
+  --legal-padding-y: clamp(32px, 6vh, 64px);
+  --legal-inset-x: clamp(16px, 7vw, 90px);
+  --legal-title-size: clamp(28px, 3.4vw, 40px);
+  --legal-heading-size: clamp(20px, 2vw, 24px);
+  --legal-subheading-size: 18px;
+
+  /* Borders */
+  --border-width-thin: 1px;
+  --border-width-pixel: 2px;
+  --border-width-thick: 3px;
+  --opacity-disabled: 0.5;
+  --opacity-hover: 0.6;
+
+  /* Radius: the pixel look is square; round only for pills and dots */
+  --radius-none: 0;
+  --radius-full: 999px;
+
+  /* Shadows: hard pixel offsets */
+  --shadow-pixel-sm: 3px 3px 0 var(--color-shadow);
+  --shadow-pixel-md: 4px 4px 0 var(--color-shadow);
+  --shadow-pixel-lg: 6px 6px 0 var(--color-shadow);
+  --shadow-sheet: 0 -12px 40px var(--color-sheet-shadow);
+
+  /* Focus ring */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-base: 280ms;
+  --duration-page: 1100ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-pixel: steps(2, end);
+  --duration-venue-track: 700ms;
+  --ease-venue-track: cubic-bezier(0.7, 0, 0.25, 1);
+  --duration-venue-photo: 500ms;
+  /* Share of the `--sv-menu` reveal over which one nav item fades in */
+  --nav-reveal-span: 0.35;
+  /* If the app never takes over a pending intro (script failed), the page shows after this */
+  --intro-failsafe-delay: 10s;
+
+  /* Stacking */
+  --z-base: 0;
+  --z-raised: 1;
+  --z-overlay: 10;
+  --z-nav: 50;
+  --z-menu: 60;
+  --z-dialog: 100;
+  --z-toast: 110;
+  --z-skip-link: 120;
+}
+
+:root[data-accent='magenta'] {
+  --color-accent: var(--palette-magenta);
+  --color-accent-2: var(--palette-magenta-2);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #f5f5f2;
+  --color-fg: #14141a;
+  --color-muted: #5a5a66;
+  --color-dim: #8a8a94;
+  --color-border: #e2e2de;
+  --color-border-2: #cfcfca;
+  --color-input: var(--palette-white);
+  --color-tile: #e8e8e4;
+  --color-dot-off: #cfcfca;
+  --color-cap-fg: #14141a;
+  --color-cap-bg: rgb(255 255 255 / 0.72);
+  --color-menu-bg: rgb(245 245 242 / 0.97);
+  --color-nav-rgb: 245 245 242;
+  --color-border-rgb: 226 226 222;
+  --color-danger: #b3261e;
+  --color-overlay: rgb(20 20 26 / 0.6);
+  --color-product-karaoke: var(--palette-orange-light);
+  --color-product-jukebox: var(--palette-magenta-light);
+
+  --color-accent: var(--palette-orange-light);
+  --color-accent-2: var(--palette-orange-light-2);
+  --color-on-accent: var(--palette-white);
+
+  --color-letter-1: #5a8f00;
+  --color-letter-2: #0a7f96;
+  --color-letter-3: var(--palette-orange-light);
+  --color-letter-4: var(--palette-magenta-light);
+  --color-letter-5: #5a3fe0;
+  --color-letter-6: #0b7a63;
+
+  --color-hero-cell-dim: #dcdcdf;
+  --color-hero-cell-bright: #b6b6b9;
+  --color-hero-mark-start: #c6c6ca;
+  --color-hero-mark-end: #b4b4b8;
+  --color-hero-mark-lit-start: #808084;
+  --color-hero-mark-lit-end: #6e6e72;
+  --hero-torch-alpha: 0.16;
+  --hero-shadow-alpha: 0.28;
+}
+
+:root[data-theme='light'][data-accent='magenta'] {
+  --color-accent: var(--palette-magenta-light);
+  --color-accent-2: var(--palette-magenta-light-2);
+}

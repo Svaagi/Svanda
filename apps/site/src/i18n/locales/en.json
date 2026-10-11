@@ -1,0 +1,315 @@
+{
+  "brand": { "name": "SVANDA" },
+  "ui": {
+    "close": "Close",
+    "toast": { "label": "Notification", "region": "Notifications ({hotkey})" }
+  },
+  "nav": {
+    "karaoke": "Karaoke",
+    "jukebox": "Jukebox",
+    "custom": "Custom",
+    "venues": "Venues",
+    "contact": "Contact",
+    "menu": "MENU",
+    "close": "CLOSE",
+    "menuLabel": "Menu",
+    "home": "SVANDA",
+    "themeToLight": "Light mode",
+    "label": "Main navigation",
+    "skipToContent": "Skip to content",
+    "themeToDark": "Dark mode"
+  },
+  "language": {
+    "label": "Language",
+    "cs": { "short": "CS", "name": "Čeština" },
+    "en": { "short": "EN", "name": "English" },
+    "sk": { "short": "SK", "name": "Slovenčina" }
+  },
+  "hero": {
+    "heading": "SVANDA, the karaoke jukebox",
+    "tag": "KARAOKE JUKEBOX",
+    "title": "Built from scratch.",
+    "subtitle": "Our own cabinet, our own app, our own karaoke versions of every song.",
+    "cta": "EXPLORE SVANDA"
+  },
+  "karaoke": {
+    "tag": "KARAOKE",
+    "title": "Sing it the way it sounds on the radio.",
+    "body": "Every song in the library has its own karaoke version: vocals out, music in full quality. Lyrics run on a TV or monitor connected to the jukebox, so the whole room can follow along.",
+    "cta": "BROWSE THE LIBRARY"
+  },
+  "jukebox": {
+    "tag": "JUKEBOX",
+    "title": "Pick a song and play!",
+    "body": "A song queue for the whole night, controlled from the display. Our own cabinet, our own app, no subscription.",
+    "cta": "HOW IT WORKS"
+  },
+  "custom": {
+    "tag": "CUSTOM JUKEBOX",
+    "body": "The cabinet and the app are built to fit the venue.",
+    "configuratorLabel": "Jukebox colour configurator",
+    "displayLabel": "Jukebox display: pixel and original design"
+  },
+  "configurator": {
+    "sheet": {
+      "title": "Colours",
+      "open": "Edit colours",
+      "done": "Done"
+    },
+    "panels": {
+      "backgroundAndEffects": "Colour settings: background and effects",
+      "buttonsAndList": "Colour settings: buttons and list"
+    },
+    "editing": "Editing",
+    "editingTarget": "{{design}} · {{section}}",
+    "formats": {
+      "percent": "{{value}}%",
+      "multiplier": "{{value}}×",
+      "px": "{{value}} px"
+    },
+    "section": {
+      "label": "Section",
+      "sing": "Karaoke",
+      "listen": "Normal"
+    },
+    "design": {
+      "label": "Editing design",
+      "pixel": "Pixel",
+      "glass": "Original",
+      "pixelName": "Pixel design",
+      "glassName": "Original design",
+      "pixelBadge": "PIXEL",
+      "glassBadge": "ORIGINAL",
+      "glassCaption": "glass · lava lamp"
+    },
+    "showPayment": "Show payment window",
+    "actions": {
+      "attach": "Add configuration to e-mail",
+      "attached": "Added to e-mail · remove",
+      "reset": "Reset colours",
+      "copyJson": "Copy JSON",
+      "copyCss": "Copy CSS variables",
+      "importToggle": "Paste saved settings",
+      "importLabel": "Settings JSON (paste and apply)",
+      "importApply": "Apply settings"
+    },
+    "groups": {
+      "background": "Background",
+      "effects": "Effects",
+      "buttons": "Buttons and accent",
+      "songList": "Song list"
+    },
+    "controls": {
+      "base": { "label": "Background colour" },
+      "blob1": { "label": "Blob 1" },
+      "blob2": { "label": "Blob 2" },
+      "blob3": { "label": "Blob 3" },
+      "blobAlpha": { "label": "Blob strength" },
+      "animate": { "label": "Lava lamp motion" },
+      "speed": { "label": "Motion speed" },
+      "pixel": {
+        "label": "Pixel size",
+        "hint": "One background block in design pixels"
+      },
+      "glitch": {
+        "label": "Glitch tearing",
+        "hint": "Occasional background row shifts"
+      },
+      "scan": { "label": "Scanlines and grid" },
+      "acc": {
+        "label": "Accent",
+        "hint": "Buttons, switch, credit, S logo"
+      },
+      "accInk": { "label": "Text on accent" },
+      "btnLine": { "label": "Button border" },
+      "vip": { "label": "VIP" },
+      "panelA": { "label": "Frame opacity" },
+      "rowA": { "label": "Row opacity" },
+      "rowLine": { "label": "Row border" },
+      "txt": { "label": "Text" },
+      "now": {
+        "label": "Now playing",
+        "hint": "Frame and icon of the current song"
+      },
+      "modalA": {
+        "label": "Window opacity",
+        "hint": "Payment, queue, top-up"
+      },
+      "blur": { "label": "Blur", "hint": "Lava lamp softness" },
+      "glassAcc": {
+        "label": "Active mode",
+        "hint": "Text colour of the active switch"
+      },
+      "glassA": {
+        "label": "Button glass",
+        "hint": "Opacity of glass elements"
+      },
+      "glassPanelA": { "label": "Panel glass" },
+      "glassRowA": { "label": "Row glass" },
+      "hexLabel": "{{label}} (hex)",
+      "swatchLabel": "{{label}} {{colour}}"
+    },
+    "toasts": {
+      "invalidHex": "Enter a colour as #RRGGBB.",
+      "copyFallback": "The text is selected in the field below, copy it with Ctrl+C.",
+      "copiedJson": "All settings copied as JSON.",
+      "copiedCss": "CSS variables ({{design}}, both sections) copied.",
+      "reset": "Default colours restored for {{target}}.",
+      "imported": "Settings loaded.",
+      "invalidJson": "This is not valid JSON from the “Copy JSON” button.",
+      "invalidConfig": "The JSON holds an invalid or unknown setting, nothing was changed.",
+      "attached": "The configuration will be sent with your request."
+    }
+  },
+  "jukeboxUi": {
+    "label": "Jukebox screen preview",
+    "toggle": { "sing": "KARAOKE", "listen": "NORMAL" },
+    "search": "Search songs...",
+    "queue": "QUEUE",
+    "vip": "VIP",
+    "song": {
+      "sing": "{{title}} (Karaoke) - {{artist}}",
+      "listen": "{{title}} - {{artist}}"
+    },
+    "nowPlayingTime": "{{elapsed}} / {{duration}}",
+    "compare": {
+      "handle": "Design comparison slider",
+      "value": "Pixel {{pixel}}%, original {{original}}%"
+    },
+    "payment": {
+      "balance": "Current balance:",
+      "add": "Add for {{price}}",
+      "vip": "VIP for {{price}}"
+    }
+  },
+  "venues": {
+    "tag": "VENUES & EVENTS",
+    "title": "Where Svanda already plays",
+    "photo": "PHOTO {{index}}/{{count}} · {{venue}}",
+    "place": "{{city}} · {{date}}",
+    "previous": "Previous venue",
+    "next": "Next venue",
+    "lightbox": {
+      "label": "Photo",
+      "close": "Close",
+      "open": "Open photo {{index}}/{{count}} · {{venue}}",
+      "previous": "Previous photo",
+      "next": "Next photo"
+    },
+    "notes": {
+      "lemon": "Karaoke Friday",
+      "arcadeBar": "Svanda night",
+      "kavarnaPodLampou": "Open mics",
+      "musicBarAndel": "Jukebox launch",
+      "galerieZlin": "Photo & Sound Festival",
+      "pivniceUMostu": "Oktoberfest special"
+    }
+  },
+  "contact": {
+    "tag": "CONTACT",
+    "title": "Want Svanda at your place?",
+    "body": "Tell us where and when. We reply within two days.",
+    "sent": "Thanks, we'll be in touch.",
+    "form": {
+      "name": "Name",
+      "venue": "Venue & city",
+      "email": "E-mail",
+      "message": "Message",
+      "submit": "SEND",
+      "optional": "Optional",
+      "submitting": "SENDING...",
+      "privacy": "We use your details only to reply to your message. See our <privacyLink>privacy policy</privacyLink>.",
+      "honeypot": "Leave this field empty"
+    },
+    "config": {
+      "add": "+ Add configuration to e-mail",
+      "attached": "Jukebox colour configuration attached",
+      "remove": "Remove"
+    },
+    "errors": {
+      "required": "Please fill in this field.",
+      "email": "Enter a valid e-mail address.",
+      "tooLong": "At most {{max}} characters.",
+      "invalid": "Please check this field."
+    },
+    "status": {
+      "sending": "Sending your message...",
+      "invalid": "Some details are not right. Check the form and try again.",
+      "rateLimited": "You have sent too many messages. Please try again later.",
+      "rateLimitedFor": "You have sent too many messages. Try again in {{minutes}} min.",
+      "captchaFailed": "The spam check failed. Please try again.",
+      "sendFailed": "Your message could not be sent. Please try again, or write to business@svanda.fun.",
+      "internalError": "Something went wrong. Please try again.",
+      "networkError": "Could not reach the server. Check your connection and try again."
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} SVANDA · Karaoke jukebox",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "imprint": "Legal information",
+    "privacy": "Privacy policy",
+    "cookies": "Cookie policy",
+    "cookieSettings": "Cookie settings"
+  },
+  "consent": {
+    "banner": {
+      "title": "Cookies and analytics",
+      "description": "We use only the storage the website needs to work, plus cookieless visitor analytics that you can switch off. Marketing stays off unless you allow it.",
+      "settings": "Settings"
+    },
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject all",
+    "policyLink": "Cookie policy",
+    "preferences": {
+      "title": "Cookie settings",
+      "description": "Choose which categories the website may use. You can change your choice at any time through Cookie settings in the website footer.",
+      "save": "Save settings",
+      "close": "Close",
+      "moreTitle": "More information"
+    },
+    "categories": {
+      "necessary": {
+        "title": "Necessary",
+        "description": "Remember your settings, such as the appearance, the language and this choice. The website cannot work without them, so they are always on."
+      },
+      "analytics": {
+        "title": "Analytics",
+        "description": "Cookieless visit measurement with our own Umami instance. It stores nothing on your device and helps us improve the website."
+      },
+      "marketing": {
+        "title": "Marketing",
+        "description": "We use no marketing cookies at the moment. If we add any, they will load only with your consent."
+      }
+    }
+  },
+  "legal": {
+    "homeLink": "SVANDA home page",
+    "effective": "Effective from {{date}}"
+  },
+  "seo": {
+    "pageTitle": "{{page}} | SVANDA",
+    "home": {
+      "title": "SVANDA: the karaoke jukebox built from scratch",
+      "description": "The SVANDA karaoke jukebox for bars and clubs: our own cabinet, our own app and a karaoke version of every song. A song queue for the whole night, no subscription."
+    },
+    "legal": {
+      "imprint": "Legal information about the operator of svanda.fun and the SVANDA karaoke jukebox: identification details, registered seat and contact.",
+      "privacy": "How SVANDA processes personal data from the svanda.fun contact form and analytics, and what rights you have.",
+      "cookies": "Which cookies svanda.fun uses, what they are for and how to change your consent at any time."
+    },
+    "notFound": "This page does not exist on svanda.fun.",
+    "ogImageAlt": "SVANDA pixel logo with the words Karaoke jukebox",
+    "organization": "SVANDA builds karaoke jukeboxes for bars, clubs and cafés.",
+    "product": {
+      "name": "SVANDA karaoke jukebox",
+      "description": "A karaoke jukebox with its own cabinet, its own app and a karaoke version of every song in the library."
+    },
+    "noscript": "Turn on JavaScript for the interactive jukebox."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "That song is not in the library. The link may be outdated or contain a typo.",
+    "home": "Back to the home page"
+  }
+}

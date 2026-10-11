@@ -1,0 +1,57 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--venue-tab-gap-y) var(--venue-tab-gap-x);
+}
+
+.tab {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: 0 0 var(--space-1);
+  border: 0;
+  background: transparent;
+  font-family: var(--font-pixel);
+  text-align: left;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: var(--venue-tab-bar-height);
+  background: var(--color-border-2);
+  transition: background-color var(--duration-base) var(--ease-standard);
+}
+
+.label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--venue-tab-label-gap);
+  padding-right: var(--venue-tab-padding-end);
+  white-space: nowrap;
+}
+
+.number {
+  color: var(--color-dim);
+  font-size: var(--venue-tab-number-size);
+  font-weight: var(--font-weight-bold);
+}
+
+.name {
+  color: var(--color-muted);
+  font-size: var(--venue-tab-name-size);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.tab[aria-selected='true'] .bar {
+  background: var(--venue-color);
+}
+
+.tab[aria-selected='true'] .number,
+.tab[aria-selected='true'] .name {
+  color: var(--color-fg);
+}

@@ -1,0 +1,101 @@
+import { screen } from '@testing-library/react';
+import { INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE } from 'constants/intro';
+import { STAGE_PAGE_IDS } from 'constants/stage';
+import { ToastProvider } from 'ui';
+import { renderAtPath, stubResizeObserver } from 'utils/testing';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { HomePage } from './HomePage';
+
+// The app root provides the toasts.
+const HomePageWithToasts = () => (
+  <ToastProvider>
+    <HomePage />
+  </ToastProvider>
+);
+
+describe('HomePage', () => {
+  // jsdom has no canvas; the intro, the hero background and the 3D jukebox have their own
+  // specs.
+  beforeEach(() => {
+    window.sessionStorage.setItem(INTRO_SEEN_STORAGE_KEY, INTRO_SEEN_VALUE);
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    stubResizeObserver();
+  });
+
+  afterEach(() => {
+    window.sessionStorage.clear();
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+
+  it('renders the copy of the locale in the URL', () => {
+    renderAtPath(<HomePageWithToasts />, '/en');
+
+    expect(screen.getByTestId('home-page')).toHaveAttribute(
+      'data-locale',
+      'en',
+    );
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'SVANDA, the karaoke jukebox',
+      }),
+    ).toBe(screen.getByTestId('home-page-title'));
+    expect(screen.getByTestId('hero-overlay-cta')).toHaveTextContent(
+      'EXPLORE SVANDA',
+    );
+    expect(screen.getByTestId('header-language-switch')).toBeInTheDocument();
+  });
+
+  it('wraps the page in a skip link, header, main landmark and footer', () => {
+    renderAtPath(<HomePageWithToasts />, '/en');
+    const main = screen.getByRole('main');
+
+    expect(screen.getByTestId('skip-link')).toHaveAttribute(
+      'href',
+      `#${main.id}`,
+    );
+    expect(main).toHaveAttribute('tabindex', '-1');
+    expect(screen.getByTestId('header')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
+    expect(screen.getByTestId('footer-cookie-settings')).toBeInTheDocument();
+  });
+
+  it('puts five page layers on the stage and the contact section after it', () => {
+    renderAtPath(<HomePageWithToasts />, '/');
+
+    expect(screen.getByTestId('stage-shell')).toBeInTheDocument();
+    STAGE_PAGE_IDS.forEach((pageId) => {
+      expect(screen.getByTestId(`page-layer-${pageId}`)).toBeInTheDocument();
+    });
+    expect(screen.getByTestId('intro')).toBeInTheDocument();
+    expect(screen.getByTestId('hero-background')).toBeInTheDocument();
+    expect(screen.getByTestId('jukebox-stage')).toBeInTheDocument();
+    expect(screen.getByTestId('page-layer-top')).toContainElement(
+      screen.getByTestId('hero-overlay'),
+    );
+    expect(screen.getByTestId('page-layer-karaoke')).toContainElement(
+      screen.getByTestId('product-panel-karaoke'),
+    );
+    expect(screen.getByTestId('page-layer-jukebox')).toContainElement(
+      screen.getByTestId('product-panel-jukebox'),
+    );
+    expect(screen.getByTestId('projected-screen')).toContainElement(
+      screen.getByTestId('display-compare'),
+    );
+    expect(screen.getByTestId('display-compare')).toContainElement(
+      screen.getByTestId('pixel-jukebox-ui'),
+    );
+    expect(screen.getByTestId('page-layer-custom')).toContainElement(
+      screen.getByTestId('configurator-section'),
+    );
+    expect(
+      screen.getByTestId('configurator-projected-screen'),
+    ).toContainElement(screen.getByTestId('configurator-screen'));
+    expect(screen.getByTestId('contact-section')).toHaveAttribute(
+      'id',
+      'contact',
+    );
+  });
+});

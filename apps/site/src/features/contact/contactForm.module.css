@@ -1,0 +1,36 @@
+.form {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--contact-field-min)), 1fr)
+  );
+  gap: var(--contact-form-gap);
+}
+
+.fullRow,
+.actions {
+  grid-column: 1 / -1;
+}
+
+.fullRow {
+  display: grid;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.privacySlot {
+  flex: 1 1 var(--contact-field-min);
+}
+
+.honeypot {
+  position: absolute;
+  left: -100vw;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

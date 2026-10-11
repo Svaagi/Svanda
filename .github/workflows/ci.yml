@@ -1,0 +1,175 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  GITLEAKS_VERSION: 8.30.1
+  GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+
+jobs:
+  env-guard:
+    name: .env guard
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - run: node scripts/checkEnvFiles.mjs
+
+  verify:
+    name: Lint, typecheck, test, build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm i18n:check
+      - run: pnpm build
+      - name: Initial JS budget
+        run: pnpm --filter @svanda/site bundle:check
+
+  e2e:
+    name: e2e and axe (Chromium + WebKit mobile)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Resolve Playwright version
+        id: playwright
+        run: echo "version=$(pnpm --filter @svanda/site exec playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+      - if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm --filter @svanda/site exec playwright install --with-deps chromium webkit
+      # Browsers come from the cache, but the system libraries they need do not.
+      - if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter @svanda/site exec playwright install-deps chromium webkit
+      # The Playwright web server builds the site and serves it with `preview`.
+      - run: pnpm test:e2e
+      - if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: playwright-report
+          path: apps/site/playwright-report
+          retention-days: 14
+
+  lighthouse:
+    name: Lighthouse budgets (mobile)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      # A fixed Chrome, so a runner image update cannot move the lab numbers.
+      - id: chrome
+        uses: browser-actions/setup-chrome@48ad923757ca74d66703209fe939badbdf80f2f4 # v2.2.0
+        with:
+          chrome-version: 155.0.8059.39
+      # Lighthouse CI (exact devDependency) against the precompressed build; budgets are in
+      # apps/site/lighthouserc.cjs.
+      - run: pnpm --filter @svanda/site lighthouse
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: lighthouse-reports
+          path: apps/site/.lighthouseci
+          retention-days: 14
+
+  infra:
+    name: Infra config (compose, Caddy, scripts)
+    runs-on: ubuntu-24.04
+    env:
+      # Same Caddy as the Manager box, so the snippet is validated by the version that runs it.
+      CADDY_IMAGE: caddy:2-alpine@sha256:5f5c8640aae01df9654968d946d8f1a56c497f1dd5c5cda4cf95ab7c14d58648
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Placeholders for every key in .env.example, so the check also catches a variable the
+      # compose file requires but the example does not list.
+      - name: docker compose config
+        run: |
+          sed -E 's/=$/=ci-placeholder/' infra/.env.example > "$RUNNER_TEMP/ci.env"
+          printf 'CONTACT_API_TAG=ci\n' > "$RUNNER_TEMP/release.env"
+          docker compose -f infra/docker-compose.web.yml \
+            --env-file "$RUNNER_TEMP/ci.env" --env-file "$RUNNER_TEMP/release.env" config --quiet
+      - name: caddy validate
+        run: |
+          docker run --rm -v "$PWD/infra/caddy:/etc/caddy/sites:ro" "$CADDY_IMAGE" \
+            caddy validate --adapter caddyfile --config /etc/caddy/sites/svanda-web.caddy
+      # The image the deploy pushes; built here (not pushed) so a broken Dockerfile fails CI.
+      - name: docker build contact API
+        run: docker build -f apps/contact-api/Dockerfile -t svanda-web-contact-api:ci .
+      - run: sh infra/scripts/check-security-headers.sh
+      - run: shellcheck -x -P SCRIPTDIR infra/scripts/*.sh infra/scripts/lib/*.sh
+
+  gitleaks:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Install gitleaks
+        run: |
+          archive="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sSfL -o "$archive" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${archive}"
+          echo "${GITLEAKS_SHA256}  ${archive}" | sha256sum --check
+          tar -xzf "$archive" gitleaks
+          rm "$archive"
+      - run: ./gitleaks git --redact --verbose .
+
+  audit:
+    name: Dependency audit (report only)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      # Advisories are reported, not enforced: a new upstream advisory must not block unrelated work.
+      - name: pnpm audit
+        run: |
+          if ! pnpm audit > audit.txt 2>&1; then
+            echo "::warning title=pnpm audit::advisories found, see the job summary"
+          fi
+          {
+            echo '## pnpm audit'
+            echo '```'
+            cat audit.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

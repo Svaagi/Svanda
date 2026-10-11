@@ -1,0 +1,142 @@
+.numpad-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.numpad {
+  width: 100%;
+  max-width: 500px;
+  background: #1c1c1c;
+  padding: 1.5rem;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  position: relative;
+  pointer-events: auto;
+  box-sizing: border-box;
+}
+
+.numpad-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.numpad-btn {
+  width: 110px;
+  height: 110px;
+  font-size: 2.5rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.06) inset,
+    2px 0 0 rgba(255, 255, 255, 0.04) inset,
+    0 2px 8px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.1s ease;
+}
+
+.numpad-btn:active {
+  transform: translateY(2px);
+  background: linear-gradient(135deg, #333 0%, #222 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    1px 0 0 rgba(255, 255, 255, 0.04) inset,
+    0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.numpad-backspace {
+  background: #444;
+  font-size: 2rem;
+}
+
+.numpad-backspace:active {
+  background: #555;
+}
+
+/* Enter key - Listen/Lyrics mode (pink gradient) */
+.search-bar.listen .numpad-enter,
+.numpad-enter.mode-listen,
+.numpad-enter.mode-lyrics {
+  background: linear-gradient(135deg, #e068b2 0%, #c54a9a 100%);
+  font-size: 2.5rem;
+}
+
+.search-bar.listen .numpad-enter:active,
+.numpad-enter.mode-listen:active,
+.numpad-enter.mode-lyrics:active {
+  background: linear-gradient(135deg, #c54a9a 0%, #a03d7f 100%);
+}
+
+/* Enter key - Sing/Karaoke mode (yellow gradient) */
+.search-bar.sing .numpad-enter,
+.numpad-enter.mode-sing,
+.numpad-enter.mode-karaoke {
+  background: linear-gradient(135deg, #ffd36e 0%, #ff9f1c 100%);
+  color: #1a1a1a;
+  font-size: 2.5rem;
+}
+
+.search-bar.sing .numpad-enter:active,
+.numpad-enter.mode-sing:active,
+.numpad-enter.mode-karaoke:active {
+  background: linear-gradient(135deg, #e6be5f 0%, #e68f19 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .numpad {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .numpad-row {
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .numpad-btn {
+    width: 90px;
+    height: 90px;
+    font-size: 2rem;
+    border-radius: 12px;
+  }
+
+  .numpad-backspace {
+    font-size: 1.8rem;
+  }
+
+  .numpad-enter {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .numpad-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+
+  .numpad-backspace {
+    font-size: 1.5rem;
+  }
+
+  .numpad-enter {
+    font-size: 1.8rem;
+  }
+}

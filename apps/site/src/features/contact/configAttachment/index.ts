@@ -1,0 +1,1 @@
+export { ConfigAttachment } from './ConfigAttachment';

@@ -1,0 +1,33 @@
+.iconButton {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--icon-button-size);
+  min-height: var(--icon-button-size);
+  padding: 0;
+  border: var(--border-width-thin) solid var(--color-border-2);
+  background: transparent;
+  color: var(--color-fg);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.iconButton:hover:not(:disabled, [aria-disabled='true']) {
+  border-color: var(--color-accent);
+}
+
+/* `aria-disabled` keeps a control focusable at the end of its range, so focus never drops
+   out of a dialog when it stops applying. */
+.iconButton:disabled,
+.iconButton[aria-disabled='true'] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+@media (pointer: coarse) {
+  .iconButton {
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+  }
+}

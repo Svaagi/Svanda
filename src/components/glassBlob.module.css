@@ -1,7 +1,0 @@
-/* ─── GlassBlob SVG component ───────────────────────────────────────────────── */
-
-.blob {
-  position: absolute;
-  pointer-events: none;
-  overflow: visible; /* allow bezier handles that slightly exceed the viewBox */
-}

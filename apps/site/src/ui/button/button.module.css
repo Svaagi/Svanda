@@ -1,0 +1,96 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--button-height);
+  padding: 0 var(--space-6);
+  border: var(--border-width-pixel) solid transparent;
+  background: transparent;
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: var(--line-height-none);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.outline {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.outline:hover:not(:disabled) {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.fill {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.fill:hover:not(:disabled) {
+  border-color: var(--color-accent-2);
+  background: var(--color-accent-2);
+  color: var(--color-on-accent);
+}
+
+.ghost {
+  color: var(--color-muted);
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--color-fg);
+}
+
+.pixel {
+  min-height: auto;
+  padding: var(--segment-padding-y) var(--pixel-button-padding-x);
+  border-width: var(--border-width-thin);
+  border-color: var(--color-border-2);
+  color: var(--color-fg);
+  font-family: var(--font-pixel);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0;
+}
+
+.pixel:hover:not(:disabled) {
+  border-color: var(--color-fg);
+}
+
+.dashed {
+  justify-content: flex-start;
+  width: 100%;
+  min-height: var(--control-height);
+  padding: 0 var(--control-padding-x);
+  border-width: var(--border-width-thin);
+  border-style: dashed;
+  border-color: var(--color-border-2);
+  color: var(--color-muted);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.dashed:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+@media (pointer: coarse) {
+  .button {
+    min-height: var(--touch-target-min);
+  }
+}

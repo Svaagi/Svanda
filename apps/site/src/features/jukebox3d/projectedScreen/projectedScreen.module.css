@@ -1,0 +1,21 @@
+/* Positioned at the stage origin: the published display quad is in stage px, so the warp
+   maps this box straight onto it. Opacity and transform follow the 3D display from JS. */
+.projectedScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--projected-screen-width);
+  height: var(--projected-screen-height);
+  overflow: hidden;
+  opacity: 0;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.projectedScreen[data-paused='true'] {
+  visibility: hidden;
+}
+
+.projectedScreen[data-interactive='true'] {
+  pointer-events: auto;
+}

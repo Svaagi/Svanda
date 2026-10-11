@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2023"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "types": ["vite/client"],
+    "rootDirs": [".", "./.react-router/types"],
+    // `src` acts as the baseUrl. Import constants by file (`constants/locales`): the bare
+    // name `constants` resolves to the Node built-in module typed by @types/node.
+    // `@svanda/shared` resolves to its source, so the site needs no build of the package
+    // before typecheck, tests or dev.
+    "paths": {
+      "*": ["./src/*"],
+      "@svanda/shared": ["../../packages/shared/src/index.ts"]
+    },
+    "noEmit": true
+  },
+  "include": ["app", "src", ".react-router/types/**/*"],
+  "exclude": ["**/*.spec.ts", "**/*.spec.tsx"]
+}

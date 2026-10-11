@@ -1,0 +1,31 @@
+:root {
+  /* Core neutrals */
+  --jb-white: #fff;
+  --jb-black: #000;
+  --jb-bg-dark: #1a1a1a;
+  --jb-bg-darker: #12012a;
+
+  /* Accent — pink/magenta (primary brand accent, used for cursor/highlights) */
+  --jb-pink: #e068b2;
+  --jb-pink-light: #f8b8e0;
+  --jb-pink-dark: #c54a9a;
+  --jb-pink-deep: #a03d7f;
+
+  /* Accent — orange/gold (buttons, highlights) */
+  --jb-orange: #ff9f1c;
+  --jb-gold: #ffd36e;
+  --jb-gold-bright: #ffe55a;
+  --jb-yellow: #ffd700;
+
+  /* Accent — purple (lava lamp / decorative) */
+  --jb-purple: #af54fe;
+  --jb-purple-bg: #36095d;
+
+  /* Accent — teal / green */
+  --jb-teal: #063d49;
+  --jb-green: #7dffa0;
+
+  /* Misc reds/pinks */
+  --jb-red: #ff6b6b;
+  --jb-pink-soft: #ff85c8;
+}

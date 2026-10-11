@@ -1,0 +1,12 @@
+.sent {
+  margin: 0;
+  padding: var(--contact-sent-padding);
+  border: var(--border-width-pixel) solid var(--color-accent);
+  color: var(--color-fg);
+  font-size: var(--contact-sent-size);
+  font-weight: var(--font-weight-semibold);
+}
+
+.sent:focus {
+  outline: none;
+}

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html{scroll-snap-type:y proximity;background:{{ c.bg }}}
+body{margin:0;background:{{ c.bg }};color:{{ c.fg }};font-family:system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+:root{--sv-vp:0;--sv-hero:0;--sv-nav:0;--sv-menu:0;--sv-logo:0}
+a{color:{{ c.accent }};text-decoration:none}
+a:hover{color:#b6ff4d}
+input,textarea,button{font:inherit}
+::placeholder{color:{{ c.dim }}}
+
+
+html[data-cursor], html[data-cursor] *{cursor:url("./cursor-arrow.png") 1 1, auto !important}
+html[data-cursor] a, html[data-cursor] button, html[data-cursor] [role="button"], html[data-cursor] label{cursor:url("./cursor-hand.png") 9 1, pointer !important}
+html[data-cursor="magenta"], html[data-cursor="magenta"] *{cursor:url("./cursor-arrow-magenta.png") 1 1, auto !important}
+html[data-cursor="magenta"] a, html[data-cursor="magenta"] button, html[data-cursor="magenta"] [role="button"], html[data-cursor="magenta"] label{cursor:url("./cursor-hand-magenta.png") 9 1, pointer !important}
+html[data-cursor] image-slot{cursor:url("./cursor-hand.png") 9 1, pointer !important}
+html[data-cursor="magenta"] image-slot{cursor:url("./cursor-hand-magenta.png") 9 1, pointer !important}
+html[data-cursor] input, html[data-cursor] textarea{cursor:url("./cursor-text.png") 7 13, text !important}
+html[data-cursor="magenta"] input, html[data-cursor="magenta"] textarea{cursor:url("./cursor-text-magenta.png") 7 13, text !important}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+</helmet>
+
+<nav data-screen-label="Nav" style="position:fixed;top:0;left:0;right:0;height:64px;z-index:50;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;transform:translateY(calc((1 - var(--sv-nav)) * -64px));background:rgb({{ c.navRgb }} / calc(0.92 * var(--sv-logo)));border-bottom:1px solid rgb({{ c.borderRgb }} / var(--sv-logo));pointer-events:{{ navEvents }}">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:clamp(16px, 3vw, 40px);padding-left:clamp(16px, 3vw, 40px);padding-right:clamp(28px, 5vw, 72px);min-width:0">
+    <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:28px;border:1px solid {{ c.border2 }};background:transparent;color:{{ c.muted }};cursor:pointer;opacity:clamp(0, (var(--sv-menu) - 0.225) / 0.35, 1)" style-hover="color:{{ c.fg }};border-color:{{ c.fg }}"><span style="position:relative;display:block;width:15px;height:15px"><sc-for list="{{ themeCells }}" as="k" hint-placeholder-count="0"><span style="position:absolute;left:{{ k.left }}px;top:{{ k.top }}px;width:3px;height:3px;background:currentColor"></span></sc-for></span></button>
+    <div style="display:flex;align-items:center;gap:clamp(14px, 2vw, 40px)">
+    <sc-for list="{{ menuL }}" as="m" hint-placeholder-count="0">
+      <a href="{{ m.href }}" onClick="{{ m.go }}" style="color:{{ m.color }};font-family:'Silkscreen', monospace;font-size:16px;line-height:1;letter-spacing:0;text-transform:uppercase;white-space:nowrap;opacity:clamp(0, (var(--sv-menu) - {{ m.d }}) / 0.35, 1)" style-hover="color:{{ c.fg }}">{{ m.label }}</a>
+    </sc-for>
+    </div>
+  </div>
+  <a href="#top" onClick="{{ goTop }}" aria-label="SVANDA" style="position:relative;display:block;width:{{ logoW }}px;height:{{ logoH }}px;opacity:var(--sv-logo)">
+    <sc-for list="{{ logoCells }}" as="c" hint-placeholder-count="0">
+      <div style="position:absolute;left:{{ c.left }}px;top:{{ c.top }}px;width:{{ c.size }}px;height:{{ c.size }}px;background:{{ c.color }}"></div>
+    </sc-for>
+  </a>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:clamp(16px, 3vw, 40px);padding-left:clamp(28px, 5vw, 72px);padding-right:clamp(16px, 3vw, 40px);min-width:0">
+    <div style="display:flex;align-items:center;gap:clamp(14px, 2vw, 40px)">
+      <sc-for list="{{ menuR }}" as="m" hint-placeholder-count="0">
+        <a href="{{ m.href }}" onClick="{{ m.go }}" style="color:{{ m.color }};font-family:'Silkscreen', monospace;font-size:16px;line-height:1;letter-spacing:0;text-transform:uppercase;white-space:nowrap;opacity:clamp(0, (var(--sv-menu) - {{ m.d }}) / 0.35, 1)" style-hover="color:{{ c.fg }}">{{ m.label }}</a>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;opacity:clamp(0, (var(--sv-menu) - 0.225) / 0.35, 1)">
+      <div style="display:flex;border:1px solid {{ c.border2 }}">
+        <button onClick="{{ setCs }}" style="border:0;cursor:pointer;padding:6px 9px;font-family:'Silkscreen', monospace;font-size:16px;line-height:1;letter-spacing:0;background:{{ csBg }};color:{{ csColor }}">CS</button>
+        <button onClick="{{ setEn }}" style="border:0;cursor:pointer;padding:6px 9px;font-family:'Silkscreen', monospace;font-size:16px;line-height:1;letter-spacing:0;background:{{ enBg }};color:{{ enColor }}">EN</button>
+      </div>
+      <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMenu }}" aria-label="Menu" style="border:1px solid {{ c.border2 }};background:transparent;color:{{ c.fg }};cursor:pointer;padding:6px 10px;font-family:'Silkscreen', monospace;font-size:16px;line-height:1;letter-spacing:0">{{ menuLabel }}</button>
+      </sc-if>
+    </div>
+  </div>
+</nav>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Mobile menu" style="position:fixed;inset:64px 0 0 0;z-index:49;background:{{ c.menuBg }};display:flex;flex-direction:column;justify-content:center;gap:28px;padding:24px">
+    <sc-for list="{{ menuAll }}" as="m" hint-placeholder-count="4">
+      <a href="{{ m.href }}" onClick="{{ m.go }}" style="color:{{ c.fg }};font-size:32px;font-weight:600">{{ m.label }}</a>
+    </sc-for>
+  </div>
+</sc-if>
+
+<div id="top" data-sv-wrap="1" style="position:relative;height:500svh">
+  <div style="position:sticky;top:0;height:100svh;overflow:hidden;background:{{ c.bg }}">
+    <x-import component-from-global-scope="svanda-stage" from="./svanda-stage.js" bg="{{ bgVariant }}" intro-mode="{{ introMode }}" theme="{{ theme }}" hint-size="100%,100%" style="position:absolute;inset:0;width:100%;height:100%"></x-import>
+
+    <div data-screen-label="Hero" style="position:absolute;left:clamp(24px, 6vw, 80px);right:clamp(24px, 6vw, 80px);bottom:clamp(40px, 8vh, 72px);max-width:560px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;opacity:calc(var(--sv-hero) * clamp(0, 1 - var(--sv-vp) * 2.5, 1));pointer-events:{{ ev0 }}">
+      <div style="color:{{ c.accent }};font-size:15px;font-weight:500;letter-spacing:.06em">{{ t.heroTag }}</div>
+      
+      <a href="#karaoke" onClick="{{ go1 }}" style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 22px;border:2px solid {{ c.accent }};color:{{ c.accent }};font-size:14px;font-weight:600;letter-spacing:.04em" style-hover="background:{{ c.accent }};color:{{ c.onAccent }}">{{ t.heroCta }}</a>
+    </div>
+
+    <sc-if value="{{ isPortrait }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Karaoke" style="position:absolute;left:clamp(24px, 7vw, 90px);top:calc(64px + clamp(24px, 7vh, 72px));bottom:{{ pBottom }};width:min(calc(100% - 48px), max(420px, {{ p1W }}px));display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:22px;opacity:clamp(0, 1 - max(var(--sv-vp) - 1, 1 - var(--sv-vp)) * 2.2, 1);transform:translateX(calc((var(--sv-vp) - 1) * -90px));pointer-events:{{ ev1 }}">
+      <h2 aria-label="{{ t.p1Tag }}" style="margin:0;position:relative;width:{{ p1W }}px;height:{{ p1H }}px">
+        <sc-for list="{{ p1Cells }}" as="k" hint-placeholder-count="0">
+          <div style="position:absolute;left:{{ k.left }}px;top:{{ k.top }}px;width:{{ k.size }}px;height:{{ k.size }}px;background:{{ k.color }}"></div>
+        </sc-for>
+      </h2>
+      <p style="margin:0;align-self:center;max-width:640px;color:{{ c.muted }};font-size:clamp(15px, 1.1vw, 22px);line-height:1.5;text-align:center;text-wrap:pretty">{{ t.p1Body }}</p>
+    </div>
+
+    <div data-screen-label="Jukebox" style="position:absolute;left:clamp(24px, 7vw, 90px);right:clamp(24px, 7vw, 90px);top:calc(64px + clamp(24px, 7vh, 72px));bottom:{{ pBottom }};display:flex;flex-direction:column;align-items:{{ p2Align }};opacity:clamp(0, 1 - max(var(--sv-vp) - 2, 2 - var(--sv-vp)) * 2.2, 1);transform:translateX(calc((var(--sv-vp) - 2) * 90px));pointer-events:{{ ev2 }}">
+      <div style="width:min(100%, max(420px, {{ p2W }}px));height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:22px">
+        <h2 aria-label="{{ t.p2Tag }}" style="margin:0;position:relative;width:{{ p2W }}px;height:{{ p2H }}px">
+          <sc-for list="{{ p2Cells }}" as="k" hint-placeholder-count="0">
+            <div style="position:absolute;left:{{ k.left }}px;top:{{ k.top }}px;width:{{ k.size }}px;height:{{ k.size }}px;background:{{ k.color }}"></div>
+          </sc-for>
+        </h2>
+        <p style="margin:0;align-self:center;max-width:640px;color:{{ c.muted }};font-size:clamp(15px, 1.1vw, 22px);line-height:1.5;text-align:center;text-wrap:pretty">{{ t.p2Body }}</p>
+      </div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ isLand }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Karaoke" style="position:absolute;top:64px;bottom:0;left:0;width:50%;box-sizing:border-box;padding:0 clamp(32px, 6vw, 120px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:clamp(20px, 3vh, 36px);opacity:clamp(0, 1 - max(var(--sv-vp) - 1, 1 - var(--sv-vp)) * 2.2, 1);transform:translateX(calc((var(--sv-vp) - 1) * -90px));pointer-events:{{ ev1 }}">
+        <h2 aria-label="{{ t.p1Tag }}" style="margin:0;position:relative;width:{{ p1W }}px;height:{{ p1H }}px;transform:scale(0.6);transform-origin:0 0;margin-bottom:calc({{ p1H }}px * -0.4)">
+          <sc-for list="{{ p1Cells }}" as="k" hint-placeholder-count="0">
+            <div style="position:absolute;left:{{ k.left }}px;top:{{ k.top }}px;width:{{ k.size }}px;height:{{ k.size }}px;background:{{ k.color }}"></div>
+          </sc-for>
+        </h2>
+        <p style="margin:0;max-width:13ch;color:{{ c.fg }};font-size:clamp(40px, 4.4vw, 84px);font-weight:700;line-height:1.02;letter-spacing:-0.035em;text-wrap:balance">{{ t.p1Title }}</p>
+        <p style="margin:0;max-width:30em;color:{{ c.muted }};font-size:clamp(17px, 1.3vw, 24px);font-weight:500;line-height:1.45;letter-spacing:-0.01em;text-wrap:pretty">{{ t.p1Body }}</p>
+      </div>
+      <div data-screen-label="Jukebox" style="position:absolute;top:64px;bottom:0;right:0;width:50%;box-sizing:border-box;padding:0 clamp(32px, 6vw, 120px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:clamp(20px, 3vh, 36px);opacity:clamp(0, 1 - max(var(--sv-vp) - 2, 2 - var(--sv-vp)) * 2.2, 1);transform:translateX(calc((var(--sv-vp) - 2) * 90px));pointer-events:{{ ev2 }}">
+        <h2 aria-label="{{ t.p2Tag }}" style="margin:0;position:relative;width:{{ p2W }}px;height:{{ p2H }}px;transform:scale(0.6);transform-origin:0 0;margin-bottom:calc({{ p2H }}px * -0.4)">
+          <sc-for list="{{ p2Cells }}" as="k" hint-placeholder-count="0">
+            <div style="position:absolute;left:{{ k.left }}px;top:{{ k.top }}px;width:{{ k.size }}px;height:{{ k.size }}px;background:{{ k.color }}"></div>
+          </sc-for>
+        </h2>
+        <p style="margin:0;max-width:13ch;color:{{ c.fg }};font-size:clamp(40px, 4.4vw, 84px);font-weight:700;line-height:1.02;letter-spacing:-0.035em;text-wrap:balance">{{ t.p2Title }}</p>
+        <p style="margin:0;max-width:30em;color:{{ c.muted }};font-size:clamp(17px, 1.3vw, 24px);font-weight:500;line-height:1.45;letter-spacing:-0.01em;text-wrap:pretty">{{ t.p2Body }}</p>
+      </div>
+    </sc-if>
+
+    <div id="custom" data-screen-label="Custom" style="position:absolute;inset:64px 0 0;opacity:clamp(0, 1 - max(var(--sv-vp) - 3, 3 - var(--sv-vp)) * 2.2, 1);pointer-events:{{ ev3 }}">
+      <iframe src="jukebox-konfigurator.html" title="Konfigurátor barev jukeboxu" style="position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;color-scheme:dark;display:block"></iframe>
+    </div>
+
+    <iframe ref="{{ dispRef }}" onLoad="{{ dispLoad }}" src="jukebox-konfigurator.html?display=sing" title="Displej jukeboxu: pixel a původní design" style="position:absolute;left:0;top:0;width:540px;height:960px;border:0;background:transparent;color-scheme:dark;transform-origin:0 0;opacity:0;pointer-events:none;z-index:5"></iframe>
+
+    <div data-screen-label="Venues" style="position:absolute;inset:0;padding:calc(64px + 2vh) clamp(20px, 6vw, 90px) clamp(16px, 3vh, 40px);box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px, 2vh, 20px);overflow-y:auto;opacity:clamp(0, 1 - max(var(--sv-vp) - 4, 4 - var(--sv-vp)) * 1.8, 1);pointer-events:{{ ev4 }}">
+      <div style="display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;gap:6px 18px;text-align:center">
+        <h2 aria-label="{{ t.venTag }}" data-venhead="1" style="margin:0;flex:none;position:relative;width:{{ vhW }}px;height:{{ vhH }}px">
+          <sc-for list="{{ vhCells }}" as="k" hint-placeholder-count="0">
+            <div style="position:absolute;left:{{ k.left }}px;top:{{ k.top }}px;width:{{ k.size }}px;height:{{ k.size }}px;background:{{ k.color }};transition:background .4s"></div>
+          </sc-for>
+        </h2>
+      </div>
+      <div style="position:relative;container-type:inline-size;width:{{ venW }};display:flex;flex-direction:column;gap:clamp(14px, 2.4vh, 26px)">
+        <div data-venframe="1" data-aspect="{{ venAspect }}" onPointerDown="{{ dragDown }}" onPointerMove="{{ dragMove }}" onPointerUp="{{ dragUp }}" onPointerCancel="{{ dragUp }}" style="touch-action:pan-y;user-select:none;cursor:{{ dragCursor }};position:relative;aspect-ratio:{{ venAspect }};overflow:hidden;background:#07070a;box-shadow:0 30px 80px rgba(0,0,0,0.55)">
+          <div style="display:flex;flex-direction:column;height:100%;width:100%;transform:translateY({{ trackX }});transition:transform .7s cubic-bezier(.7,0,.25,1)">
+            <sc-for list="{{ venues }}" as="v" hint-placeholder-count="6">
+              <div style="flex:0 0 100%;height:100%;position:relative;overflow:hidden;background:linear-gradient(135deg, {{ v.tintDark }}, #07070a)">
+                <div style="display:flex;height:100%;width:100%;transform:translateX({{ v.photoX }});transition:{{ v.photoTrans }}">
+                  <sc-for list="{{ v.photos }}" as="ph" hint-placeholder-count="5">
+                    <div style="flex:0 0 100%;min-width:0;width:100%;height:100%;position:relative;overflow:hidden">
+                      <image-slot style="position:absolute;inset:0;width:100%;height:100%" id="venue-{{ v.slot }}-{{ ph.n }}" shape="rect" placeholder="{{ ph.label }}"></image-slot>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(5,5,8,0.88) 0%, rgba(5,5,8,0.55) 38%, rgba(5,5,8,0.05) 70%, rgba(5,5,8,0.45) 100%), linear-gradient(0deg, rgba(5,5,8,0.7), transparent 30%);pointer-events:none"></div>
+                <canvas data-venbar="1" data-color="{{ v.color }}" data-num="{{ v.num }}" data-l1="{{ v.line1 }}" data-l2="{{ v.line2 }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
+                <div style="position:absolute;left:var(--lx, 20cqw);top:var(--ly, 20%);opacity:var(--lv, 1);display:flex;flex-direction:column;gap:.4cqw;font-size:max(11px, 1.15cqw);line-height:1.3;pointer-events:none">
+                  <span style="color:#ffffff;font-weight:600">{{ v.note }}</span>
+                  <span style="color:rgba(255,255,255,0.7)">{{ v.city }}</span>
+                </div>
+                <div style="position:absolute;left:calc(var(--fw, 100%) - var(--bg, 14px) * 10);top:calc(var(--bg, 14px) * 2);display:flex;gap:var(--bg, 14px)">
+                  <sc-for list="{{ v.photos }}" as="ph" hint-placeholder-count="5">
+                    <span data-torch="1" onClick="{{ ph.select }}" aria-label="{{ ph.label }}" style="display:block;box-sizing:border-box;width:var(--bg, 14px);height:var(--bg, 14px);padding:1px;background:{{ ph.dot }};background-clip:content-box;cursor:pointer"></span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ prevVen }}" aria-label="Previous venue" style="position:absolute;z-index:2;left:var(--ax, calc(50% - 35px));top:0px;width:calc(var(--bg, 14px) * 5);height:calc(var(--bg, 14px) * 3);padding:0;border:0;background:transparent;cursor:pointer" style-before="content:'';position:absolute;left:calc(var(--bg, 14px) * -3);right:calc(var(--bg, 14px) * -3);top:0;bottom:calc(var(--bg, 14px) * -2)" style-hover="opacity:0.6"><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 2 + 1px);top:calc(var(--bg, 14px) * 0 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 1 + 1px);top:calc(var(--bg, 14px) * 1 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 3 + 1px);top:calc(var(--bg, 14px) * 1 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 0 + 1px);top:calc(var(--bg, 14px) * 2 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 4 + 1px);top:calc(var(--bg, 14px) * 2 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span></button>
+          <button onClick="{{ nextVen }}" aria-label="Next venue" style="position:absolute;z-index:2;left:var(--ax, calc(50% - 35px));top:calc(var(--fh, 100%) - var(--bg, 14px) * 3);width:calc(var(--bg, 14px) * 5);height:calc(var(--bg, 14px) * 3);padding:0;border:0;background:transparent;cursor:pointer" style-before="content:'';position:absolute;left:calc(var(--bg, 14px) * -3);right:calc(var(--bg, 14px) * -3);top:calc(var(--bg, 14px) * -2);bottom:0" style-hover="opacity:0.6"><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 0 + 1px);top:calc(var(--bg, 14px) * 0 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 4 + 1px);top:calc(var(--bg, 14px) * 0 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 1 + 1px);top:calc(var(--bg, 14px) * 1 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 3 + 1px);top:calc(var(--bg, 14px) * 1 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span><span data-torch="1" style="position:absolute;left:calc(var(--bg, 14px) * 2 + 1px);top:calc(var(--bg, 14px) * 2 + 1px);width:calc(var(--bg, 14px) - 2px);height:calc(var(--bg, 14px) - 2px);background:#ffffff"></span></button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 4px">
+          <sc-for list="{{ venues }}" as="v" hint-placeholder-count="6">
+            <button onClick="{{ v.select }}" style="flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-start;gap:8px;border:0;padding:0 0 4px;background:transparent;cursor:pointer;text-align:left;font-family:'Silkscreen', monospace" style-hover="opacity:1">
+              <span style="display:block;width:100%;height:4px;background:{{ v.tabBar }};transition:background .4s"></span>
+              <span style="display:flex;gap:10px;align-items:baseline;white-space:nowrap;padding-right:14px">
+                <span style="font-size:12px;font-weight:700;color:{{ v.tabNum }}">{{ v.num }}</span>
+                <span style="font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:{{ v.nameColor }}">{{ v.name }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;top:0;left:0;right:0;height:100svh;scroll-snap-align:start;pointer-events:none"></div>
+  <div style="position:absolute;top:100svh;left:0;right:0;height:100svh;scroll-snap-align:start;pointer-events:none"></div>
+  <div style="position:absolute;top:200svh;left:0;right:0;height:100svh;scroll-snap-align:start;pointer-events:none"></div>
+  <div style="position:absolute;top:300svh;left:0;right:0;height:100svh;scroll-snap-align:start;pointer-events:none"></div>
+  <div style="position:absolute;top:400svh;left:0;right:0;height:100svh;scroll-snap-align:start;pointer-events:none"></div>
+</div>
+
+<section id="kontakt" data-screen-label="Contact" style="scroll-snap-align:start;min-height:100svh;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;gap:48px;padding:calc(64px + 8vh) clamp(24px, 7vw, 90px) 28px;background:{{ c.bg }}">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 340px), 1fr));gap:clamp(28px, 5vw, 80px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:480px">
+      <div style="color:{{ c.accent }};font-size:15px;font-weight:600;letter-spacing:.06em">{{ t.cTag }}</div>
+      <h2 style="margin:0;color:{{ c.fg }};font-size:clamp(30px, 3.4vw, 42px);font-weight:700;line-height:1.1;text-wrap:pretty">{{ t.cTitle }}</h2>
+      <p style="margin:0;color:{{ c.muted }};font-size:17px;line-height:1.55;text-wrap:pretty">{{ t.cBody }}</p>
+    </div>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div style="border:2px solid {{ c.accent }};padding:28px;color:{{ c.fg }};font-size:20px;font-weight:600">{{ t.cSent }}</div>
+    </sc-if>
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ submit }}" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 200px), 1fr));gap:14px">
+        <input name="name" required="{{ true }}" placeholder="{{ t.fName }}" style="box-sizing:border-box;width:100%;height:46px;padding:0 14px;background:{{ c.input }};border:1px solid {{ c.border2 }};color:{{ c.fg }};outline:none" style-focus="border-color:{{ c.accent }}">
+        <input name="venue" required="{{ true }}" placeholder="{{ t.fVenue }}" style="box-sizing:border-box;width:100%;height:46px;padding:0 14px;background:{{ c.input }};border:1px solid {{ c.border2 }};color:{{ c.fg }};outline:none" style-focus="border-color:{{ c.accent }}">
+        <input name="email" type="email" required="{{ true }}" placeholder="{{ t.fEmail }}" style="grid-column:1 / -1;box-sizing:border-box;width:100%;height:46px;padding:0 14px;background:{{ c.input }};border:1px solid {{ c.border2 }};color:{{ c.fg }};outline:none" style-focus="border-color:{{ c.accent }}">
+        <textarea name="message" rows="{{ 4 }}" placeholder="{{ t.fMsg }}" style="grid-column:1 / -1;box-sizing:border-box;width:100%;padding:12px 14px;background:{{ c.input }};border:1px solid {{ c.border2 }};color:{{ c.fg }};outline:none;resize:vertical" style-focus="border-color:{{ c.accent }}"></textarea>
+        <input type="hidden" name="config" value="{{ cfgJson }}">
+        <sc-if value="{{ cfgOn }}" hint-placeholder-val="{{ false }}">
+          <div style="grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:46px;padding:0 6px 0 14px;box-sizing:border-box;border:1px solid {{ c.accent }};background:{{ c.input }}">
+            <span style="display:flex;align-items:center;gap:10px;color:{{ c.fg }};font-size:14px"><span style="flex:none;width:10px;height:10px;background:{{ c.accent }}"></span>{{ t.cfgOn }}</span>
+            <button type="button" onClick="{{ cfgDetach }}" style="flex:none;height:36px;padding:0 12px;border:0;background:transparent;color:{{ c.muted }};font-size:13px;cursor:pointer" style-hover="color:{{ c.fg }}">{{ t.cfgRemove }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ cfgOff }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ cfgAttach }}" style="grid-column:1 / -1;height:46px;padding:0 14px;box-sizing:border-box;border:1px dashed {{ c.border2 }};background:transparent;color:{{ c.muted }};font-size:14px;text-align:left;cursor:pointer" style-hover="border-color:{{ c.accent }};color:{{ c.accent }}">{{ t.cfgAdd }}</button>
+        </sc-if>
+        <button type="submit" style="grid-column:1 / -1;justify-self:start;height:42px;padding:0 24px;border:2px solid {{ c.accent }};background:transparent;color:{{ c.accent }};font-size:14px;font-weight:600;letter-spacing:.04em;cursor:pointer" style-hover="background:{{ c.accent }};color:{{ c.onAccent }}">{{ t.fSend }}</button>
+      </form>
+    </sc-if>
+  </div>
+  <footer style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid {{ c.border }};padding-top:20px;color:{{ c.dim }};font-size:13px">
+    <div>© 2026 SVANDA · {{ t.footTag }}</div>
+    <div style="display:flex;gap:24px">
+      <a href="#" style="color:{{ c.muted }}">Instagram</a>
+      <a href="#" style="color:{{ c.muted }}">YouTube</a>
+    </div>
+  </footer>
+</section>
+
+<sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ lbClose }}" role="dialog" aria-label="Foto" style="position:fixed;inset:0;z-index:1000;background:rgba(5,5,8,0.94);display:flex;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;cursor:zoom-out">
+    <div style="width:100%;height:100%;background-image:{{ lbBg }};background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+    <button onClick="{{ lbClose }}" aria-label="Zavřít" style="position:absolute;top:12px;right:12px;width:44px;height:44px;border:0;background:transparent;color:#ffffff;font-family:'Silkscreen', monospace;font-size:22px;cursor:pointer">X</button>
+  </div>
+</sc-if></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;lime&quot;,&quot;magenta&quot;,&quot;orange&quot;,&quot;violet&quot;,&quot;cyan&quot;,&quot;crimson&quot;,&quot;ink&quot;,&quot;teal&quot;,&quot;amber&quot;,&quot;coral&quot;,&quot;cobalt&quot;,&quot;plum&quot;,&quot;rose&quot;,&quot;olive&quot;,&quot;rust&quot;,&quot;sky&quot;,&quot;mint&quot;],&quot;default&quot;:&quot;orange&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;pixelCursor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cs&quot;,&quot;en&quot;],&quot;default&quot;:&quot;cs&quot;,&quot;tsType&quot;:&quot;'cs' | 'en'&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;bgVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A' | 'B' | 'C'&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;introMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;always&quot;,&quot;session&quot;,&quot;skip&quot;],&quot;default&quot;:&quot;always&quot;,&quot;tsType&quot;:&quot;'always' | 'session' | 'skip'&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+const BITMAP = [
+  ".###..#...#...##...#...#..###....##.",
+  "#.....#...#..#..#..##..#..#..#..#..#",
+  ".##....#.#...####..#.#.#..#..#..####",
+  "...#...#.#...#..#..#..##..#..#..#..#",
+  "###.....#....#..#..#...#..###...#..#"];
+const SUN = ['#.#.#', '.###.', '#####', '.###.', '#.#.#'], MOON = ['..###', '.##..', '.#...', '.##..', '..###'];
+const LETTER_COLORS = ["#b6ff4d", "#3ee6ff", "#ff9a3c", "#ff4fd8", "#7a5cff", "#5ff5e0"];
+const LETTER_COLORS_LIGHT = ["#5a8f00", "#0a7f96", "#b5520a", "#b8158f", "#5a3fe0", "#0b7a63"];
+// 5-row pixel glyphs in the wordmark's style (4 wide; V and N are 5 like in the logo)
+const GLYPH = {
+  S: [".###", "#...", ".##.", "...#", "###."], V: ["#...#", "#...#", ".#.#.", ".#.#.", "..#.."], A: [".##.", "#..#", "####", "#..#", "#..#"],
+  N: ["#...#", "##..#", "#.#.#", "#..##", "#...#"], D: ["###.", "#..#", "#..#", "#..#", "###."], K: ["#..#", "#.#.", "##..", "#.#.", "#..#"],
+  R: ["###.", "#..#", "###.", "#.#.", "#..#"], O: [".##.", "#..#", "#..#", "#..#", ".##."], E: ["####", "#...", "###.", "#...", "####"],
+  J: ["..##", "...#", "...#", "#..#", ".##."], U: ["#..#", "#..#", "#..#", "#..#", ".##."], B: ["###.", "#..#", "###.", "#..#", "###."],
+  X: ["#..#", "#..#", ".##.", "#..#", "#..#"],
+  C: [".###", "#...", "#...", "#...", ".###"], T: ["####", ".##.", ".##.", ".##.", ".##."], M: ["#...#", "##.##", "#.#.#", "#...#", "#...#"],
+  P: ["###.", "#..#", "###.", "#...", "#..."], I: ["###", ".#.", ".#.", ".#.", "###"], L: ["#...", "#...", "#...", "#...", "####"],
+  G: [".###", "#...", "#.##", "#..#", ".###"], H: ["#..#", "#..#", "####", "#..#", "#..#"], F: ["####", "#...", "###.", "#...", "#..."],
+  Y: ["#...#", "#...#", ".###.", "..#..", "..#.."], Z: ["####", "...#", ".##.", "#...", "####"], W: ["#...#", "#...#", "#.#.#", "##.##", "#...#"],
+  Q: [".##.", "#..#", "#..#", "#.##", ".###"]
+};
+Object.assign(GLYPH, {
+  "0": ["####", "#..#", "#..#", "#..#", "####"], "1": [".#.", "##.", ".#.", ".#.", "###"], "2": ["###.", "...#", ".##.", "#...", "####"],
+  "3": ["###.", "...#", ".##.", "...#", "###."], "4": ["#..#", "#..#", "####", "...#", "...#"], "5": ["####", "#...", "###.", "...#", "###."],
+  "6": [".##.", "#...", "###.", "#..#", ".##."], "7": ["####", "...#", "..#.", ".#..", ".#.."], "8": [".##.", "#..#", ".##.", "#..#", ".##."],
+  "9": [".##.", "#..#", ".###", "...#", ".##."], ".": [".", ".", ".", ".", "#"], "&": [".#..", "#.#.", ".#..", "#.#.", ".#.#"]
+});
+const NARROW_G = {A: [".#.","#.#","###","#.#","#.#"], B: ["##.","#.#","##.","#.#","##."], C: [".##","#..","#..","#..",".##"], D: ["##.","#.#","#.#","#.#","##."], E: ["###","#..","##.","#..","###"], F: ["###","#..","##.","#..","#.."], G: [".##","#..","#.#","#.#",".##"], H: ["#.#","#.#","###","#.#","#.#"], I: ["###",".#.",".#.",".#.","###"], J: ["..#","..#","..#","#.#",".#."], K: ["#.#","#.#","##.","#.#","#.#"], L: ["#..","#..","#..","#..","###"], M: ["#.#","###","###","#.#","#.#"], N: ["##.","#.#","#.#","#.#","#.#"], O: [".#.","#.#","#.#","#.#",".#."], P: ["##.","#.#","##.","#..","#.."], Q: [".#.","#.#","#.#","##.",".##"], R: ["##.","#.#","##.","#.#","#.#"], S: [".##","#..",".#.","..#","##."], T: ["###",".#.",".#.",".#.",".#."], U: ["#.#","#.#","#.#","#.#","###"], V: ["#.#","#.#","#.#","#.#",".#."], W: ["#.#","#.#","###","###","#.#"], X: ["#.#","#.#",".#.","#.#","#.#"], Y: ["#.#","#.#",".#.",".#.",".#."], Z: ["###","..#",".#.","#..","###"]};   // 3×5 letters for narrow (mobile) venue frames
+const DIA = { "Á": "A", "Č": "C", "Ď": "D", "É": "E", "Ě": "E", "Í": "I", "Ň": "N", "Ó": "O", "Ř": "R", "Š": "S", "Ť": "T", "Ú": "U", "Ů": "U", "Ý": "Y", "Ž": "Z" };
+// section heading in background-grid cells; falls back to 3-wide letters and wraps when it doesn't fit
+function pixelHead(text, cell, maxCols, color) {
+  const mk = narrow => {
+    const g = ch => { const k = DIA[ch] || ch; return (narrow && (k === '&' ? [".#.", "#.#", ".#.", "#.#", ".##"] : NARROW_G[k])) || GLYPH[k] || GLYPH.X; };
+    const wid = s => [...s].reduce((n, ch) => n + (ch === ' ' ? 2 : g(ch)[0].length + 1), 0) - 1;
+    return { g, wid };
+  };
+  const words = (text || '').toUpperCase().split(' ').filter(Boolean);
+  const { g, wid } = mk(mk(false).wid(words.join(' ')) > maxCols);
+  const lines = [];
+  words.forEach(w => { const l = lines[lines.length - 1]; if (l && wid(l + ' ' + w) <= maxCols) lines[lines.length - 1] = l + ' ' + w; else lines.push(w); });
+  const W = Math.max(0, ...lines.map(wid)), cells = [];
+  lines.forEach((ln, li) => {
+    let col = Math.floor((W - wid(ln)) / 2);
+    [...ln].forEach(ch => {
+      if (ch === ' ') { col += 2; return; }
+      const gl = g(ch);
+      gl.forEach((row, by) => { for (let bx = 0; bx < row.length; bx++) if (row[bx] === '#') cells.push({ left: (col + bx) * cell + 1, top: (li * 7 + by) * cell + 1, size: cell - 2, color }); });
+      col += gl[0].length + 1;
+    });
+  });
+  return { cells, w: W * cell, h: Math.max(0, lines.length * 7 - 2) * cell };
+}
+// pixel text in container-query units, so it scales with the venue frame
+function pixelCq(word, cell, color) {
+  const cells = [], r = n => (Math.round(n * 1000) / 1000) + 'cqw'; let col = 0;
+  [...word.toUpperCase()].forEach(ch => {
+    if (ch === ' ') { col += 2; return; }
+    const g = GLYPH[DIA[ch] || ch] || GLYPH.X;
+    g.forEach((row, by) => { for (let bx = 0; bx < row.length; bx++) if (row[bx] === '#') cells.push({ l: r((col + bx) * cell), t: r(by * cell), s: r(cell * 0.84), c: color }); });
+    col += g[0].length + 1;
+  });
+  return { cells, w: r(Math.max(0, col - 1) * cell), h: r(5 * cell) };
+}
+function pixelWord(word, cell, colors) {
+  const cells = []; let col = 0;
+  [...word.toUpperCase()].forEach((ch, li) => {
+    const g = GLYPH[ch]; if (!g) return;
+    const color = colors[li % colors.length];
+    g.forEach((row, by) => { for (let bx = 0; bx < row.length; bx++) if (row[bx] === '#') cells.push({ left: (col + bx) * cell + 1, top: by * cell + 1, size: cell - 2, color }); });
+    col += g[0].length + 1;
+  });
+  return { cells, w: (col - 1) * cell, h: 5 * cell };
+}
+const TINTS = ["#2a3440", "#402a3a", "#2e3a2a", "#3a332a", "#2a2f40", "#3a2a2f"];
+const TINTS_LIGHT = ["#c9d3de", "#ddc9d7", "#cfdbc8", "#dcd5c7", "#c9cfde", "#dccacf"];
+const DARK = { bg: '#050507', fg: '#ffffff', muted: '#a9a9b3', dim: '#5a5a66', border: '#1c1c22', border2: '#2a2a30', input: '#0b0b0e', tile: '#0d0e12', dotOff: '#2c2c34', capFg: '#e8e8ee', capBg: 'rgba(0,0,0,0.45)', menuBg: 'rgba(5,5,7,0.96)', navRgb: '11 11 14', borderRgb: '28 28 34', accent: '#7ff06d', accent2: '#b6ff4d', onAccent: '#050507' };
+const LIGHT = { bg: '#f5f5f2', fg: '#14141a', muted: '#5a5a66', dim: '#8a8a94', border: '#e2e2de', border2: '#cfcfca', input: '#ffffff', tile: '#e8e8e4', dotOff: '#cfcfca', capFg: '#14141a', capBg: 'rgba(255,255,255,0.72)', menuBg: 'rgba(245,245,242,0.97)', navRgb: '245 245 242', borderRgb: '226 226 222', accent: '#237a25', accent2: '#1c6320', onAccent: '#ffffff' };
+const VEN_COLORS = ["#ffe11a", "#d63cff", "#7a4dff", "#e0179e", "#ff6a1a", "#00a99a"];
+const VENUES = [
+  { name: "Lemon", city: "Brno", date: "20. 9. 2026", note: { cs: "Karaoke pátek", en: "Karaoke Friday" } },
+  { name: "Arcade Bar", city: "Ostrava", date: "26. 9. 2026", note: { cs: "Svanda night", en: "Svanda night" } },
+  { name: "Kavárna Pod Lampou", city: "Olomouc", date: "3. 10. 2026", note: { cs: "Otevřené mikrofony", en: "Open mics" } },
+  { name: "Music Bar Anděl", city: "Praha", date: "10. 10. 2026", note: { cs: "Křest jukeboxu", en: "Jukebox launch" } },
+  { name: "Galerie Zlín", city: "Zlín", date: "17. 10. 2026", note: { cs: "Festival Foto & Zvuk", en: "Photo & Sound Festival" } },
+  { name: "Pivnice U Mostu", city: "Plzeň", date: "24. 10. 2026", note: { cs: "Oktoberfest special", en: "Oktoberfest special" } }];
+const COPY = {
+  cs: {
+    nav: ["Karaoke", "Jukebox", "Custom", "Pobočky", "Kontakt"], menu: "MENU", close: "ZAVŘÍT",
+    heroTag: "KARAOKE JUKEBOX", heroTitle: "Postavený od nuly.", heroSub: "Vlastní skříň, vlastní appka, vlastní karaoke verze skladeb.", heroCta: "PROZKOUMAT SVANDU",
+    p1Tag: "KARAOKE", p1Title: "Zpívej, jak to zní v rádiu.", p1Body: "Každá skladba v knihovně má vlastní karaoke verzi: vokály pryč, hudba v plné kvalitě. Text písně běží na televizi nebo monitoru připojeném k jukeboxu, takže ho vidí celý sál.", p1Cta: "PROHLÉDNOUT KNIHOVNU",
+    p2Tag: "JUKEBOX", p2Title: "Vyber skladbu a hraj!", p2Body: "Fronta skladeb pro celý večer, ovládaná z displeje. Vlastní skříň, vlastní appka, žádné předplatné.", p2Cta: "JAK TO FUNGUJE",
+    p3Tag: "CUSTOM JUKEBOX", p3Body: "Skříň i appku skládáme na míru podniku. Barvy UI, sliders a další volby přidáme sem, až bude UI hotové.",
+    venTag: "POBOČKY & AKCE", venTitle: "Kde už Svanda hraje", photo: "FOTO",
+    cTag: "KONTAKT", cTitle: "Chcete Svandu u sebe?", cBody: "Napište nám, kde a kdy. Ozveme se do dvou dnů.", cSent: "Díky, ozveme se.",
+    fName: "Jméno", fVenue: "Podnik a město", fEmail: "E-mail", fMsg: "Zpráva", fSend: "ODESLAT", cfgAdd: "+ Přidat konfiguraci k mailu", cfgOn: "Konfigurace barev jukeboxu je přiložena", cfgRemove: "Odebrat", footTag: "Karaoke jukebox"
+  },
+  en: {
+    nav: ["Karaoke", "Jukebox", "Custom", "Venues", "Contact"], menu: "MENU", close: "CLOSE",
+    heroTag: "KARAOKE JUKEBOX", heroTitle: "Built from scratch.", heroSub: "Our own cabinet, our own app, our own karaoke versions of every song.", heroCta: "EXPLORE SVANDA",
+    p1Tag: "KARAOKE", p1Title: "Sing it the way it sounds on the radio.", p1Body: "Every song in the library has its own karaoke version: vocals out, music in full quality. Lyrics run on a TV or monitor connected to the jukebox, so the whole room can follow along.", p1Cta: "BROWSE THE LIBRARY",
+    p2Tag: "JUKEBOX", p2Title: "Pick a song and play!", p2Body: "A song queue for the whole night, controlled from the display. Our own cabinet, our own app, no subscription.", p2Cta: "HOW IT WORKS",
+    p3Tag: "CUSTOM JUKEBOX", p3Body: "The cabinet and the app are built to fit the venue. UI colors, sliders and other options land here once the UI is ready.",
+    venTag: "VENUES & EVENTS", venTitle: "Where Svanda already plays", photo: "PHOTO",
+    cTag: "CONTACT", cTitle: "Want Svanda at your place?", cBody: "Tell us where and when. We reply within two days.", cSent: "Thanks, we'll be in touch.",
+    fName: "Name", fVenue: "Venue & city", fEmail: "E-mail", fMsg: "Message", fSend: "SEND", cfgAdd: "+ Add configuration to e-mail", cfgOn: "Jukebox colour configuration attached", cfgRemove: "Remove", footTag: "Karaoke jukebox"
+  }
+};
+// accent candidates from the wordmark palette; l/l2 are the darkened versions that pass contrast on the light theme
+const ACCENTS = {
+  lime: { d: '#7ff06d', d2: '#b6ff4d', l: '#237a25', l2: '#1c6320' },
+  magenta: { d: '#ff4fd8', d2: '#ff7fe4', l: '#b8158f', l2: '#8f0f6f' },
+  orange: { d: '#ff9a3c', d2: '#ffb46e', l: '#b5520a', l2: '#8d3f06' },
+  violet: { d: '#7a5cff', d2: '#9d88ff', l: '#5a3fe0', l2: '#4530b3' },
+  cyan: { d: '#3ee6ff', d2: '#7fefff', l: '#0a7f96', l2: '#076374' },
+  crimson: { d: '#ff2d6b', d2: '#ff6690', l: '#c9174c', l2: '#9e103b' },
+  ink: { d: '#ffffff', d2: '#e0e0e6', l: '#14141a', l2: '#3a3a44' },
+  teal: { d: '#2fe3b8', d2: '#6df0d0', l: '#0b7a63', l2: '#085e4c' },
+  amber: { d: '#ffc83c', d2: '#ffd86e', l: '#8a5a00', l2: '#6b4600' },
+  coral: { d: '#ff6f5a', d2: '#ff9585', l: '#c23a24', l2: '#9a2c1a' },
+  cobalt: { d: '#4d7cff', d2: '#86a5ff', l: '#1f4fd6', l2: '#183fa8' },
+  plum: { d: '#c76bff', d2: '#d996ff', l: '#7b1fa2', l2: '#5e1780' },
+  rose: { d: '#ff85a8', d2: '#ffa9c1', l: '#b3215a', l2: '#8c1946' },
+  olive: { d: '#c8e04a', d2: '#dbe97f', l: '#5a6b00', l2: '#465400' },
+  rust: { d: '#ff8a4c', d2: '#ffab7e', l: '#9a3d10', l2: '#7a300c' },
+  sky: { d: '#7fd0ff', d2: '#a8dfff', l: '#0f5f9e', l2: '#0b497b' },
+  mint: { d: '#a0ffb8', d2: '#c0ffd0', l: '#1f7a3c', l2: '#175d2e' }
+};
+const HREFS = ["#karaoke", "#jukebox", "#custom", "#pobocky", "#kontakt"];
+
+class Component extends DCLogic {
+  state = { lang: null, theme: null, page: 0, active: 0, photo: 0, scr: 99, sent: false, menuOpen: false, mobile: false, portrait: false };
+  // pixel-scramble: the new name resolves left-to-right out of random glyphs
+  activate(i) {
+    clearInterval(this.scrTimer);
+    this.setState({ active: i, photo: 0, scr: 0 });
+    const len = VENUES[i].name.length;
+    this.scrTimer = setInterval(() => {
+      if (this.state.scr >= len) { clearInterval(this.scrTimer); return; }
+      this.setState(st => ({ scr: st.scr + 2 }));
+    }, 70);
+  }
+  cfgJson() { try { const r = JSON.parse(localStorage.getItem('svanda-jukebox-barvy-v1') || 'null'); return JSON.stringify(r ? r.cfg : { note: 'default colours' }); } catch (e) { return ''; } }
+  setAttach(on) {
+    try { if (on) localStorage.setItem('svanda-cfg-attach', '1'); else localStorage.removeItem('svanda-cfg-attach'); } catch (e) { }
+    document.querySelectorAll('iframe[src^="jukebox-konfigurator"]').forEach(f => { try { f.contentWindow.postMessage({ svAttach: on }, '*'); } catch (e) { } });
+    this.setState({ cfgAttach: on });
+  }
+  componentDidMount() {
+    try { this.setState({ cfgAttach: localStorage.getItem('svanda-cfg-attach') === '1' }); } catch (e) { }
+    this._attachMsg = e => { if (e.data && 'svAttach' in e.data) this.setState({ cfgAttach: !!e.data.svAttach }); };
+    this._attachSt = e => { if (e.key === 'svanda-cfg-attach') this.setState({ cfgAttach: e.newValue === '1' }); else if (e.key === 'svanda-jukebox-barvy-v1') this.forceUpdate(); };
+    window.addEventListener('message', this._attachMsg); window.addEventListener('storage', this._attachSt);
+    this.barRaf = requestAnimationFrame(this.barLoop);
+    this.onSv = e => { if (!e.detail) return; if (e.detail.type === 'page') this.setState({ page: e.detail.page }); else if (e.detail.type === 'screen') this.placeDisp(e.detail); };
+    window.addEventListener('svanda', this.onSv);
+    this.onResize = () => this.setState({ mobile: window.innerWidth < 1040, portrait: window.innerHeight > window.innerWidth, vw: window.innerWidth });
+    this.onResize(); window.addEventListener('resize', this.onResize); this.applyBg();
+    try { const l = localStorage.getItem('svanda-lang'); if (l === 'cs' || l === 'en') this.setState({ lang: l }); const th = localStorage.getItem('svanda-theme'); if (th === 'light' || th === 'dark') this.setState({ theme: th }); } catch (e) { }
+  }
+  componentDidUpdate() { this.applyBg(); }
+  barLoop = (now) => {   // diagonal pixel band across each venue slide, cells flicker like the hero background
+    this.barRaf = requestAnimationFrame(this.barLoop);
+    if (this.state.page !== 4 || now - (this.barLast || 0) < 33) return;
+    this.barLast = now;
+    const t = now / 1000, h = (x, y, z) => { const s = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return s - Math.floor(s); };
+    const st = document.querySelector('svanda-stage'), sr = st && st.getBoundingClientRect(), BG = (st && st.BGC) || 14;
+    const ox = sr ? sr.left + (st.gridOffX || 0) - BG : 0, oy = sr ? sr.top + (st.gridOffY || 0) - BG : 0;   // background grid origin on screen
+    const pt = st && st.pointer, torch = pt && pt.active && sr ? { x: sr.left + (pt.x + 1) / 2 * sr.width, y: sr.top + (1 - pt.y) / 2 * sr.height, R: 240 } : null;
+    const fr = document.querySelector('[data-venframe]');
+    if (fr && sr) {   // frame size and position snapped to whole background cells, so its edges run along the grid
+      const host = fr.parentElement, hw = host.clientWidth, asp = (fr.dataset.aspect || '16 / 9').split('/').map(Number);
+      const pf = asp[1] > asp[0], hr0 = host.getBoundingClientRect();
+      const first = ox + Math.ceil((0 - ox) / BG) * BG;   // mobile: first background grid line on screen; frame runs edge to edge
+      const tot = Math.floor((window.innerWidth - first) / BG), n = pf ? Math.max(8, tot - 2) : Math.max(8, Math.floor(hw / BG)), m = Math.max(5, Math.min(Math.round(n * asp[1] / asp[0]), pf ? Math.floor((window.innerHeight - Math.max(0, hr0.top) - 150) / BG) : 1e9)), fw = n * BG + 'px', fh = m * BG + 'px';
+      if (fr.style.width !== fw || fr.style.height !== fh) { fr.style.width = fw; fr.style.height = fh; fr.style.aspectRatio = 'auto'; }
+      const bgv = BG + 'px', ax = Math.floor((n - 5) / 2) * BG + 'px';   // forehead / chin arrows sit on the grid, centred
+      if (fr.style.getPropertyValue('--bg') !== bgv) fr.style.setProperty('--bg', bgv);
+      if (fr.style.getPropertyValue('--ax') !== ax) fr.style.setProperty('--ax', ax);
+      if (fr.style.getPropertyValue('--fh') !== fh) fr.style.setProperty('--fh', fh);
+      if (fr.style.getPropertyValue('--fw') !== fw) fr.style.setProperty('--fw', fw);
+      const hr = host.getBoundingClientRect(), md = (v) => { const r = ((v % BG) + BG) % BG; return r > BG / 2 ? r - BG : r; };
+      const dx = pf ? first + Math.floor((tot - n) / 2) * BG - hr.left : md(ox - hr.left), dy = md(oy - (hr.top + fr.offsetTop)), tf = 'translate(' + dx + 'px, ' + dy + 'px)';
+      if (fr.style.transform !== tf) fr.style.transform = tf;
+      const scr = host.parentElement, scs = getComputedStyle(scr);
+      const vcols = pf ? tot - 2 : Math.floor((scr.clientWidth - parseFloat(scs.paddingLeft) - parseFloat(scs.paddingRight)) / BG);
+      if (this.state.vhBg !== BG || this.state.vhCols !== vcols) this.setState({ vhBg: BG, vhCols: vcols });
+      const vh = document.querySelector('[data-venhead]');
+      if (vh) {   // heading snapped onto the background grid
+        const cx = +(vh.dataset.dx || 0), cy = +(vh.dataset.dy || 0), vr = vh.getBoundingClientRect();
+        const hx = md(ox - (vr.left - cx)), hy = md(oy - (vr.top - cy)), ht = 'translate(' + hx + 'px, ' + hy + 'px)';
+        if (vh.style.transform !== ht) { vh.style.transform = ht; vh.dataset.dx = hx; vh.dataset.dy = hy; }
+      }
+    }
+    const frR = fr && fr.getBoundingClientRect();
+    document.querySelectorAll('canvas[data-venbar]').forEach(cv => {
+      const W = cv.clientWidth, H = cv.clientHeight; if (!W || !H) return;
+      if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
+      const g = cv.getContext('2d'), CELL = BG, r = cv.getBoundingClientRect();
+      if (r.right < 0 || r.left > window.innerWidth || (frR && (r.bottom <= frR.top + 1 || r.top >= frR.bottom - 1))) return;   // slide outside the frame
+      const sx = ((ox - r.left) % CELL + CELL) % CELL - CELL, sy = ((oy - r.top) % CELL + CELL) % CELL - CELL;   // snap cells onto the page background grid
+      const cols = Math.ceil((W - sx) / CELL) + 1, rows = Math.ceil((H - sy) / CELL) + 1;
+      const portr = H > W, y0 = (portr ? 0.68 : 0.22) * W, slope = portr ? 1.3 : 1.12, half = (portr ? 0.135 : 0.09) * W * Math.sqrt(1 + slope * slope);   // mobile: band enters lower left and runs off the bottom edge   // band centre line and half-thickness
+      g.clearRect(0, 0, W, H);
+      for (let gy = 0; gy < rows; gy++) for (let gx = 0; gx < cols; gx++) {
+        const px = sx + gx * CELL, py = sy + gy * CELL, cx = px + CELL / 2, cy = py + CELL / 2;
+        if (Math.abs(cy - (y0 + slope * cx)) > half) continue;
+        const GX = Math.round((r.left + px - ox) / CELL), GY = Math.round((r.top + py - oy) / CELL);   // global grid cell, same as the page background
+        g.globalAlpha = 0.3 + 0.2 * h(GX, GY, 5); g.fillStyle = cv.dataset.color; g.fillRect(px + 1, py + 1, CELL - 2, CELL - 2);
+        if (torch) {   // pixel torch around the cursor, stepped like the background
+          const dd = Math.hypot(r.left + cx - torch.x, r.top + cy - torch.y);
+          if (dd < torch.R) { const ta = Math.ceil(Math.pow(1 - dd / torch.R, 1.6) * 4) / 4; if (h(GX, GY, 21) <= 0.35 + ta) { g.globalAlpha = ta * 0.32; g.fillStyle = '#ffffff'; g.fillRect(px + 1, py + 1, CELL - 2, CELL - 2); } }
+        }
+        if (h(gx, gy, 1) > 0.34) continue;
+        const period = 2.5 + h(gx, gy, 2) * 5, ph = (t + h(gx, gy, 3) * period) % period;
+        const a = ph < 0.08 ? ph / 0.08 : ph < 1.1 ? Math.max(0, 1 - (ph - 0.08) / 1.02) : 0;
+        if (a < 0.03) continue;
+        const dark = h(gx, gy, 4) > 0.5;
+        g.globalAlpha = a * (dark ? 0.28 : 0.22); g.fillStyle = dark ? '#000000' : '#ffffff';
+        g.fillRect(px + 1, py + 1, CELL - 2, CELL - 2);
+      }
+      const lit = (qx, qy, tint, k) => {   // cursor torch on a single cell
+        if (!torch) return;
+        const dd = Math.hypot(r.left + qx + CELL / 2 - torch.x, r.top + qy + CELL / 2 - torch.y); if (dd >= torch.R) return;
+        const ta = Math.ceil(Math.pow(1 - dd / torch.R, 1.6) * 4) / 4, GX = Math.round((r.left + qx - ox) / CELL), GY = Math.round((r.top + qy - oy) / CELL);
+        if (h(GX, GY, 21) > 0.35 + ta) return;
+        g.globalAlpha = ta * k; g.fillStyle = tint; g.fillRect(qx + 1, qy + 1, CELL - 2, CELL - 2);
+      };
+      const FT = null, gOf = ch => (FT && FT[DIA[ch] || ch]) || GLYPH[DIA[ch] || ch] || GLYPH.X;
+      const c0 = portr ? (sx < -0.5 ? 2 : 1) : Math.max(1, Math.ceil((0.07 * W - sx) / CELL) - 3), r0 = Math.round((0.2 * H - sy) / CELL);
+      const word = (txt, c, r, k, col) => {   // pixel text, k grid cells per glyph bit
+        g.globalAlpha = 1; g.fillStyle = col; let cc = c;
+        [...(txt || '').toUpperCase()].forEach(ch => {
+          if (ch === ' ') { cc += 2 * k; return; }
+          const gl = gOf(ch);
+          gl.forEach((row, by) => { for (let bx = 0; bx < row.length; bx++) if (row[bx] === '#') for (let a = 0; a < k; a++) for (let b = 0; b < k; b++) { const qx = sx + (cc + bx * k + a) * CELL, qy = sy + (r + by * k + b) * CELL; g.globalAlpha = 1; g.fillStyle = col; g.fillRect(qx + 1, qy + 1, CELL - 2, CELL - 2); lit(qx, qy, col === '#ffffff' ? '#000000' : '#ffffff', col === '#ffffff' ? 0.18 : 0.45); } });
+          cc += (gl[0].length + 1) * k;
+        });
+        return cc;
+      };
+      const wid = s => [...(s || '').toUpperCase()].reduce((n, ch) => n + (ch === ' ' ? 2 : (gOf(ch)[0].length + 1)), 0) - 1;
+      const maxC = Math.floor((W - sx) / CELL) - c0 - 1;   // cells available to the right of the start column (one empty cell kept at the edge)
+      const split = wd => { const parts = []; let cur = ''; [...wd].forEach(ch => { if (cur && wid(cur + ch) > maxC) { parts.push(cur); cur = ch; } else cur += ch; }); if (cur) parts.push(cur); return parts; };   // a word wider than the frame breaks by letters
+      const pack = s => { const out = []; (s || '').split(' ').filter(Boolean).flatMap(wd => wid(wd) > maxC ? split(wd) : [wd]).forEach(wd => { const last = out[out.length - 1]; if (last && wid(last + ' ' + wd) <= maxC) out[out.length - 1] = last + ' ' + wd; else out.push(wd); }); return out; };
+      const lines = pack(cv.dataset.l1).map(s => [s, '#ffffff']).concat(pack(cv.dataset.l2).map(s => [s, 'rgba(255,255,255,0.62)']));
+      const lastRow = Math.floor((H - 4 * CELL - sy) / CELL) - 1;   // text always ends one empty cell above the down arrow
+      const want = portr ? Math.round((0.7 * H - sy) / CELL) : r0 + 13, labH = Math.ceil(56 / CELL) + 1;
+      const fitStart = lastRow - (lines.length * 6 - 1) + 1, showLab = fitStart >= labH + 1;   // no room for the note / city label → it hides, the name still never crosses lastRow
+      const start = Math.max(1, Math.min(want, fitStart));
+      lines.forEach(([s, col], n) => word(s, c0, start + n * 6, 1, col === '#ffffff' ? col : '#9a9aa2'));
+      const lx = sx + c0 * CELL + 'px', ly = sy + (portr ? start - labH : Math.min(r0, start - labH)) * CELL + 'px', par = cv.parentElement;
+      if (par.style.getPropertyValue('--lx') !== lx) par.style.setProperty('--lx', lx);
+      const lv = showLab ? '1' : '0'; if (par.style.getPropertyValue('--lv') !== lv) par.style.setProperty('--lv', lv);
+      if (par.style.getPropertyValue('--ly') !== ly) par.style.setProperty('--ly', ly);
+    });
+    const ac = VEN_COLORS[this.state.active % VEN_COLORS.length];
+    if ((torch || this._lit) && !((this._tk = (this._tk || 0) + 1) % 2)) document.querySelectorAll('[data-torch]').forEach(el => {
+      const q = el.getBoundingClientRect(); let mix = '';
+      if (torch && q.width) {
+        const dd = Math.hypot(q.left + q.width / 2 - torch.x, q.top + q.height / 2 - torch.y);
+        if (dd < torch.R) { const ta = Math.ceil(Math.pow(1 - dd / torch.R, 1.6) * 4) / 4, GX = Math.round((q.left - ox) / BG), GY = Math.round((q.top - oy) / BG); if (h(GX, GY, 21) <= 0.35 + ta) mix = Math.round(ta * 45); }
+      }
+      const v = mix ? 'color-mix(in srgb, ' + ac + ' ' + mix + '%, transparent)' : '';
+      if (el.dataset.lit !== String(mix)) { el.dataset.lit = String(mix); el.style.boxShadow = v ? 'inset 0 0 0 ' + BG + 'px ' + v : ''; }
+    });
+    this._lit = !!torch;
+  };
+  curTheme() { return this.state.theme || this.props.theme || 'dark'; }
+  applyBg() { const c = this.curTheme() === 'light' ? LIGHT : DARK; document.documentElement.style.background = c.bg; document.body.style.background = c.bg; if (this.props.pixelCursor ?? true) document.documentElement.setAttribute('data-cursor', this.state.page === 2 ? 'magenta' : 'on'); else document.documentElement.removeAttribute('data-cursor'); }
+  dispRef = React.createRef();
+  dispLoad = () => { this.dispMode = null; };
+  placeDisp(d) {
+    const f = this.dispRef.current; if (!f || !d.pts) return;
+    const [tl, tr, br, bl] = d.pts, area = (tr[0] - tl[0]) * (br[1] - tl[1]) - (tr[1] - tl[1]) * (br[0] - tl[0]);
+    const cl = v => Math.max(0, Math.min(1, v)), vis = cl((d.vp - 0.8) / 0.2) * cl((2.2 - d.vp) / 0.2) * (area > 0 ? 1 : 0);
+    const mode = d.vp < 1.5 ? 'sing' : 'listen';
+    if (mode !== this.dispMode) { this.dispMode = mode; try { f.contentWindow.postMessage({ svMode: mode }, '*'); } catch (e) { } }
+    const run = vis > 0; if (run !== this.dispRun) { this.dispRun = run; try { f.contentWindow.postMessage({ svPause: !run }, '*'); } catch (e) { } }
+    f.style.opacity = vis; f.style.pointerEvents = vis > 0.9 ? 'auto' : 'none'; f.style.visibility = vis > 0 ? 'visible' : 'hidden';
+    if (!vis) return;
+    const o = f.offsetParent ? f.offsetParent.getBoundingClientRect() : { left: 0, top: 0 }, P = p => [p[0] - o.left, p[1] - o.top];
+    const adj = m => [m[4]*m[8]-m[5]*m[7], m[2]*m[7]-m[1]*m[8], m[1]*m[5]-m[2]*m[4], m[5]*m[6]-m[3]*m[8], m[0]*m[8]-m[2]*m[6], m[2]*m[3]-m[0]*m[5], m[3]*m[7]-m[4]*m[6], m[1]*m[6]-m[0]*m[7], m[0]*m[4]-m[1]*m[3]];
+    const mul = (a, b) => { const c = []; for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) { let s = 0; for (let k = 0; k < 3; k++) s += a[3*i+k] * b[3*k+j]; c[3*i+j] = s; } return c; };
+    const mv = (m, v) => [m[0]*v[0]+m[1]*v[1]+m[2]*v[2], m[3]*v[0]+m[4]*v[1]+m[5]*v[2], m[6]*v[0]+m[7]*v[1]+m[8]*v[2]];
+    const basis = (a, b, c, e) => { const m = [a[0], b[0], c[0], a[1], b[1], c[1], 1, 1, 1], v = mv(adj(m), [e[0], e[1], 1]); return mul(m, [v[0], 0, 0, 0, v[1], 0, 0, 0, v[2]]); };
+    const t = mul(basis(P(tl), P(tr), P(bl), P(br)), adj(basis([0, 0], [540, 0], [0, 960], [540, 960]))), n = t[8];
+    f.style.transform = `matrix3d(${t[0]/n},${t[3]/n},0,${t[6]/n},${t[1]/n},${t[4]/n},0,${t[7]/n},0,0,1,0,${t[2]/n},${t[5]/n},0,1)`;
+  }
+  componentWillUnmount() { window.removeEventListener('message', this._attachMsg); window.removeEventListener('storage', this._attachSt); cancelAnimationFrame(this.barRaf); clearInterval(this.scrTimer); window.removeEventListener('svanda', this.onSv); window.removeEventListener('resize', this.onResize); }
+  go(p) {
+    return e => {
+      if (e && e.preventDefault) e.preventDefault();
+      const w = document.querySelector('[data-sv-wrap]'), vh = w ? w.clientHeight / 5 : window.innerHeight;
+      window.scrollTo({ top: p * vh, behavior: 'smooth' });
+      if (this.state.menuOpen) this.setState({ menuOpen: false });
+    };
+  }
+  setLang(l) { return () => { this.setState({ lang: l }); try { localStorage.setItem('svanda-lang', l); } catch (e) { } document.querySelectorAll('iframe[src^="jukebox-konfigurator"]').forEach(f => { try { f.contentWindow.postMessage({ svLang: l }, '*'); } catch (e) { } }); }; }
+  renderVals() {
+    const s = this.state, lang = s.lang || this.props.lang || 'cs', t = COPY[lang] || COPY.cs;
+    const theme = this.curTheme(), light = theme === 'light';
+    const ac = s.page === 2 ? ACCENTS.magenta : (ACCENTS[this.props.accent] || ACCENTS.orange);
+    const c = Object.assign({}, light ? LIGHT : DARK, light ? { accent: ac.l, accent2: ac.l2, onAccent: '#ffffff' } : { accent: ac.d, accent2: ac.d2, onAccent: '#050507' });
+    const small = s.mobile ? 4 : 5;
+    const logoCells = [];
+    BITMAP.forEach((row, by) => { let li = -1, prev = true; for (let bx = 0; bx < row.length; bx++) { const e = BITMAP.every(r => r[bx] === '.'); if (!e && prev) li++; prev = e; if (row[bx] === '#') logoCells.push({ left: bx * small + 0.5, top: by * small + 0.5, size: small - 1, color: (light ? LETTER_COLORS_LIGHT : LETTER_COLORS)[li % 6] }); } });
+    const lc = light ? LETTER_COLORS_LIGHT : LETTER_COLORS;
+    const vw = s.vw || 1280, wcell = Math.max(6, Math.floor(Math.min(vw - 48, vw * (s.portrait ? 0.85 : 0.5)) / 34));   // wordmark always spans ~50 % of the viewport width
+    const w1 = pixelWord(t.p1Tag, wcell, [light ? ACCENTS.orange.l : ACCENTS.orange.d]), w2 = pixelWord(t.p2Tag, wcell, [light ? ACCENTS.magenta.l : ACCENTS.magenta.d]);
+    const c3 = Math.max(5, Math.round(wcell * (s.portrait ? 0.45 : 0.6))), col3 = [light ? ACCENTS.cyan.l : ACCENTS.cyan.d];
+    const w3a = pixelWord(t.p3Tag.split(' ')[0], c3, col3), w3b = pixelWord(t.p3Tag.split(' ')[1] || '', c3, col3);
+    const menu = t.nav.map((label, i) => ({ label, href: HREFS[i], go: this.go(i + 1), d: [0.225, 0.075, 0, 0.075, 0.225][i], color: c.muted }));
+    const ev = p => (s.page === p ? 'auto' : 'none');
+    const GLYPHS = '#%&@0123456789XZKW';   // Silkscreen-covered glyphs only, so the button never falls back to another font
+    const vhd = pixelHead(t.venTag, (s.vhBg || 14) / 2, (s.vhCols || 999) * 2, VEN_COLORS[s.active % VEN_COLORS.length]);
+    const venues = VENUES.map((v, i) => {
+      const on = i === s.active;
+      const step = on ? Math.min(s.scr, v.name.length) : v.name.length;
+      const shown = v.name.slice(0, step), scram = v.name.slice(step).replace(/\S/g, () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)]);
+      return {
+        shown, scram, scramColor: on ? c.onAccent : c.accent,
+        num: String(i + 1), color: VEN_COLORS[i % VEN_COLORS.length], tintDark: TINTS[i], note: v.note[lang],
+        line1: (shown + scram).split(' ')[0], line2: (shown + scram).split(' ').slice(1).join(' '),
+        dateShort: v.date.split(' ').slice(0, 2).join(''),
+        tabBar: on ? VEN_COLORS[i % VEN_COLORS.length] : c.border2, tabNum: on ? c.fg : c.dim,
+        btnBg: on ? c.accent : c.input, btnFg: on ? c.onAccent : c.muted, btnEdge: on ? c.accent : c.border2, btnLift: on ? '-2px' : '0px',
+        name: v.name, city: v.city, slot: i + 1, tint: (light ? TINTS_LIGHT : TINTS)[i], meta: v.city + '  ·  ' + v.date + '  ·  ' + v.note[lang],
+        caption: v.name + ' · ' + v.city, photoLabel: t.photo + ' · ' + v.name,
+        dot: on ? c.accent : c.dotOff, nameColor: on ? c.fg : c.muted, metaColor: on ? c.accent2 : c.dim, weight: on ? 600 : 500,
+        thumbOpacity: on ? 1 : 0.5, thumbBorder: on ? c.accent : 'transparent',
+        photoX: on ? 'calc(' + (-s.photo * 100) + '% + ' + (s.dragX || 0) + 'px)' : '0%',
+        photoTrans: on && s.dragX ? 'none' : 'transform .5s cubic-bezier(.65,0,.35,1)',
+        photos: [0, 1, 2, 3, 4].map(p => ({ n: p + 1, label: t.photo + ' ' + (p + 1) + '/5 · ' + v.name, dot: on && p === s.photo ? '#ffffff' : 'rgba(255,255,255,0.32)', select: e => { e.stopPropagation(); this.setState({ photo: p }); } })),
+        select: () => { if (s.active !== i) this.activate(i); }
+      };
+    });
+    return {
+      t, mobile: s.mobile, menuOpen: s.menuOpen, menuLabel: s.menuOpen ? t.close : t.menu,
+      toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }),
+      menuL: s.mobile ? [] : menu.slice(0, 3), menuR: s.mobile ? [] : menu.slice(3), menuAll: menu,
+      logoCells, logoW: 36 * small, logoH: 5 * small,
+      goTop: this.go(0), go1: this.go(1), go2: this.go(2), go3: this.go(3), go4: this.go(4),
+      dispRef: this.dispRef, dispLoad: this.dispLoad, navEvents: 'auto', ev0: ev(0), ev1: ev(1), ev2: ev(2), ev3: ev(3), ev4: ev(4),
+      isPortrait: !!s.portrait, isLand: !s.portrait, p2Align: s.portrait ? 'flex-start' : 'flex-end', listOrder: s.portrait ? 2 : 0, listPad: s.portrait ? '4px' : '7px',
+      venCols: s.portrait ? 'minmax(0, 1fr)' : 'minmax(0, 5fr) minmax(0, 7fr)', galJustify: s.portrait ? 'stretch' : 'end',
+      prevPhoto: () => this.setState(st => ({ photo: (st.photo + 4) % 5 })), nextPhoto: () => this.setState(st => ({ photo: (st.photo + 1) % 5 })), photoLabel: t.photo + ' ' + (s.photo + 1) + '/5',
+      venW: s.portrait ? '100%' : 'min(100%, calc((100svh - 64px - 2vh - 190px - 70px) * 16 / 9 * 1.25), 1750px)', venAspect: s.portrait ? '4 / 5' : '16 / 9', bandTop: s.portrait ? '30%' : '24%',
+      dragCursor: s.dragX ? 'grabbing' : 'grab', lbOpen: !!s.lb, lbBg: s.lb ? 'url("' + s.lb + '")' : 'none', lbClose: () => this.setState({ lb: null }),
+      dragDown: e => { if (e.button > 0 || e.target.closest('button,[aria-label^="' + t.photo + '"]')) return; this.drag = { x: e.clientX, y: e.clientY, id: e.pointerId, el: e.currentTarget, on: false, tgt: e.target }; },
+      dragMove: e => {
+        const d = this.drag; if (!d || d.id !== e.pointerId) return;
+        const dx = e.clientX - d.x;
+        if (!d.on && Math.abs(dx) > 6) { d.on = true; try { d.el.setPointerCapture(e.pointerId); } catch (er) { } }
+        if (d.on) { const edge = (s.photo === 0 && dx > 0) || (s.photo === 4 && dx < 0); this._dx = edge ? dx * 0.3 : dx; if (!this._dxRaf) this._dxRaf = requestAnimationFrame(() => { this._dxRaf = 0; if (this.drag) this.setState({ dragX: this._dx }); }); }
+      },
+      dragUp: e => {
+        const d = this.drag; this.drag = null; if (!d) return;
+        if (!d.on) {   // tap / click: open the photo at full size and its own aspect ratio
+          const slot = d.tgt && d.tgt.closest && d.tgt.closest('image-slot'), im = slot && slot._img, src = im && im.getAttribute('src');
+          if (src && Math.hypot(e.clientX - d.x, e.clientY - d.y) < 8) this.setState({ lb: src });
+          return;
+        }
+        const dx = e.clientX - d.x, wdt = d.el.clientWidth || 1, step = Math.abs(dx) > Math.min(60, wdt * 0.15) ? (dx < 0 ? 1 : -1) : 0;
+        this.setState(st => ({ dragX: 0, photo: Math.max(0, Math.min(4, st.photo + step)) }));
+      },
+      prevVen: () => this.activate((s.active + VENUES.length - 1) % VENUES.length), nextVen: () => this.activate((s.active + 1) % VENUES.length),
+      venues, active: venues[s.active], vhCells: vhd.cells, vhW: vhd.w, vhH: vhd.h, trackX: '-' + (s.active * 100) + '%',
+      csBg: lang === 'cs' ? c.accent : 'transparent', csColor: lang === 'cs' ? c.onAccent : c.muted,
+      enBg: lang === 'en' ? c.accent : 'transparent', enColor: lang === 'en' ? c.onAccent : c.muted,
+      setCs: this.setLang('cs'), setEn: this.setLang('en'),
+      sent: s.sent, notSent: !s.sent, submit: e => { e.preventDefault(); this.lastRequest = Object.fromEntries(new FormData(e.currentTarget)); this.setState({ sent: true }); },
+      cfgOn: !!s.cfgAttach, cfgOff: !s.cfgAttach, cfgJson: s.cfgAttach ? this.cfgJson() : '',
+      cfgAttach: () => this.setAttach(true), cfgDetach: () => this.setAttach(false),
+      pBottom: s.portrait ? 'clamp(20px, 5vh, 48px)' : 'auto',
+      p1Cells: w1.cells, p1W: w1.w, p1H: w1.h, p2Cells: w2.cells, p2W: w2.w, p2H: w2.h, p3aCells: w3a.cells, p3aW: w3a.w, p3aH: w3a.h, p3bCells: w3b.cells, p3bW: w3b.w, p3bH: w3b.h, p3Glow: Math.round(c3 * 0.5) + 'px',
+      toggleTheme: () => { const th = light ? 'dark' : 'light'; this.setState({ theme: th }); try { localStorage.setItem('svanda-theme', th); } catch (e) { } },
+      themeCells: (light ? MOON : SUN).flatMap((row, y) => [...row].map((ch, x) => ch === '#' ? { left: x * 3, top: y * 3 } : null).filter(Boolean)), themeLabel: light ? (lang === 'cs' ? 'Tmavý režim' : 'Dark mode') : (lang === 'cs' ? 'Světlý režim' : 'Light mode'),
+      c, theme, magenta: light ? ACCENTS.magenta.l : ACCENTS.magenta.d, bgVariant: this.props.bgVariant ?? 'A', introMode: this.props.introMode ?? 'always'
+    };
+  }
+}
+</script>
+</body>
+</html>

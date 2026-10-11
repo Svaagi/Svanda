@@ -1,0 +1,114 @@
+# SVANDA Web production services on the SVANDA Manager box: the contact API, Umami and its
+# Postgres. There is no Caddy here: the Manager Caddy serves the static site and proxies to
+# these services over the shared `svanda-edge` network (see RUNBOOK.md, Manager prerequisites).
+#
+#   cd /var/www/svanda-web/current && docker compose -f infra/docker-compose.web.yml \
+#     --env-file /opt/svanda-web/infra/.env --env-file release.env up -d --wait
+#
+# Each release carries its own copy of infra/. /opt/svanda-web/infra/.env holds the secrets
+# (server only, see .env.example). release.env is written per release by scripts/deploy.sh and
+# pins the contact API image, so a rollback swaps site, config and API together.
+
+name: svanda-web
+
+networks:
+  # Created once by hand and joined by the Manager Caddy.
+  edge:
+    name: svanda-edge
+    external: true
+  internal:
+
+volumes:
+  umami-db-data:
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: '10m'
+    max-file: '7'
+
+services:
+  contact-api:
+    image: ${CONTACT_API_IMAGE:-ghcr.io/svaagi/svanda-web-contact-api}:${CONTACT_API_TAG:?set by release.env}
+    restart: unless-stopped
+    logging: *default-logging
+    networks:
+      edge:
+        # Unique on the shared network, so it cannot collide with a Manager service name.
+        aliases: [svanda-web-contact-api]
+    environment:
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_USER: ${SMTP_USER:?}
+      SMTP_PASS: ${SMTP_PASS:?}
+      MAIL_FROM: ${MAIL_FROM:?}
+      MAIL_TO: ${MAIL_TO:-business@svanda.fun}
+      ALTCHA_HMAC_KEY: ${ALTCHA_HMAC_KEY:?}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-https://svanda.fun}
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:8787/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Deliberately no `ports:`: only the Manager Caddy reaches it, over `svanda-edge`.
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-v2.19.0@sha256:77264ce6951c6b131a91d99f1cfd720d9efac1eaaa12e104f21cf49408dd77e0
+    restart: unless-stopped
+    logging: *default-logging
+    networks:
+      edge:
+        aliases: [svanda-web-umami]
+      internal:
+    depends_on:
+      umami-db:
+        condition: service_healthy
+    environment:
+      DATABASE_TYPE: postgresql
+      DATABASE_URL: postgresql://umami:${UMAMI_DB_PASSWORD:?}@umami-db:5432/umami
+      APP_SECRET: ${APP_SECRET:?}
+      DISABLE_TELEMETRY: '1'
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:3000/api/heartbeat').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  umami-db:
+    image: postgres:16.15-alpine@sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685
+    restart: unless-stopped
+    logging: *default-logging
+    networks: [internal]
+    environment:
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: ${UMAMI_DB_PASSWORD:?}
+      POSTGRES_DB: umami
+    volumes:
+      - umami-db-data:/var/lib/postgresql/data
+    security_opt: ['no-new-privileges:true']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U umami -d umami']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    # Deliberately no `ports:`: only reachable from the `internal` network.

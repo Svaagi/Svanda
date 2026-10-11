@@ -1,0 +1,50 @@
+/* Raised so it scrolls over the stage, whose sticky viewport stays on its last page. */
+.contactSection {
+  position: relative;
+  z-index: var(--z-raised);
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--contact-column-min)), 1fr)
+  );
+  align-items: start;
+  align-content: start;
+  gap: var(--contact-columns-gap);
+  min-height: 100svh;
+  padding: var(--contact-padding-top) var(--contact-inset-x)
+    var(--contact-padding-bottom);
+  background: var(--color-bg);
+  scroll-snap-align: start;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--contact-intro-gap);
+  max-width: var(--contact-intro-max-width);
+}
+
+.tag {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+.title {
+  margin: 0;
+  color: var(--color-fg);
+  font-size: var(--contact-title-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  text-wrap: pretty;
+}
+
+.body {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--contact-body-size);
+  line-height: var(--line-height-base);
+  text-wrap: pretty;
+}

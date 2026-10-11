@@ -1,0 +1,11 @@
+.pixelGrid {
+  position: relative;
+  display: block;
+  width: fit-content;
+}
+
+.cells {
+  fill: var(--pixel-fill);
+  shape-rendering: crispEdges;
+  transition: fill var(--duration-base) var(--ease-standard);
+}

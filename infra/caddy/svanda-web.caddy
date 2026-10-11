@@ -1,0 +1,125 @@
+# SVANDA Web sites for the Manager Caddy, which loads this file through
+# `import /etc/caddy/sites/*.caddy` (see infra/RUNBOOK.md, Manager prerequisites).
+# The deploy copies it to /etc/caddy/sites/svanda-web.caddy and reloads Caddy when it changes.
+#
+# Releases live in /var/www/svanda-web/releases/<sha> and `current` points at the live one:
+#   current/client/                  the prerendered site (with .br and .gz copies)
+#   current/csp-script-hashes.txt    hashes of React Router's inline scripts, read per request
+#
+# Snippet names carry a `svanda_web_` prefix: snippets are global across imported files.
+
+(svanda_web_hsts) {
+	# No `preload`: preloading the whole domain is a one-way launch decision (RUNBOOK.md).
+	header Strict-Transport-Security "max-age=63072000; includeSubDomains"
+}
+
+(svanda_web_security_headers) {
+	import svanda_web_hsts
+	header {
+		# Scripts: own files, the Umami tracker, and React Router's inline scripts by hash.
+		# 'wasm-unsafe-eval' lets the meshopt decoder (3D model) compile its WebAssembly.
+		# Styles: 'unsafe-inline' is needed for style attributes in the prerendered markup and
+		# the scroll lock styles Radix dialogs inject at runtime; scripts stay strict.
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://stats.svanda.fun {file./var/www/svanda-web/current/csp-script-hashes.txt}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://stats.svanda.fun; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+		Cross-Origin-Opener-Policy "same-origin"
+		-Server
+	}
+}
+
+(svanda_web_contact_api) {
+	reverse_proxy svanda-web-contact-api:8787 {
+		# The API rate limits on the last X-Forwarded-For entry: set it to the client address
+		# Caddy determined, so whatever the client sent is dropped. Behind a CDN, add its
+		# ranges as `trusted_proxies` and this stays correct.
+		header_up X-Forwarded-For {client_ip}
+	}
+}
+
+svanda.fun {
+	import svanda_web_security_headers
+
+	# The API's own health route is unprefixed; expose it as /api/health for uptime checks.
+	handle /api/health {
+		rewrite * /health
+		import svanda_web_contact_api
+	}
+
+	handle /api/* {
+		request_body {
+			max_size 64KB
+		}
+		import svanda_web_contact_api
+	}
+
+	# The prerendered not-found pages answer with a real 404 status (see handle_errors).
+	@notFoundPages path /404 /en/404 /sk/404
+	handle @notFoundPages {
+		error 404
+	}
+
+	handle {
+		root * /var/www/svanda-web/current/client
+
+		# HTML and the other unhashed files revalidate (cheap 304s by ETag); hashed build
+		# output never changes under its name.
+		@hashed path /assets/*
+		@unhashed not path /assets/*
+		header @hashed Cache-Control "public, max-age=31536000, immutable"
+		header @unhashed Cache-Control "no-cache"
+
+		# One canonical URL per page: /en/ redirects to /en.
+		@trailingSlash path_regexp trailingSlash ^(.+)/$
+		redir @trailingSlash {re.trailingSlash.1}{?query} 301
+
+		try_files {path}/index.html {path}
+		file_server {
+			precompressed br gzip
+		}
+	}
+
+	# Unknown paths and the not-found pages: the prerendered page in the visitor's locale.
+	handle_errors 404 {
+		# Error routes start from a fresh response, so the headers are set again.
+		import svanda_web_security_headers
+		root * /var/www/svanda-web/current/client
+		header Cache-Control "no-cache"
+		@en path /en /en/*
+		@sk path /sk /sk/*
+		rewrite @en /en/404/index.html
+		rewrite @sk /sk/404/index.html
+		rewrite * /404/index.html
+		file_server {
+			precompressed br gzip
+		}
+	}
+}
+
+www.svanda.fun {
+	import svanda_web_hsts
+	redir https://svanda.fun{uri} permanent
+}
+
+stats.svanda.fun {
+	import svanda_web_hsts
+	header {
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		# Umami's admin UI ships its own inline scripts, so no script policy here; it is never
+		# framed.
+		Content-Security-Policy "frame-ancestors 'none'"
+		-Server
+	}
+
+	# Temporary gate until Umami's default admin password is changed (RUNBOOK.md, Umami).
+	# Generate the hash with `docker exec svanda-caddy-1 caddy hash-password`, uncomment, deploy;
+	# remove again before launch, because it also blocks the tracker and /api/send.
+	# basic_auth {
+	# 	ops <bcrypt hash>
+	# }
+
+	reverse_proxy svanda-web-umami:3000
+}

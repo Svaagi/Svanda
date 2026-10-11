@@ -1,0 +1,1096 @@
+/* ============================
+   SEARCH BAR WRAPPER
+   Sits at top; uses its own
+   subtle glass header layer
+   ============================ */
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2vw;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.5vw 2vw 1.2vw;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 5vw;
+  z-index: 3;
+
+  background: transparent;
+}
+
+.search-bar.sing {
+  background: transparent;
+}
+
+/* ============================
+   LOADING OVERLAY
+   ============================ */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.spinner {
+  width: 56px;
+  height: 56px;
+  border: 5px solid rgba(255, 255, 255, 0.15);
+  border-top-color: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+  margin-bottom: 14px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+/* ============================
+   BALANCE STRIP
+   ============================ */
+.balance-strip {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: flex-end;
+  min-height: 9vw;
+}
+
+/* ============================
+   BALANCE CARD — standout glass badge
+   ============================ */
+.balance-card {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2vw;
+  border-radius: 999px;
+  min-width: 40%;
+  height: 9vw;
+
+  /* Glass pill — backdrop-filter removed for Pi performance */
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 2px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.search-bar.sing .balance-card {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 2px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.balance-value {
+  font-size: 7vw;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.15em;
+  white-space: nowrap;
+}
+
+.balance-currency {
+  letter-spacing: 0.01em;
+}
+
+.search-bar.listen .balance-value,
+.search-bar.sing .balance-value {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================
+   ADD CREDIT BUTTON (+)
+   ============================ */
+.btn.add-btn {
+  position: absolute;
+  right: 1.2vw;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 6.5vw;
+  width: 6.5vw;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  font-size: 4vw;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.4),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.btn.add-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.btn.add-btn:active {
+  transform: translateY(-50%) scale(0.94);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ============================
+   PLAYLIST / QUEUE BUTTON
+   ============================ */
+.btn.playlist {
+  height: 8vw;
+  font-size: 3.2vw;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  padding: 0 2.5vw;
+  border-radius: 999px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.88);
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.55),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04),
+    0 2px 16px rgba(0, 0, 0, 0.1);
+  align-self: center;
+}
+
+.btn.playlist:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.btn.playlist:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ============================
+   GENERAL BTN BASE
+   ============================ */
+.btn {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* ============================
+   MODE TOGGLE STRIP
+   ============================ */
+.mode-toggle-strip {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  width: 100%;
+  z-index: 3;
+}
+
+.mode-toggle-btn {
+  flex: 1;
+  height: 11vw;
+  font-size: inherit;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+
+  /* Default: white frosted glass — inactive (backdrop-filter removed for Pi) */
+  background: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.5),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04),
+    0 2px 16px rgba(0, 0, 0, 0.1);
+}
+
+.mode-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.75);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.mode-toggle-btn:active {
+  transform: scale(0.98);
+}
+
+/* KARAOKE button active → white glass with golden tint */
+.mode-toggle-btn:first-child.active {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 210, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04),
+    0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* NORMAL button — listen active → white glass with pink tint */
+.search-bar.listen .mode-toggle-btn:last-child.active {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ff85c8;
+  text-shadow: 0 0 8px rgba(255, 100, 180, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04),
+    0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* NORMAL button — sing active → bright white glass */
+.search-bar.sing .mode-toggle-btn:last-child.active {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+/* ============================
+   BROWSE MODE / ARTIST SORT TOGGLES (karaoke + digitrax only)
+   ============================ */
+.browse-toggle-strip,
+.artist-sort-strip {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  width: 100%;
+  z-index: 3;
+}
+
+.browse-toggle-btn,
+.artist-sort-btn {
+  flex: 1;
+  height: 8vw;
+  font-size: 0.85em;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.5),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.browse-toggle-btn:hover,
+.artist-sort-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.browse-toggle-btn:active,
+.artist-sort-btn:active {
+  transform: scale(0.98);
+}
+
+.browse-toggle-btn.active,
+.artist-sort-btn.active {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 210, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04),
+    0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================
+   SEARCH ROW (input + queue button)
+   ============================ */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  width: 100%;
+}
+
+.search-row .input-group {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+}
+
+/* ============================
+   SEARCH INPUT GROUP
+   ============================ */
+.input-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  height: 8vw;
+  padding: 0 2.5vw;
+  border-radius: 999px;
+  box-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.5),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  box-sizing: border-box;
+  gap: 0.75rem;
+  position: relative;
+  z-index: 4;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-group:focus-within {
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow:
+    0 6px 22px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 1px 0 0 rgba(255, 255, 255, 0.14);
+}
+
+.input-group input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  padding: 0;
+  font-size: 3.2vw;
+  font-family: inherit;
+  outline: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+  opacity: 1;
+}
+
+/* Caret colors */
+.search-bar.listen .input-group input {
+  caret-color: #e068b2;
+  caret-shape: bar;
+}
+.search-bar.sing .input-group input {
+  caret-color: #ff9f1c;
+  caret-shape: bar;
+}
+
+.input-group .icon {
+  background: none;
+  border: none;
+  padding: 0;
+  height: auto;
+  min-width: auto;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.15s ease;
+}
+
+.input-group .icon:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.input-group .icon .material-icons {
+  color: inherit;
+  font-size: 3.5vw;
+}
+
+.material-icons {
+  font-size: 3.5vw;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ============================
+   SONG ROW INLINE (from searchBar ctx)
+   ============================ */
+.songs-panel .song-row,
+.queue-dropdown .current-song,
+.current-song {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.song-title {
+  flex: 1;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.song-duration {
+  margin-left: 12px;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================
+   VIP BADGE (inline)
+   ============================ */
+.vip-badge {
+  margin-left: auto;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  background: linear-gradient(90deg, rgba(255, 211, 110, 0.2) 0%, rgba(255, 159, 28, 0.2) 100%);
+  color: #ffd36e;
+  border: 1px solid rgba(255, 211, 110, 0.45);
+  box-shadow: 0 2px 6px rgba(255, 159, 28, 0.2);
+  flex-shrink: 0;
+}
+
+.thumbnail-card .vip-badge {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  margin-left: 0;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.78rem;
+}
+
+/* ============================
+   MODAL (topup / add credit)
+   ============================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.modal {
+  width: min(540px, 92vw);
+  background: rgb(15, 5, 30);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 22px;
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 1px 0 0 rgba(255, 255, 255, 0.24);
+  overflow: hidden;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.search-bar.sing .modal,
+.search-bar.listen .modal {
+  background: var(--popup-bg);
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 1.5rem 0.9rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+}
+
+.modal-head h3 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal-close {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.15s ease;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.modal-close:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.modal-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field input[type='number'] {
+  height: 52px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.field input[type='number']:focus {
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+/* Caret colors for modal inputs */
+.search-bar.listen .field input[type='number'],
+.search-bar.listen .skip-modal .field input[type='password'],
+.search-bar.listen .skip-modal .field input[type='text'] {
+  caret-color: #e068b2;
+  caret-shape: bar;
+}
+.search-bar.sing .field input[type='number'],
+.search-bar.sing .skip-modal .field input[type='password'],
+.search-bar.sing .skip-modal .field input[type='text'] {
+  caret-color: #ff9f1c;
+  caret-shape: bar;
+}
+
+/* Primary action button — listen */
+.search-bar.listen .btn.primary {
+  background: rgba(224, 104, 178, 0.25);
+  border: 1px solid rgba(224, 104, 178, 0.55);
+  color: #f59fd4;
+  font-size: 1.65rem;
+  padding: 1.1rem 2.5rem;
+  font-weight: 800;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(224, 104, 178, 0.2);
+  transition: all 0.18s ease;
+}
+.search-bar.listen .btn.primary:hover {
+  background: rgba(224, 104, 178, 0.38);
+  border-color: rgba(224, 104, 178, 0.75);
+}
+.search-bar.listen .btn.primary:active {
+  background: rgba(224, 104, 178, 0.15);
+  transform: scale(0.98);
+}
+
+/* Primary action button — sing */
+.search-bar.sing .btn.primary {
+  background: rgba(255, 216, 9, 0.2);
+  border: 1px solid rgba(255, 216, 9, 0.5);
+  color: #ffe55a;
+  font-size: 1.65rem;
+  padding: 1.1rem 2.5rem;
+  font-weight: 800;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(255, 216, 9, 0.15);
+  transition: all 0.18s ease;
+}
+.search-bar.sing .btn.primary:hover {
+  background: rgba(255, 216, 9, 0.32);
+  border-color: rgba(255, 216, 9, 0.7);
+}
+.search-bar.sing .btn.primary:active {
+  background: rgba(255, 216, 9, 0.12);
+  transform: scale(0.98);
+}
+
+.btn.success {
+  background: rgba(60, 145, 48, 0.25);
+  border: 1px solid rgba(60, 200, 80, 0.45);
+  color: #7dffa0;
+  border-radius: 14px;
+}
+
+/* ============================
+   QR / PAYMENT INFO
+   ============================ */
+.qr-box {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+  text-align: center;
+}
+.qr-box img {
+  width: 280px;
+  height: 280px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px;
+}
+
+.payment-info {
+  text-align: left;
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.payment-info p {
+  margin: 0.35rem 0;
+}
+
+/* ============================
+   SKIP MODAL
+   ============================ */
+.skip-modal .modal-head h3 {
+  margin: 0;
+}
+.skip-modal .field input[type='password'],
+.skip-modal .field input[type='text'] {
+  height: 52px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  outline: none;
+}
+
+/* ============================
+   ON-SCREEN KEYBOARD OVERLAY
+   ============================ */
+.osk-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.osk-overlay.standalone {
+  top: 0;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  pointer-events: auto;
+}
+
+.osk-overlay.above-modal {
+  z-index: 6;
+}
+
+/* ============================
+   ON-SCREEN KEYBOARD
+   ============================ */
+.osk {
+  --key-w: clamp(36px, 7.5vw, 90px);
+  --key-h: clamp(44px, 6.5vw, 82px);
+  --key-gap: clamp(0.25rem, 0.45vw, 0.5rem);
+  --key-fs: clamp(1rem, 1.6vw, 1.7rem);
+
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-bottom: none;
+  padding: 1.2rem 1rem;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  box-shadow:
+    0 -8px 32px rgba(0, 0, 0, 0.55),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.38),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+  color: #fff;
+  user-select: none;
+  touch-action: manipulation;
+  position: relative;
+  pointer-events: auto;
+  box-sizing: border-box;
+}
+
+/* Mode-specific keyboard backgrounds */
+.osk.mode-listen {
+  background: rgba(18, 4, 40, 1);
+  border-color: rgba(200, 130, 230, 0.3);
+  box-shadow:
+    0 -8px 32px rgba(0, 0, 0, 0.55),
+    inset 0 1.5px 0 rgba(220, 160, 255, 0.35),
+    inset 1.5px 0 0 rgba(220, 160, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.osk.mode-sing {
+  background: rgba(6, 42, 52, 1);
+  border-color: rgba(120, 210, 230, 0.3);
+  box-shadow:
+    0 -8px 32px rgba(0, 0, 0, 0.55),
+    inset 0 1.5px 0 rgba(150, 230, 245, 0.35),
+    inset 1.5px 0 0 rgba(150, 230, 245, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.osk-row {
+  width: 100%;
+  display: flex;
+  gap: var(--key-gap);
+  justify-content: center;
+  margin: calc(var(--key-gap) * 0.9) 0;
+  flex-wrap: nowrap;
+}
+
+/* ============================
+   OSK KEYS
+   ============================ */
+.osk-btn {
+  width: var(--key-w) !important;
+  min-width: var(--key-w) !important;
+  max-width: var(--key-w) !important;
+  height: var(--key-h);
+  font-size: var(--key-fs);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.32),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  font-weight: 500;
+  flex-shrink: 0 !important;
+  touch-action: manipulation;
+}
+
+.osk-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.38);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.45),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04),
+    0 3px 12px rgba(0, 0, 0, 0.35);
+}
+
+.osk-btn.active {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.55),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.osk-btn:active,
+.osk-btn.pressed {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.35),
+    inset 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+.osk-btn.small {
+  min-width: calc(var(--key-w) * 1.3) !important;
+  width: calc(var(--key-w) * 1.3) !important;
+  max-width: calc(var(--key-w) * 1.3) !important;
+  height: calc(var(--key-h) * 0.88);
+  font-size: calc(var(--key-fs) * 0.77);
+}
+
+/* ============================
+   SPECIAL KEYS
+   ============================ */
+.osk-bottom-row {
+  margin-top: 0.75rem;
+}
+
+.osk-btn.shift-key {
+  width: calc(var(--key-w) * 1.55) !important;
+  min-width: calc(var(--key-w) * 1.55) !important;
+  max-width: calc(var(--key-w) * 1.55) !important;
+  font-size: calc(var(--key-fs) * 0.92);
+  flex-shrink: 0 !important;
+}
+
+.osk-btn.sym-key {
+  width: calc(var(--key-w) * 1.31) !important;
+  min-width: calc(var(--key-w) * 1.31) !important;
+  max-width: calc(var(--key-w) * 1.31) !important;
+  font-size: calc(var(--key-fs) * 0.92);
+  font-weight: 600;
+  flex-shrink: 0 !important;
+}
+
+.osk-btn.spacebar {
+  width: calc(var(--key-w) * 5.1) !important;
+  min-width: calc(var(--key-w) * 5.1) !important;
+  max-width: calc(var(--key-w) * 5.1) !important;
+  font-size: calc(var(--key-fs) * 0.92);
+  flex-shrink: 0 !important;
+}
+
+.osk-btn.backspace-key {
+  width: calc(var(--key-w) * 1.55) !important;
+  min-width: calc(var(--key-w) * 1.55) !important;
+  max-width: calc(var(--key-w) * 1.55) !important;
+  font-size: calc(var(--key-fs) * 1.15);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0 !important;
+}
+
+.osk-btn.backspace-key:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.osk-btn.close-key {
+  width: calc(var(--key-w) * 1.45) !important;
+  min-width: calc(var(--key-w) * 1.45) !important;
+  max-width: calc(var(--key-w) * 1.45) !important;
+  font-size: calc(var(--key-fs) * 1.15);
+  line-height: 1;
+  background: rgba(180, 30, 30, 0.35);
+  border-color: rgba(220, 60, 60, 0.5);
+  color: #ffaaaa;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 180, 180, 0.25),
+    inset 1.5px 0 0 rgba(255, 180, 180, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0 !important;
+}
+
+.osk-btn.close-key:hover {
+  background: rgba(200, 40, 40, 0.55);
+  border-color: rgba(220, 60, 60, 0.65);
+}
+
+/* Enter key — listen (pink glass) */
+.search-bar.listen .osk-btn.enter-key {
+  width: calc(var(--key-w) * 1.49) !important;
+  min-width: calc(var(--key-w) * 1.49) !important;
+  max-width: calc(var(--key-w) * 1.49) !important;
+  background: rgba(224, 104, 178, 0.3);
+  border-color: rgba(224, 104, 178, 0.6);
+  color: #f8b8e0;
+  font-size: calc(var(--key-fs) * 0.96);
+  flex-shrink: 0 !important;
+}
+.search-bar.listen .osk-btn.enter-key:hover {
+  background: rgba(224, 104, 178, 0.45);
+}
+.search-bar.listen .osk-btn.enter-key:active {
+  background: rgba(224, 104, 178, 0.2);
+}
+
+/* Enter key — sing (golden glass) */
+.search-bar.sing .osk-btn.enter-key {
+  width: calc(var(--key-w) * 1.49) !important;
+  min-width: calc(var(--key-w) * 1.49) !important;
+  max-width: calc(var(--key-w) * 1.49) !important;
+  background: rgba(255, 216, 9, 0.25);
+  border-color: rgba(255, 216, 9, 0.55);
+  color: #ffe55a;
+  font-size: calc(var(--key-fs) * 0.96);
+  flex-shrink: 0 !important;
+}
+.search-bar.sing .osk-btn.enter-key:hover {
+  background: rgba(255, 216, 9, 0.38);
+}
+.search-bar.sing .osk-btn.enter-key:active {
+  background: rgba(255, 216, 9, 0.15);
+}
+
+/* Enter key — ControlView listen */
+.control-ui.mode-listen .osk-btn.enter-key {
+  width: calc(var(--key-w) * 1.49) !important;
+  min-width: calc(var(--key-w) * 1.49) !important;
+  max-width: calc(var(--key-w) * 1.49) !important;
+  background: rgba(224, 104, 178, 0.3);
+  border-color: rgba(224, 104, 178, 0.6);
+  color: #f8b8e0;
+  font-size: calc(var(--key-fs) * 1.15);
+  flex-shrink: 0;
+}
+.control-ui.mode-listen .osk-btn.enter-key:active {
+  background: rgba(224, 104, 178, 0.18);
+}
+
+/* Enter key — ControlView sing */
+.control-ui.mode-sing .osk-btn.enter-key {
+  width: calc(var(--key-w) * 1.49) !important;
+  min-width: calc(var(--key-w) * 1.49) !important;
+  max-width: calc(var(--key-w) * 1.49) !important;
+  background: rgba(255, 216, 9, 0.25);
+  border-color: rgba(255, 216, 9, 0.55);
+  color: #ffe55a;
+  font-size: calc(var(--key-fs) * 1.15);
+  flex-shrink: 0;
+}
+.control-ui.mode-sing .osk-btn.enter-key:active {
+  background: rgba(255, 216, 9, 0.13);
+}
+
+/* ============================
+   DIACRITIC VARIANTS POPUP
+   ============================ */
+.osk-variants {
+  position: absolute;
+  left: 50%;
+  bottom: 280px;
+  transform: translateX(-50%);
+  background: rgba(20, 14, 32, 1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.45rem;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.65),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.38),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    inset -1px 0 0 rgba(0, 0, 0, 0.04);
+  display: flex;
+  gap: 0.32rem;
+  z-index: 7;
+}
+
+.osk.mode-listen .osk-variants {
+  background: rgba(18, 4, 40, 1);
+  border-color: rgba(200, 130, 230, 0.3);
+}
+
+.osk.mode-sing .osk-variants {
+  background: rgba(6, 42, 52, 1);
+  border-color: rgba(120, 210, 230, 0.3);
+}
+
+.osk-btn.var {
+  min-width: 54px !important;
+  width: 54px !important;
+  height: 54px;
+  font-size: 1.35rem;
+}
+
+/* ============================
+   RESPONSIVE — MOBILE
+   The CSS variable --key-w scales continuously with vw so only
+   non-size tweaks (padding, radius) are needed here.
+   ============================ */
+@media (max-width: 900px) {
+  .osk {
+    padding: 0.75rem;
+  }
+
+  .osk-btn {
+    border-radius: 11px;
+  }
+
+  .osk-variants {
+    bottom: 200px;
+  }
+}

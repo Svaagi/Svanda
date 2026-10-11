@@ -1,0 +1,106 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  background: var(--color-overlay);
+}
+
+.sheetOverlay {
+  top: var(--dialog-sheet-top);
+}
+
+.content {
+  position: fixed;
+  z-index: var(--z-dialog);
+  overflow-y: auto;
+  color: var(--color-fg);
+}
+
+.centered {
+  inset: 0;
+  width: min(calc(100% - 2 * var(--space-4)), var(--dialog-max-width));
+  height: fit-content;
+  max-height: calc(100svh - 2 * var(--space-4));
+  margin: auto;
+  padding: var(--space-6);
+  border: var(--border-width-pixel) solid var(--color-border-2);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-pixel-lg);
+}
+
+.sheet {
+  inset: var(--dialog-sheet-top) 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  background: var(--color-menu-bg);
+}
+
+.bottomSheetOverlay {
+  background: transparent;
+}
+
+/* The header (title and close button) sticks to the top while the body scrolls. */
+.bottomSheet {
+  inset: auto 0 0;
+  max-height: var(--dialog-bottom-sheet-max-height);
+  overscroll-behavior: contain;
+  border-top: var(--border-width-thick) solid var(--color-border-2);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-sheet);
+}
+
+.bottomSheet .header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-raised);
+  align-items: center;
+  margin-bottom: 0;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+  border-bottom: var(--border-width-thick) solid var(--color-border-2);
+  background: var(--color-bg);
+}
+
+/* Media viewer: dark in both themes, so the colour tokens its parts read turn light. */
+.fullscreenOverlay {
+  background: var(--color-lightbox-bg);
+}
+
+.fullscreen {
+  --color-fg: var(--color-lightbox-fg);
+  --color-muted: var(--color-lightbox-muted);
+
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: var(--space-3);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  text-transform: uppercase;
+}
+
+.description {
+  margin-bottom: var(--space-4);
+  color: var(--color-muted);
+  font-size: var(--font-size-md);
+}
+
+.fullscreen .header {
+  align-items: center;
+  margin-bottom: var(--space-3);
+}

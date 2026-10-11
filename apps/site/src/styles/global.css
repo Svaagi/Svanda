@@ -1,0 +1,128 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* `--sv-vp` is the stage page position, published by the stage at runtime. Snapping is only
+   "proximity" so the contact section below the stage still scrolls freely.
+   The intro reveal (`--sv-nav` header slide, `--sv-menu` items, `--sv-logo` bar and logo,
+   `--sv-hero` hero overlay) defaults to its final state, so the page shows without the intro
+   and without JavaScript; the intro drives them from 0 while it plays.
+   The stable scrollbar gutter keeps the layout (and the nav logo the intro swarm lands on)
+   still when the intro's scroll lock ends. */
+:root {
+  --sv-vp: 0;
+  --sv-nav: 1;
+  --sv-menu: 1;
+  --sv-logo: 1;
+  --sv-hero: 1;
+}
+
+html {
+  background: var(--color-bg);
+  scroll-snap-type: y proximity;
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+ul,
+ol {
+  margin: 0;
+}
+
+img,
+svg,
+canvas,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent-2);
+}
+
+::placeholder {
+  color: var(--color-muted);
+}
+
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Pixel cursor: decorative and only for fine pointers. `!important` beats component-level
+ * cursor rules so the set stays consistent; text fields keep a text cursor.
+ */
+@media (pointer: fine) {
+  html[data-cursor] {
+    --cursor-arrow: url('/cursors/cursor-arrow.png') 1 1;
+    --cursor-hand: url('/cursors/cursor-hand.png') 9 1;
+    --cursor-text: url('/cursors/cursor-text.png') 7 13;
+  }
+
+  html[data-cursor='magenta'] {
+    --cursor-arrow: url('/cursors/cursor-arrow-magenta.png') 1 1;
+    --cursor-hand: url('/cursors/cursor-hand-magenta.png') 9 1;
+    --cursor-text: url('/cursors/cursor-text-magenta.png') 7 13;
+  }
+
+  html[data-cursor],
+  html[data-cursor] * {
+    cursor: var(--cursor-arrow), auto !important;
+  }
+
+  html[data-cursor] a,
+  html[data-cursor] button,
+  html[data-cursor] [role='button'],
+  html[data-cursor] label {
+    cursor: var(--cursor-hand), pointer !important;
+  }
+
+  html[data-cursor] input,
+  html[data-cursor] textarea {
+    cursor: var(--cursor-text), text !important;
+  }
+}

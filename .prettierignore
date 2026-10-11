@@ -1,0 +1,9 @@
+pnpm-lock.yaml
+design/reference
+**/build
+**/dist
+**/coverage
+**/.react-router
+**/playwright-report
+**/test-results
+*.md

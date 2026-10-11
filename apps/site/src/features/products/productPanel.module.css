@@ -1,0 +1,103 @@
+/* Landscape by default: the copy fills the half of the page opposite the model. Portrait is
+   picked by a media query, so the prerendered page already has the right layout. */
+.productPanel {
+  position: absolute;
+  inset: 0;
+}
+
+.copy {
+  position: absolute;
+  top: var(--nav-height);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--product-gap);
+  width: 50%;
+  padding: 0 var(--product-inset-x);
+}
+
+.productPanel[data-side='start'] .copy {
+  left: 0;
+}
+
+.productPanel[data-side='end'] .copy {
+  right: 0;
+}
+
+.heading {
+  margin: 0;
+}
+
+/* The heading size comes from CSS (cell size times glyph rows); the cell size picked in JS
+   only keeps the pixels crisp, so measuring the viewport never moves the layout. */
+.heading svg {
+  width: auto;
+  height: calc(var(--product-heading-cell) * var(--product-heading-rows));
+}
+
+.title {
+  margin: 0;
+  max-width: var(--product-title-max-width);
+  color: var(--color-fg);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-tight);
+  text-wrap: balance;
+}
+
+.body {
+  margin: 0;
+  max-width: var(--product-body-max-width);
+  color: var(--color-muted);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-snug);
+  text-wrap: pretty;
+}
+
+/* Portrait: heading on top, body at the bottom, the model in the band between them. */
+@media (orientation: portrait) {
+  .copy {
+    top: var(--product-portrait-top);
+    bottom: var(--product-portrait-bottom);
+    justify-content: space-between;
+    gap: var(--product-portrait-gap);
+    width: auto;
+    padding: 0;
+  }
+
+  .productPanel[data-side] .copy {
+    right: var(--product-portrait-inset-x);
+    left: var(--product-portrait-inset-x);
+  }
+
+  .heading svg {
+    height: calc(
+      var(--product-heading-cell-portrait) * var(--product-heading-rows)
+    );
+  }
+
+  /* No room for the title next to the model: it stays for screen readers only. */
+  .title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .body {
+    align-self: center;
+    max-width: var(--product-portrait-body-max-width);
+    font-size: var(--font-size-body-compact);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-base);
+    letter-spacing: normal;
+    text-align: center;
+  }
+}

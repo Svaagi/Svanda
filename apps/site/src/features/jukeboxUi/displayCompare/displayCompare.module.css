@@ -1,0 +1,96 @@
+/* Lengths are design pixels of the 540 px wide app screen (`--u`), resolved against this
+   box. `--split` is set from JS: the pixel design shows left of it, glass right of it. */
+.displayCompare {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: var(--jukebox-ui-aspect-ratio);
+}
+
+.glassLayer {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 var(--split));
+}
+
+/* Takes every drag on the screen. Vertical swipes still scroll the page. */
+.dragSurface {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-overlay);
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+
+.split {
+  --u: calc(100cqw / var(--jukebox-ui-columns));
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--split);
+  z-index: var(--z-overlay);
+  width: 0;
+  pointer-events: none;
+}
+
+.split::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(-2 * var(--u));
+  width: calc(4 * var(--u));
+  background: var(--color-jukebox-ui-handle);
+  box-shadow: 0 0 0 calc(2 * var(--u)) var(--color-jukebox-ui-handle-ink);
+}
+
+.label {
+  position: absolute;
+  top: calc(14 * var(--u));
+  padding: calc(6 * var(--u)) calc(10 * var(--u));
+  background: var(--color-jukebox-ui-handle-ink);
+  color: var(--color-jukebox-ui-handle);
+  font-family: var(--font-pixel);
+  font-size: calc(16 * var(--u));
+  font-weight: var(--font-weight-regular);
+  letter-spacing: calc(3 * var(--u));
+  white-space: nowrap;
+}
+
+.labelPixel {
+  right: calc(12 * var(--u));
+}
+
+.labelGlass {
+  left: calc(12 * var(--u));
+}
+
+/* Pointer input goes to the drag surface below; the handle is for keyboard focus. */
+.handle {
+  position: absolute;
+  top: 50%;
+  left: calc(-26 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(52 * var(--u));
+  height: calc(52 * var(--u));
+  margin-top: calc(-26 * var(--u));
+  background: var(--color-jukebox-ui-handle);
+  border: calc(3 * var(--u)) solid var(--color-jukebox-ui-handle-ink);
+  box-shadow: calc(4 * var(--u)) calc(4 * var(--u)) 0
+    var(--color-jukebox-ui-shadow);
+  color: var(--color-jukebox-ui-handle-ink);
+}
+
+/* The display is drawn at about half size, so the ring is drawn thicker. */
+.handle:focus-visible {
+  outline-width: calc(6 * var(--u));
+  outline-offset: calc(4 * var(--u));
+}
+
+.handleIcon {
+  width: calc(30 * var(--u));
+  height: calc(18 * var(--u));
+}

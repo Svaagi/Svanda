@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "noEmit": true,
+    // `@svanda/shared` resolves to its source, so typecheck and lint need no build of the
+    // package; the build itself (tsconfig.json) uses the package's dist.
+    "paths": {
+      "@svanda/shared": ["../../packages/shared/src/index.ts"]
+    }
+  },
+  "include": ["src", "vitest.config.ts"],
+  "exclude": []
+}

@@ -1,0 +1,164 @@
+body,
+html,
+#root {
+  margin: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background: #000;
+}
+
+.logo-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  height: 100%;
+  text-align: center;
+}
+
+.logo-image {
+  width: 40%;
+  max-width: 500px;
+  opacity: 0.85;
+  /* animation: pulse 3s ease-in-out infinite; */ /* Disabled - interferes with touchscreen multi-touch input */
+}
+
+.player-root {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: #000;
+}
+
+.player-fill {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Ensure iframe fills container but can't be interacted with */
+.player-fill iframe {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Create solid overlay to block all YouTube UI elements */
+.player-fill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: auto;
+  z-index: 100;
+  cursor: default;
+}
+
+.title-bar {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  font:
+    16px/1.2 system-ui,
+    sans-serif;
+  color: #ddd;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.player-root {
+  position: fixed;
+  inset: 0;
+  background: #000;
+}
+
+.player-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #bbb;
+  font-size: 1.6rem;
+}
+
+.player-overlay .error-text {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #ff6b6b;
+}
+
+/* Fullscreen black overlay with centered logo */
+.logo-overlay {
+  position: fixed; /* full window */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000; /* pure black */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 10; /* above video */
+  text-align: center;
+}
+
+.logo-image {
+  width: 35%;
+  max-width: 480px;
+  opacity: 0.9;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.status-text {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.title-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 14px;
+  color: #ddd;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
+  font-size: 0.9rem;
+}

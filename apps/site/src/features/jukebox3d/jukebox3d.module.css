@@ -1,0 +1,38 @@
+/* Sized as a container so the poster can scale with the stage like the 3D camera does: one
+   world unit spans min(stage height / visible height, stage width / visible width) px, the
+   camera fit in sceneLayout.ts. The poster frame is exactly the visible height tall. The
+   numbers are checked against the camera constants in posterLayout.spec.ts. */
+.jukeboxStage {
+  --poster-visible-height: 777.9;
+  --poster-visible-width: 1400;
+
+  position: absolute;
+  inset: 0;
+  container-type: size;
+  pointer-events: none;
+}
+
+@media (orientation: portrait) {
+  .jukeboxStage {
+    --poster-visible-width: 600;
+  }
+}
+
+/* Width follows the intrinsic ratio from the img width and height attributes. */
+.poster {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  max-width: none;
+  height: min(
+    100cqh,
+    100cqw * var(--poster-visible-height) / var(--poster-visible-width)
+  );
+  transform: translate(-50%, -50%);
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+
+.jukeboxStage[data-state='ready'] .poster {
+  opacity: 0;
+}

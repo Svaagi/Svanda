@@ -1,0 +1,46 @@
+/* Lengths are design pixels of the 540 px wide app screen (`--u`). The app screen clips
+   whatever reaches past it. */
+.lavaLamp {
+  position: absolute;
+  inset: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* A few dozen blocks across, scaled up without smoothing. */
+.pixel .canvas {
+  image-rendering: pixelated;
+}
+
+/* Overscanned so the blur does not fade out at the screen edge. */
+.glass .canvas {
+  inset: calc(-20 * var(--u));
+  width: calc(100% + 40 * var(--u));
+  height: calc(100% + 40 * var(--u));
+  filter: blur(calc(var(--lava-blur) * var(--u)));
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      var(--color-jukebox-ui-scanline) 0 calc(2 * var(--u)),
+      transparent calc(2 * var(--u)) calc(4 * var(--u))
+    ),
+    repeating-conic-gradient(
+      var(--color-jukebox-ui-checker) 0 25%,
+      transparent 0 50%
+    );
+  background-size:
+    auto,
+    calc(4 * var(--u)) calc(4 * var(--u));
+  pointer-events: none;
+}

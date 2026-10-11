@@ -1,0 +1,26 @@
+.viewport {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-toast);
+  width: min(100%, var(--toast-max-width));
+  margin: 0;
+  padding: var(--space-4);
+  list-style: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border: var(--border-width-pixel) solid var(--color-accent);
+  background: var(--color-tile);
+  color: var(--color-fg);
+  box-shadow: var(--shadow-pixel-md);
+}
+
+.message {
+  font-size: var(--font-size-sm);
+}

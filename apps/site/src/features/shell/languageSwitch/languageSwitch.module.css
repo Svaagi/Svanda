@@ -1,0 +1,33 @@
+.languageSwitch {
+  display: flex;
+  border: 1px solid var(--color-border-2);
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--segment-padding-y) var(--segment-padding-x);
+  color: var(--color-muted);
+  font-family: var(--font-pixel);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-none);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.option:hover {
+  color: var(--color-fg);
+}
+
+.option[aria-current='page'] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+@media (pointer: coarse) {
+  .option {
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+  }
+}

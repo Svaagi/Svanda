@@ -1,0 +1,968 @@
+/* ============================
+   SHARED SIZING TOKEN
+   Single source of truth — thumbnail card and song rows always match.
+   ============================ */
+:root {
+  --card-h: clamp(60px, 15.6vw, 160px);
+}
+
+/* ============================
+   BASE LAYOUT
+   ============================ */
+.control-ui {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  touch-action: pan-y;
+  -ms-touch-action: pan-y;
+  font-family: inherit;
+  /* Required so the absolute-positioned LavaLamp SVG is contained here */
+  position: relative;
+}
+
+/* Blur is now applied directly on the LavaLamp SVG via CSS filter: blur()
+   in lavaLamp.css. The .backdrop-blur-layer div in the DOM is kept as a
+   z-index spacer (z-index: 1) between LavaLamp (0) and UI content (2+). */
+.backdrop-blur-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ============================
+   MODE BACKGROUNDS
+   Deep, rich ambient gradients — not saturated flat color
+   ============================ */
+.mode-listen {
+  background: #12012a;
+  --popup-bg: rgb(18, 1, 42);
+}
+
+.mode-sing {
+  background: #063d49;
+  --popup-bg: rgb(6, 61, 73);
+}
+
+/* ============================
+   MAIN FRAME
+   ============================ */
+.main-frame {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  gap: 1vw;
+  min-height: 0;
+  margin: 1vw;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================
+   THUMBNAILS PANEL (left)
+   ============================ */
+.thumbnails-panel {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vw;
+  padding: 3vw;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: clamp(18px, 4.5vmin, 30px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 1px 0 0 rgba(255, 255, 255, 0.22);
+  height: fit-content;
+}
+
+/* ============================
+   SONGS PANEL (right)
+   ============================ */
+.songs-panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vw;
+  padding: 3vw;
+  background: rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: clamp(18px, 4.5vmin, 30px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 1px 0 0 rgba(255, 255, 255, 0.2);
+  height: fit-content;
+}
+
+/* ============================
+   GLASS UTILITY (shared recipe)
+   ============================ */
+/* backdrop-filter removed — too expensive for Raspberry Pi GPU */
+
+/* ============================
+   THUMBNAIL CARD
+   ============================ */
+.thumbnail-card {
+  width: var(--card-h);
+  height: var(--card-h);
+  border-radius: clamp(20px, 5vmin, 36px);
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 1px 0 0 rgba(255, 255, 255, 0.27);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.thumbnail-card:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 1px 0 0 rgba(255, 255, 255, 0.36);
+  border-color: rgba(255, 255, 255, 0.48);
+}
+
+.thumbnail-card:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.thumbnail-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-card:last-child {
+  margin-bottom: 0;
+}
+
+.thumbnail-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--popup-bg);
+}
+
+.thumbnail-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnail-initials {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: clamp(1.4rem, 4vw, 2.8rem);
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================
+   ARTIST BROWSER
+   ============================ */
+.songs-panel.artists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(130px, 22vw, 200px), 1fr));
+  gap: 1.5vw;
+}
+
+.empty-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.artist-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  padding: 0.9rem 0.8rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: clamp(20px, 5vmin, 36px);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  text-align: center;
+  gap: 0.45rem;
+  transition: all 0.18s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 1px 0 0 rgba(255, 255, 255, 0.18),
+    0 4px 16px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.artist-tile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 1px 0 0 rgba(255, 255, 255, 0.28),
+    0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.artist-tile:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.artist-avatar {
+  position: relative;
+  width: 55%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--popup-bg);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 3px 10px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.artist-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.artist-photo-spinner {
+  position: absolute;
+  width: 36%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  animation: photo-spin 0.9s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes photo-spin {
+  to { transform: rotate(360deg); }
+}
+
+.artist-initials {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: clamp(1.2rem, 3.6vw, 2.4rem);
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.artist-name {
+  font-size: clamp(0.95rem, 2.4vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+  margin-top: 0.15rem;
+}
+
+.artist-sentinel {
+  grid-column: 1 / -1;
+  height: 60px;
+}
+
+.artist-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  padding: 0.5rem 0.25rem 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.artist-back-btn {
+  flex: 0 0 auto;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.artist-back-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.artist-back-btn:active {
+  transform: scale(0.95);
+}
+
+.artist-header-name {
+  flex: 1 1 auto;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================
+   SONG ROW
+   ============================ */
+.song-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  height: var(--card-h);
+  padding: 0 1.5rem;
+  border-radius: clamp(20px, 5vmin, 36px);
+  margin: 0;
+  cursor: pointer;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 1px 0 0 rgba(255, 255, 255, 0.24);
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: background 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.song-row:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.38);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 1px 0 0 rgba(255, 255, 255, 0.32);
+  transform: translateY(-1px);
+}
+
+.song-row:active {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(1px);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+.song-row:last-child {
+  margin-bottom: 0;
+}
+
+.song-title {
+  font-size: clamp(0.7rem, 2.8vw, 1.8rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.song-duration {
+  font-size: clamp(0.65rem, 2.4vw, 1.55rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+/* ============================
+   CURRENT SONG BAR (bottom)
+   Same height and radius as song rows in the list.
+   ============================ */
+.current-song {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: clamp(20px, 5vmin, 36px);
+  min-height: calc(var(--card-h) + 16px);
+  padding: 8px 1.5rem;
+  margin: 0 0.5rem 0.5rem 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(0.75rem, 2.2vmin, 1rem);
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 1px 0 0 rgba(255, 255, 255, 0.28);
+  flex-shrink: 0;
+  gap: clamp(6px, 2vmin, 14px);
+  position: relative;
+  z-index: 2;
+}
+
+
+.current-title {
+  flex: 1;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.current-duration {
+  margin-left: clamp(4px, 1.5vmin, 12px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.55);
+  flex-shrink: 0;
+}
+
+/* ============================
+   VIP LABEL / BADGE
+   ============================ */
+.vip-label {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  background: linear-gradient(90deg, #ffd36e 0%, #ff9f1c 100%);
+  color: #1a1a1a;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: clamp(0.65rem, 1.4vw, 1.1rem);
+  z-index: 2;
+  letter-spacing: 0.04em;
+}
+
+.vip-badge {
+  margin-left: auto;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: clamp(0.6rem, 1.2vw, 1rem);
+  letter-spacing: 0.06em;
+  background: linear-gradient(90deg, rgba(255, 211, 110, 0.25) 0%, rgba(255, 159, 28, 0.25) 100%);
+  color: #ffd36e;
+  border: 1px solid rgba(255, 211, 110, 0.45);
+  box-shadow: 0 2px 6px rgba(255, 159, 28, 0.2);
+  flex-shrink: 0;
+}
+
+.thumbnail-card .vip-badge {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  margin-left: 0;
+  transform: translateZ(0);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.78rem;
+}
+
+/* ============================
+   QUEUE DROPDOWN OVERLAY
+   ============================ */
+.queue-dropdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+}
+
+/* ============================
+   QUEUE DROPDOWN PANEL
+   ============================ */
+.queue-dropdown {
+  border-radius: clamp(18px, 2.2vw, 32px);
+  padding: clamp(0.6rem, 1.2vw, 1.2rem);
+  width: clamp(340px, 75vw, 900px);
+  height: clamp(420px, 75vh, 960px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.6vw, 0.6rem);
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 1px 0 0 rgba(255, 255, 255, 0.26);
+}
+
+.queue-dropdown.mode-listen,
+.queue-dropdown.mode-sing {
+  background: var(--popup-bg);
+}
+
+.queue-dropdown .current-song {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+  touch-action: pan-y;
+}
+
+.queue-title {
+  font-size: clamp(1.6rem, 4vw, 3.5rem);
+  font-weight: 800;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  padding: clamp(0.4rem, 0.8vw, 0.9rem) 0;
+  margin-bottom: clamp(0.4rem, 0.8vw, 0.9rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.queue-items-container {
+  flex: 1;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  position: relative;
+}
+
+.queue-item {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  padding: clamp(0.3rem, 0.6vw, 0.6rem) clamp(0.6rem, 1.2vw, 1.2rem);
+  border-radius: clamp(10px, 1.2vw, 18px);
+  height: clamp(40px, 5vw, 72px);
+  cursor: pointer;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(0.75rem, 1.5vw, 1.3rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 1px 0 0 rgba(255, 255, 255, 0.22);
+  transition: background 0.15s ease, border-color 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.queue-item:hover {
+  background: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.36);
+}
+
+.queue-item.playing {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  font-weight: 700;
+  color: #fff;
+}
+
+.queue-dropdown.mode-listen .queue-item.playing {
+  border-color: rgba(224, 104, 178, 0.5);
+  background: rgba(224, 104, 178, 0.18);
+}
+
+.queue-dropdown.mode-sing .queue-item.playing {
+  border-color: rgba(255, 216, 9, 0.45);
+  background: rgba(255, 216, 9, 0.15);
+}
+
+.empty-queue-message {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+}
+
+/* ============================
+   MODAL OVERLAY + MODAL
+   ============================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.modal {
+  background: rgb(14, 14, 22);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: clamp(16px, 2vw, 28px);
+  padding: clamp(1.5rem, 3vw, 3.5rem);
+  width: clamp(340px, 82vw, 960px);
+  text-align: center;
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 1px 0 0 rgba(255, 255, 255, 0.24);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.modal h3 {
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  margin-bottom: clamp(0.6rem, 1.2vw, 1.2rem);
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: clamp(0.6rem, 1.2vw, 1.2rem);
+  margin-bottom: clamp(0.6rem, 1.2vw, 1.2rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-head h3 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal-close {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  font-size: clamp(1.6rem, 3.2vw, 3rem);
+  line-height: 1;
+  cursor: pointer;
+  width: clamp(40px, 5.5vw, 70px);
+  height: clamp(40px, 5.5vw, 70px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.15s ease;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.42);
+  color: #fff;
+}
+
+.modal-close:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
+  margin-top: clamp(1rem, 2vw, 2rem);
+}
+
+.modal-actions .btn {
+  font-size: clamp(1.3rem, 3vw, 2.6rem);
+  padding: clamp(1rem, 2.2vw, 2rem) clamp(1.5rem, 3vw, 3rem);
+  border-radius: clamp(12px, 1.5vw, 20px);
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.18s ease;
+}
+
+/* Primary modal button — glass with white tint */
+.modal-actions .btn.modal-btn {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 1px 0 0 rgba(255, 255, 255, 0.26);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-actions .btn.modal-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.44);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 1px 0 0 rgba(255, 255, 255, 0.32);
+}
+
+.modal-actions .btn.modal-btn:active {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(1px);
+}
+
+/* Secondary modal button — more muted */
+.modal-actions .btn.modal-btn.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.modal-actions .btn.modal-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* VIP modal button — gold accent */
+.modal-actions .btn.vip {
+  background: linear-gradient(135deg, rgba(255, 211, 110, 0.25) 0%, rgba(255, 159, 28, 0.25) 100%);
+  border-color: rgba(255, 211, 110, 0.5);
+  color: #ffd36e;
+  font-weight: 800;
+}
+
+.modal-actions .btn.vip:hover {
+  background: linear-gradient(135deg, rgba(255, 211, 110, 0.38) 0%, rgba(255, 159, 28, 0.38) 100%);
+}
+
+/* Match searchBar.css mode-tinted modal backgrounds for modals rendered
+   outside .search-bar (PaymentModal, InsufficientCreditModal, SkipPromptModal) */
+.mode-listen .modal,
+.mode-sing .modal {
+  background: var(--popup-bg);
+}
+
+/* ============================
+   PAYMENT MODAL SPECIFICS
+   ============================ */
+.pay-modal {
+  align-items: center;
+  text-align: center;
+}
+
+.pay-qr {
+  width: clamp(140px, 18vw, 280px);
+  height: clamp(140px, 18vw, 280px);
+  align-self: center;
+  border-radius: clamp(10px, 1.2vw, 18px);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  margin: 0.5rem auto 0.75rem auto;
+  display: block;
+}
+
+.pay-link {
+  display: inline-block;
+  margin: 0.25rem 0 0.5rem 0;
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.pay-status {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.45rem 0.75rem;
+  border-radius: 10px;
+  margin: 0.25rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pay-status.error {
+  color: #ff9090;
+  background: rgba(200, 50, 50, 0.2);
+  border-color: rgba(200, 50, 50, 0.4);
+}
+
+.pay-badge {
+  margin: 0.25rem 0 0.75rem 0;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  display: inline-block;
+}
+
+.state-paid {
+  background: rgba(60, 180, 80, 0.2);
+  border-color: rgba(60, 180, 80, 0.45);
+  color: #7dffa0;
+}
+
+.pay-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* ============================
+   QUEUE / SKIP ACTIONS
+   ============================ */
+.add-credit-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  z-index: 11;
+}
+
+.queue-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn.skip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 204, 0, 0.2);
+  border: 1px solid rgba(255, 204, 0, 0.45);
+  color: #ffcc00;
+  padding: clamp(8px, 1.2vw, 14px) clamp(14px, 2vw, 22px);
+  font-size: clamp(0.8rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  border-radius: clamp(8px, 1vw, 13px);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn.skip:hover {
+  background: rgba(255, 204, 0, 0.32);
+}
+
+/* ============================
+   CURSOR COLORS
+   ============================ */
+.control-ui.mode-listen input,
+.control-ui.mode-listen textarea {
+  caret-color: #e068b2 !important;
+  caret-shape: bar;
+}
+
+.control-ui.mode-sing input,
+.control-ui.mode-sing textarea {
+  caret-color: #ff9f1c !important;
+  caret-shape: bar;
+}
+
+/* ============================
+   LEGACY HEADER / SIDEBAR
+   (kept for structure, unstyled)
+   ============================ */
+.control-ui header {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.control-ui header button {
+  margin-right: 8px;
+}
+
+.control-ui main {
+  display: flex;
+  flex: 1;
+}
+
+.control-ui .sidebar {
+  width: 200px;
+  padding: 8px;
+}
+
+.control-ui .queue-panel {
+  flex: 1;
+  padding: 8px;
+}
+
+/* ============================
+   MISC
+   ============================ */
+.video-player {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.queue-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.queue-list li {
+  padding: 6px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.queue-list li.playing {
+  color: #fff;
+  font-weight: 700;
+}
+
+.queue-list li .index {
+  display: inline-block;
+  width: 1.5em;
+  text-align: right;
+  margin-right: 0.5em;
+  font-weight: bold;
+}

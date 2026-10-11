@@ -1,0 +1,25 @@
+/*
+ * LavaLamp SVG — fixed behind all UI content.
+ *
+ * CSS filter: blur() on the SVG replaces per-element backdrop-filter: blur().
+ *   - backdrop-filter = re-computed every frame (expensive, kills Pi)
+ *   - filter: blur() on static SVG = computed once, cached as GPU texture (free)
+ *
+ * The SVG is expanded by 20px on each side (negative inset) so that the
+ * blur softening at the edges is clipped by .control-ui's overflow: hidden,
+ * preventing a visible light/dark border artifact.
+ *
+ * UI panels with semi-transparent backgrounds get the frosted glass look
+ * for free — the pre-blurred lava lamp shows through.
+ */
+.lava-lamp-svg {
+  position: absolute;
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+  filter: blur(10px);
+  will-change: transform;
+}

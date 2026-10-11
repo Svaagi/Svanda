@@ -1,0 +1,89 @@
+/* The library renders outside React in #cc-main, so it is skinned via its custom properties with theme tokens. */
+
+#cc-main {
+  --cc-font-family: var(--font-body);
+  --cc-z-index: var(--z-dialog);
+  --cc-modal-margin: var(--space-4);
+  --cc-modal-border-radius: var(--radius-none);
+  --cc-btn-border-radius: var(--radius-none);
+  --cc-pm-toggle-border-radius: var(--radius-none);
+  --cc-modal-transition-duration: var(--duration-base);
+
+  --cc-bg: var(--color-bg);
+  --cc-primary-color: var(--color-fg);
+  --cc-secondary-color: var(--color-muted);
+  --cc-link-color: var(--color-accent);
+  --cc-overlay-bg: var(--color-overlay);
+  --cc-separator-border-color: var(--color-border);
+
+  --cc-btn-primary-bg: var(--color-accent);
+  --cc-btn-primary-color: var(--color-on-accent);
+  --cc-btn-primary-border-color: var(--color-accent);
+  --cc-btn-primary-hover-bg: var(--color-accent-2);
+  --cc-btn-primary-hover-color: var(--color-on-accent);
+  --cc-btn-primary-hover-border-color: var(--color-accent-2);
+  --cc-btn-secondary-bg: var(--color-tile);
+  --cc-btn-secondary-color: var(--color-fg);
+  --cc-btn-secondary-border-color: var(--color-border-2);
+  --cc-btn-secondary-hover-bg: var(--color-border-2);
+  --cc-btn-secondary-hover-color: var(--color-fg);
+  --cc-btn-secondary-hover-border-color: var(--color-fg);
+
+  --cc-toggle-on-bg: var(--color-accent);
+  --cc-toggle-off-bg: var(--color-dim);
+  --cc-toggle-on-knob-bg: var(--color-bg);
+  --cc-toggle-off-knob-bg: var(--color-bg);
+  --cc-toggle-enabled-icon-color: var(--color-accent);
+  --cc-toggle-disabled-icon-color: var(--color-dim);
+  --cc-toggle-readonly-bg: var(--color-border-2);
+  --cc-toggle-readonly-knob-bg: var(--color-muted);
+  --cc-toggle-readonly-knob-icon-color: var(--color-border-2);
+
+  --cc-section-category-border: var(--color-border);
+  --cc-cookie-category-block-bg: var(--color-tile);
+  --cc-cookie-category-block-border: var(--color-border);
+  --cc-cookie-category-block-hover-bg: var(--color-border);
+  --cc-cookie-category-block-hover-border: var(--color-border-2);
+  --cc-cookie-category-expanded-block-bg: transparent;
+  --cc-cookie-category-expanded-block-hover-bg: var(--color-border);
+
+  --cc-footer-bg: var(--color-tile);
+  --cc-footer-color: var(--color-muted);
+  --cc-footer-border-color: var(--color-border);
+  --cc-webkit-scrollbar-bg: var(--color-border);
+  --cc-webkit-scrollbar-hover-bg: var(--color-accent);
+}
+
+/* Pixel brand: a hard frame with an offset shadow, headings and buttons in the pixel font. */
+#cc-main .cm,
+#cc-main .pm {
+  border: var(--border-width-pixel) solid var(--color-fg);
+  box-shadow: var(--shadow-pixel-lg);
+}
+
+#cc-main .cm__title,
+#cc-main .pm__title,
+#cc-main .pm__section-title,
+#cc-main .cm__btn,
+#cc-main .pm__btn {
+  font-family: var(--font-pixel);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+#cc-main .cm__btn,
+#cc-main .pm__btn {
+  min-height: var(--touch-target-min);
+}
+
+#cc-main :focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* The category switches are drawn 23px tall; their inputs reach the minimum target size. */
+#cc-main .section__toggle-wrapper .section__toggle {
+  top: 50%;
+  height: var(--target-size-min);
+  transform: translateY(-50%);
+}

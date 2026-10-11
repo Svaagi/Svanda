@@ -1,0 +1,57 @@
+/* While an intro is pending (set before first paint by public/intro-init.js) or playing, the
+   page waits: no scrolling, header and hero hidden. `:has()` keeps the attribute inert on
+   pages without an intro. While playing, the app writes the reveal variables inline, which
+   wins over these. */
+:global(:root[data-intro]):has(.intro) {
+  --sv-nav: 0;
+  --sv-menu: 0;
+  --sv-logo: 0;
+  --sv-hero: 0;
+
+  overflow: hidden;
+}
+
+/* Pending but never taken over by the app (its script failed): show the page anyway. */
+:global(:root[data-intro='pending']):has(.intro) {
+  animation: introFailsafe 1ms linear var(--intro-failsafe-delay) forwards;
+}
+
+@keyframes introFailsafe {
+  to {
+    --sv-nav: 1;
+    --sv-menu: 1;
+    --sv-logo: 1;
+    --sv-hero: 1;
+
+    overflow: visible;
+  }
+}
+
+.intro {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-overlay);
+  pointer-events: none;
+}
+
+:global(:root[data-intro]) .intro {
+  display: block;
+}
+
+/* Until the canvas draws its first frame, the cover is plain CSS. */
+:global(:root[data-intro='pending']) .intro {
+  background: var(--color-bg);
+  animation: introCoverFailsafe 1ms linear var(--intro-failsafe-delay) forwards;
+}
+
+@keyframes introCoverFailsafe {
+  to {
+    visibility: hidden;
+  }
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+}
